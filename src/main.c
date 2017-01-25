@@ -135,8 +135,8 @@ void init()
 	//	TBCTL &= ~(0x00C0); //divider = 1
 	TBCTL &= 0xFFEF; //set bit 4 to zero
 	TBCTL |= 0x0020; //set bit 5 to one (5-4=10: continuous mode)
-	TBCTL |= 0x0002; //interrupt enable
-//	TBCTL &= ~(0x0002); //interrupt disable
+//	TBCTL |= 0x0002; //interrupt enable
+	TBCTL &= ~(0x0002); //interrupt disable
 #if (RTIME > 0) || (WTGTIME > 0) || (CTIME > 0)
 	TBCTL &= ~(0x0020); //set bit 5 to zero(halt!)
 #endif
@@ -190,6 +190,7 @@ static sample_t acquire_sample(letter_t prev_sample)
 }
 void task_init()
 {
+	WATCHPOINT(0);
 	LOG("init\r\n");
 
 	GV(parent_next) = 0;
@@ -492,75 +493,13 @@ void task_print()
 
 void task_done()
 {
+	//WATCHPOINT(1);
 #if TIME > 0
 	PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
-#endif
-#if COUNT > 0
-	PRINTF("Max write at once: %u\r\n", max_num_dirty_gv);
-	PRINTF("READ COUNT: %u\r\n",rcount);	
-	PRINTF("WRITE COUNT: %u\r\n",wcount);	
-	PRINTF("TRANS COUNT: %u\r\n",tcount);	
-#endif	
-	unsigned mem=0;
-	unsigned i;
-	PRINTF("Size of task %u: %u\r\n", 1, sizeof(TASK_SYM_NAME(task_init)));
-	mem+=sizeof(TASK_SYM_NAME(task_init))*12;
 
-	PRINTF("Size of channel %u: %u\r\n", 1, sizeof(GV(letter)));
-	mem+=sizeof(GV(letter));
-	PRINTF("Size of channel %u: %u\r\n", 2, sizeof(GV(letter_idx)));
-	mem+=sizeof(GV(letter_idx));
-	PRINTF("Size of channel %u: %u\r\n", 3, sizeof(GV(prev_sample)));
-	mem+=sizeof(GV(prev_sample));
-	PRINTF("Size of channel %u: %u\r\n", 4, sizeof(GV(out_len)));
-	mem+=sizeof(GV(out_len));
-	PRINTF("Size of channel %u: %u\r\n", 5, sizeof(GV(node_count)));
-	mem+=sizeof(GV(node_count));
-	PRINTF("Size of channel %u: %u\r\n", 6, sizeof(GV(dict)));
-	mem+=sizeof(GV(dict));
-	PRINTF("Size of channel %u: %u\r\n", 7, sizeof(GV(sample)));
-	mem+=sizeof(GV(sample));
-	PRINTF("Size of channel %u: %u\r\n", 8, sizeof(GV(sample_count)));
-	mem+=sizeof(GV(sample_count));
-	PRINTF("Size of channel %u: %u\r\n", 9, sizeof(GV(sibling)));
-	mem+=sizeof(GV(sibling));
-	PRINTF("Size of channel %u: %u\r\n", 11, sizeof(GV(child)));
-	mem+=sizeof(GV(child));
-	PRINTF("Size of channel %u: %u\r\n", 12, sizeof(GV(parent)));
-	mem+=sizeof(GV(parent));
-	PRINTF("Size of channel %u: %u\r\n", 13, sizeof(GV(parent_next)));
-	mem+=sizeof(GV(parent_next));
-	PRINTF("Size of channel %u: %u\r\n", 14, sizeof(GV(parent_node)));
-	mem+=sizeof(GV(parent_node));
-	PRINTF("Size of channel %u: %u\r\n", 15, sizeof(GV(compressed_data)));
-	mem+=sizeof(GV(compressed_data));
-	PRINTF("Size of channel %u: %u\r\n", 16, sizeof(GV(sibling_node)));
-	mem+=sizeof(GV(sibling_node));
-	PRINTF("Size of channel %u: %u\r\n", 17, sizeof(GV(symbol)));
-	mem+=sizeof(GV(symbol));
-#if SBUF > 0
-	PRINTF("Size of dirty_arr: %u\r\n", sizeof(dirty_arr));
-	mem+=sizeof(dirty_arr);
-	PRINTF("Size of num_arr: %u\r\n", sizeof(num_arr));
-	mem+=sizeof(num_arr);
 #endif
-#if GBUF > 0
-//	PRINTF("Size of data[i]: %u\r\n", sizeof(data));
-//	mem+=sizeof(data);
-//	PRINTF("Size of data_dest[i]: %u\r\n", sizeof(data_dest));
-//	mem+=sizeof(data_dest);
-//	PRINTF("Size of data_size[i]: %u\r\n", sizeof(data_size));
-//	mem+=sizeof(data_size);
-#else
-	PRINTF("Size of dirty_gvs: %u\r\n", sizeof(dirty_gv));
-	mem+=sizeof(dirty_gv);
-	PRINTF("Size of num_dirty_gvs: %u\r\n", sizeof(num_dirty_gv));
-	mem+=sizeof(num_dirty_gv);
-#endif
-
-	PRINTF("Total: %u\r\n", mem);
 	// TRANSITION_TO(task_done);
-//	TRANSITION_TO(task_init);
+	TRANSITION_TO(task_init);
 }
 
 	ENTRY_TASK(task_init)
