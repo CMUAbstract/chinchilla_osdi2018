@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-//#include <libwispbase/wisp-base.h>
+#include <libwispbase/wisp-base.h>
 //#include <wisp-base.h>
 #include <libalpaca/alpaca.h>
 #include <libmspbuiltins/builtins.h>
@@ -37,46 +37,25 @@
 #define LETTER_SIZE_BITS             8
 #define NUM_LETTERS (LETTER_MASK + 1)
 
-#define DELAY() do { \
-	uint32_t delay = 0x2ffff; \
-	while (delay--); \
-} while (0);
-
-#ifdef CONT_POWER
-#define TASK_PROLOGUE() DELAY()
-#else // !CONT_POWER
-#define TASK_PROLOGUE()
-#endif // !CONT_POWER
 unsigned overflow=0;
 //__attribute__((interrupt(TIMERB1_VECTOR))) 
 __attribute__((interrupt(51))) 
-void TimerB1_ISR(void){
-	TBCTL &= ~(0x0002);
-	if(TBCTL && 0x0001){
-		overflow++;
-		TBCTL |= 0x0004;
-		TBCTL |= (0x0002);
-		TBCTL &= ~(0x0001);	
+	void TimerB1_ISR(void){
+		TBCTL &= ~(0x0002);
+		if(TBCTL && 0x0001){
+			overflow++;
+			TBCTL |= 0x0004;
+			TBCTL |= (0x0002);
+			TBCTL &= ~(0x0001);	
+		}
 	}
-}
-
-
-// Have to define the vector table elements manually, because clang,
-// unlike gcc, does not generate sections for the vectors, it only
-// generates symbols (aliases). The linker script shipped in the
-// TI GCC distribution operates on sections, so we define a symbol and put it
-// in its own section here named as the linker script wants it.
-// The 2 bytes per alias symbol defined by clang are wasted.
 __attribute__((section("__interrupt_vector_timer0_b1"),aligned(2)))
 void(*__vector_timer0_b1)(void) = TimerB1_ISR;
-
-//__nv unsigned data[MAX_DIRTY_GV_SIZE];
-//__nv uint8_t* data_dest[MAX_DIRTY_GV_SIZE];
-//__nv unsigned data_size[MAX_DIRTY_GV_SIZE];
 
 typedef unsigned index_t;
 typedef unsigned letter_t;
 typedef unsigned sample_t;
+unsigned volatile *timer = &TBCTL;
 
 // NOTE: can't use pointers, since need to ChSync, etc
 typedef struct _node_t {
@@ -116,37 +95,43 @@ TASK(12, task_done)
 	GLOBAL_SB(node_t, compressed_data, BLOCK_SIZE);
 	GLOBAL_SB(node_t, sibling_node);
 	GLOBAL_SB(index_t, symbol);
+	//void write_to_gbuf(const void *value, void* data_addr, size_t var_size){
 
-//void write_to_gbuf(const void *value, void* data_addr, size_t var_size){
-
-//}
+	//}
 static void init_hw()
 {
-    msp_watchdog_disable();
-    msp_gpio_unlock();
-    msp_clock_setup();
+	msp_watchdog_disable();
+	msp_gpio_unlock();
+	//	GPIO(1, DIR) |= BIT(0);
+	//	GPIO(1, DIR) |= BIT(1);
+	//	GPIO(1, DIR) |= BIT(2);
+	GPIO(3, DIR) |= BIT(0);
+	GPIO(3, DIR) |= BIT(1);
+	GPIO(3, OUT) |= BIT(0);
+	GPIO(3, OUT) &= ~BIT(1);
+	msp_clock_setup();
 }
 
 void init()
 {
+#if 0
 	TBCTL &= 0xE6FF; //set 12,11 bit to zero (16bit) also 8 to zero (SMCLK)
 	TBCTL |= 0x0200; //set 9 to one (SMCLK)
 	TBCTL |= 0x00C0; //set 7-6 bit to 11 (divider = 8);
-	//	TBCTL &= ~(0x00C0); //divider = 1
 	TBCTL &= 0xFFEF; //set bit 4 to zero
 	TBCTL |= 0x0020; //set bit 5 to one (5-4=10: continuous mode)
-//	TBCTL |= 0x0002; //interrupt enable
-	TBCTL &= ~(0x0002); //interrupt disable
-#if (RTIME > 0) || (WTGTIME > 0) || (CTIME > 0)
-	TBCTL &= ~(0x0020); //set bit 5 to zero(halt!)
+	TBCTL |= 0x0002; //interrupt enable
+	//	TBCTL &= ~(0x0020); //set bit 5 to zero(halt!)
 #endif
-    	init_hw();
-//	WISP_init();
-	GPIO(PORT_LED_1, DIR) |= BIT(PIN_LED_1);
-	GPIO(PORT_LED_2, DIR) |= BIT(PIN_LED_2);
-#if defined(PORT_LED_3)
-	GPIO(PORT_LED_3, DIR) |= BIT(PIN_LED_3);
-#endif
+	//	*timer &= 0xE6FF; //set 12,11 bit to zero (16bit) also 8 to zero (SMCLK)
+	//	*timer |= 0x0200; //set 9 to one (SMCLK)
+	//	*timer |= 0x00C0; //set 7-6 bit to 11 (divider = 8);
+	//	*timer &= 0xFFEF; //set bit 4 to zero
+	//	*timer |= 0x0020; //set bit 5 to one (5-4=10: continuous mode)
+	//	*timer |= 0x0002; //interrupt enable
+	//	*timer &= ~(0x0020); //set bit 5 to zero(halt!)
+	init_hw();
+	//	WISP_init();
 #ifdef CONFIG_EDB
 	//debug_setup();
 	edb_init();
@@ -155,44 +140,22 @@ void init()
 	INIT_CONSOLE();
 	__enable_interrupt();
 	//set_dirty_buf(&data, &data_dest, &data_size);
-//	set_dirty_buf();
+	//	set_dirty_buf();
+	PRINTF(".%u.\r\n", curctx->task->idx);
 }
 
 static sample_t acquire_sample(letter_t prev_sample)
 {
-#ifdef TEST_SAMPLE_DATA
 	//letter_t sample = rand() & 0x0F;
 	letter_t sample = (prev_sample + 1) & 0x03;
 	return sample;
-#else
-	ADC12CTL0 &= ~ADC12ENC; // disable conversion so we can set control bits
-	ADC12CTL0 = ADC12SHT0_2 + ADC12ON; // sampling time, ADC12 on
-	ADC12CTL1 = ADC12SHP + ADC12CONSEQ_0; // use sampling timer, single-channel, single-conversion
-
-	ADC12CTL3 &= ADC12TCMAP; // enable temperature sensor
-	ADC12MCTL0 = ADC12INCH_30; // temp sensor
-
-	ADC12CTL0 |= ADC12ENC; // enable ADC
-
-	// Trigger
-	ADC12CTL0 &= ~ADC12SC;  // 'start conversion' bit must be toggled
-	ADC12CTL0 |= ADC12SC; // start conversion
-
-	while (ADC12CTL1 & ADC12BUSY); // wait for conversion to complete
-
-	ADC12CTL3 &= ~ADC12TCMAP; // disable temperature sensor
-
-	sample_t sample = ADC12MEM0;
-	LOG("sample: %04x\r\n", sample);
-
-	return sample;
-#endif
 }
+unsigned nvram=0;
 void task_init()
 {
-	WATCHPOINT(0);
+	GPIO(3, OUT) &= ~BIT(0);
+	GPIO(3, OUT) |= BIT(1);
 	LOG("init\r\n");
-
 	GV(parent_next) = 0;
 
 	LOG("init: start parent %u\r\n", GV(parent));
@@ -212,6 +175,10 @@ void task_init()
 
 void task_init_dict()
 {
+	//
+	*(data_size_base + num_dirty_gv) = sizeof(_global_letter);
+	num_dirty_gv++;
+	//
 	LOG("init dict: letter %u\r\n", GV(letter));
 
 	node_t node = {
@@ -229,10 +196,15 @@ void task_init_dict()
 		GV(node_count) = NUM_LETTERS;
 		TRANSITION_TO(task_sample);
 	} 
+
 }
 
 void task_sample()
 {
+	//
+	*(data_size_base + num_dirty_gv) = sizeof(_global_letter_idx);
+	num_dirty_gv++;
+	//
 	LOG("sample: letter idx %u\r\n", GV(letter_idx));
 
 	unsigned next_letter_idx = GV(letter_idx) + 1;
@@ -251,6 +223,10 @@ void task_sample()
 
 void task_measure_temp()
 {
+	//
+	*(data_size_base + num_dirty_gv) = sizeof(_global_prev_sample);
+	num_dirty_gv++;
+	//
 	//  TASK_PROLOGUE();
 
 	sample_t prev_sample;
@@ -283,13 +259,17 @@ void task_letterize()
 	letter_t letter = (GV(sample) & (LETTER_MASK << letter_shift)) >> letter_shift;
 
 	LOG("letterize: sample %x letter %x (%u)\r\n", GV(sample), letter, letter);
-	
+
 	GV(letter) = letter;
 	TRANSITION_TO(task_compress);
 }
 
 void task_compress()
 {
+	//
+	*(data_size_base + num_dirty_gv) = sizeof(_global_sample_count);
+	num_dirty_gv++;
+	//
 	// TASK_PROLOGUE();
 
 	node_t parent_node;
@@ -324,6 +304,10 @@ void task_compress()
 
 void task_find_sibling()
 {
+	//
+	*(data_size_base + num_dirty_gv) = sizeof(_global_sibling);
+	num_dirty_gv++;
+	//
 	// TASK_PROLOGUE();
 
 	node_t *sibling_node;
@@ -341,7 +325,7 @@ void task_find_sibling()
 		if (sibling_node->letter == GV(letter)) { // found
 			LOG("find sibling: found %u\r\n", GV(sibling));
 			GV(parent_next) = GV(sibling);
-			
+
 			TRANSITION_TO(task_letterize);
 		} else { // continue traversing the siblings
 			if(sibling_node->sibling != 0){
@@ -374,6 +358,10 @@ void task_find_sibling()
 
 void task_add_node()
 {
+	//
+	*(data_size_base + num_dirty_gv) = sizeof(_global_sibling);
+	num_dirty_gv++;
+	//
 	// TASK_PROLOGUE();
 
 	node_t *sibling_node;
@@ -401,8 +389,8 @@ void task_add_node()
 		LOG("add node: found last\r\n");
 
 		node_t sibling_node_obj = *sibling_node;
-		
-//		GV(sibling) = GV(sibling);
+
+		//		GV(sibling) = GV(sibling);
 		GV(sibling_node) = sibling_node_obj;
 
 		TRANSITION_TO(task_add_insert);
@@ -411,6 +399,10 @@ void task_add_node()
 
 void task_add_insert()
 {
+	//
+	*(data_size_base + num_dirty_gv) = sizeof(_global_node_count);
+	num_dirty_gv++;
+	//
 	LOG("add insert: nodes %u\r\n", GV(node_count));
 
 	if (GV(node_count) == DICT_SIZE) { // wipe the table if full
@@ -459,6 +451,10 @@ void task_add_insert()
 
 void task_append_compressed()
 {
+	//
+	*(data_size_base + num_dirty_gv) = sizeof(_global_out_len);
+	num_dirty_gv++;
+	//
 	LOG("append comp: sym %u len %u \r\n", GV(symbol), GV(out_len));
 	int i = GV(out_len);
 	GV(compressed_data, i).letter = GV(symbol);
@@ -474,7 +470,7 @@ void task_print()
 {
 	unsigned i;
 
-#if TIME == 0
+	PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
 	BLOCK_PRINTF_BEGIN();
 	BLOCK_PRINTF("compressed block:\r\n");
 	for (i = 0; i < BLOCK_SIZE; ++i) {
@@ -486,19 +482,21 @@ void task_print()
 	BLOCK_PRINTF("\r\n");
 	BLOCK_PRINTF("rate: samples/block: %u/%u\r\n", GV(sample_count), BLOCK_SIZE);
 	BLOCK_PRINTF_END();
-#endif
 	//TRANSITION_TO(task_sample); // restart app
 	TRANSITION_TO(task_done); // for now just do one block
 }
 
 void task_done()
 {
+	GPIO(3, OUT) |= BIT(0);
+	GPIO(3, OUT) &= ~BIT(1);
+	for(unsigned i=0;i<10000;++i){
+	}
 	//WATCHPOINT(1);
 #if TIME > 0
-	PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+	//	PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
 
 #endif
-	// TRANSITION_TO(task_done);
 	TRANSITION_TO(task_init);
 }
 
