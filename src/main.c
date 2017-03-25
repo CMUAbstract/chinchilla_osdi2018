@@ -175,10 +175,6 @@ void task_init()
 
 void task_init_dict()
 {
-	//
-	*(data_size_base + num_dirty_gv) = sizeof(_global_letter);
-	num_dirty_gv++;
-	//
 	LOG("init dict: letter %u\r\n", GV(letter));
 
 	node_t node = {
@@ -202,8 +198,6 @@ void task_init_dict()
 void task_sample()
 {
 	//
-	*(data_size_base + num_dirty_gv) = sizeof(_global_letter_idx);
-	num_dirty_gv++;
 	//
 	LOG("sample: letter idx %u\r\n", GV(letter_idx));
 
@@ -224,8 +218,6 @@ void task_sample()
 void task_measure_temp()
 {
 	//
-	*(data_size_base + num_dirty_gv) = sizeof(_global_prev_sample);
-	num_dirty_gv++;
 	//
 	//  TASK_PROLOGUE();
 
@@ -267,8 +259,6 @@ void task_letterize()
 void task_compress()
 {
 	//
-	*(data_size_base + num_dirty_gv) = sizeof(_global_sample_count);
-	num_dirty_gv++;
 	//
 	// TASK_PROLOGUE();
 
@@ -305,8 +295,6 @@ void task_compress()
 void task_find_sibling()
 {
 	//
-	*(data_size_base + num_dirty_gv) = sizeof(_global_sibling);
-	num_dirty_gv++;
 	//
 	// TASK_PROLOGUE();
 
@@ -359,8 +347,6 @@ void task_find_sibling()
 void task_add_node()
 {
 	//
-	*(data_size_base + num_dirty_gv) = sizeof(_global_sibling);
-	num_dirty_gv++;
 	//
 	// TASK_PROLOGUE();
 
@@ -400,8 +386,6 @@ void task_add_node()
 void task_add_insert()
 {
 	//
-	*(data_size_base + num_dirty_gv) = sizeof(_global_node_count);
-	num_dirty_gv++;
 	//
 	LOG("add insert: nodes %u\r\n", GV(node_count));
 
@@ -452,8 +436,6 @@ void task_add_insert()
 void task_append_compressed()
 {
 	//
-	*(data_size_base + num_dirty_gv) = sizeof(_global_out_len);
-	num_dirty_gv++;
 	//
 	LOG("append comp: sym %u len %u \r\n", GV(symbol), GV(out_len));
 	int i = GV(out_len);
