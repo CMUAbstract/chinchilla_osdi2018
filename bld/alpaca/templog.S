@@ -100,10 +100,11 @@ task_init_dict:                         ; @task_init_dict
 	mov.w	r1, r4
 	sub.w	#8, r1
 	mov.w	&_global_letter, r12
+	mov.w	r12, &_global_letter_bak
 	mov.w	r12, -6(r4)
 	mov.w	#0, -4(r4)
 	mov.w	#0, -2(r4)
-	mov.w	&_global_letter, r12
+	mov.w	&_global_letter_bak, r12
 	mov.w	r12, -8(r4)
 	mov.w	#6, r14
 	mov.w	r12, r15
@@ -114,18 +115,26 @@ task_init_dict:                         ; @task_init_dict
 	mov.w	r12, _global_dict+2(r15)
 	mov.w	-6(r4), r12
 	mov.w	r12, _global_dict(r15)
-	mov.w	&_global_letter, r12
+	mov.w	&_global_letter_bak, r12
 	add.w	#1, r12
-	mov.w	r12, &_global_letter
+	mov.w	r12, &_global_letter_bak
 	cmp.w	#256, r12
 	jhs	.LBB3_2
 	jmp	.LBB3_1
 .LBB3_1:                                ; %if.then
+	mov.w	#_global_letter, r14
+	mov.w	#_global_letter_bak, r15
+	mov.w	#2, r13
+	call	#write_to_gbuf
 	mov.w	#_task_task_init_dict, r15
 	call	#transition_to
 	jmp	.LBB3_3
 .LBB3_2:                                ; %if.else
 	mov.w	#256, &_global_node_count
+	mov.w	#_global_letter, r14
+	mov.w	#_global_letter_bak, r15
+	mov.w	#2, r13
+	call	#write_to_gbuf
 	mov.w	#_task_task_sample, r15
 	call	#transition_to
 	jmp	.LBB3_3
@@ -145,6 +154,7 @@ task_sample:                            ; @task_sample
 	mov.w	r1, r4
 	sub.w	#2, r1
 	mov.w	&_global_letter_idx, r12
+	mov.w	r12, &_global_letter_idx_bak
 	add.w	#1, r12
 	mov.w	r12, -2(r4)
 	cmp.w	#2, r12
@@ -154,19 +164,27 @@ task_sample:                            ; @task_sample
 	mov.w	#0, -2(r4)
 	jmp	.LBB4_2
 .LBB4_2:                                ; %if.end
-	mov.w	&_global_letter_idx, r12
+	mov.w	&_global_letter_idx_bak, r12
 	cmp.w	#0, r12
 	jne	.LBB4_4
 	jmp	.LBB4_3
 .LBB4_3:                                ; %if.then.2
 	mov.w	-2(r4), r12
-	mov.w	r12, &_global_letter_idx
+	mov.w	r12, &_global_letter_idx_bak
+	mov.w	#_global_letter_idx_bak, r15
+	mov.w	#_global_letter_idx, r14
+	mov.w	#2, r13
+	call	#write_to_gbuf
 	mov.w	#_task_task_measure_temp, r15
 	call	#transition_to
 	jmp	.LBB4_5
 .LBB4_4:                                ; %if.else
 	mov.w	-2(r4), r12
-	mov.w	r12, &_global_letter_idx
+	mov.w	r12, &_global_letter_idx_bak
+	mov.w	#_global_letter_idx_bak, r15
+	mov.w	#_global_letter_idx, r14
+	mov.w	#2, r13
+	call	#write_to_gbuf
 	mov.w	#_task_task_letterize, r15
 	call	#transition_to
 	jmp	.LBB4_5
@@ -184,19 +202,28 @@ task_measure_temp:                      ; @task_measure_temp
 ; BB#0:                                 ; %entry
 	push.w	r4
 	mov.w	r1, r4
-	sub.w	#4, r1
+	sub.w	#8, r1
+	mov.w	#_global_prev_sample, r14
 	mov.w	&_global_prev_sample, r12
+	mov.w	r12, &_global_prev_sample_bak
+	mov.w	#_global_prev_sample_bak, r15
 	mov.w	r12, -2(r4)
+	mov.w	r15, -6(r4)             ; 2-byte Folded Spill
 	mov.w	r12, r15
+	mov.w	r14, -8(r4)             ; 2-byte Folded Spill
 	call	#acquire_sample
 	mov.w	r15, -4(r4)
 	mov.w	r15, -2(r4)
-	mov.w	r15, &_global_prev_sample
+	mov.w	r15, &_global_prev_sample_bak
 	mov.w	-4(r4), r12
 	mov.w	r12, &_global_sample
+	mov.w	#2, r13
+	mov.w	-6(r4), r15             ; 2-byte Folded Reload
+	mov.w	-8(r4), r14             ; 2-byte Folded Reload
+	call	#write_to_gbuf
 	mov.w	#_task_task_letterize, r15
 	call	#transition_to
-	add.w	#4, r1
+	add.w	#8, r1
 	pop.w	r4
 	ret
 .Lfunc_end5:
@@ -288,11 +315,18 @@ task_compress:                          ; @task_compress
 ; BB#0:                                 ; %entry
 	push.w	r4
 	mov.w	r1, r4
-	sub.w	#8, r1
+	sub.w	#12, r1
+	mov.w	#_global_sample_count, r14
+	mov.w	&_global_sample_count, r12
+	mov.w	r12, &_global_sample_count_bak
+	mov.w	#_global_sample_count_bak, r15
 	mov.w	&_global_parent_next, r12
 	mov.w	r12, -8(r4)
-	mov.w	#6, r14
+	mov.w	#6, r13
+	mov.w	r15, -10(r4)            ; 2-byte Folded Spill
 	mov.w	r12, r15
+	mov.w	r14, -12(r4)            ; 2-byte Folded Spill
+	mov.w	r13, r14
 	call	#__mulhi3hw_noint
 	mov.w	_global_dict+4(r15), r12
 	mov.w	r12, -2(r4)
@@ -312,12 +346,16 @@ task_compress:                          ; @task_compress
 	mov.w	r12, &_global_parent
 	mov.w	-2(r4), r12
 	mov.w	r12, &_global_child
-	mov.w	&_global_sample_count, r12
+	mov.w	&_global_sample_count_bak, r12
 	add.w	#1, r12
-	mov.w	r12, &_global_sample_count
+	mov.w	r12, &_global_sample_count_bak
+	mov.w	#2, r13
+	mov.w	-10(r4), r15            ; 2-byte Folded Reload
+	mov.w	-12(r4), r14            ; 2-byte Folded Reload
+	call	#write_to_gbuf
 	mov.w	#_task_task_find_sibling, r15
 	call	#transition_to
-	add.w	#8, r1
+	add.w	#12, r1
 	pop.w	r4
 	ret
 .Lfunc_end7:
@@ -332,12 +370,13 @@ task_find_sibling:                      ; @task_find_sibling
 	mov.w	r1, r4
 	sub.w	#6, r1
 	mov.w	&_global_sibling, r12
+	mov.w	r12, &_global_sibling_bak
 	cmp.w	#0, r12
 	jeq	.LBB8_7
 	jmp	.LBB8_1
 .LBB8_1:                                ; %if.then
 	;DEBUG_VALUE: i <- [FP+-4]
-	mov.w	&_global_sibling, r12
+	mov.w	&_global_sibling_bak, r12
 	mov.w	r12, -4(r4)
 	mov.w	#6, r14
 	mov.w	r12, r15
@@ -351,8 +390,12 @@ task_find_sibling:                      ; @task_find_sibling
 	jne	.LBB8_3
 	jmp	.LBB8_2
 .LBB8_2:                                ; %if.then.2
-	mov.w	&_global_sibling, r12
+	mov.w	#_global_sibling_bak, r15
+	mov.w	&_global_sibling_bak, r12
 	mov.w	r12, &_global_parent_next
+	mov.w	#_global_sibling, r14
+	mov.w	#2, r13
+	call	#write_to_gbuf
 	mov.w	#_task_task_letterize, r15
 	call	#transition_to
 	jmp	.LBB8_6
@@ -365,7 +408,11 @@ task_find_sibling:                      ; @task_find_sibling
 .LBB8_4:                                ; %if.then.4
 	mov.w	-2(r4), r12
 	mov.w	2(r12), r12
-	mov.w	r12, &_global_sibling
+	mov.w	r12, &_global_sibling_bak
+	mov.w	#_global_sibling_bak, r15
+	mov.w	#_global_sibling, r14
+	mov.w	#2, r13
+	call	#write_to_gbuf
 	mov.w	#_task_task_find_sibling, r15
 	call	#transition_to
 	jmp	.LBB8_5
@@ -383,10 +430,18 @@ task_find_sibling:                      ; @task_find_sibling
 	jne	.LBB8_9
 	jmp	.LBB8_8
 .LBB8_8:                                ; %if.then.9
+	mov.w	#_global_sibling, r14
+	mov.w	#_global_sibling_bak, r15
+	mov.w	#2, r13
+	call	#write_to_gbuf
 	mov.w	#_task_task_add_insert, r15
 	call	#transition_to
 	jmp	.LBB8_10
 .LBB8_9:                                ; %if.else.10
+	mov.w	#_global_sibling, r14
+	mov.w	#_global_sibling_bak, r15
+	mov.w	#2, r13
+	call	#write_to_gbuf
 	mov.w	#_task_task_add_node, r15
 	call	#transition_to
 	jmp	.LBB8_10
@@ -406,6 +461,7 @@ task_add_node:                          ; @task_add_node
 	mov.w	r1, r4
 	sub.w	#12, r1
 	mov.w	&_global_sibling, r12
+	mov.w	r12, &_global_sibling_bak
 	mov.w	r12, -4(r4)
 	mov.w	#6, r14
 	mov.w	r12, r15
@@ -422,7 +478,11 @@ task_add_node:                          ; @task_add_node
 	mov.w	-2(r4), r12
 	mov.w	2(r12), r12
 	mov.w	r12, -6(r4)
-	mov.w	r12, &_global_sibling
+	mov.w	r12, &_global_sibling_bak
+	mov.w	#_global_sibling_bak, r15
+	mov.w	#_global_sibling, r14
+	mov.w	#2, r13
+	call	#write_to_gbuf
 	mov.w	#_task_task_add_node, r15
 	call	#transition_to
 	jmp	.LBB9_3
@@ -441,6 +501,10 @@ task_add_node:                          ; @task_add_node
 	mov.w	r12, &_global_sibling_node+2
 	mov.w	-12(r4), r12
 	mov.w	r12, &_global_sibling_node
+	mov.w	#_global_sibling, r14
+	mov.w	#_global_sibling_bak, r15
+	mov.w	#2, r13
+	call	#write_to_gbuf
 	mov.w	#_task_task_add_insert, r15
 	call	#transition_to
 	jmp	.LBB9_3
@@ -460,6 +524,7 @@ task_add_insert:                        ; @task_add_insert
 	mov.w	r1, r4
 	sub.w	#24, r1
 	mov.w	&_global_node_count, r12
+	mov.w	r12, &_global_node_count_bak
 	cmp.w	#512, r12
 	jne	.LBB10_3
 	jmp	.LBB10_1
@@ -470,7 +535,7 @@ task_add_insert:                        ; @task_add_insert
 	jmp	.LBB10_2
 .LBB10_3:                               ; %if.end
 	;DEBUG_VALUE: task_add_insert:child <- [FP+-2]
-	mov.w	&_global_node_count, r12
+	mov.w	&_global_node_count_bak, r12
 	mov.w	r12, -2(r4)
 	;DEBUG_VALUE: task_add_insert:child_node <- [FP+-8]
 	mov.w	&_global_letter, r12
@@ -539,9 +604,13 @@ task_add_insert:                        ; @task_add_insert
 	mov.w	r14, _global_dict(r15)
 	mov.w	&_global_parent, r14
 	mov.w	r14, &_global_symbol
-	mov.w	&_global_node_count, r14
+	mov.w	#_global_node_count_bak, r15
+	mov.w	&_global_node_count_bak, r14
 	add.w	#1, r14
-	mov.w	r14, &_global_node_count
+	mov.w	r14, &_global_node_count_bak
+	mov.w	#_global_node_count, r14
+	mov.w	#2, r13
+	call	#write_to_gbuf
 	mov.w	#_task_task_append_compressed, r15
 	call	#transition_to
 	add.w	#24, r1
@@ -559,6 +628,7 @@ task_append_compressed:                 ; @task_append_compressed
 	mov.w	r1, r4
 	sub.w	#4, r1
 	mov.w	&_global_out_len, r12
+	mov.w	r12, &_global_out_len_bak
 	mov.w	r12, -2(r4)
 	mov.w	&_global_symbol, r13
 	mov.w	#6, r14
@@ -567,17 +637,25 @@ task_append_compressed:                 ; @task_append_compressed
 	call	#__mulhi3hw_noint
 	mov.w	-4(r4), r12             ; 2-byte Folded Reload
 	mov.w	r12, _global_compressed_data(r15)
-	mov.w	&_global_out_len, r12
+	mov.w	&_global_out_len_bak, r12
 	add.w	#1, r12
-	mov.w	r12, &_global_out_len
+	mov.w	r12, &_global_out_len_bak
 	cmp.w	#64, r12
 	jne	.LBB11_2
 	jmp	.LBB11_1
 .LBB11_1:                               ; %if.then
+	mov.w	#_global_out_len, r14
+	mov.w	#_global_out_len_bak, r15
+	mov.w	#2, r13
+	call	#write_to_gbuf
 	mov.w	#_task_task_print, r15
 	call	#transition_to
 	jmp	.LBB11_3
 .LBB11_2:                               ; %if.else
+	mov.w	#_global_out_len, r14
+	mov.w	#_global_out_len_bak, r15
+	mov.w	#2, r13
+	call	#write_to_gbuf
 	mov.w	#_task_task_sample, r15
 	call	#transition_to
 	jmp	.LBB11_3
@@ -957,7 +1035,7 @@ task_prologue:                          ; @task_prologue
 ; BB#0:                                 ; %entry
 	push.w	r4
 	mov.w	r1, r4
-	sub.w	#6, r1
+	sub.w	#8, r1
 	mov.w	&_numBoots, r12
 	cmp.w	#-1, r12
 	jne	.LBB25_2
@@ -972,12 +1050,19 @@ task_prologue:                          ; @task_prologue
 	mov.w	&_numBoots, r12
 	add.w	#1, r12
 	mov.w	r12, &_numBoots
+	;DEBUG_VALUE: task_prologue:curtask <- [FP+-2]
 	mov.w	&curctx, r12
-	mov.b	2(r12), r13
-	cmp.b	#0, r13
+	mov.w	4(r12), r12
+	mov.w	0(r12), r12
+	mov.w	r12, -2(r4)
+	mov.w	&curctx, r12
+	mov.w	2(r12), r12
+	mov.w	-2(r4), r13
+	mov.w	8(r13), r13
+	cmp.w	r13, r12
 	jeq	.LBB25_7
 	jmp	.LBB25_3
-.LBB25_3:                               ; %if.then.2
+.LBB25_3:                               ; %if.then.3
 	jmp	.LBB25_4
 .LBB25_4:                               ; %while.cond
                                         ; =>This Inner Loop Header: Depth=1
@@ -988,29 +1073,29 @@ task_prologue:                          ; @task_prologue
 	jmp	.LBB25_5
 .LBB25_5:                               ; %while.body
                                         ;   in Loop: Header=BB25_4 Depth=1
-	;DEBUG_VALUE: w_data_dest <- [FP+-2]
+	;DEBUG_VALUE: w_data_dest <- [FP+-4]
 	mov.w	&data_dest_base, r12
 	mov.w	&gv_index, r13
 	rla.w	r13
 	add.w	r13, r12
 	mov.w	0(r12), r12
-	mov.w	r12, -2(r4)
-	;DEBUG_VALUE: w_data_src <- [FP+-4]
+	mov.w	r12, -4(r4)
+	;DEBUG_VALUE: w_data_src <- [FP+-6]
 	mov.w	&data_src_base, r12
 	mov.w	&gv_index, r13
 	rla.w	r13
 	add.w	r13, r12
 	mov.w	0(r12), r12
-	mov.w	r12, -4(r4)
-	;DEBUG_VALUE: w_data_size <- [FP+-6]
+	mov.w	r12, -6(r4)
+	;DEBUG_VALUE: w_data_size <- [FP+-8]
 	mov.w	&data_size_base, r12
 	mov.w	&gv_index, r13
 	rla.w	r13
 	add.w	r13, r12
 	mov.w	0(r12), r12
-	mov.w	r12, -6(r4)
-	mov.w	#dummy_dst, r15
-	mov.w	#dummy_src, r14
+	mov.w	r12, -8(r4)
+	mov.w	-4(r4), r15
+	mov.w	-6(r4), r14
 	mov.w	r12, r13
 	call	#memcpy
 	mov.w	&gv_index, r12
@@ -1021,13 +1106,15 @@ task_prologue:                          ; @task_prologue
 	mov.w	#0, &num_dirty_gv
 	mov.w	#0, &gv_index
 	mov.w	&curctx, r12
-	mov.b	#0, 2(r12)
+	mov.w	2(r12), r12
+	mov.w	-2(r4), r13
+	mov.w	r12, 8(r13)
 	jmp	.LBB25_8
 .LBB25_7:                               ; %if.else
 	mov.w	#0, &num_dirty_gv
 	jmp	.LBB25_8
-.LBB25_8:                               ; %if.end.8
-	add.w	#6, r1
+.LBB25_8:                               ; %if.end.10
+	add.w	#8, r1
 	pop.w	r4
 	ret
 .Lfunc_end25:
@@ -1040,18 +1127,52 @@ transition_to:                          ; @transition_to
 ; BB#0:                                 ; %entry
 	push.w	r4
 	mov.w	r1, r4
-	sub.w	#4, r1
+	sub.w	#10, r1
 	;DEBUG_VALUE: transition_to:next_task <- undef
 	mov.w	r15, r12
 	mov.w	r15, -2(r4)
-	mov.w	0(r15), r15
+	mov.w	&curctx, r15
+	mov.w	#context_0, r13
+	mov.w	#context_2, r14
+	cmp.w	r13, r15
+	mov.w	r12, -6(r4)             ; 2-byte Folded Spill
+	mov.w	r13, -8(r4)             ; 2-byte Folded Spill
+	mov.w	r14, -10(r4)            ; 2-byte Folded Spill
+	jeq	.LBB26_2
+; BB#1:                                 ; %entry
+	mov.w	-8(r4), r12             ; 2-byte Folded Reload
+	mov.w	r12, -10(r4)            ; 2-byte Folded Spill
+.LBB26_2:                               ; %entry
+	mov.w	-10(r4), r12            ; 2-byte Folded Reload
+	mov.w	r12, -4(r4)
+	mov.w	-2(r4), r13
+	mov.w	r13, 0(r12)
+	mov.w	&curctx, r12
+	mov.w	2(r12), r12
+	add.w	#1, r12
+	mov.w	-4(r4), r13
+	mov.w	r12, 2(r13)
+	mov.w	&curctx, r12
+	mov.w	2(r12), r12
+	mov.w	-4(r4), r13
+	mov.w	4(r13), r13
+	mov.w	r12, 2(r13)
+	mov.w	&curctx, r12
+	mov.w	0(r12), r12
+	mov.w	-4(r4), r13
+	mov.w	4(r13), r13
+	mov.w	r12, 0(r13)
+	mov.w	-4(r4), r12
+	mov.w	r12, &curctx
+	call	#task_prologue
+	mov.w	-2(r4), r12
+	mov.w	0(r12), r12
 	;APP
 	mov #0x2400, r1
-br r15
+br r12
 
 	;NO_APP
-	mov.w	r12, -4(r4)             ; 2-byte Folded Spill
-	add.w	#4, r1
+	add.w	#10, r1
 	pop.w	r4
 	ret
 .Lfunc_end26:
@@ -1076,6 +1197,26 @@ write_to_gbuf:                          ; @write_to_gbuf
 	mov.w	r15, -6(r4)
 	mov.w	r14, -8(r4)
 	mov.w	r13, -10(r4)
+	mov.w	&data_size_base, r14
+	mov.w	&num_dirty_gv, r15
+	rla.w	r15
+	add.w	r15, r14
+	mov.w	r13, 0(r14)
+	mov.w	-8(r4), r13
+	mov.w	&data_dest_base, r14
+	mov.w	&num_dirty_gv, r15
+	rla.w	r15
+	add.w	r15, r14
+	mov.w	r13, 0(r14)
+	mov.w	-6(r4), r13
+	mov.w	&data_src_base, r14
+	mov.w	&num_dirty_gv, r15
+	rla.w	r15
+	add.w	r15, r14
+	mov.w	r13, 0(r14)
+	mov.w	&num_dirty_gv, r13
+	add.w	#1, r13
+	mov.w	r13, &num_dirty_gv
 	mov.w	r12, -12(r4)            ; 2-byte Folded Spill
 	mov.w	r11, -14(r4)            ; 2-byte Folded Spill
 	mov.w	r10, -16(r4)            ; 2-byte Folded Spill
@@ -1097,6 +1238,7 @@ main:                                   ; @main
 	sub.w	#2, r1
 	mov.w	#0, -2(r4)
 	call	#_init
+	call	#task_prologue
 	mov.w	&curctx, r12
 	mov.w	0(r12), r12
 	mov.w	0(r12), r12
@@ -1569,8 +1711,31 @@ max_num_dirty_gv:
 	.short	0                       ; 0x0
 	.size	max_num_dirty_gv, 2
 
-	.type	context_1,@object       ; @context_1
+	.type	curtime,@object         ; @curtime
 	.section	.nv_vars,"aw",@progbits
+	.globl	curtime
+	.align	1
+curtime:
+	.short	0                       ; 0x0
+	.size	curtime, 2
+
+	.type	context_3,@object       ; @context_3
+	.globl	context_3
+	.align	1
+context_3:
+	.zero	6
+	.size	context_3, 6
+
+	.type	context_2,@object       ; @context_2
+	.globl	context_2
+	.align	1
+context_2:
+	.short	_task__entry_task
+	.short	0                       ; 0x0
+	.short	context_3
+	.size	context_2, 6
+
+	.type	context_1,@object       ; @context_1
 	.globl	context_1
 	.align	1
 context_1:
@@ -1582,9 +1747,8 @@ context_1:
 	.align	1
 context_0:
 	.short	_task__entry_task
-	.byte	0                       ; 0x0
-	.zero	1
-	.short	0
+	.short	0                       ; 0x0
+	.short	context_1
 	.size	context_0, 6
 
 	.type	curctx,@object          ; @curctx
@@ -1600,20 +1764,6 @@ curctx:
 _numBoots:
 	.short	0                       ; 0x0
 	.size	_numBoots, 2
-
-	.type	dummy_dst,@object       ; @dummy_dst
-	.globl	dummy_dst
-	.align	1
-dummy_dst:
-	.zero	200
-	.size	dummy_dst, 200
-
-	.type	dummy_src,@object       ; @dummy_src
-	.globl	dummy_src
-	.align	1
-dummy_src:
-	.zero	200
-	.size	dummy_src, 200
 
 
 	.globl	__interrupt_vector_51
