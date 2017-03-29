@@ -472,8 +472,6 @@ void task_done()
 {
 	GPIO(3, OUT) |= BIT(0);
 	GPIO(3, OUT) &= ~BIT(1);
-	for(unsigned i=0;i<10000;++i){
-	}
 	//WATCHPOINT(1);
 #if TIME > 0
 	//	PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);

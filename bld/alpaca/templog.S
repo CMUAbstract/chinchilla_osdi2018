@@ -762,7 +762,6 @@ task_done:                              ; @task_done
 ; BB#0:                                 ; %entry
 	push.w	r4
 	mov.w	r1, r4
-	sub.w	#2, r1
 	mov.b	&0x0222, r12
 	bis.w	#1, r12
 	mov.b	r12, r13
@@ -771,27 +770,8 @@ task_done:                              ; @task_done
 	and.w	#253, r12
 	mov.b	r12, r13
 	mov.b	r13, &0x0222
-	mov.w	#0, -2(r4)
-	jmp	.LBB13_1
-.LBB13_1:                               ; %for.cond
-                                        ; =>This Inner Loop Header: Depth=1
-	mov.w	-2(r4), r12
-	cmp.w	#10000, r12
-	jhs	.LBB13_4
-	jmp	.LBB13_2
-.LBB13_2:                               ; %for.body
-                                        ;   in Loop: Header=BB13_1 Depth=1
-	jmp	.LBB13_3
-.LBB13_3:                               ; %for.inc
-                                        ;   in Loop: Header=BB13_1 Depth=1
-	mov.w	-2(r4), r12
-	add.w	#1, r12
-	mov.w	r12, -2(r4)
-	jmp	.LBB13_1
-.LBB13_4:                               ; %for.end
 	mov.w	#_task_task_init, r15
 	call	#transition_to
-	add.w	#2, r1
 	pop.w	r4
 	ret
 .Lfunc_end13:
@@ -1035,7 +1015,7 @@ task_prologue:                          ; @task_prologue
 ; BB#0:                                 ; %entry
 	push.w	r4
 	mov.w	r1, r4
-	sub.w	#8, r1
+	sub.w	#6, r1
 	mov.w	&_numBoots, r12
 	cmp.w	#-1, r12
 	jne	.LBB25_2
@@ -1050,19 +1030,12 @@ task_prologue:                          ; @task_prologue
 	mov.w	&_numBoots, r12
 	add.w	#1, r12
 	mov.w	r12, &_numBoots
-	;DEBUG_VALUE: task_prologue:curtask <- [FP+-2]
 	mov.w	&curctx, r12
-	mov.w	4(r12), r12
-	mov.w	0(r12), r12
-	mov.w	r12, -2(r4)
-	mov.w	&curctx, r12
-	mov.w	2(r12), r12
-	mov.w	-2(r4), r13
-	mov.w	8(r13), r13
-	cmp.w	r13, r12
+	mov.b	2(r12), r13
+	cmp.b	#0, r13
 	jeq	.LBB25_7
 	jmp	.LBB25_3
-.LBB25_3:                               ; %if.then.3
+.LBB25_3:                               ; %if.then.2
 	jmp	.LBB25_4
 .LBB25_4:                               ; %while.cond
                                         ; =>This Inner Loop Header: Depth=1
@@ -1073,29 +1046,29 @@ task_prologue:                          ; @task_prologue
 	jmp	.LBB25_5
 .LBB25_5:                               ; %while.body
                                         ;   in Loop: Header=BB25_4 Depth=1
-	;DEBUG_VALUE: w_data_dest <- [FP+-4]
+	;DEBUG_VALUE: w_data_dest <- [FP+-2]
 	mov.w	&data_dest_base, r12
 	mov.w	&gv_index, r13
 	rla.w	r13
 	add.w	r13, r12
 	mov.w	0(r12), r12
-	mov.w	r12, -4(r4)
-	;DEBUG_VALUE: w_data_src <- [FP+-6]
+	mov.w	r12, -2(r4)
+	;DEBUG_VALUE: w_data_src <- [FP+-4]
 	mov.w	&data_src_base, r12
 	mov.w	&gv_index, r13
 	rla.w	r13
 	add.w	r13, r12
 	mov.w	0(r12), r12
-	mov.w	r12, -6(r4)
-	;DEBUG_VALUE: w_data_size <- [FP+-8]
+	mov.w	r12, -4(r4)
+	;DEBUG_VALUE: w_data_size <- [FP+-6]
 	mov.w	&data_size_base, r12
 	mov.w	&gv_index, r13
 	rla.w	r13
 	add.w	r13, r12
 	mov.w	0(r12), r12
-	mov.w	r12, -8(r4)
-	mov.w	-4(r4), r15
-	mov.w	-6(r4), r14
+	mov.w	r12, -6(r4)
+	mov.w	-2(r4), r15
+	mov.w	-4(r4), r14
 	mov.w	r12, r13
 	call	#memcpy
 	mov.w	&gv_index, r12
@@ -1106,15 +1079,13 @@ task_prologue:                          ; @task_prologue
 	mov.w	#0, &num_dirty_gv
 	mov.w	#0, &gv_index
 	mov.w	&curctx, r12
-	mov.w	2(r12), r12
-	mov.w	-2(r4), r13
-	mov.w	r12, 8(r13)
+	mov.b	#0, 2(r12)
 	jmp	.LBB25_8
 .LBB25_7:                               ; %if.else
 	mov.w	#0, &num_dirty_gv
 	jmp	.LBB25_8
-.LBB25_8:                               ; %if.end.10
-	add.w	#8, r1
+.LBB25_8:                               ; %if.end.8
+	add.w	#6, r1
 	pop.w	r4
 	ret
 .Lfunc_end25:
@@ -1133,7 +1104,7 @@ transition_to:                          ; @transition_to
 	mov.w	r15, -2(r4)
 	mov.w	&curctx, r15
 	mov.w	#context_0, r13
-	mov.w	#context_2, r14
+	mov.w	#context_1, r14
 	cmp.w	r13, r15
 	mov.w	r12, -6(r4)             ; 2-byte Folded Spill
 	mov.w	r13, -8(r4)             ; 2-byte Folded Spill
@@ -1147,21 +1118,8 @@ transition_to:                          ; @transition_to
 	mov.w	r12, -4(r4)
 	mov.w	-2(r4), r13
 	mov.w	r13, 0(r12)
-	mov.w	&curctx, r12
-	mov.w	2(r12), r12
-	add.w	#1, r12
-	mov.w	-4(r4), r13
-	mov.w	r12, 2(r13)
-	mov.w	&curctx, r12
-	mov.w	2(r12), r12
-	mov.w	-4(r4), r13
-	mov.w	4(r13), r13
-	mov.w	r12, 2(r13)
-	mov.w	&curctx, r12
-	mov.w	0(r12), r12
-	mov.w	-4(r4), r13
-	mov.w	4(r13), r13
-	mov.w	r12, 0(r13)
+	mov.w	-4(r4), r12
+	mov.b	#1, 2(r12)
 	mov.w	-4(r4), r12
 	mov.w	r12, &curctx
 	call	#task_prologue
@@ -1711,31 +1669,8 @@ max_num_dirty_gv:
 	.short	0                       ; 0x0
 	.size	max_num_dirty_gv, 2
 
-	.type	curtime,@object         ; @curtime
-	.section	.nv_vars,"aw",@progbits
-	.globl	curtime
-	.align	1
-curtime:
-	.short	0                       ; 0x0
-	.size	curtime, 2
-
-	.type	context_3,@object       ; @context_3
-	.globl	context_3
-	.align	1
-context_3:
-	.zero	6
-	.size	context_3, 6
-
-	.type	context_2,@object       ; @context_2
-	.globl	context_2
-	.align	1
-context_2:
-	.short	_task__entry_task
-	.short	0                       ; 0x0
-	.short	context_3
-	.size	context_2, 6
-
 	.type	context_1,@object       ; @context_1
+	.section	.nv_vars,"aw",@progbits
 	.globl	context_1
 	.align	1
 context_1:
@@ -1747,8 +1682,9 @@ context_1:
 	.align	1
 context_0:
 	.short	_task__entry_task
-	.short	0                       ; 0x0
-	.short	context_1
+	.byte	0                       ; 0x0
+	.zero	1
+	.short	0
 	.size	context_0, 6
 
 	.type	curctx,@object          ; @curctx
