@@ -102,13 +102,8 @@ static void init_hw()
 {
 	msp_watchdog_disable();
 	msp_gpio_unlock();
-	//	GPIO(1, DIR) |= BIT(0);
 	//	GPIO(1, DIR) |= BIT(1);
 	//	GPIO(1, DIR) |= BIT(2);
-	GPIO(3, DIR) |= BIT(0);
-	GPIO(3, DIR) |= BIT(1);
-	GPIO(3, OUT) |= BIT(0);
-	GPIO(3, OUT) &= ~BIT(1);
 	msp_clock_setup();
 }
 
@@ -153,8 +148,6 @@ static sample_t acquire_sample(letter_t prev_sample)
 unsigned nvram=0;
 void task_init()
 {
-	GPIO(3, OUT) &= ~BIT(0);
-	GPIO(3, OUT) |= BIT(1);
 	LOG("init\r\n");
 	GV(parent_next) = 0;
 
@@ -471,16 +464,13 @@ void task_print()
 
 void task_done()
 {
-	GPIO(3, OUT) |= BIT(0);
-	GPIO(3, OUT) &= ~BIT(1);
-	for(unsigned i = 0; i<65535;++i){
-	}
+	exit(0);
 	//WATCHPOINT(1);
 #if TIME > 0
 	//	PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
 
 #endif
-	TRANSITION_TO(task_init);
+	//TRANSITION_TO(task_init);
 }
 
 	ENTRY_TASK(task_init)
