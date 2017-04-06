@@ -43,11 +43,27 @@ init:                                   ; @init
 ; BB#0:                                 ; %entry
 	push.w	r4
 	mov.w	r1, r4
+	sub.w	#6, r1
 	call	#init_hw
-	call	#mspconsole_init
+	call	#edb_init
 	;APP
 	eint { nop
 	;NO_APP
+	jmp	.LBB1_1
+.LBB1_1:                                ; %do.body
+	call	#request_non_interactive_debug_mode
+	mov.w	&curctx, r12
+	mov.w	0(r12), r12
+	mov.w	2(r12), r12
+	mov.w	r1, r13
+	mov.w	r12, 2(r13)
+	mov.w	#.L.str, 0(r13)
+	call	#printf
+	mov.w	r15, -2(r4)             ; 2-byte Folded Spill
+	call	#resume_application
+	jmp	.LBB1_2
+.LBB1_2:                                ; %do.end
+	add.w	#6, r1
 	pop.w	r4
 	ret
 .Lfunc_end1:
@@ -655,50 +671,90 @@ task_print:                             ; @task_print
 ; BB#0:                                 ; %entry
 	push.w	r4
 	mov.w	r1, r4
-	sub.w	#4, r1
-	mov.w	#0, -2(r4)
+	sub.w	#22, r1
 	jmp	.LBB12_1
-.LBB12_1:                               ; %for.cond
+.LBB12_1:                               ; %do.body
+	call	#request_non_interactive_debug_mode
+	mov.w	&overflow, r12
+	mov.w	&0x03D0, r13
+	mov.w	r1, r14
+	mov.w	r13, 4(r14)
+	mov.w	r12, 2(r14)
+	mov.w	#.L.str.1, 0(r14)
+	call	#printf
+	mov.w	r15, -6(r4)             ; 2-byte Folded Spill
+	call	#resume_application
+	jmp	.LBB12_2
+.LBB12_2:                               ; %do.end
+	call	#request_energy_guard_debug_mode
+	mov.w	r1, r12
+	mov.w	#.L.str.2, 0(r12)
+	call	#printf
+	mov.w	#0, -2(r4)
+	mov.w	r15, -8(r4)             ; 2-byte Folded Spill
+	jmp	.LBB12_3
+.LBB12_3:                               ; %for.cond
                                         ; =>This Inner Loop Header: Depth=1
 	mov.w	-2(r4), r12
 	cmp.w	#64, r12
-	jhs	.LBB12_7
-	jmp	.LBB12_2
-.LBB12_2:                               ; %for.body
-                                        ;   in Loop: Header=BB12_1 Depth=1
+	jhs	.LBB12_9
+	jmp	.LBB12_4
+.LBB12_4:                               ; %for.body
+                                        ;   in Loop: Header=BB12_3 Depth=1
 	;DEBUG_VALUE: index <- [FP+-4]
 	mov.w	-2(r4), r15
 	mov.w	#6, r14
 	call	#__mulhi3hw_noint
 	mov.w	_global_compressed_data(r15), r14
 	mov.w	r14, -4(r4)
+	mov.w	r1, r15
+	mov.w	r14, 2(r15)
+	mov.w	#.L.str.3, 0(r15)
+	call	#printf
 	mov.w	-2(r4), r14
 	cmp.w	#0, r14
-	jeq	.LBB12_5
-	jmp	.LBB12_3
-.LBB12_3:                               ; %land.lhs.true
-                                        ;   in Loop: Header=BB12_1 Depth=1
+	mov.w	r15, -10(r4)            ; 2-byte Folded Spill
+	jeq	.LBB12_7
+	jmp	.LBB12_5
+.LBB12_5:                               ; %land.lhs.true
+                                        ;   in Loop: Header=BB12_3 Depth=1
 	mov.w	-2(r4), r12
 	add.w	#1, r12
 	bit.w	#7, r12
-	jne	.LBB12_5
-	jmp	.LBB12_4
-.LBB12_4:                               ; %if.then
-                                        ;   in Loop: Header=BB12_1 Depth=1
-	jmp	.LBB12_5
-.LBB12_5:                               ; %if.end
-                                        ;   in Loop: Header=BB12_1 Depth=1
+	jne	.LBB12_7
 	jmp	.LBB12_6
-.LBB12_6:                               ; %for.inc
-                                        ;   in Loop: Header=BB12_1 Depth=1
+.LBB12_6:                               ; %if.then
+                                        ;   in Loop: Header=BB12_3 Depth=1
+	mov.w	r1, r12
+	mov.w	#.L.str.4, 0(r12)
+	call	#printf
+	mov.w	r15, -12(r4)            ; 2-byte Folded Spill
+	jmp	.LBB12_7
+.LBB12_7:                               ; %if.end
+                                        ;   in Loop: Header=BB12_3 Depth=1
+	jmp	.LBB12_8
+.LBB12_8:                               ; %for.inc
+                                        ;   in Loop: Header=BB12_3 Depth=1
 	mov.w	-2(r4), r12
 	add.w	#1, r12
 	mov.w	r12, -2(r4)
-	jmp	.LBB12_1
-.LBB12_7:                               ; %for.end
+	jmp	.LBB12_3
+.LBB12_9:                               ; %for.end
+	mov.w	r1, r12
+	mov.w	#.L.str.4, 0(r12)
+	call	#printf
+	mov.w	&_global_sample_count, r12
+	mov.w	r1, r13
+	mov.w	r12, 2(r13)
+	mov.w	#64, 4(r13)
+	mov.w	#.L.str.5, 0(r13)
+	mov.w	r15, -14(r4)            ; 2-byte Folded Spill
+	call	#printf
+	mov.w	r15, -16(r4)            ; 2-byte Folded Spill
+	call	#resume_application
 	mov.w	#_task_task_done, r15
 	call	#transition_to
-	add.w	#4, r1
+	add.w	#22, r1
 	pop.w	r4
 	ret
 .Lfunc_end12:
@@ -711,8 +767,10 @@ task_done:                              ; @task_done
 ; BB#0:                                 ; %entry
 	push.w	r4
 	mov.w	r1, r4
-	mov.w	#0, r15
-	call	#exit
+	mov.w	#_task_task_init, r15
+	call	#transition_to
+	pop.w	r4
+	ret
 .Lfunc_end13:
 	.size	task_done, .Lfunc_end13-task_done
 
@@ -1164,132 +1222,96 @@ timer:
 	.align	1
 _task_task_init:
 	.short	task_init
-	.long	2                       ; 0x2
 	.short	1                       ; 0x1
-	.short	0                       ; 0x0
-	.asciz	"task_init\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000"
-	.size	_task_task_init, 42
+	.size	_task_task_init, 4
 
 	.type	_task_task_init_dict,@object ; @_task_task_init_dict
 	.globl	_task_task_init_dict
 	.align	1
 _task_task_init_dict:
 	.short	task_init_dict
-	.long	4                       ; 0x4
 	.short	2                       ; 0x2
-	.short	0                       ; 0x0
-	.asciz	"task_init_dict\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000"
-	.size	_task_task_init_dict, 42
+	.size	_task_task_init_dict, 4
 
 	.type	_task_task_sample,@object ; @_task_task_sample
 	.globl	_task_task_sample
 	.align	1
 _task_task_sample:
 	.short	task_sample
-	.long	8                       ; 0x8
 	.short	3                       ; 0x3
-	.short	0                       ; 0x0
-	.asciz	"task_sample\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000"
-	.size	_task_task_sample, 42
+	.size	_task_task_sample, 4
 
 	.type	_task_task_measure_temp,@object ; @_task_task_measure_temp
 	.globl	_task_task_measure_temp
 	.align	1
 _task_task_measure_temp:
 	.short	task_measure_temp
-	.long	16                      ; 0x10
 	.short	4                       ; 0x4
-	.short	0                       ; 0x0
-	.asciz	"task_measure_temp\000\000\000\000\000\000\000\000\000\000\000\000\000\000"
-	.size	_task_task_measure_temp, 42
+	.size	_task_task_measure_temp, 4
 
 	.type	_task_task_letterize,@object ; @_task_task_letterize
 	.globl	_task_task_letterize
 	.align	1
 _task_task_letterize:
 	.short	task_letterize
-	.long	32                      ; 0x20
 	.short	5                       ; 0x5
-	.short	0                       ; 0x0
-	.asciz	"task_letterize\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000"
-	.size	_task_task_letterize, 42
+	.size	_task_task_letterize, 4
 
 	.type	_task_task_compress,@object ; @_task_task_compress
 	.globl	_task_task_compress
 	.align	1
 _task_task_compress:
 	.short	task_compress
-	.long	64                      ; 0x40
 	.short	6                       ; 0x6
-	.short	0                       ; 0x0
-	.asciz	"task_compress\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000"
-	.size	_task_task_compress, 42
+	.size	_task_task_compress, 4
 
 	.type	_task_task_find_sibling,@object ; @_task_task_find_sibling
 	.globl	_task_task_find_sibling
 	.align	1
 _task_task_find_sibling:
 	.short	task_find_sibling
-	.long	128                     ; 0x80
 	.short	7                       ; 0x7
-	.short	0                       ; 0x0
-	.asciz	"task_find_sibling\000\000\000\000\000\000\000\000\000\000\000\000\000\000"
-	.size	_task_task_find_sibling, 42
+	.size	_task_task_find_sibling, 4
 
 	.type	_task_task_add_node,@object ; @_task_task_add_node
 	.globl	_task_task_add_node
 	.align	1
 _task_task_add_node:
 	.short	task_add_node
-	.long	256                     ; 0x100
 	.short	8                       ; 0x8
-	.short	0                       ; 0x0
-	.asciz	"task_add_node\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000"
-	.size	_task_task_add_node, 42
+	.size	_task_task_add_node, 4
 
 	.type	_task_task_add_insert,@object ; @_task_task_add_insert
 	.globl	_task_task_add_insert
 	.align	1
 _task_task_add_insert:
 	.short	task_add_insert
-	.long	512                     ; 0x200
 	.short	9                       ; 0x9
-	.short	0                       ; 0x0
-	.asciz	"task_add_insert\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000"
-	.size	_task_task_add_insert, 42
+	.size	_task_task_add_insert, 4
 
 	.type	_task_task_append_compressed,@object ; @_task_task_append_compressed
 	.globl	_task_task_append_compressed
 	.align	1
 _task_task_append_compressed:
 	.short	task_append_compressed
-	.long	1024                    ; 0x400
 	.short	10                      ; 0xa
-	.short	0                       ; 0x0
-	.asciz	"task_append_compressed\000\000\000\000\000\000\000\000\000"
-	.size	_task_task_append_compressed, 42
+	.size	_task_task_append_compressed, 4
 
 	.type	_task_task_print,@object ; @_task_task_print
 	.globl	_task_task_print
 	.align	1
 _task_task_print:
 	.short	task_print
-	.long	2048                    ; 0x800
 	.short	11                      ; 0xb
-	.short	0                       ; 0x0
-	.asciz	"task_print\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000"
-	.size	_task_task_print, 42
+	.size	_task_task_print, 4
 
 	.type	_task_task_done,@object ; @_task_task_done
 	.globl	_task_task_done
 	.align	1
 _task_task_done:
 	.short	task_done
-	.long	4096                    ; 0x1000
 	.short	12                      ; 0xc
-	.short	0                       ; 0x0
-	.asciz	"task_done\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000"
-	.size	_task_task_done, 42
+	.size	_task_task_done, 4
 
 	.type	nvram,@object           ; @nvram
 	.section	.bss,"aw",@nobits
@@ -1466,11 +1488,8 @@ _global_compressed_data:
 	.align	1
 _task__entry_task:
 	.short	_entry_task
-	.long	1                       ; 0x1
 	.short	0                       ; 0x0
-	.short	0                       ; 0x0
-	.asciz	"_entry_task\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000"
-	.size	_task__entry_task, 42
+	.size	_task__entry_task, 4
 
 	.type	data_src,@object        ; @data_src
 	.globl	data_src
@@ -1493,10 +1512,42 @@ data_size:
 	.zero	2
 	.size	data_size, 2
 
+	.type	.L.str,@object          ; @.str
+	.section	.rodata.str1.1,"aMS",@progbits,1
+.L.str:
+	.asciz	".%u.\r\n"
+	.size	.L.str, 7
+
+	.type	.L.str.1,@object        ; @.str.1
+.L.str.1:
+	.asciz	"TIME end is 65536*%u+%u\r\n"
+	.size	.L.str.1, 26
+
+	.type	.L.str.2,@object        ; @.str.2
+.L.str.2:
+	.asciz	"compressed block:\r\n"
+	.size	.L.str.2, 20
+
+	.type	.L.str.3,@object        ; @.str.3
+.L.str.3:
+	.asciz	"%04x "
+	.size	.L.str.3, 6
+
+	.type	.L.str.4,@object        ; @.str.4
+.L.str.4:
+	.asciz	"\r\n"
+	.size	.L.str.4, 3
+
+	.type	.L.str.5,@object        ; @.str.5
+.L.str.5:
+	.asciz	"rate: samples/block: %u/%u\r\n"
+	.size	.L.str.5, 29
+
 	.type	watchdog_bits,@object   ; @watchdog_bits
 	.local	watchdog_bits
 	.comm	watchdog_bits,1,1
 	.type	data_src_base,@object   ; @data_src_base
+	.section	.nv_vars,"aw",@progbits
 	.globl	data_src_base
 	.align	1
 data_src_base:
@@ -1531,42 +1582,12 @@ num_dirty_gv:
 	.short	0                       ; 0x0
 	.size	num_dirty_gv, 2
 
-	.type	rcount,@object          ; @rcount
-	.section	.bss,"aw",@nobits
-	.globl	rcount
-	.align	1
-rcount:
-	.short	0                       ; 0x0
-	.size	rcount, 2
-
-	.type	wcount,@object          ; @wcount
-	.globl	wcount
-	.align	1
-wcount:
-	.short	0                       ; 0x0
-	.size	wcount, 2
-
-	.type	tcount,@object          ; @tcount
-	.globl	tcount
-	.align	1
-tcount:
-	.short	0                       ; 0x0
-	.size	tcount, 2
-
-	.type	max_num_dirty_gv,@object ; @max_num_dirty_gv
-	.globl	max_num_dirty_gv
-	.align	1
-max_num_dirty_gv:
-	.short	0                       ; 0x0
-	.size	max_num_dirty_gv, 2
-
 	.type	context_1,@object       ; @context_1
-	.section	.nv_vars,"aw",@progbits
 	.globl	context_1
 	.align	1
 context_1:
-	.zero	6
-	.size	context_1, 6
+	.zero	4
+	.size	context_1, 4
 
 	.type	context_0,@object       ; @context_0
 	.globl	context_0
@@ -1575,8 +1596,7 @@ context_0:
 	.short	_task__entry_task
 	.byte	0                       ; 0x0
 	.zero	1
-	.short	0
-	.size	context_0, 6
+	.size	context_0, 4
 
 	.type	curctx,@object          ; @curctx
 	.globl	curctx

@@ -136,7 +136,7 @@ void init()
 	__enable_interrupt();
 	//set_dirty_buf(&data, &data_dest, &data_size);
 	//	set_dirty_buf();
-//	PRINTF(".%u.\r\n", curctx->task->idx);
+	PRINTF(".%u.\r\n", curctx->task->idx);
 }
 
 static sample_t acquire_sample(letter_t prev_sample)
@@ -445,33 +445,32 @@ void task_print()
 {
 	unsigned i;
 
-//	PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
-//	BLOCK_PRINTF_BEGIN();
-//	BLOCK_PRINTF("compressed block:\r\n");
+	PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+	BLOCK_PRINTF_BEGIN();
+	BLOCK_PRINTF("compressed block:\r\n");
 	for (i = 0; i < BLOCK_SIZE; ++i) {
 		index_t index = GV(compressed_data, i).letter;
-//		BLOCK_PRINTF("%04x ", index);
+		BLOCK_PRINTF("%04x ", index);
 		if (i > 0 && (i + 1) % 8 == 0){
+			BLOCK_PRINTF("\r\n");
 		}
-//			BLOCK_PRINTF("\r\n");
 	}
-//	BLOCK_PRINTF("\r\n");
-//	BLOCK_PRINTF("rate: samples/block: %u/%u\r\n", GV(sample_count), BLOCK_SIZE);
-//	BLOCK_PRINTF_END();
+	BLOCK_PRINTF("\r\n");
+	BLOCK_PRINTF("rate: samples/block: %u/%u\r\n", GV(sample_count), BLOCK_SIZE);
+	BLOCK_PRINTF_END();
 	//TRANSITION_TO(task_sample); // restart app
 	TRANSITION_TO(task_done); // for now just do one block
 }
 
 void task_done()
 {
-	exit(0);
 	//WATCHPOINT(1);
 #if TIME > 0
 	//	PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
 
 #endif
-	//TRANSITION_TO(task_init);
+	TRANSITION_TO(task_init);
 }
 
-	ENTRY_TASK(task_init)
+ENTRY_TASK(task_init)
 INIT_FUNC(init)

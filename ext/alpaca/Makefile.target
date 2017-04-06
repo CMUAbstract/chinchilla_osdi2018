@@ -24,7 +24,7 @@ include $(MAKER_ROOT)/Makefile.env
 LOCAL_CFLAGS += -DALPACA
 
 #ALPACA_LIB = 
-ALPACA_LIB = $(ALPACA_ROOT)/LLVM/build/skeleton/libSkeletonPass.so
+ALPACA_LIB = $(ALPACA_ROOT)/LLVM/build/src/libAlpacaPass.so
 
 #ifeq ($(DINO_MODE),auto)
 %.alpaca.bc : %.bc
