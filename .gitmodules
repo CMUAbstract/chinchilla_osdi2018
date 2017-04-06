@@ -19,10 +19,6 @@
 [submodule "ext/libmspbuiltins"]
 	path = ext/libmspbuiltins
 	url = https://github.com/CMUAbstract/libmspbuiltins
-[submodule "ext/mementos"]
-	path = ext/mementos
-	url = https://github.com/CMUAbstract/mementos
-	branch = maker
 [submodule "ext/libio"]
 	path = ext/libio
 	url = https://github.com/CMUAbstract/libio.git
