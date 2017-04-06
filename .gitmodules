@@ -23,9 +23,6 @@
 	path = ext/mementos
 	url = https://github.com/CMUAbstract/mementos
 	branch = maker
-[submodule "libio"]
-	path = libio
-	url = https://github.com/CMUAbstract/libio.git
 [submodule "ext/libio"]
 	path = ext/libio
 	url = https://github.com/CMUAbstract/libio.git
