@@ -12,7 +12,7 @@
 #include <libmsp/clock.h>
 #include <libmsp/watchdog.h>
 #include <libmsp/gpio.h>
-//#include <libmspmath/msp-math.h>
+#include <libmspmath/msp-math.h>
 
 #ifdef CONFIG_EDB
 #include <libedb/edb.h>
@@ -25,42 +25,109 @@
 #include <libdino/dino.h>
 #endif
 
+#undef N // conflicts with us
+
 #include "pins.h"
 
 // #define SHOW_PROGRESS_ON_LED
-#include <stdint.h>
+// #define BLOCK_DELAY
 
-//#define NUM_BUCKETS 256 // must be a power of 2
-#define NUM_BUCKETS 128 // must be a power of 2
-//#define NUM_BUCKETS 64 // must be a power of 2
-#define MAX_RELOCATIONS 8
 
-typedef uint16_t value_t;
-typedef uint16_t hash_t;
-typedef uint16_t fingerprint_t;
-typedef uint16_t index_t; // bucket index
+/* This is for progress reporting only */
+#define SET_CURTASK(t) curtask = t
 
-#define NUM_KEYS (NUM_BUCKETS / 4) // shoot for 25% occupancy
-#define INIT_KEY 0x1
+/* Tasks */
+#define PRINT_PLAINTEXT_TASK            0
+#define ENCRYPT_TASK                    1
+#define MOD_EXP_TASK                    2
+#define MULT_TASK                       3
+#define REDUCE_TASK                     4
+#define REDUCE_NORMALIZE_TASK           5
+#define REDUCE_NORMALIZABLE_TASK        6
+#define REDUCE_COMPARE_TASK             7
+#define REDUCE_QUOTIENT_TASK            8
+#define REDUCE_MULTIPLY_TASK            9
+#define REDUCE_ADD_TASK                10
+#define REDUCE_SUBTRACT_TASK           11
+#define PRINT_CYPHERTEXT_TASK          12
+#define MOD_EXP_LOOP_TASK              13
+#define MULT_DIGIT_LOOP_TASK           14
+#define REDUCE_QUOTIENT_1_TASK         16
+#define REDUCE_QUOTIENT_2_TASK         17
+#define REDUCE_QUOTIENT_3_TASK         18
+#define REDUCE_QUOTIENT_4_TASK         19
+#define MULT_COPY_TASK                 20
+#define REDUCE_NORMALIZE_LOOP_TASK     21
+#define REDUCE_ADD_LOOP_TASK           22
+#define REDUCE_SUBTRACT_LOOP_TASK      23
+#define REDUCE_MULTIPLY_LOOP_TASK      24
+#define DONE_TASK                      99
 
-#define TASK_MAIN                   1
-#define TASK_GENERATE_KEY           2
-#define TASK_INSERT_FINGERPRINT     3
-#define TASK_INSERT_INDEX_1         4
-#define TASK_INSERT_INDEX_2         5
-#define TASK_INSERT_UPDATE          6
-#define TASK_RELOCATE_VICTIM        7
-#define TASK_RELOCATE_UPDATE        8
-#define TASK_LOOKUP_FINGERPRINT     9
-#define TASK_LOOKUP_INDEX_1        10
-#define TASK_LOOKUP_INDEX_2        11
-#define TASK_LOOKUP_CHECK          12
-#define TASK_PRINT_RESULTS         13
+#define ENCRYPT_DONE_TASK                   25
+#define MOD_EXP_DONE_TASK                   26
+#define MULT_DONE_TASK                      27
+#define REDUCE_DONE_TASK                    28
+#define REDUCE_NORMALIZE_DONE_TASK          29
+#define REDUCE_NORMALIZABLE_DONE_TASK       30
+#define REDUCE_COMPARE_DONE_TASK            31
+#define REDUCE_QUOTIENT_DONE_TASK           32
+#define REDUCE_MULTIPLY_DONE_TASK           33
+#define REDUCE_ADD_DONE_TASK                34
+#define REDUCE_SUBTRACT_DONE_TASK           35
 
 #ifdef DINO
 
-#define TASK_BOUNDARY(t) \
-        DINO_TASK_BOUNDARY(NULL); \
+#if 0 // TODO: this is only for DINO with compiler support
+      // NOTE: this code is not up to date
+DINO_RECOVERY_ROUTINE_LIST_BEGIN()
+
+  DINO_RECOVERY_RTN_BEGIN(PRINT_PLAINTEXT_TASK)
+  DINO_RECOVERY_RTN_END()
+
+  DINO_RECOVERY_RTN_BEGIN(ENCRYPT_TASK)
+  DINO_RECOVERY_RTN_END()
+
+  DINO_RECOVERY_RTN_BEGIN(MOD_EXP_TASK)
+  DINO_RECOVERY_RTN_END()
+
+  DINO_RECOVERY_RTN_BEGIN(MULT_TASK)
+  DINO_RECOVERY_RTN_END()
+
+  DINO_RECOVERY_RTN_BEGIN(REDUCE_TASK)
+  DINO_RECOVERY_RTN_END()
+
+  DINO_RECOVERY_RTN_BEGIN(REDUCE_NORMALIZE_TASK)
+  DINO_RECOVERY_RTN_END()
+
+  DINO_RECOVERY_RTN_BEGIN(REDUCE_NORMALIZABLE_TASK)
+  DINO_RECOVERY_RTN_END()
+
+  DINO_RECOVERY_RTN_BEGIN(REDUCE_COMPARE_TASK)
+  DINO_RECOVERY_RTN_END()
+
+  DINO_RECOVERY_RTN_BEGIN(REDUCE_QUOTIENT_TASK)
+  DINO_RECOVERY_RTN_END()
+
+  DINO_RECOVERY_RTN_BEGIN(REDUCE_MULTIPLY_TASK)
+  DINO_RECOVERY_RTN_END()
+
+  DINO_RECOVERY_RTN_BEGIN(REDUCE_ADD_TASK)
+  DINO_RECOVERY_RTN_END()
+
+  DINO_RECOVERY_RTN_BEGIN(REDUCE_SUBTRACT_TASK)
+  DINO_RECOVERY_RTN_END()
+
+  DINO_RECOVERY_RTN_BEGIN(PRINT_CYPHERTEXT_TASK)
+  DINO_RECOVERY_RTN_END()
+
+DINO_RECOVERY_ROUTINE_LIST_END()
+#endif
+#define TOS 0x2400
+unsigned max_stack_size = 0;
+uint32_t avg_stack_size = 0;
+uint32_t checkpoint_count = 0;
+#define TASK_BOUNDARY(t, x) \
+        DINO_TASK_BOUNDARY(x); \
         SET_CURTASK(t); \
 
 #define DINO_MANUAL_RESTORE_NONE() \
@@ -79,8 +146,7 @@ typedef uint16_t index_t; // bucket index
 
 #else // !DINO
 
-#define TASK_BOUNDARY(t) SET_CURTASK(t)
-#define TASK_BOUNDARY(t, a)
+#define TASK_BOUNDARY(t, x) SET_CURTASK(t)
 
 #define DINO_RESTORE_CHECK()
 #define DINO_MANUAL_VERSION_PTR(...)
@@ -88,217 +154,74 @@ typedef uint16_t index_t; // bucket index
 #define DINO_MANUAL_RESTORE_NONE()
 #define DINO_MANUAL_RESTORE_PTR(...)
 #define DINO_MANUAL_RESTORE_VAL(...)
-#define DINO_MANUAL_REVERT_BEGIN(...)
-#define DINO_MANUAL_REVERT_END(...)
-#define DINO_MANUAL_REVERT_VAL(...)
 
 #endif // !DINO
-#define SET_CURTASK(t) curtask = t
-
-
-static void init_hw()
-{
-	msp_watchdog_disable();
-	msp_gpio_unlock();
-	msp_clock_setup();
-}
-__attribute__((always_inline))
-void print_filter(fingerprint_t *filter)
-{
-    unsigned i;
-    BLOCK_PRINTF_BEGIN();
-    for (i = 0; i < NUM_BUCKETS; ++i) {
-        BLOCK_PRINTF("%04x ", filter[i]);
-        if (i > 0 && (i + 1) % 8 == 0){
-            BLOCK_PRINTF("\r\n");
-	}
-    }
-    BLOCK_PRINTF_END();
-}
-
-__attribute__((always_inline))
-void log_filter(fingerprint_t *filter)
-{
-    unsigned i;
-    BLOCK_LOG_BEGIN();
-    for (i = 0; i < NUM_BUCKETS; ++i) {
-        BLOCK_LOG("%04x ", filter[i]);
-        if (i > 0 && (i + 1) % 8 == 0)
-            BLOCK_LOG("\r\n");
-    }
-    BLOCK_LOG_END();
-}
-
-// TODO: to avoid having to wrap every thing printf macro (to prevent
-// a mementos checkpoint in the middle of it, which could be in the
-// middle of an EDB energy guard), make printf functions in libio
-// and exclude libio from Mementos passes
-__attribute__((always_inline))
-void print_stats(unsigned inserts, unsigned members, unsigned total)
-{
-//    PRINTF("stats: inserts %u members %u total %u\r\n",
-//           inserts, members, total);
-}
 
 static __nv unsigned curtask;
 
-__attribute__((always_inline))
-static hash_t djb_hash(uint8_t* data, unsigned len)
-{
-   uint32_t hash = 5381;
-   unsigned int i;
+#define KEY_SIZE_BITS	64
+#define DIGIT_BITS       8 // arithmetic ops take 8-bit args produce 16-bit result
+#define DIGIT_MASK       0x00ff
+#define NUM_DIGITS       (KEY_SIZE_BITS / DIGIT_BITS)
 
-   for(i = 0; i < len; data++, i++)
-      hash = ((hash << 5) + hash) + (*data);
+#if NUM_DIGITS < 2
+#error The modular reduction implementation requires at least 2 digits
+#endif
 
-   return hash & 0xFFFF;
-}
+#define LED1 (1 << 0)
+#define LED2 (1 << 1)
 
-__attribute__((always_inline))
-static index_t hash_fp_to_index(fingerprint_t fp)
-{
-    hash_t hash = djb_hash((uint8_t *)&fp, sizeof(fingerprint_t));
-    return hash & (NUM_BUCKETS - 1); // NUM_BUCKETS must be power of 2
-}
+#define SEC_TO_CYCLES 4000000 /* 4 MHz */
 
-__attribute__((always_inline))
-static index_t hash_key_to_index(value_t fp)
-{
-    hash_t hash = djb_hash((uint8_t *)&fp, sizeof(value_t));
-    return hash & (NUM_BUCKETS - 1); // NUM_BUCKETS must be power of 2
-}
+#define PRINT_HEX_ASCII_COLS 8
 
-__attribute__((always_inline))
-static fingerprint_t hash_to_fingerprint(value_t key)
-{
-    return djb_hash((uint8_t *)&key, sizeof(value_t));
-}
+/** @brief Type large enough to store a product of two digits */
+typedef uint16_t digit_t;
 
-__attribute__((always_inline))
-static value_t generate_key(value_t prev_key)
-{
-    TASK_BOUNDARY(TASK_GENERATE_KEY, NULL);
-    DINO_MANUAL_RESTORE_NONE();
+/** @brief Multi-digit integer */
+typedef unsigned bigint_t[NUM_DIGITS * 2];
 
-    // insert pseufo-random integers, for testing
-    // If we use consecutive ints, they hash to consecutive DJB hashes...
-    // NOTE: we are not using rand(), to have the sequence available to verify
-    // that that are no false negatives (and avoid having to save the values).
-    return (prev_key + 1) * 17;
-}
+typedef struct {
+    bigint_t n; // modulus
+    digit_t e;  // exponent
+} pubkey_t;
 
-__attribute__((always_inline))
-static bool insert(fingerprint_t *filter, value_t key)
-{
-    fingerprint_t fp1, fp2, fp_victim, fp_next_victim;
-    index_t index_victim, fp_hash_victim;
-    unsigned relocation_count = 0;
+// Blocks are padded with these digits (on the MSD side). Padding value must be
+// chosen such that block value is less than the modulus. This is accomplished
+// by any value below 0x80, because the modulus is restricted to be above
+// 0x80 (see comments below).
+static __ro_nv const uint8_t PAD_DIGITS[] = { 0x01 };
+#define NUM_PAD_DIGITS (sizeof(PAD_DIGITS) / sizeof(PAD_DIGITS[0]))
 
-    TASK_BOUNDARY(TASK_INSERT_FINGERPRINT, NULL);
-    DINO_MANUAL_RESTORE_NONE();
+// To generate a key pair: see scripts/
 
-    fingerprint_t fp = hash_to_fingerprint(key);
+// modulus: byte order: LSB to MSB, constraint MSB>=0x80
+static __ro_nv const pubkey_t pubkey = {
+#include "../data/key64.txt"
+};
 
-    TASK_BOUNDARY(TASK_INSERT_INDEX_1, NULL);
-    DINO_MANUAL_RESTORE_NONE();
+static __ro_nv const unsigned char PLAINTEXT[] =
+#include "../data/plaintext.txt"
+;
 
-    index_t index1 = hash_key_to_index(key);
+#define NUM_PLAINTEXT_BLOCKS (sizeof(PLAINTEXT) / (NUM_DIGITS - NUM_PAD_DIGITS) + 1)
+#define CYPHERTEXT_SIZE (NUM_PLAINTEXT_BLOCKS * NUM_DIGITS)
 
-    TASK_BOUNDARY(TASK_INSERT_INDEX_2, NULL);
-    DINO_MANUAL_RESTORE_NONE();
+static __nv uint8_t CYPHERTEXT[CYPHERTEXT_SIZE] = {0};
+static __nv unsigned CYPHERTEXT_LEN = 0;
 
-    index_t fp_hash = hash_fp_to_index(fp);
-    index_t index2 = index1 ^ fp_hash;
-
-    DINO_MANUAL_VERSION_VAL(fingerprint_t, filter[index1], filter_index1);
-    DINO_MANUAL_VERSION_VAL(fingerprint_t, filter[index2], filter_index2);
-    TASK_BOUNDARY(TASK_INSERT_UPDATE, NULL);
-    DINO_MANUAL_REVERT_BEGIN();
-    DINO_MANUAL_REVERT_VAL(filter[index1], filter_index1);
-    DINO_MANUAL_REVERT_VAL(filter[index2], filter_index2);
-    DINO_MANUAL_REVERT_END();
-
-    LOG("insert: key %04x fp %04x h %04x i1 %u i2 %u\r\n",
-        key, fp, fp_hash, index1, index2);
-
-    fp1 = filter[index1];
-    LOG("insert: fp1 %04x\r\n", fp1);
-    if (!fp1) { // slot 1 is free
-        filter[index1] = fp;
-    } else {
-        fp2 = filter[index2];
-        LOG("insert: fp2 %04x\r\n", fp2);
-        if (!fp2) { // slot 2 is free
-            filter[index2] = fp;
-        } else { // both slots occupied, evict
-            if (rand() & 0x80) { // don't use lsb because it's systematic
-                index_victim = index1;
-                fp_victim = fp1;
-            } else {
-                index_victim = index2;
-                fp_victim = fp2;
-            }
-
-            LOG("insert: evict [%u] = %04x\r\n", index_victim, fp_victim);
-            filter[index_victim] = fp; // evict victim
-
-            do { // relocate victim(s)
-                TASK_BOUNDARY(TASK_RELOCATE_VICTIM, NULL);
-                DINO_MANUAL_RESTORE_NONE();
-
-                fp_hash_victim = hash_fp_to_index(fp_victim);
-                index_victim = index_victim ^ fp_hash_victim;
-
-                DINO_MANUAL_VERSION_VAL(fingerprint_t, filter[index_victim], filter_victim);
-                TASK_BOUNDARY(TASK_RELOCATE_UPDATE, NULL);
-                DINO_MANUAL_RESTORE_VAL(filter[index_victim], filter_victim);
-
-                fp_next_victim = filter[index_victim];
-                filter[index_victim] = fp_victim;
-
-                LOG("insert: moved %04x to %u; next victim %04x\r\n",
-                    fp_victim, index_victim, fp_next_victim);
-
-                fp_victim = fp_next_victim;
-            } while (fp_victim && ++relocation_count < MAX_RELOCATIONS);
-
-            if (fp_victim) {
-                //PRINTF("insert: lost fp %04x\r\n", fp_victim);
-                return false;
-            }
-        }
-    }
-
-    return true;
-}
-
-__attribute__((always_inline))
-static bool lookup(fingerprint_t *filter, value_t key)
-{
-    TASK_BOUNDARY(TASK_LOOKUP_FINGERPRINT, NULL);
-    DINO_MANUAL_RESTORE_NONE();
-
-    fingerprint_t fp = hash_to_fingerprint(key);
-
-    TASK_BOUNDARY(TASK_LOOKUP_INDEX_1, NULL);
-    DINO_MANUAL_RESTORE_NONE();
-
-    index_t index1 = hash_key_to_index(key);
-
-    TASK_BOUNDARY(TASK_LOOKUP_INDEX_2, NULL);
-    DINO_MANUAL_RESTORE_NONE();
-
-    index_t fp_hash = hash_fp_to_index(fp);
-    index_t index2 = index1 ^ fp_hash;
-
-    TASK_BOUNDARY(TASK_LOOKUP_CHECK, NULL);
-    DINO_MANUAL_RESTORE_NONE();
-
-    LOG("lookup: key %04x fp %04x h %04x i1 %u i2 %u\r\n",
-        key, fp, fp_hash, index1, index2);
-
-    return filter[index1] == fp || filter[index2] == fp;
-}
+// Store in NV memory to reduce RAM footprint (might not even fit in RAM)
+// Except with Mementos, which cannot handle NV state. With mementos
+// these are allocated on the stack. Allocting them on the stack as
+// opposed to letting them be (volatile) globals is a workaround
+// for Mementos including the read-only globals into the checkpoint,
+// if it is told to include any globals at all.
+#ifndef MEMENTOS
+static __nv bigint_t in_block;
+static __nv bigint_t out_block;
+static __nv bigint_t qxn;
+static __nv bigint_t product;
+#endif
 unsigned overflow=0;
 __attribute__((interrupt(51))) 
 void TimerB1_ISR(void){
@@ -313,6 +236,601 @@ void TimerB1_ISR(void){
 __attribute__((section("__interrupt_vector_timer0_b1"),aligned(2)))
 void(*__vector_timer0_b1)(void) = TimerB1_ISR;
 
+
+__attribute__((always_inline))
+void print_bigint(const bigint_t n, unsigned digits)
+{
+    int i;
+    for (i = digits - 1; i >= 0; --i)
+        PRINTF("%02x ", n[i]);
+}
+
+__attribute__((always_inline))
+void log_bigint(const bigint_t n, unsigned digits)
+{
+    int i;
+    for (i = digits - 1; i >= 0; --i)
+        BLOCK_LOG("%02x ", n[i]);
+}
+
+__attribute__((always_inline))
+void print_hex_ascii(const uint8_t *m, unsigned len)
+{
+    int i, j;
+   
+    for (i = 0; i < len; i += PRINT_HEX_ASCII_COLS) {
+        for (j = 0; j < PRINT_HEX_ASCII_COLS && i + j < len; ++j)
+            BLOCK_PRINTF("%02x ", m[i + j]);
+        for (; j < PRINT_HEX_ASCII_COLS; ++j)
+            BLOCK_PRINTF("   ");
+        BLOCK_PRINTF(" ");
+        for (j = 0; j < PRINT_HEX_ASCII_COLS && i + j < len; ++j) {
+            char c = m[i + j];
+            if (!(32 <= c && c <= 127)) // not printable
+                c = '.';
+            BLOCK_PRINTF("%c", c);
+        }
+        BLOCK_PRINTF("\r\n");
+    }
+}
+
+__attribute__((always_inline))
+void mult(bigint_t a, bigint_t b)
+{
+#ifdef MEMENTOS
+    bigint_t product = {0};
+#endif
+
+    int i;
+    unsigned digit;
+    digit_t p, c, dp;
+    digit_t carry = 0;
+
+    TASK_BOUNDARY(MULT_TASK, NULL);
+    DINO_MANUAL_RESTORE_NONE();
+
+//    BLOCK_LOG_BEGIN();
+//    BLOCK_LOG("mult: a = "); log_bigint(a, NUM_DIGITS); BLOCK_LOG("\r\n");
+//    BLOCK_LOG("mult: b = "); log_bigint(b, NUM_DIGITS); BLOCK_LOG("\r\n");
+//    BLOCK_LOG_END();
+
+    for (digit = 0; digit < NUM_DIGITS * 2; ++digit) {
+        LOG2("mult: d=%u\r\n", digit);
+
+        TASK_BOUNDARY(MULT_DIGIT_LOOP_TASK, NULL);
+        DINO_MANUAL_RESTORE_NONE();
+
+        p = carry;
+        c = 0;
+        for (i = 0; i < NUM_DIGITS; ++i) {
+            if (i <= digit && digit - i < NUM_DIGITS) {
+                dp = a[digit - i] * b[i];
+
+                c += dp >> DIGIT_BITS;
+                p += dp & DIGIT_MASK;
+
+                LOG2("mult: i=%u a=%x b=%x dp=%x p=%x\r\n", i, a[digit - i], b[i], dp, p);
+            }
+        }
+
+        c += p >> DIGIT_BITS;
+        p &= DIGIT_MASK;
+
+        product[digit] = p;
+        carry = c;
+    }
+
+    TASK_BOUNDARY(MULT_COPY_TASK, NULL);
+    DINO_MANUAL_RESTORE_NONE();
+
+//    BLOCK_LOG_BEGIN();
+//    BLOCK_LOG("mult: product = ");
+//    log_bigint(product, 2 * NUM_DIGITS);
+//    BLOCK_LOG("\r\n");
+//    BLOCK_LOG_END();
+
+    for (i = 0; i < 2 * NUM_DIGITS; ++i)
+        a[i] = product[i];
+
+    TASK_BOUNDARY(MULT_DONE_TASK, NULL);
+    DINO_MANUAL_RESTORE_NONE();
+}
+
+__attribute__((always_inline))
+bool reduce_normalizable(bigint_t m, const bigint_t n, unsigned d)
+{
+    int i;
+    unsigned offset;
+    digit_t n_d, m_d;
+    bool normalizable = true;
+
+    TASK_BOUNDARY(REDUCE_NORMALIZABLE_TASK, NULL);
+    DINO_MANUAL_RESTORE_NONE();
+
+    offset = d + 1 - NUM_DIGITS; // TODO: can this go below zero
+    LOG("reduce: normalizable: d=%u offset=%u\r\n", d, offset);
+
+    for (i = d; i >= 0; --i) {
+        m_d = m[i];
+        n_d = n[i - offset];
+
+        LOG2("normalizable: m[%u]=%x n[%u]=%x\r\n", i, m_d, i - offset, n_d);
+
+        if (m_d > n_d) {
+            break;
+        } else if (m_d < n_d) {
+            normalizable = false;
+            break;
+        }
+    }
+
+    LOG("normalizable: %u\r\n", normalizable);
+
+    TASK_BOUNDARY(REDUCE_NORMALIZABLE_DONE_TASK, NULL);
+    DINO_MANUAL_RESTORE_NONE();
+    
+
+    return normalizable;
+}
+
+__attribute__((always_inline))
+void reduce_normalize(bigint_t m, const bigint_t n, unsigned digit)
+{
+    int i;
+    digit_t d, s, m_d, n_d;
+    unsigned borrow, offset;
+
+    TASK_BOUNDARY(REDUCE_NORMALIZE_TASK, NULL);
+    offset = digit + 1 - NUM_DIGITS; // TODO: can this go below zero
+
+    borrow = 0;
+    for (i = 0; i < NUM_DIGITS; ++i) {
+
+        DINO_MANUAL_VERSION_VAL(digit_t, m[i + offset], m_d);
+        TASK_BOUNDARY(REDUCE_NORMALIZE_LOOP_TASK, NULL);
+        DINO_MANUAL_RESTORE_VAL(m[i + offset], m_d);
+        m_d = m[i + offset];
+        n_d = n[i];
+
+        s = n_d + borrow;
+        if (m_d < s) {
+            m_d += 1 << DIGIT_BITS;
+            borrow = 1;
+        } else {
+            borrow = 0;
+        }
+        d = m_d - s;
+
+        LOG2("normalize: m[%u]=%x n[%u]=%x b=%u d=%x\r\n",
+                i + offset, m_d, i, n_d, borrow, d);
+
+        m[i + offset] = d;
+    }
+
+    TASK_BOUNDARY(REDUCE_NORMALIZE_DONE_TASK, NULL);
+    DINO_MANUAL_RESTORE_NONE();
+}
+
+__attribute__((always_inline))
+void reduce_quotient(digit_t *quotient, bigint_t m, const bigint_t n, unsigned d)
+{
+    digit_t m_d[3]; // [2]=m[d], [1]=m[d-1], [0]=m[d-2]
+    digit_t q, n_div, n_n;
+    uint32_t n_q, qn;
+    uint16_t m_dividend;
+
+    TASK_BOUNDARY(REDUCE_QUOTIENT_1_TASK, NULL);
+    DINO_MANUAL_RESTORE_NONE();
+
+    // Divisor, derived from modulus, for refining quotient guess into exact value
+    n_div = ((n[NUM_DIGITS - 1] << DIGIT_BITS) + n[NUM_DIGITS - 2]);
+
+    n_n = n[NUM_DIGITS - 1];
+
+    m_d[2] = m[d];
+    m_d[1] = m[d - 1];
+    m_d[0] = m[d - 2];
+
+    LOG("reduce: quotient: n_n=%x m[d]=%x\r\n", n_n, m[2]);
+
+    TASK_BOUNDARY(REDUCE_QUOTIENT_2_TASK, NULL);
+    DINO_MANUAL_RESTORE_NONE();
+
+    // Choose an initial guess for quotient
+    if (m_d[2] == n_n) {
+        q = (1 << DIGIT_BITS) - 1;
+    } else {
+        // TODO: The long todo described below applies here.
+        m_dividend = (m_d[2] << DIGIT_BITS) + m_d[1];
+        q = m_dividend / n_n;
+        LOG("reduce quotient: m_dividend=%x q=%x\r\n", m_dividend, q);
+    }
+
+    TASK_BOUNDARY(REDUCE_QUOTIENT_3_TASK, NULL);
+    DINO_MANUAL_RESTORE_NONE();
+
+    // Refine quotient guess
+
+    // TODO: An alternative to composing the digits into one variable, is to
+    // have a loop that does the comparison digit by digit to implement the
+    // condition of the while loop below.
+    n_q = ((uint32_t)m_d[2] << (2 * DIGIT_BITS)) + (m_d[1] << DIGIT_BITS) + m_d[0];
+
+    LOG("reduce: quotient: m[d]=%x m[d-1]=%x m[d-2]=%x n_q=%02x%02x\r\n",
+           m_d[2], m_d[1], m_d[0],
+           (uint16_t)((n_q >> 16) & 0xffff), (uint16_t)(n_q & 0xffff));
+
+    LOG("reduce: quotient: q0=%x\r\n", q);
+
+    q++;
+    do {
+        TASK_BOUNDARY(REDUCE_QUOTIENT_4_TASK, NULL);
+        DINO_MANUAL_RESTORE_NONE();
+
+        q--;
+        // NOTE: yes, this result can be >16-bit because:
+        //   n_n min = 0x80 (by constraint on modulus msb being set)
+        //   => q max = 0xffff / 0x80 = 0x1ff
+        //   n_div max = 0x80ff
+        //   => qn max = 0x80ff * 0x1ff = 0x1017d01
+        //
+        // TODO:
+        //
+        // Approach (1): stick to 16-bit operations, and implement any wider
+        // ops as part of this application, ie. a function operating on digits.
+        //
+        // Approach (2)*: implement the needed intrinsics in Clang's compiler-rt,
+        // using libgcc's ones for inspiration (watching the calling convention
+        // carefully).
+        //
+        qn = mult16(n_div, q);
+        LOG("reduce: quotient: q=%x n_div=%x qn=%02x%02x\r\n", q, n_div,
+              (uint16_t)((qn >> 16) & 0xffff), (uint16_t)(qn & 0xffff));
+    } while (qn > n_q);
+
+    // This is still not the final quotient, it may be off by one,
+    // which we determine and fix in the 'compare' and 'add' steps.
+    LOG("reduce: quotient: q=%x\r\n", q);
+
+    *quotient = q;
+
+    TASK_BOUNDARY(REDUCE_QUOTIENT_DONE_TASK, NULL);
+    DINO_MANUAL_RESTORE_NONE();
+}
+
+__attribute__((always_inline))
+void reduce_multiply(bigint_t product, digit_t q, const bigint_t n, unsigned d)
+{
+    int i;
+    unsigned offset, c;
+    digit_t p, nd;
+
+    TASK_BOUNDARY(REDUCE_MULTIPLY_TASK, NULL);
+    DINO_MANUAL_RESTORE_NONE();
+
+    // TODO: factor out shift outside of this task
+    // As part of this task, we also perform the left-shifting of the q*m
+    // product by radix^(digit-NUM_DIGITS), where NUM_DIGITS is the number
+    // of digits in the modulus. We implement this by fetching the digits
+    // of number being reduced at that offset.
+    offset = d - NUM_DIGITS;
+    LOG("reduce: multiply: offset=%u\r\n", offset);
+
+    // Left-shift zeros
+    for (i = 0; i < offset; ++i)
+        product[i] = 0;
+
+    c = 0;
+    for (i = offset; i < 2 * NUM_DIGITS; ++i) {
+
+        TASK_BOUNDARY(REDUCE_MULTIPLY_LOOP_TASK, NULL);
+        DINO_MANUAL_RESTORE_NONE();
+
+        // This condition creates the left-shifted zeros.
+        // TODO: consider adding number of digits to go along with the 'product' field,
+        // then we would not have to zero out the MSDs
+        p = c;
+        if (i < offset + NUM_DIGITS) {
+            nd = n[i - offset];
+            p += q * nd;
+        } else {
+            nd = 0;
+            // TODO: could break out of the loop  in this case (after CHAN_OUT)
+        }
+
+        LOG2("reduce: multiply: n[%u]=%x q=%x c=%x m[%u]=%x\r\n",
+               i - offset, nd, q, c, i, p);
+
+        c = p >> DIGIT_BITS;
+        p &= DIGIT_MASK;
+
+        product[i] = p;
+    }
+
+//    BLOCK_LOG_BEGIN();
+//    BLOCK_LOG("reduce: multiply: product = ");
+//    log_bigint(product, 2 * NUM_DIGITS);
+//    BLOCK_LOG("\r\n");
+//    BLOCK_LOG_END();
+
+    TASK_BOUNDARY(REDUCE_MULTIPLY_DONE_TASK, NULL);
+    DINO_MANUAL_RESTORE_NONE();
+}
+
+__attribute__((always_inline))
+int reduce_compare(bigint_t a, bigint_t b)
+{
+    int i;
+    int relation = 0;
+
+    TASK_BOUNDARY(REDUCE_COMPARE_TASK, NULL);
+    DINO_MANUAL_RESTORE_NONE();
+
+    for (i = NUM_DIGITS * 2 - 1; i >= 0; --i) {
+        if (a > b) {
+            relation = 1;
+            break;
+        } else if (a < b) {
+            relation = -1;
+            break;
+        }
+    }
+
+    TASK_BOUNDARY(REDUCE_COMPARE_DONE_TASK, NULL);
+    DINO_MANUAL_RESTORE_NONE();
+    return relation;
+}
+
+__attribute__((always_inline))
+void reduce_add(bigint_t a, const bigint_t b, unsigned d)
+{
+    int i, j;
+    unsigned offset, c;
+    digit_t r, m, n;
+
+    TASK_BOUNDARY(REDUCE_ADD_TASK, NULL);
+    DINO_MANUAL_RESTORE_NONE();
+
+    // TODO: factor out shift outside of this task
+    // Part of this task is to shift modulus by radix^(digit - NUM_DIGITS)
+    offset = d - NUM_DIGITS;
+
+    c = 0;
+    for (i = offset; i < 2 * NUM_DIGITS; ++i) {
+
+        DINO_MANUAL_VERSION_VAL(digit_t, a[i], a_i);
+        TASK_BOUNDARY(REDUCE_ADD_LOOP_TASK, NULL);
+        DINO_MANUAL_RESTORE_VAL(a[i], a_i);
+
+        m = a[i];
+
+        // Shifted index of the modulus digit
+        j = i - offset;
+
+        if (i < offset + NUM_DIGITS) {
+            n = b[j];
+        } else {
+            n = 0;
+            j = 0; // a bit ugly, we want 'nan', but ok, since for output only
+            // TODO: could break out of the loop in this case (after CHAN_OUT)
+        }
+
+        r = c + m + n;
+
+        LOG2("reduce: add: m[%u]=%x n[%u]=%x c=%x r=%x\r\n", i, m, j, n, c, r);
+
+        c = r >> DIGIT_BITS;
+        r &= DIGIT_MASK;
+
+        a[i] = r;
+    }
+
+//    BLOCK_LOG_BEGIN();
+//    BLOCK_LOG("reduce: add: sum = ");
+///    log_bigint(a, 2 * NUM_DIGITS);
+//   BLOCK_LOG("\r\n");
+//    BLOCK_LOG_END();
+
+    TASK_BOUNDARY(REDUCE_ADD_DONE_TASK, NULL);
+    DINO_MANUAL_RESTORE_NONE();
+}
+
+__attribute__((always_inline))
+void reduce_subtract(bigint_t a, bigint_t b, unsigned d)
+{
+    int i;
+    digit_t m, s, r, qn;
+    unsigned borrow, offset;
+
+    TASK_BOUNDARY(REDUCE_SUBTRACT_TASK, NULL);
+    DINO_MANUAL_RESTORE_NONE();
+
+    // TODO: factor out shifting logic from this task
+    // The qn product had been shifted by this offset, no need to subtract the zeros
+    offset = d - NUM_DIGITS;
+
+    LOG("reduce: subtract: d=%u offset=%u\r\n", d, offset);
+
+    borrow = 0;
+    for (i = offset; i < 2 * NUM_DIGITS; ++i) {
+        DINO_MANUAL_VERSION_VAL(digit_t, a[i], a_i);
+        TASK_BOUNDARY(REDUCE_SUBTRACT_LOOP_TASK, NULL);
+        DINO_MANUAL_RESTORE_VAL(a[i], a_i);
+
+        m = a[i];
+
+        qn = b[i];
+
+        s = qn + borrow;
+        if (m < s) {
+            m += 1 << DIGIT_BITS;
+            borrow = 1;
+        } else {
+            borrow = 0;
+        }
+        r = m - s;
+
+        LOG2("reduce: subtract: m[%u]=%x qn[%u]=%x b=%u r=%x\r\n",
+               i, m, i, qn, borrow, r);
+
+        a[i] = r;
+    }
+
+//    BLOCK_LOG_BEGIN();
+//    BLOCK_LOG("reduce: subtract: sum = ");
+//    log_bigint(a, 2 * NUM_DIGITS);
+//    BLOCK_LOG("\r\n");
+//    BLOCK_LOG_END();
+
+    TASK_BOUNDARY(REDUCE_SUBTRACT_DONE_TASK, NULL);
+    DINO_MANUAL_RESTORE_NONE();
+}
+
+__attribute__((always_inline))
+void reduce(bigint_t m, const bigint_t n)
+{
+#ifdef MEMENTOS
+    bigint_t qxn = {0};
+#endif
+
+    digit_t q, m_d;
+    unsigned d;
+
+    TASK_BOUNDARY(REDUCE_TASK, NULL);
+    DINO_MANUAL_RESTORE_NONE();
+
+    // Start reduction loop at most significant non-zero digit
+    d = 2 * NUM_DIGITS;
+    do {
+        d--;
+        m_d = m[d];
+        LOG("reduce digits: p[%u]=%x\r\n", d, m_d);
+    } while (m_d == 0 && d > 0);
+
+    LOG("reduce digits: d=%x\r\n", d);
+
+    if (reduce_normalizable(m, n, d)) {
+        reduce_normalize(m, n, d);
+    } else if (d == NUM_DIGITS - 1) {
+        LOG("reduce: done: message < modulus\r\n");
+        return;
+    }
+
+    while (d >= NUM_DIGITS) {
+        reduce_quotient(&q, m, n, d);
+        reduce_multiply(qxn, q, n, d);
+        if (reduce_compare(m, qxn) < 0)
+            reduce_add(m, n, d);
+        reduce_subtract(m, qxn, d);
+        d--;
+    }
+
+//    BLOCK_LOG_BEGIN();
+//    BLOCK_LOG("reduce: num = ");
+//    log_bigint(m, NUM_DIGITS);
+//    BLOCK_LOG("\r\n");
+//    BLOCK_LOG_END();
+
+    TASK_BOUNDARY(REDUCE_DONE_TASK, NULL);
+    DINO_MANUAL_RESTORE_NONE();
+}
+
+__attribute__((always_inline))
+void mod_mult(bigint_t a, bigint_t b, const bigint_t n)
+{
+    mult(a, b);
+    reduce(a, n);
+}
+
+__attribute__((always_inline))
+void mod_exp(bigint_t out_block, bigint_t base, digit_t e, const bigint_t n)
+{
+    int i;
+
+    TASK_BOUNDARY(MOD_EXP_TASK, NULL);
+    DINO_MANUAL_RESTORE_NONE();
+
+    // Result initialized to 1
+    out_block[0] = 0x1;
+    for (i = 1; i < NUM_DIGITS; ++i)
+        out_block[i] = 0x0;
+
+    while (e > 0) {
+        TASK_BOUNDARY(MOD_EXP_LOOP_TASK, NULL);
+        DINO_MANUAL_RESTORE_NONE();
+
+        LOG("mod exp: e=%x\r\n", e);
+
+        if (e & 0x1)
+            mod_mult(out_block, base, n);
+        mod_mult(base, base, n);
+        e >>= 1;
+    }
+
+    TASK_BOUNDARY(MOD_EXP_DONE_TASK, NULL);
+    DINO_MANUAL_RESTORE_NONE();
+}
+__attribute__((always_inline))
+void encrypt(uint8_t *cyphertext, unsigned *cyphertext_len,
+             const uint8_t *message, unsigned message_length,
+             const pubkey_t *k)
+{
+#ifdef MEMENTOS
+    bigint_t in_block = {0}, out_block = {0};
+#endif
+
+    int i;
+    unsigned in_block_offset, out_block_offset;
+
+    in_block_offset = 0;
+    out_block_offset = 0;
+    while (in_block_offset < message_length) {
+
+        TASK_BOUNDARY(ENCRYPT_TASK, NULL);
+        DINO_MANUAL_RESTORE_NONE();
+
+        LOG("Blk offset: %u\r\n", in_block_offset);
+
+        for (i = 0; i < NUM_DIGITS - NUM_PAD_DIGITS; ++i)
+            in_block[i] = (in_block_offset + i < message_length) ?
+                                message[in_block_offset + i] : 0xFF;
+        for (i = 0; i < NUM_PAD_DIGITS; ++i)
+            in_block[NUM_DIGITS - NUM_PAD_DIGITS + i] = PAD_DIGITS[i];
+
+//        BLOCK_LOG_BEGIN();
+//        BLOCK_LOG("in block: ");
+//        log_bigint(in_block, NUM_DIGITS);
+//        BLOCK_LOG("\r\n");
+//        BLOCK_LOG_END();
+
+        mod_exp(out_block, in_block, k->e, k->n);
+
+//        BLOCK_LOG_BEGIN();
+//        BLOCK_LOG("out block: ");
+//        log_bigint(out_block, NUM_DIGITS);
+//        BLOCK_LOG("\r\n");
+//        BLOCK_LOG_END();
+
+        for (i = 0; i < NUM_DIGITS; ++i)
+            cyphertext[out_block_offset + i] = out_block[i];
+
+        in_block_offset += NUM_DIGITS - NUM_PAD_DIGITS;
+        out_block_offset += NUM_DIGITS;
+
+    }
+
+    *cyphertext_len = out_block_offset;
+
+    TASK_BOUNDARY(ENCRYPT_DONE_TASK, NULL);
+    DINO_MANUAL_RESTORE_NONE();
+}
+static void init_hw()
+{
+	msp_watchdog_disable();
+	msp_gpio_unlock();
+	msp_clock_setup();
+}
+
 void init()
 {
 //	TBCTL &= 0xE6FF; //set 12,11 bit to zero (16bit) also 8 to zero (SMCLK)
@@ -320,121 +838,78 @@ void init()
 //	TBCTL |= 0x00C0; //set 7-6 bit to 11 (divider = 8);
 //	TBCTL &= 0xFFEF; //set bit 4 to zero
 //	TBCTL |= 0x0020; //set bit 5 to one (5-4=10: continuous mode)
-//	TBCTL |= 0x0002; //interrupt enable*/
-//	TBCTL &= ~(0x0020);
+//	TBCTL |= 0x0002; //interrupt enable
+    //WISP_init();
 	init_hw();
 #ifdef CONFIG_EDB
-	edb_init();
+   // debug_setup();
+    edb_init();
 #endif
 
     INIT_CONSOLE();
 
     __enable_interrupt();
-//    EIF_PRINTF(".%u.\r\n", curtask);
-}
 #if 0
-void write_stack(){
-	unsigned j;
-	__asm__ volatile ("MOV R1, %0" :"=m"(j)); // j = SP
-	PRINTF("stack pointer: %u\r\n", j);
-//	char* sp;
-//	sp = (char*)j;
-//	for (unsigned ii=0; ii<500;++ii){
-//		sp-=2;
-//		*((unsigned*)(sp)) = 0x2222;
-//	}
-}
-void test_stack(){
-	int a[300];
-	for (unsigned i = 0; i < 300; i++){
-		a[i] = 0;
-	}
-}
-#define TOS 0x2400
-void print_stack(){
-	unsigned j;
-	bool overflow = true;
-	__asm__ volatile ("MOV R1, %0" :"=m"(j)); // j = SP
-	char* sp;
-	sp = (char*)j;
-	PRINTF("stack address: %u\r\n", j); 
-	for (unsigned ii=0; ii<500;++ii){
-		sp-=2;
-		PRINTF("stack value(%u): %u\r\n", (unsigned)sp, *((unsigned*)(sp)));
-		if (*((unsigned*)(sp)) == 0x2222){
-			PRINTF("used stack address up to %u\r\n", sp+2);
-			PRINTF("max stack size is %u\r\n", TOS-(unsigned)sp-2);
-			overflow = false;
-			break;
-		}
-	}
-	if(overflow){
-		PRINTF("overflow!!\r\n");
-	}
-}
+    GPIO(PORT_LED_1, DIR) |= BIT(PIN_LED_1);
+    GPIO(PORT_LED_2, DIR) |= BIT(PIN_LED_2);
+#if defined(PORT_LED_3)
+    GPIO(PORT_LED_3, DIR) |= BIT(PIN_LED_3);
 #endif
+
+#if defined(PORT_LED_3) // when available, this LED indicates power-on
+    GPIO(PORT_LED_3, OUT) |= BIT(PIN_LED_3);
+#endif
+
+#ifdef SHOW_PROGRESS_ON_LED
+    blink(1, SEC_TO_CYCLES * 5, LED1 | LED2);
+#endif
+#endif
+    EIF_PRINTF(".%u.\r\n", curtask);
+}
+
 int main()
 {
+    unsigned message_length;
 
-	unsigned i;
-	value_t key;
-	// Mementos can't handle globals: it restores them to .data, when they are
-	// in .bss... So, for now, just keep all data on stack.
+#ifndef MEMENTOS
+    init();
+#endif
 
-	// Can't use C initializer because it gets converted into
-	// memset, but the memset linked in by GCC is of the wrong calling
-	// convention, but we can't override with our own memset because C runtime
-	// calls memset with GCC's calling convention. Catch 22.
-	static fingerprint_t filter[NUM_BUCKETS];
+    DINO_RESTORE_CHECK();
 
+    do {
+        TASK_BOUNDARY(PRINT_PLAINTEXT_TASK, NULL);
+        DINO_MANUAL_RESTORE_NONE();
 
-	init();
+        message_length = sizeof(PLAINTEXT) - 1; // exclude null byte
 
-	DINO_RESTORE_CHECK();
-	unsigned count = 0;
-		for (i = 0; i < NUM_BUCKETS; ++i)
-			filter[i] = 0;
-		TASK_BOUNDARY(TASK_MAIN, NULL);
-		DINO_MANUAL_RESTORE_NONE();
-		//write_stack();
+#if TIME == 0
+        BLOCK_PRINTF_BEGIN();
+        BLOCK_PRINTF("Message:\r\n");
+        print_hex_ascii(PLAINTEXT, message_length);
+        BLOCK_PRINTF("Public key: exp = %x modulus =\r\n", pubkey.e);
+        print_hex_ascii((uint8_t*)pubkey.n, NUM_DIGITS * 2); // TODO: bigint bytes
+        BLOCK_PRINTF_END();
+#endif
 
+        encrypt(CYPHERTEXT, &CYPHERTEXT_LEN, PLAINTEXT, message_length, &pubkey);
 
-		key = INIT_KEY;
-		unsigned inserts = 0;
-		for (i = 0; i < NUM_KEYS; ++i) {
-			key = generate_key(key);
-			bool success = insert(filter, key);
-			LOG("insert: key %04x success %u\r\n", key, success);
-			if (!success)
-				//             PRINTF("insert: key %04x failed\r\n", key);
-				log_filter(filter);
+        TASK_BOUNDARY(PRINT_CYPHERTEXT_TASK, NULL);
+        DINO_MANUAL_RESTORE_NONE();
 
-			inserts += success;
+		PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+        BLOCK_PRINTF_BEGIN();
+        BLOCK_PRINTF("Cyphertext:\r\n");
+        print_hex_ascii(CYPHERTEXT, CYPHERTEXT_LEN);
+        BLOCK_PRINTF_END();
+	while(1);
 
-		}
-		LOG("inserts/total: %u/%u\r\n", inserts, NUM_KEYS);
+    } while (1);
 
-		key = INIT_KEY;
-		unsigned members = 0;
-		for (i = 0; i < NUM_KEYS; ++i) {
-			key = generate_key(key);
-			bool member = lookup(filter, key);
-			LOG("lookup: key %04x member %u\r\n", key, member);
-			if (!member) {
-				fingerprint_t fp = hash_to_fingerprint(key);
-				//PRINTF("lookup: key %04x fp %04x not member\r\n", key, fp);
-			}
-			members += member;
-		}
-		LOG("members/total: %u/%u\r\n", members, NUM_KEYS);
+    TASK_BOUNDARY(DONE_TASK, NULL);
+    DINO_MANUAL_RESTORE_NONE();
 
-		TASK_BOUNDARY(TASK_PRINT_RESULTS, NULL);
-		DINO_MANUAL_RESTORE_NONE();
+    while (1);
 
-		//PRINTF("REAL TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
-		print_filter(filter);
-		print_stats(inserts, members, NUM_KEYS);
-		//print_stack();
-
-	return 0;
+    return 0;
 }

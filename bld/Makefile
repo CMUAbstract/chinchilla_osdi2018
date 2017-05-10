@@ -6,6 +6,7 @@ OBJECTS = \
 
 DEPS += \
 	libmsp \
+	libmspmath \
 #	libio \
 #	libwispbase \
 #	libmspconsole \
@@ -21,9 +22,9 @@ include $(LIB_ROOT)/libmspbuiltins/bld/Makefile.target
 #include $(LIB_ROOT)/libmspconsole/bld/Makefile.target
 #include $(LIB_ROOT)/libmspprintf/bld/Makefile.target
 
-#CONFIG_PRINTF_LIB = libmspconsole
-CONFIG_PRINTF_LIB = libedb
-CONFIG_EDB = 1
+CONFIG_PRINTF_LIB = libmspconsole
+#CONFIG_PRINTF_LIB = libedb
+#CONFIG_EDB = 1
 #include ../Makefile.config
 include ../Makefile.config
 include $(LIB_ROOT)/maker/Makefile.console
