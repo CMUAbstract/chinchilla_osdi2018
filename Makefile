@@ -48,7 +48,7 @@ pre:
 	#/opt/llvm/llvm-install/bin//opt -load /home/reviewer/src/apps/app-auto-alpaca-new/ext/alpaca/LLVM_auto/build/src/libAlpacaPass.so -taskanalysis -o main.ts.bc main-ai.bc
 	/opt/llvm/llvm-install/bin//opt -load /home/reviewer/src/apps/app-auto-alpaca-new/ext/alpaca/LLVM/build/src/libAlpacaPass.so -alpaca -o main.alpaca.bc main.ts.bc
 	/opt/llvm/llvm-install/bin//llvm-link -o templog.a.bc main.alpaca.bc /home/reviewer/src/apps/app-auto-alpaca-new/ext/libmspmath/bld/clang/libmspmath.a.bc /home/reviewer/src/apps/app-auto-alpaca-new/ext/libmsp/bld/clang/libmsp.a.bc /home/reviewer/src/apps/app-auto-alpaca-new/ext/libio/bld/clang/libio.a.bc /home/reviewer/src/apps/app-auto-alpaca-new/ext/alpaca/AlpacaRuntime/libalpaca/bld/clang/libalpaca.a.bc
-	/opt/llvm/llvm-install/bin/llc -O0  templog.a.bc -o templog.S
+	/opt/llvm/llvm-install/bin/llc -O0 -march=msp430 templog.a.bc -o templog.S
 	/opt/ti/mspgcc/bin/msp430-elf-gcc -L/home/reviewer/src/apps/app-auto-alpaca-new/ext/libmspbuiltins/bld/gcc -L/home/reviewer/src/apps/app-auto-alpaca-new/ext/libmspprintf/bld/gcc -L/home/reviewer/src/apps/app-auto-alpaca-new/ext/libmspconsole/bld/gcc -L/home/reviewer/src/apps/app-auto-alpaca-new/ext/libwispbase/bld/gcc -L/bld/gcc -Wl,-Map=templog.out.map -T /home/reviewer/src/apps/app-auto-alpaca-new/ext/maker/linker-scripts/msp430fr5969.ld -L /opt/ti/mspgcc/include  -o templog.out templog.S -lmspbuiltins -lmspprintf -lmspconsole -lwispbase
 
 clean:
