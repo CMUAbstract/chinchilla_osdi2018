@@ -28,6 +28,7 @@
 //#include "libtemplog/print.h"
 
 #include "pins.h"
+void __loop_bound__(unsigned val){};
 unsigned overflow=0;
 __attribute__((interrupt(51))) 
 void TimerB1_ISR(void){
@@ -132,12 +133,13 @@ __attribute__((always_inline))
 void print_log(log_t *log)
 {
     unsigned i;
-	//PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+	PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
     BLOCK_PRINTF_BEGIN();
     BLOCK_PRINTF("rate: samples/block: %u/%u\r\n",
                  log->sample_count, log->count);
     BLOCK_PRINTF("compressed block:\r\n");
-    for (i = 0; i < log->count; ++i) {
+    for (i = 0; __loop_bound__(64),i < log->count; ++i) {
+		
         BLOCK_PRINTF("%04x ", log->data[i]);
         if (i > 0 && ((i + 1) & (8 - 1)) == 0){
 	}
@@ -208,7 +210,8 @@ index_t find_child(letter_t letter, index_t parent, dict_t *dict)
     }
 
     index_t sibling = parent_node->child;
-    while (sibling != NIL) {
+    while (__loop_bound__(256),sibling != NIL) { //bound: temp
+		
 
         TASK_BOUNDARY(TASK_FIND_SIBLING);
         DINO_MANUAL_RESTORE_NONE();
@@ -264,7 +267,8 @@ void add_node(letter_t letter, index_t parent, dict_t *dict)
         // Find the last sibling in list
         index_t sibling = child;
         node_t *sibling_node = &dict->nodes[sibling];
-        while (sibling_node->sibling != NIL) {
+        while (__loop_bound__(256),sibling_node->sibling != NIL) { //temp bound for test
+			
 
             TASK_BOUNDARY(TASK_ADD_NODE_FIND_LAST);
             DINO_MANUAL_RESTORE_NONE();
@@ -337,9 +341,10 @@ int main()
 {
     // Mementos can't handle globals: it restores them to .data, when they are
     // in .bss... So, for now, just keep all data on stack.
-    static __nv dict_t dict;
-    static __nv log_t log;
-//	test_func();
+    //static __nv dict_t dict;
+    //static __nv log_t log;
+    dict_t dict;
+    log_t log;
 	DINO_RESTORE_CHECK(); 
 
 	    TASK_BOUNDARY(TASK_MAIN);
@@ -360,6 +365,7 @@ int main()
     log.count = 0; // init compressed counter
 
     while (1) {
+		__loop_bound__(999);
         TASK_BOUNDARY(TASK_COMPRESS);
         DINO_MANUAL_RESTORE_NONE();
 
@@ -377,6 +383,7 @@ int main()
 	if (letter_idx == NUM_LETTERS_IN_SAMPLE)
 		letter_idx = 0;
 	do {
+		__loop_bound__(256);
 		DINO_MANUAL_VERSION_VAL(unsigned, log.sample_count, log_sample_count);
 		TASK_BOUNDARY(TASK_MAIN);
 		DINO_MANUAL_RESTORE_VAL(log.sample_count, log_sample_count);
@@ -404,8 +411,8 @@ int main()
 		log.count = 0;
 		log.sample_count = 0;
 
-		exit(0);
 		//PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+		exit(0);
 		//while(1);
 	}
     }

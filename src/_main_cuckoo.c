@@ -35,6 +35,7 @@
 //#define NUM_BUCKETS 64 // must be a power of 2
 #define MAX_RELOCATIONS 8
 
+void __loop_bound__(unsigned val){};
 typedef uint16_t value_t;
 typedef uint16_t hash_t;
 typedef uint16_t fingerprint_t;
@@ -148,7 +149,7 @@ static hash_t djb_hash(uint8_t* data, unsigned len)
    uint32_t hash = 5381;
    unsigned int i;
 
-   for(i = 0; i < len; data++, i++)
+   for(i = 0; __loop_bound__(2), i < len; data++, i++)
       hash = ((hash << 5) + hash) + (*data);
 
    return hash & 0xFFFF;
@@ -243,6 +244,7 @@ static bool insert(fingerprint_t *filter, value_t key)
             filter[index_victim] = fp; // evict victim
 
             do { // relocate victim(s)
+				__loop_bound__(8);
                 TASK_BOUNDARY(TASK_RELOCATE_VICTIM, NULL);
                 DINO_MANUAL_RESTORE_NONE();
 
@@ -315,12 +317,12 @@ void(*__vector_timer0_b1)(void) = TimerB1_ISR;
 
 void init()
 {
-//	TBCTL &= 0xE6FF; //set 12,11 bit to zero (16bit) also 8 to zero (SMCLK)
-//	TBCTL |= 0x0200; //set 9 to one (SMCLK)
-//	TBCTL |= 0x00C0; //set 7-6 bit to 11 (divider = 8);
-//	TBCTL &= 0xFFEF; //set bit 4 to zero
-//	TBCTL |= 0x0020; //set bit 5 to one (5-4=10: continuous mode)
-//	TBCTL |= 0x0002; //interrupt enable*/
+	TBCTL &= 0xE6FF; //set 12,11 bit to zero (16bit) also 8 to zero (SMCLK)
+	TBCTL |= 0x0200; //set 9 to one (SMCLK)
+	TBCTL |= 0x00C0; //set 7-6 bit to 11 (divider = 8);
+	TBCTL &= 0xFFEF; //set bit 4 to zero
+	TBCTL |= 0x0020; //set bit 5 to one (5-4=10: continuous mode)
+	TBCTL |= 0x0002; //interrupt enable*/
 //	TBCTL &= ~(0x0020);
 	init_hw();
 #ifdef CONFIG_EDB
@@ -431,7 +433,7 @@ int main()
 		TASK_BOUNDARY(TASK_PRINT_RESULTS, NULL);
 		DINO_MANUAL_RESTORE_NONE();
 
-		//PRINTF("REAL TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+		PRINTF("REAL TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
 		print_filter(filter);
 		print_stats(inserts, members, NUM_KEYS);
 		//print_stack();
