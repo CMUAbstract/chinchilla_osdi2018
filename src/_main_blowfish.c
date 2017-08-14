@@ -28,7 +28,8 @@
 #include "pins.h"
 #define LENGTH 13
 
-bool test11 = 0;
+void __loop_bound__(unsigned i);
+//bool test11 = 0;
 unsigned overflow=0;
 //__attribute__((interrupt(TIMERB1_VECTOR))) 
 __attribute__((interrupt(51))) 
@@ -100,11 +101,14 @@ static void init_hw()
 	msp_gpio_unlock();
 	msp_clock_setup();
 }
-static __ro_nv const char cp[32] = {'1','2','3','4','5','6','7','8','9','0',
+//static __ro_nv const char cp[32] = {'1','2','3','4','5','6','7','8','9','0',
+static const char cp[32] = {'1','2','3','4','5','6','7','8','9','0',
 	'A','B','C','D','E','F','F','E','D','C','B','A',
 	'0','9','8','7','6','5','4','3','2','1'}; //mimicing 16byte hex key (0x1234_5678_90ab_cdef_fedc_ba09_8765_4321)
-static __ro_nv const char indata[LENGTH] = {'H','e','l','l','o',',',' ','w','o','r','l','d','!'};
-static __ro_nv const uint32_t init_key[18] = {
+//static __ro_nv const char indata[LENGTH] = {'H','e','l','l','o',',',' ','w','o','r','l','d','!'};
+static const char indata[LENGTH] = {'H','e','l','l','o',',',' ','w','o','r','l','d','!'};
+//static __ro_nv const uint32_t init_key[18] = {
+static const uint32_t init_key[18] = {
 	0x243f6a88L, 0x85a308d3L, 0x13198a2eL, 0x03707344L,
 	0xa4093822L, 0x299f31d0L, 0x082efa98L, 0xec4e6c89L,
 	0x452821e6L, 0x38d01377L, 0xbe5466cfL, 0x34e90c6cL,
@@ -112,11 +116,14 @@ static __ro_nv const uint32_t init_key[18] = {
 	0x9216d5d9L, 0x8979fb1b
 };
 #if OPTED == 1
-uint32_t __nv key[18], s0[256], s1[256], s2[256], s3[256];
+uint32_t key[18], s0[256], s1[256], s2[256], s3[256];
+//uint32_t __nv key[18], s0[256], s1[256], s2[256], s3[256];
 #else
-uint32_t __nv s0[256], s1[256], s2[256], s3[256];
+//uint32_t __nv s0[256], s1[256], s2[256], s3[256];
+uint32_t s0[256], s1[256], s2[256], s3[256];
 #endif
-static __ro_nv const uint32_t init_s0[256] = {
+static const uint32_t init_s0[256] = {
+//static __ro_nv const uint32_t init_s0[256] = {
 	0xd1310ba6L, 0x98dfb5acL, 0x2ffd72dbL, 0xd01adfb7L, 
 	0xb8e1afedL, 0x6a267e96L, 0xba7c9045L, 0xf12c7f99L, 
 	0x24a19947L, 0xb3916cf7L, 0x0801f2e2L, 0x858efc16L, 
@@ -183,7 +190,8 @@ static __ro_nv const uint32_t init_s0[256] = {
 	0x53b02d5dL, 0xa99f8fa1L, 0x08ba4799L, 0x6e85076aL, 
 };
 
-static __ro_nv const uint32_t init_s1[256] = {
+static const uint32_t init_s1[256] = {
+//static __ro_nv const uint32_t init_s1[256] = {
 	0x4b7a70e9L, 0xb5b32944L, 0xdb75092eL, 0xc4192623L, 
 	0xad6ea6b0L, 0x49a7df7dL, 0x9cee60b8L, 0x8fedb266L, 
 	0xecaa8c71L, 0x699a17ffL, 0x5664526cL, 0xc2b19ee1L, 
@@ -250,7 +258,7 @@ static __ro_nv const uint32_t init_s1[256] = {
 	0x153e21e7L, 0x8fb03d4aL, 0xe6e39f2bL, 0xdb83adf7L, 
 };
 
-static __ro_nv const uint32_t init_s2[256] = {
+static const uint32_t init_s2[256] = {
 	0xe93d5a68L, 0x948140f7L, 0xf64c261cL, 0x94692934L, 
 	0x411520f7L, 0x7602d4f7L, 0xbcf46b2eL, 0xd4a20068L, 
 	0xd4082471L, 0x3320f46aL, 0x43b7d4b7L, 0x500061afL, 
@@ -317,7 +325,7 @@ static __ro_nv const uint32_t init_s2[256] = {
 	0xd79a3234L, 0x92638212L, 0x670efa8eL, 0x406000e0L, 
 };
 
-static __ro_nv const uint32_t init_s3[256] = {
+static const uint32_t init_s3[256] = {
 	0x3a39ce37L, 0xd3faf5cfL, 0xabc27737L, 0x5ac52d1bL, 
 	0x5cb0679eL, 0x4fa33742L, 0xd3822740L, 0x99bc9bbeL, 
 	0xd5118e9dL, 0xbf0f7315L, 0xd62d1c7eL, 0xc700c47bL, 
@@ -436,12 +444,6 @@ void BF_encrypt(uint32_t *data, uint32_t *key){
 #endif
 	//CHECKPOINT
 	//
-			if (test11){
-	LOG("r =\r\n");
-	print_long(data[0]);
-	LOG("l =\r\n");
-	print_long(data[1]);
-			}
         TASK_BOUNDARY(TASK_ENCRYPT);
         DINO_MANUAL_RESTORE_NONE();
 	uint32_t l, r, p, s0_t, s1_t, s2_t, s3_t, tmp;
@@ -453,7 +455,7 @@ void BF_encrypt(uint32_t *data, uint32_t *key){
 //	LOG("l =\r\n");
 //	print_long(l);
 //			}
-	for (unsigned index = 0; index < 17; ++index){
+	for (unsigned index = 0; __loop_bound__(17), index < 17; ++index){
 		p = key[index];
 
 		if (index == 0) {
@@ -645,21 +647,23 @@ void BF_cfb64_encrypt(unsigned char* out, unsigned char* iv, uint32_t *key){
 			ti[1]|=((unsigned long)(iv[5]))<<16L;
 			ti[1]|=((unsigned long)(iv[6]))<< 8L;
 			ti[1]|=((unsigned long)(iv[7]));
+#if VERBOSE == 1
 			for (unsigned j=0; j<2; ++j){
 				LOG("before: ti[%u]=\r\n",j);
 				print_long(ti[j]);
 			}	
-			test11 = 1;
+#endif
 #if OPTED == 1
 			BF_encrypt(ti);
 #else
 			BF_encrypt(ti, key);
 #endif
-			test11 = 0;
+#if VERBOSE == 1
 			for (unsigned j=0; j<2; ++j){
 				LOG("after: ti[%u]=\r\n",j);
 				print_long(ti[j]);
 			}	
+#endif
 
 			iv[0] = (unsigned char)(((ti[0])>>24L)&0xff);
 			iv[1] = (unsigned char)(((ti[0])>>16L)&0xff);
@@ -708,7 +712,7 @@ int main()
 	//CHECKPOINT
         TASK_BOUNDARY(TASK_INIT);
         DINO_MANUAL_RESTORE_NONE();
-	while (i < 32) {
+	while (__loop_bound__(32), i < 32) {
 		if(cp[i] >= '0' && cp[i] <= '9')
 			by = (by << 4) + cp[i] - '0';
 		else if(cp[i] >= 'A' && cp[i] <= 'F') //currently, key should be 0-9 or A-F

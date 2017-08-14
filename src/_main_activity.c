@@ -28,9 +28,10 @@
 
 #include "pins.h"
 
+void __loop_bound__(unsigned val){};
 static __nv unsigned curtask;
-__nv unsigned count = 0;
-__nv unsigned seed = 1;
+unsigned count = 0;
+unsigned seed = 1;
 
 /* This is for progress reporting only */
 #define SET_CURTASK(t) curtask = t
@@ -194,9 +195,10 @@ void acquire_window(accelWindow window)
     TASK_BOUNDARY(TASK_SAMPLE);
     DINO_MANUAL_RESTORE_VAL(seed, seed);
 
-    while (samplesInWindow < ACCEL_WINDOW_SIZE) {
+    while (__loop_bound__(3), samplesInWindow < ACCEL_WINDOW_SIZE) {
         accel_sample(seed, &sample);
-	seed++;
+		LOG("seed: %u\r\n", seed);
+		seed++;
         LOG("acquire: sample %u %u %u\r\n", sample.x, sample.y, sample.z);
 
         window[samplesInWindow++] = sample;
@@ -393,9 +395,10 @@ void warmup_sensor()
     DINO_MANUAL_RESTORE_VAL(seed, seed);
     LOG("warmup\r\n");
 
-    while (discardedSamplesCount++ < NUM_WARMUP_SAMPLES) {
+    while (__loop_bound__(3), discardedSamplesCount++ < NUM_WARMUP_SAMPLES) {
         accel_sample(seed, &sample);
-	seed++;
+		LOG("seed: %u\r\n", seed);
+		seed++;
     }
 }
 
@@ -427,7 +430,7 @@ __attribute__((always_inline))
 void recognize(model_t *model)
 {
 #ifdef MEMENTOS_NONVOLATILE
-    static __nv stats_t stats;
+    stats_t stats;
 #else
     stats_t stats;
 #endif
@@ -463,22 +466,22 @@ run_mode_t select_mode(uint8_t *prev_pin_state)
 	    count++;
 	    LOG("count: %u\r\n", count);
 	    if(count >= 3) pin_state = 2;
-	    PRINTF("3-5\r\n");
+//	    PRINTF("3-5\r\n");
 	    if(count >= 5) pin_state = 0;
-	    PRINTF("5-7\r\n");
+//	    PRINTF("5-7\r\n");
 	    if(count >= 7) {   
 		    PRINTF("done\r\n");
-		    while(1);
+			exit(0);
 		}
-	    PRINTF("7-\r\n");
+//	    PRINTF("7-\r\n");
     // Don't re-launch training after finishing training
     if ((pin_state == MODE_TRAIN_STATIONARY ||
         pin_state == MODE_TRAIN_MOVING) &&
         pin_state == *prev_pin_state) {
-	    PRINTF("here?1\r\n");
+//	    PRINTF("here?1\r\n");
         pin_state = MODE_IDLE;
     } else {
-	    PRINTF("or here?2\r\n");
+//	    PRINTF("or here?2\r\n");
         *prev_pin_state = pin_state;
     }
 
@@ -499,14 +502,14 @@ static void init_accel()
 
 void init()
 {
-	TBCTL &= 0xE6FF; //set 12,11 bit to zero (16bit) also 8 to zero (SMCLK)
-	TBCTL |= 0x0200; //set 9 to one (SMCLK)
-	TBCTL |= 0x00C0; //set 7-6 bit to 11 (divider = 8);
+//	TBCTL &= 0xE6FF; //set 12,11 bit to zero (16bit) also 8 to zero (SMCLK)
+//	TBCTL |= 0x0200; //set 9 to one (SMCLK)
+//	TBCTL |= 0x00C0; //set 7-6 bit to 11 (divider = 8);
 //	TBCTL &= ~(0x00C0); //divider = 1
-	TBCTL &= 0xFFEF; //set bit 4 to zero
-	TBCTL |= 0x0020; //set bit 5 to one (5-4=10: continuous mode)
-	TBCTL |= 0x0002; //interrupt enable
-	TBCTL &= ~(0x0020);
+//	TBCTL &= 0xFFEF; //set bit 4 to zero
+//	TBCTL |= 0x0020; //set bit 5 to one (5-4=10: continuous mode)
+//	TBCTL |= 0x0002; //interrupt enable
+//	TBCTL &= ~(0x0020);
 	init_hw();
 #ifdef CONFIG_EDB
     edb_init();
@@ -517,7 +520,7 @@ void init()
     __enable_interrupt();
     init_accel();
 
-    //PRINTF(".%u.\r\n", curtask);
+    PRINTF(".%u.\r\n", curtask);
 }
 
 int main()
@@ -529,7 +532,7 @@ int main()
 #if defined(MEMENTOS) && !defined(MEMENTOS_NONVOLATILE)
     model_t model;
 #else
-    static __nv model_t model;
+    model_t model;
 #endif
 
 #ifndef MEMENTOS
@@ -538,8 +541,8 @@ int main()
 
     DINO_RESTORE_CHECK();
 
-    while (1)
-    {
+    while (1) {
+		__loop_bound__(8);
 	    TASK_BOUNDARY(TASK_COUNT);
 	    DINO_MANUAL_RESTORE_NONE();
         run_mode_t mode = select_mode(&prev_pin_state);

@@ -1,8 +1,6 @@
-EXEC = templog
-
+EXEC = $(SRC)
 OBJECTS = \
-    main.o \
-#    test.o \
+    main_$(SRC).o 
 
 DEPS += \
 	libmsp \
@@ -22,13 +20,15 @@ include $(LIB_ROOT)/libmspbuiltins/bld/Makefile.target
 #include $(LIB_ROOT)/libmspconsole/bld/Makefile.target
 #include $(LIB_ROOT)/libmspprintf/bld/Makefile.target
 
+ifeq ($(BOARD), mspts430)
 CONFIG_PRINTF_LIB = libmspconsole
-#CONFIG_PRINTF_LIB = libedb
-#CONFIG_EDB = 1
-#include ../Makefile.config
+endif
+ifeq ($(BOARD), wisp)
+CONFIG_PRINTF_LIB = libedb
+CONFIG_EDB = 1
+endif
 include ../Makefile.config
 include $(LIB_ROOT)/maker/Makefile.console
-include $(LIB_ROOT)/maker/Makefile.count
 
 #include $(LIB_ROOT)/libedb/bld/Makefile.target
 

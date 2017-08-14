@@ -28,11 +28,6 @@
 //#include "libtemplog/print.h"
 
 #include "pins.h"
-int g1=1;
-__attribute__((always_inline))
-int func(int a, int b){
-	return a + b;
-}
 static void init_hw()
 {
     msp_watchdog_disable();
@@ -53,32 +48,31 @@ void init()
     __enable_interrupt();
 	PRINTF("test1\r\n");
 }
-uint8_t* test(){
-	return NULL;
-}
-typedef struct  _test_struct {
-	int s_a;
-	int s_b;
-	int s_c;
-} tstruct;
+void __loop_bound__(unsigned i) {}
 int main() {
-	int x;
-	int A[10];
-	tstruct ts1;
-	tstruct* pts = &ts1;
-	pts->s_b = 1;
-	A[2] = 1;
-	*(test()) = 1;
-	//A[0] = 1;
-	for (int i = 0; i < 5; i++) {
-		A[i]++;
+	unsigned x = 0;
+	unsigned y = 0;
+	unsigned z = 0;
+	for (unsigned i = 0; i < 2; ++i) {
+		for (unsigned j = 0; j < 10; ++j) {
+			y++;
+		}
+		x++;
+		for (unsigned k = 0; k < 7777; ++k) {
+			z++;
+		}
 	}
-	int z = A[2];
-	int zz = pts->s_b;
-	int* p = A;
-	int* p2 = p;
-	(*p)++;
+//	do {
+//		__loop_bound__(10000); 
+//		x++;
+//	} while(x < 10000);
+//	while (__loop_bound__(10000), true) {
+//		x++;
+//		if (x == 10000) {
+//			break;
+//		}
+//	}
 
-	PRINTF("%u\r\n", A[0]);
+	PRINTF("%u, %u, %u\r\n", x, y, z);
 }
 

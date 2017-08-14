@@ -317,12 +317,12 @@ void(*__vector_timer0_b1)(void) = TimerB1_ISR;
 
 void init()
 {
-	TBCTL &= 0xE6FF; //set 12,11 bit to zero (16bit) also 8 to zero (SMCLK)
-	TBCTL |= 0x0200; //set 9 to one (SMCLK)
-	TBCTL |= 0x00C0; //set 7-6 bit to 11 (divider = 8);
-	TBCTL &= 0xFFEF; //set bit 4 to zero
-	TBCTL |= 0x0020; //set bit 5 to one (5-4=10: continuous mode)
-	TBCTL |= 0x0002; //interrupt enable*/
+//	TBCTL &= 0xE6FF; //set 12,11 bit to zero (16bit) also 8 to zero (SMCLK)
+//	TBCTL |= 0x0200; //set 9 to one (SMCLK)
+//	TBCTL |= 0x00C0; //set 7-6 bit to 11 (divider = 8);
+//	TBCTL &= 0xFFEF; //set bit 4 to zero
+//	TBCTL |= 0x0020; //set bit 5 to one (5-4=10: continuous mode)
+//	TBCTL |= 0x0002; //interrupt enable*/
 //	TBCTL &= ~(0x0020);
 	init_hw();
 #ifdef CONFIG_EDB
@@ -332,7 +332,7 @@ void init()
     INIT_CONSOLE();
 
     __enable_interrupt();
-//    EIF_PRINTF(".%u.\r\n", curtask);
+    EIF_PRINTF(".%u.\r\n", curtask);
 }
 #if 0
 void write_stack(){
@@ -393,7 +393,8 @@ int main()
 	init();
 
 	DINO_RESTORE_CHECK();
-	unsigned count = 0;
+//	unsigned count = 0;
+//	while (1) {
 		for (i = 0; i < NUM_BUCKETS; ++i)
 			filter[i] = 0;
 		TASK_BOUNDARY(TASK_MAIN, NULL);
@@ -437,6 +438,12 @@ int main()
 		print_filter(filter);
 		print_stats(inserts, members, NUM_KEYS);
 		//print_stack();
+//		count++;
+//		if(count == 5){
+//			count = 0;
+//			exit(0);
+//		}
+//	}
 
 	return 0;
 }
