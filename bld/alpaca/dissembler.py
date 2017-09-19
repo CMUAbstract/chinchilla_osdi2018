@@ -157,6 +157,7 @@ while i < last:
         i += 1
 
 print(final_result_sorted)
+print(last)
 assert(last == len(final_result_sorted))
 
 f2 = open('cem.out', 'r')
@@ -194,7 +195,7 @@ for line in f2:
                 # this is the start of the array
                 out2.write(final_result_sorted[int(save_counter / 6)][save_counter % 6])
                 save_counter += 1
-                if save_counter / 6 == len(final_result):
+                if save_counter / 6 == len(final_result_sorted):
                     save_chkpt = 0
             else:
                 out2.write(prev_char[4])
