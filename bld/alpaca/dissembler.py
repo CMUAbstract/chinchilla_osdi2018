@@ -1,4 +1,3 @@
-# TODO: NEED TO REMOVE INDEX!!! NOT NEEDED
 '''
 f = open('cem.out', 'r')
 out = open('dissemble.out', 'w')
@@ -143,6 +142,7 @@ final_result_sorted = []
 # for when checkpoint is not compiled
 last = len(final_result)
 i = 0
+#TODO: here, fill in empty part and instead of saving index, save zero (maybe latter part not needed)
 while i < last:
     found = 0
     for result in final_result:
@@ -151,11 +151,13 @@ while i < last:
             found = 1
             i += 1
     if found == 0:
+        result_blank = [chr(int(i % 0x100)),chr(int(i / 0x100)),chr(0),chr(0),chr(0),chr(0)] # TODO: Fill it
+        final_result_sorted.append(result_blank)
         last += 1
         i += 1
 
 print(final_result_sorted)
-assert(len(final_result) == len(final_result_sorted))
+assert(last == len(final_result_sorted))
 
 f2 = open('cem.out', 'r')
 out = open('dissemble.out', 'w')
