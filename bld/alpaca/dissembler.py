@@ -112,6 +112,9 @@ prev_insts = []
 found_chkpt = 0
 final_result = []
 result = [] # source, dest, index
+isPhi = False;
+
+
 for line in f:
     # parse address
     parsed = parse_line(line)
@@ -121,16 +124,28 @@ for line in f:
             if 'jmp' in parsed[2]:
                 found_chkpt = 0
                 #result.append(int(parsed[0], 16))
-                #TODO: need fix!!
-                offset = int(parsed[0], 16) - (ord(result[2]) + ord(result[3])*0x100) + 2
+                #TODO: This part can be optimized. Currently it is jumping to jmp.
+                # instead it can directly jump
+                offset = int(parsed[0], 16) - (ord(result[2]) + ord(result[3])*0x100)
                 assert(offset > 0)
                 # TODO: offset size check needed
                 new_char = (chr((offset - 2) / 2)) # NOTE: we never do minus
-                result.append(new_char) # offset
-                result.append(chr(0x3c)) # jmp
+                #TODO: Temp solution. Currently Phi-related checkpoint cannot be removed!!
+                if isPhi == True:
+                    result.append(chr(0))
+                    result.append(chr(0))
+                else:
+                    result.append(new_char) # offset
+                    result.append(chr(0x3c)) # jmp
                 final_result.append(result)
                 result = []
-        elif 'b0 12 6c ca' in parsed[1]:
+                
+                isPhi = False;
+            else:
+                # this seems like a Phi node
+                isPhi = True;
+                print('this must be phi-related');
+        elif 'b0 12 64 d1' in parsed[1]:
             found_chkpt = 1
             result = find_fixpoint(prev_insts)
             assert(len(result) == 4)
@@ -142,7 +157,6 @@ final_result_sorted = []
 # for when checkpoint is not compiled
 last = len(final_result)
 i = 0
-#TODO: here, fill in empty part and instead of saving index, save zero (maybe latter part not needed)
 while i < last:
     found = 0
     for result in final_result:
@@ -161,32 +175,19 @@ print(last)
 assert(last == len(final_result_sorted))
 
 f2 = open('cem.out', 'r')
-out = open('dissemble.out', 'w')
 out2 = open('cem_mod.out', 'w')
 addr = 0;
-i = 0
 j = 0
 prev_char = ['','','','','']
 save_chkpt = 0
 save_counter = 0
 for line in f2:
     for char in line:
-        # this part if for debug
-        if i == 0:
-            out.write(format(addr, '04x'))
-            out.write(':\t')
-            addr += 4;
-        out.write(format(ord(char), '02x'))
-        out.write('\t')
-        i += 1
-        if i == 4:
-            out.write('\n')
-            i = 0
-
         # this part is acutally generationg binary
-        if 0x77 == ord(char) and 0x77 == ord(prev_char[0]) and 0x77 == ord(prev_char[1]) and 0x77 == ord(prev_char[2]) and 0x77 == ord(prev_char[3]) and 0x77 == ord(prev_char[4]):
-            print('wow!!')
-            save_chkpt = 1
+        if len(char) != 0 and len(prev_char[0]) != 0 and len(prev_char[1]) != 0 and len(prev_char[2]) != 0 and len(prev_char[3]) != 0 and len(prev_char[4]) != 0:
+            if 0x77 == ord(char) and 0x77 == ord(prev_char[0]) and 0x77 == ord(prev_char[1]) and 0x77 == ord(prev_char[2]) and 0x77 == ord(prev_char[3]) and 0x77 == ord(prev_char[4]):
+                print('wow!!')
+                save_chkpt = 1
 
         if j < 5:
             j += 1
