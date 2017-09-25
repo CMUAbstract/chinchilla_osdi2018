@@ -1,3 +1,4 @@
+import sys
 '''
 f = open('cem.out', 'r')
 out = open('dissemble.out', 'w')
@@ -105,7 +106,7 @@ def find_fixpoint(prev_insts):
     return result
 
 
-f = open('source.txt', 'r')
+f = open('source.src', 'r')
 out = open('dissemble.out', 'w')
 addr = 0;
 prev_insts = []
@@ -174,7 +175,7 @@ print(final_result_sorted)
 print(last)
 assert(last == len(final_result_sorted))
 
-f2 = open('cem.out', 'r')
+f2 = open(sys.argv[1], 'r')
 out2 = open('cem_mod.out', 'w')
 addr = 0;
 j = 0
