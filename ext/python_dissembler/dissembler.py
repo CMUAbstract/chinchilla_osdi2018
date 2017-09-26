@@ -1,10 +1,12 @@
 import sys
 def get_chkpt_func_address(f):
-    print('find chkpt');
     for line in f:
         if '<checkpoint>' in line:
-            print(line.split('\t')[0])
-
+            address = line.split(' ')[0]
+            address = address.lstrip('0')
+            assert(len(address) == 4)
+            address = 'b0 12 ' + address[2] + address[3] + ' ' + address[0] + address[1]
+            return address
 
 def parse_line(line):
     retval = []
@@ -104,7 +106,10 @@ final_result = []
 result = [] # source, dest, index
 isPhi = False
 chkpt_address = get_chkpt_func_address(f)
+print(chkpt_address)
 
+# re-open f
+f = open('./ext/python_dissembler/source.src', 'r')
 for line in f:
     # parse address
     parsed = parse_line(line)
@@ -134,8 +139,7 @@ for line in f:
             else:
                 # this seems like a Phi node
                 isPhi = True;
-                print('this must be phi-related');
-        elif 'b0 12 64 d1' in parsed[1]:
+        elif chkpt_address in parsed[1]:
             found_chkpt = 1
             result = find_fixpoint(prev_insts)
             assert(len(result) == 4)
@@ -176,7 +180,6 @@ for line in f2:
         # this part is acutally generationg binary
         if len(char) != 0 and len(prev_char[0]) != 0 and len(prev_char[1]) != 0 and len(prev_char[2]) != 0 and len(prev_char[3]) != 0 and len(prev_char[4]) != 0:
             if 0x77 == ord(char) and 0x77 == ord(prev_char[0]) and 0x77 == ord(prev_char[1]) and 0x77 == ord(prev_char[2]) and 0x77 == ord(prev_char[3]) and 0x77 == ord(prev_char[4]):
-                print('wow!!')
                 save_chkpt = 1
 
         if j < 5:
