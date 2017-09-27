@@ -1,4 +1,50 @@
 import sys
+
+def get_jmp_type(inst):
+    opcode = int(inst.split(' ')[1], 16)
+    opcode = opcode % 32 # get tailing 5 bits
+    opcode = opcode / 4 # remove tailing 2 bits
+    # the 3 bits indicate the type of jmp
+    return str(opcode)
+
+
+def find_jump_src(address):
+    result = []
+    address = address.strip(' ')
+    f2 = open('./ext/python_dissembler/source.src', 'r')
+    for line in f2:
+        # search for jump
+        if ';abs ' in line:
+            dest = line.split(';abs ')[1]
+            dest = dest.lstrip('0x')
+            if address in dest:
+                parsed = parse_line(line)
+                result.append(parsed[0])
+                result.append(get_jmp_type(parsed[1]))
+                return result
+        # search for br
+        if '\tbr\t' in line:
+            if '#0x' in line: 
+                dest = line.split('#0x')[1]
+                dest = dest.rstrip('\t;')
+                if address in dest:
+                    parsed = parse_line(line)
+                    result.append(parsed[0])
+                    result.append('br')
+                    return result
+    assert(False)
+    return ''
+
+def find_jump_dest(line):
+    if 'jmp' not in line:
+        assert(False)
+    if ';abs ' in line:
+        dest = line.split(';abs ')[1]
+        dest = dest.lstrip('0x')
+        return dest
+    assert(False)
+    return ''
+
 def get_chkpt_func_address(f):
     for line in f:
         if '<checkpoint>' in line:
@@ -37,7 +83,6 @@ def find_fixpoint(prev_insts):
     # 5: jnz
     # 6: cmp.b
     # 7: mov.b
-    # 8: jmp (may or may not exist)
     # it can have more insts than this (much more)
     # but these are the bare minimum that (I think) should be there
     prev_line = ''
@@ -45,17 +90,19 @@ def find_fixpoint(prev_insts):
         parsed = parse_line(line)
         #print(parsed[1])
         #print(len(parsed[1].strip()))
-        # if the is no state 8 at all
-        if state == 7 and '00 3c' not in parsed[1]:
-            parsed = parse_line(prev_line)
-            # TODO: check Endian
-            result.append(chr(int(parsed[0], 16) % 0x100))
-            result.append(chr(int(parsed[0], 16) / 0x100))
-            return result
-        #else
         if 'mov.b' in parsed[2]:
             if state == 6:
                 state = 7
+                # TODO: instead of reading jump or not reading if there isn't
+                # do extensive search
+                # we make seperate checkpoint for every edge to same bb, so 
+                # jmp_src is unique every time
+                jmp_src = find_jump_src(parsed[0])
+                result.append(chr(int(jmp_src[0], 16) % 0x100))
+                result.append(chr(int(jmp_src[0], 16) / 0x100))
+                result.append(jmp_src[1])
+                return result
+
         elif 'mov' in parsed[2]:
             if state == 0:
                 # read chkpt num from here
@@ -79,11 +126,6 @@ def find_fixpoint(prev_insts):
             assert('00 3c' in parsed[1])
             if state == 3:
                 state = 4
-            elif state == 7:
-                state = 8
-                result.append(chr(int(parsed[0], 16) % 0x100))
-                result.append(chr(int(parsed[0], 16) / 0x100))
-                return result
         elif 'jnz' in parsed[2]:
             if state == 4:
                 state = 5
@@ -91,9 +133,7 @@ def find_fixpoint(prev_insts):
             if state == 5:
                 state = 6
         prev_line = line
-    assert(state == 7)
-    result.append(chr(int(parsed[0], 16) % 0x100))
-    result.append(chr(int(parsed[0], 16) / 0x100))
+    assert(false)
     return result
 
 
@@ -121,17 +161,57 @@ for line in f:
                 #result.append(int(parsed[0], 16))
                 #TODO: This part can be optimized. Currently it is jumping to jmp.
                 # instead it can directly jump
-                offset = int(parsed[0], 16) - (ord(result[2]) + ord(result[3])*0x100)
-                assert(offset > 0)
-                # TODO: offset size check needed
-                new_char = (chr((offset - 2) / 2)) # NOTE: we never do minus
+                jmp_dest = find_jump_dest(line)
+                print('jumping from ' + hex(ord(result[3])) + hex(ord(result[2])) + ' to ' + jmp_dest)
+                offset = int(jmp_dest, 16) - (ord(result[2]) + ord(result[3])*0x100)
+                # offset size check. new_char should fit in 1 byte,
+                # which means (offset - 2) / 2 should be less than 2^9
+                # and greater or equal than -2^9
                 #TODO: Temp solution. Currently Phi-related checkpoint cannot be removed!!
                 if isPhi == True:
+                    del result[-1]
                     result.append(chr(0))
                     result.append(chr(0))
+                elif offset >= -2**10 + 2 and offset < 2**10 + 2:
+                    # Here, we can jmp
+                    # TODO: this is different from what I got from googling (it says offset is -1024 ~ 1022.
+                    # is that wrong or am I wrong
+                    opcode = int(result[-1])
+                    assert(opcode < 8)
+                    del result[-1]
+                    if offset > 0:
+                        jmp_val = (offset - 2) / 2;
+                        # check that it fits
+                        assert(jmp_val / 2**9 < 1);
+                        jmp_lsb = jmp_val % 0x100
+                        jmp_msb = jmp_val / 0x100
+                        
+                        assert(jmp_msb < 2)
+                        result.append(chr(jmp_lsb)) # offset
+                        # 32: 001 (fixed) + opcode*4 + msb
+                        result.append(chr(32 + opcode*4 + jmp_msb)) # jmp
+                    else:
+                        # get 2s complement
+                        jmp_val = (offset - 2) / 2
+                        twos_comp = (2**10 + jmp_val) % 2**10
+                        jmp_lsb = twos_comp % 0x100
+                        jmp_msb = twos_comp / 0x100
+                        
+                        assert(jmp_msb < 4)
+                        result.append(chr(jmp_lsb)) # offset
+                        result.append(chr(32 + opcode*4 + jmp_msb)) # jmp
                 else:
-                    result.append(new_char) # offset
-                    result.append(chr(0x3c)) # jmp
+                    # here we do branch.
+                    # first, we should change the "address part" of branch inst
+                    # I mean, if the inst part is not even branch, we are doomed
+                    assert('br' == result[4])
+                    del result[-1]
+                    # change the fix location
+                    result[2] = chr(ord(result[2]) + 2)
+                    assert(int(jmp_dest, 16) / 0x10000 < 1)
+                    result.append(chr(int(jmp_dest, 16) % 0x100))
+                    result.append(chr(int(jmp_dest, 16) / 0x100))
+                
                 final_result.append(result)
                 result = []
                 
@@ -142,7 +222,7 @@ for line in f:
         elif chkpt_address in parsed[1]:
             found_chkpt = 1
             result = find_fixpoint(prev_insts)
-            assert(len(result) == 4)
+            assert(len(result) == 5)
             prev_insts = []
         else:
             prev_insts.append(line)
