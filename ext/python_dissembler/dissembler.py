@@ -116,7 +116,7 @@ print(last)
 assert(last == len(final_result_sorted))
 
 f2 = open(sys.argv[1], 'r')
-out2 = open('./bld/alpaca/cem_mod.out', 'w')
+out2 = open('./bld/alpaca/mod.out', 'w')
 addr = 0;
 j = 0
 prev_char = ['','','','','']
