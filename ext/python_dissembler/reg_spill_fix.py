@@ -6,9 +6,104 @@ import fileinput
 def get_name(line):
     return line.split('type\t')[1].split(',')[0]
 
-def flush(prev_line):
-    for line in prev_line:
-        print line,
+def flush(prev_line, func_name, problematic_location):
+    global nv_sp
+    global saved_reg_num
+    global saved_reg_sp
+    push_counter = 0
+    pop_counter = 0
+    nv_v_map_loc = []
+    nv_v_map_sp = []
+    problematic_num = len(problematic_location)
+
+    if "_kw_" not in func_name and problematic_num == 0:
+        # dont need to deal with push / pop / lr saving
+        for line in prev_line:
+            print line,
+    else:
+        for line in prev_line:
+            if "\tpush.w\t" in line:
+                push_counter += 1
+            elif "\tpop.w\t" in line:
+                pop_counter += 1
+        assert(push_counter == 0 or pop_counter == 0 or push_counter == pop_counter)
+
+        for line in prev_line:
+            if push_counter > 0:
+                # if it is beginning bb of function
+                if line == prev_line[1]:
+                    # at the beginning, increase sp (this stack grows up)
+                    soft_stack.grow(problematic_num + push_counter + 1)
+                    # on first line, save lr
+                    saved_reg_num.append("ret")
+                    saved_reg_sp.append(nv_sp)
+                    print "\tpush.w\tr5"
+                    # 2 instead of 0 because r5, r6 is pushed
+                    print "\tmov.w\t2(r1), r5"
+                    soft_stack.write("r5", nv_sp)
+                    print "\tpop.w\tr5"
+                    nv_sp -= 1
+            else:
+                if line == prev_line[0] and problematic_num > 0:
+                    # at the beginning, increase sp (this stack grows up)
+                    soft_stack.grow(problematic_num)
+
+            if "\tpush.w\t" in line:
+                print line,
+                reg_name = line.split('\tpush.w\t')[1].strip()
+                if reg_name not in saved_reg_num:
+                    # allocate stack location to int
+                    saved_reg_num.append(reg_name)
+                    saved_reg_sp.append(nv_sp)
+                    soft_stack.write(reg_name, nv_sp)
+                    nv_sp -= 1
+                else:
+                    soft_stack.write(reg_name, saved_reg_sp[saved_reg_num.index(reg_name)])
+            elif "\tpop.w\t" in line:
+                print line,
+                reg_name = line.split('\tpop.w\t')[1].strip()
+                if reg_name not in saved_reg_num:
+                    assert(False)
+                else:
+                    soft_stack.read(reg_name, saved_reg_sp[saved_reg_num.index(reg_name)])
+            elif "2-byte Folded Spill" in line:
+                loc = get_spilled_location(line)
+                if loc in problematic_location:
+                    reg = line.split('mov.w\t')[1].split(',')[0]
+                    if loc not in nv_v_map_loc:
+                        nv_v_map_loc.append(loc)
+                        nv_v_map_sp.append(nv_sp)
+                        soft_stack.write(reg, nv_sp)
+                        nv_sp -= 1
+                    else:
+                        soft_stack.write(reg, nv_v_map_sp[nv_v_map_loc.index(loc)])
+                else:
+                    print line,
+            elif "2-byte Folded Reload" in line:
+                loc = get_reload_location(line)
+                if loc in problematic_location:
+                    reg = line.split(', ')[1].split('\t;')[0]
+                    if loc not in nv_v_map_loc:
+                        assert(False)
+                    else:
+                        soft_stack.read(reg, nv_v_map_sp[nv_v_map_loc.index(loc)])
+                else:
+                    print line,
+            else:
+                if pop_counter > 0:
+                    # this bb is end of function
+                    if line == prev_line[-2]:
+                        print "\tpush.w\tr5"
+                        soft_stack.read("r5", saved_reg_num.index("ret"))
+                        # 2 instead of 0 because r5 is pushed
+                        print "\tmov.w\tr5, 2(r1)"
+                        print "\tpop.w\tr5"
+                        soft_stack.shrink(pop_counter+1)
+                        nv_sp += pop_counter+1
+                else:
+                    if line == prev_line[-1] and problematic_num > 0:
+                        soft_stack.shrink(problematic_num)
+                print line,
 
 def get_spilled_location(line):
     location = line.split(', ')[1].split('(')[0]
@@ -20,11 +115,20 @@ def get_reload_location(line):
 
 def correct_flush(prev_line, problematic_location):
     global nv_sp
+    global saved_reg_num
+    global saved_reg_sp
     # for simple check
     nv_sp_bak = nv_sp
     problematic_num = len(problematic_location)
+    push_counter = 0
+    pop_counter = 0
+    for line in prev_line:
+        if "\tpush.w\t" in line:
+            push_counter += 1
+        elif "\tpop.w\t" in line:
+            pop_counter += 1
     # at the beginning, increase sp (this stack grows up)
-    soft_stack.grow(problematic_num)
+    soft_stack.grow(problematic_num + push_counter)
     nv_v_map_loc = []
     nv_v_map_sp = []
     for line in prev_line:
@@ -69,6 +173,8 @@ spilled_location = []
 problematic_location = []
 bb_start = False
 nv_sp = 0
+saved_reg_num = []
+saved_reg_sp = []
 
 for line in fileinput.input(sys.argv[1], inplace=1):
     if func_start == True:
@@ -82,18 +188,20 @@ for line in fileinput.input(sys.argv[1], inplace=1):
                     # it is calling other functions that has checkpoint inside
                     # this is interesting ones
                     bb_problematic = True
-                if "Lfunc_end" in line:
-                    # function hit end
-                    func_start = False
                 if "\t.LBB" in line or "Lfunc_end" in line:
                     # TODO: we are assuming problematic region ends with
                     # end of BB. Is it really true?
-                    if need_fix == True:
-                        correct_flush(prev_insts, problematic_location)
-                        prev_insts = []
-                    else:
-                        flush(prev_insts)
-                        prev_insts = []
+                    if need_fix == True and len(problematic_location) == 0:
+                        assert(False)
+                    if need_fix == False and len(problematic_location) > 0:
+                        assert(False)
+                    flush(prev_insts, func_name, problematic_location)
+                    prev_insts = []
+                if "Lfunc_end" in line:
+                    # function hit end
+                    func_start = False
+                    saved_reg_num = []
+                    saved_reg_sp = []
                 spilled_location = []
                 problematic_location = []
                 need_fix = False
