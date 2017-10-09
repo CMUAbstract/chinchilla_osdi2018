@@ -7,7 +7,7 @@ def get_name(line):
     return line.split('type\t')[1].split(',')[0]
 
 def flush(prev_line, func_name, problematic_location):
-    global nv_sp
+    nv_sp = 0
     global saved_reg_num
     global saved_reg_sp
     push_counter = 0
@@ -15,6 +15,7 @@ def flush(prev_line, func_name, problematic_location):
     nv_v_map_loc = []
     nv_v_map_sp = []
     problematic_num = len(problematic_location)
+    problematic_stack_allocated = False
 
     if "_kw_" not in func_name and problematic_num == 0:
         # dont need to deal with push / pop / lr saving
@@ -29,11 +30,15 @@ def flush(prev_line, func_name, problematic_location):
         assert(push_counter == 0 or pop_counter == 0 or push_counter == pop_counter)
 
         for line in prev_line:
+            # We know ret address saving and pushing, popping only occurs at the
+            # beginning and end of function. No SR needs to be concerned.
+            # in stack shrinking at the end of BB, SR need to be maintained
             if push_counter > 0:
                 # if it is beginning bb of function
                 if line == prev_line[1]:
                     # at the beginning, increase sp (this stack grows up)
-                    soft_stack.grow(problematic_num + push_counter + 1)
+                    soft_stack.grow(push_counter + 1)
+                    nv_sp = 0
                     # on first line, save lr
                     saved_reg_num.append("ret")
                     saved_reg_sp.append(nv_sp)
@@ -43,10 +48,6 @@ def flush(prev_line, func_name, problematic_location):
                     soft_stack.write("r5", nv_sp)
                     print "\tpop.w\tr5"
                     nv_sp -= 1
-            else:
-                if line == prev_line[0] and problematic_num > 0:
-                    # at the beginning, increase sp (this stack grows up)
-                    soft_stack.grow(problematic_num)
 
             if "\tpush.w\t" in line:
                 print line,
@@ -67,6 +68,12 @@ def flush(prev_line, func_name, problematic_location):
                 else:
                     soft_stack.read(reg_name, saved_reg_sp[saved_reg_num.index(reg_name)])
             elif "2-byte Folded Spill" in line:
+                if problematic_stack_allocated == False and problematic_num > 0:
+                    # at the beginning, increase sp (this stack grows up)
+                    soft_stack.grow(problematic_num)
+                    nv_sp = 0
+                    problematic_stack_allocated = True
+
                 loc = get_spilled_location(line)
                 if loc in problematic_location:
                     reg = line.split('mov.w\t')[1].split(',')[0]
@@ -98,11 +105,15 @@ def flush(prev_line, func_name, problematic_location):
                         # 2 instead of 0 because r5 is pushed
                         print "\tmov.w\tr5, 2(r1)"
                         print "\tpop.w\tr5"
-                        soft_stack.shrink(pop_counter+1)
-                        nv_sp += pop_counter+1
+                        soft_stack.shrink(pop_counter + problematic_num +1)
                 else:
                     if line == prev_line[-1] and problematic_num > 0:
+                        # this is branching. if it is conditional branch,
+                        # we nned to save SR (Or better, we can shrink the stack
+                        # before cmp (TODO opt)
+                        print "\tpush.w\tr2"
                         soft_stack.shrink(problematic_num)
+                        print "\tpop.w\tr2"
                 print line,
 
 def get_spilled_location(line):
@@ -113,57 +124,6 @@ def get_reload_location(line):
     location = line.split('mov.w\t')[1].split('(')[0]
     return int(location)
 
-def correct_flush(prev_line, problematic_location):
-    global nv_sp
-    global saved_reg_num
-    global saved_reg_sp
-    # for simple check
-    nv_sp_bak = nv_sp
-    problematic_num = len(problematic_location)
-    push_counter = 0
-    pop_counter = 0
-    for line in prev_line:
-        if "\tpush.w\t" in line:
-            push_counter += 1
-        elif "\tpop.w\t" in line:
-            pop_counter += 1
-    # at the beginning, increase sp (this stack grows up)
-    soft_stack.grow(problematic_num + push_counter)
-    nv_v_map_loc = []
-    nv_v_map_sp = []
-    for line in prev_line:
-        if "2-byte Folded Spill" in line:
-            loc = get_spilled_location(line)
-            if loc in problematic_location:
-                reg = line.split('mov.w\t')[1].split(',')[0]
-                if loc not in nv_v_map_loc:
-                    nv_v_map_loc.append(loc)
-                    nv_v_map_sp.append(nv_sp)
-                    soft_stack.write(reg, nv_sp)
-                    nv_sp -= 1
-                else:
-                    soft_stack.write(reg, nv_v_map_sp[nv_v_map_loc.index(loc)])
-            else:
-                print line,
-        elif "2-byte Folded Reload" in line:
-            loc = get_reload_location(line)
-            if loc in problematic_location:
-                reg = line.split(', ')[1].split('\t;')[0]
-                if loc not in nv_v_map_loc:
-                    assert(False)
-                else:
-                    soft_stack.read(reg, nv_v_map_sp[nv_v_map_loc.index(loc)])
-            else:
-                print line,
-
-        else:
-            if line == prev_line[-1]:
-                soft_stack.shrink(problematic_num)
-            print line,
-    # at the end, subtract sp (this stack grows up)
-    nv_sp += problematic_num
-    assert(nv_sp == nv_sp_bak)
-
 func_start = False
 bb_problematic = False
 need_fix = False
@@ -172,7 +132,6 @@ prev_insts = []
 spilled_location = []
 problematic_location = []
 bb_start = False
-nv_sp = 0
 saved_reg_num = []
 saved_reg_sp = []
 
@@ -212,7 +171,7 @@ for line in fileinput.input(sys.argv[1], inplace=1):
                 if "2-byte Folded Reload" in line:
                     #detected reload
                     location = get_reload_location(line)
-                    if location not in spilled_location:
+                    if location not in spilled_location and location not in problematic_location:
                         problematic_location.append(location)
                         need_fix = True
         else:
