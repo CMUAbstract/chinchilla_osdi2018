@@ -156,14 +156,15 @@ for line in fileinput.input(sys.argv[1], inplace=1):
                         assert(False)
                     flush(prev_insts, func_name, problematic_location)
                     prev_insts = []
+
+                    problematic_location = []
+                    need_fix = False
                 if "Lfunc_end" in line:
                     # function hit end
                     func_start = False
                     saved_reg_num = []
                     saved_reg_sp = []
                 spilled_location = []
-                problematic_location = []
-                need_fix = False
             elif bb_problematic == True:
                 if "2-byte Folded Spill" in line:
                     # detected spill
@@ -176,7 +177,8 @@ for line in fileinput.input(sys.argv[1], inplace=1):
                         need_fix = True
         else:
             print line,
-            if ":" in line:
+            #if ":" in line:
+            if line.startswith(".LBB"):
                 bb_start = True
     else:
         print line,
