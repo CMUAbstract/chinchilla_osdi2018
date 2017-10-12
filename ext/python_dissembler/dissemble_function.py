@@ -95,6 +95,7 @@ def find_fixpoint(prev_insts):
     prev_line = ''
     for line in reversed(prev_insts):
         parsed = parse_line(line)
+        print(line)
         #print(parsed[1])
         #print(len(parsed[1].strip()))
         if 'mov.b' in parsed[2]:

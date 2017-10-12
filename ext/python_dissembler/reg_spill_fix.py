@@ -80,10 +80,10 @@ def flush(prev_line, func_name, problematic_location):
                     if loc not in nv_v_map_loc:
                         nv_v_map_loc.append(loc)
                         nv_v_map_sp.append(nv_sp)
-                        soft_stack.write(reg, nv_sp)
+                        soft_stack.write_spill(reg, nv_sp)
                         nv_sp -= 1
                     else:
-                        soft_stack.write(reg, nv_v_map_sp[nv_v_map_loc.index(loc)])
+                        soft_stack.write_spill(reg, nv_v_map_sp[nv_v_map_loc.index(loc)])
                 else:
                     print line,
             elif "2-byte Folded Reload" in line:
