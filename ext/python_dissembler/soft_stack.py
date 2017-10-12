@@ -20,6 +20,23 @@ def grow(num):
 
 def write(reg, nv_sp):
     reg_tmp = ""
+    if "r5" in reg:
+        # if we are spilling r5,
+        # use r6
+        reg_tmp = "r6"
+    else:
+        reg_tmp = "r5"
+    print "\tpush.w\t" + reg_tmp
+    # store special_sp to reg_tmp
+    print "\tmov.w\t&special_sp, " + reg_tmp
+    # store it into appropriate stack 
+    print "\tmov.w\t" + reg + ", " + str(nv_sp*2) +"(" + reg_tmp + ")"
+    # TODO: update stack tracker!!!!
+    # pop back reg_tmp
+    print "\tpop.w\t" + reg_tmp
+
+def write_spill(reg, nv_sp):
+    reg_tmp = ""
     reg_tmp2 = ""
     if "r5" in reg:
         # if we are spilling r5,
@@ -34,7 +51,8 @@ def write(reg, nv_sp):
         reg_tmp = "r5"
         reg_tmp2 = "r6"
     print "\tpush.w\t" + reg_tmp
-    print "\tpush.w\t" + reg_tmp2
+    if nv_sp < 0:
+        print "\tpush.w\t" + reg_tmp2
     # store special_sp to reg_tmp
     print "\tmov.w\t&special_sp, " + reg_tmp
     # store it into appropriate stack 
@@ -42,14 +60,14 @@ def write(reg, nv_sp):
     # TODO: update stack tracker!!!!
     assert(nv_sp <= 0)
     if nv_sp < 0:
-        print "\tmov.w\t&special_sp, " + reg_tmp
-        print "\tadd.w\t#" +str(nv_sp*2) + ", " + reg_tmp
+        print "\tadd.w\t#" +str((nv_sp-1)*2) + ", " + reg_tmp
         print "\tmov.w\t&stack_tracer, " + reg_tmp2
         print "\tcmp.w\t" + reg_tmp2 + ", " + reg_tmp
         print "\tjhs\t+4"
         print "\tmov.w\t" + reg_tmp + ", &stack_tracer"
     # pop back reg_tmp
-    print "\tpop.w\t" + reg_tmp2
+    if nv_sp < 0:
+        print "\tpop.w\t" + reg_tmp2
     print "\tpop.w\t" + reg_tmp
 
 def read(reg, nv_sp):
