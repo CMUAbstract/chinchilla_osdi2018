@@ -26,7 +26,7 @@ def write(reg, nv_sp):
         # use r6
         reg_tmp = "r6"
         reg_tmp2 = "r7"
-    elif "r6" on reg:
+    elif "r6" in reg:
         # otherwise r5
         reg_tmp = "r5"
         reg_tmp2 = "r7"
@@ -40,7 +40,7 @@ def write(reg, nv_sp):
     # store it into appropriate stack 
     print "\tmov.w\t" + reg + ", " + str(nv_sp*2) +"(" + reg_tmp + ")"
     # TODO: update stack tracker!!!!
-    assert(nv_sp > 0)
+    assert(nv_sp <= 0)
     if nv_sp < 0:
         print "\tmov.w\t&special_sp, " + reg_tmp
         print "\tadd.w\t#" +str(nv_sp*2) + ", " + reg_tmp
