@@ -188,4 +188,5 @@ for line in fileinput.input(sys.argv[1], inplace=1):
         # insert at the beginning
         func_name = get_name(line)
         func_start = True
+        bb_start = True
 
