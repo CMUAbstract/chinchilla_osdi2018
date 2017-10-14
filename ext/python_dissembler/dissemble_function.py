@@ -88,19 +88,23 @@ def find_fixpoint(prev_insts):
     # 3: mov (for saving last exectued chkpt)
     # 4: jmp +2
     # 5: jnz
-    # 6: cmp.b
+    # 6: bit.b
     # 7: mov.b
+    # 8: mov.b
     # it can have more insts than this (much more)
     # but these are the bare minimum that (I think) should be there
     prev_line = ''
     for line in reversed(prev_insts):
         parsed = parse_line(line)
         print(line)
+        print(state)
         #print(parsed[1])
         #print(len(parsed[1].strip()))
         if 'mov.b' in parsed[2]:
             if state == 6:
                 state = 7
+            elif state == 7:
+                state = 8
                 # TODO: instead of reading jump or not reading if there isn't
                 # do extensive search
                 # we make seperate checkpoint for every edge to same bb, so 
@@ -137,7 +141,7 @@ def find_fixpoint(prev_insts):
         elif 'jnz' in parsed[2]:
             if state == 4:
                 state = 5
-        elif 'cmp.b' in parsed[2]:
+        elif 'bit.b' in parsed[2]:
             if state == 5:
                 state = 6
         prev_line = line

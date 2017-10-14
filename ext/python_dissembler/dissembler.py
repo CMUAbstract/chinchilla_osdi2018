@@ -11,12 +11,16 @@ result = [] # source, dest, index
 isPhi = False
 chkpt_address = dissemble_function.get_chkpt_func_address(f)
 print(chkpt_address)
+func_name = ''
 
 # re-open f
 f = open('./ext/python_dissembler/source.src', 'r')
 for line in f:
     # parse address
     parsed = dissemble_function.parse_line(line)
+    if "<" in line:
+        func_name = line.split("<")[1].split(">")[0]
+
     if len(parsed) == 3:
         # save prev insts
         if found_chkpt == 1:
@@ -87,10 +91,12 @@ for line in f:
                 # this seems like a Phi node
                 isPhi = True;
         elif chkpt_address in parsed[1]:
-            found_chkpt = 1
-            result = dissemble_function.find_fixpoint(prev_insts)
-            assert(len(result) == 5)
-            prev_insts = []
+            if "end_run" not in func_name: 
+                print("found checkpoint " + line)
+                found_chkpt = 1
+                result = dissemble_function.find_fixpoint(prev_insts)
+                assert(len(result) == 5)
+                prev_insts = []
         else:
             prev_insts.append(line)
 #sort
