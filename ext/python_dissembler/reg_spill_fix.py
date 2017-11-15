@@ -139,15 +139,15 @@ for line in fileinput.input(sys.argv[1], inplace=1):
     if func_start == True:
         if bb_start == True:
             prev_insts.append(line)
-            if "\t.LBB" in line or "call\t#_kw_" in line or "Lfunc_end" in line:
+            if "\t#.LBB" in line or "\t.LBB" in line or "call\t#_kw_" in line or "Lfunc_end" in line:
                 bb_problematic = False
-                if "\t.LBB" in line:
+                if "\t#.LBB" in line or "\t.LBB" in line:
                     bb_start = False
                 if "call\t#_kw_" in line:
                     # it is calling other functions that has checkpoint inside
                     # this is interesting ones
                     bb_problematic = True
-                if "\t.LBB" in line or "Lfunc_end" in line:
+                if "\t#.LBB" in line or "\t.LBB" in line or "Lfunc_end" in line:
                     # TODO: we are assuming problematic region ends with
                     # end of BB. Is it really true?
                     if need_fix == True and len(problematic_location) == 0:
