@@ -297,7 +297,7 @@ void init()
 	INIT_CONSOLE();
 
 	__enable_interrupt();
-	//PRINTF(".%u.\r\n", curctx->cur_reg[15]);
+	PRINTF(".%u.\r\n", curctx->cur_reg[15]);
 }
 #if 0
 void write_stack(){
@@ -392,10 +392,10 @@ int main()
 
 		//PRINTF("REAL TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
 		PRINTF("end\r\n");
-		update_checkpoints_pair();
+		end_run();
 		PRINTF("chkpt cnt: %u\r\n", chkpt_count);
 		PRINTF(".%u.\r\n", curctx->cur_reg[15]);
-		print_filter(filter);
+		//print_filter(filter);
 		print_stats(inserts, members, NUM_KEYS);
 		//print_stack();
 		//		count++;
