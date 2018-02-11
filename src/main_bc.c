@@ -28,6 +28,8 @@
 #define SEED 4L
 #define ITER 100
 #define CHAR_BIT 8
+void no_chkpt_start(){};
+void no_chkpt_end(){};
 static const char bits[256] =
 {
 	0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4,  /* 0   - 15  */
@@ -303,13 +305,26 @@ int main()
 		}
 		//PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
 
-		PRINTF("%u\r\n", n_0);
-		PRINTF("%u\r\n", n_1);
-		PRINTF("%u\r\n", n_2);
-		PRINTF("%u\r\n", n_3);
-		PRINTF("%u\r\n", n_4);
-		PRINTF("%u\r\n", n_5);
-		PRINTF("%u\r\n", n_6);
+		PRINTF("a%u.\r\n", curctx->cur_reg[15]);
+		end_run();
+		no_chkpt_start();
+		BLOCK_PRINTF_BEGIN();
+//		unsigned chkpt_i;
+//		for (chkpt_i = 0; chkpt_i < CHKPT_NUM; chkpt_i++){
+//			if (chkpt_status[chkpt_i] == 0) {
+//				BLOCK_PRINTF("active chkpt: %u\r\n", chkpt_i);
+//			}
+//		}
+		BLOCK_PRINTF("chkpt cnt: %u\r\n", chkpt_count);
+		BLOCK_PRINTF("%u\r\n", n_0);
+		BLOCK_PRINTF("%u\r\n", n_1);
+		BLOCK_PRINTF("%u\r\n", n_2);
+		BLOCK_PRINTF("%u\r\n", n_3);
+		BLOCK_PRINTF("%u\r\n", n_4);
+		BLOCK_PRINTF("%u\r\n", n_5);
+		BLOCK_PRINTF("%u\r\n", n_6);
+		BLOCK_PRINTF_END();
+		no_chkpt_end();
 	}
 	return 0;
 }

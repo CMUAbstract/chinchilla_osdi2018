@@ -20,13 +20,13 @@ include $(LIB_ROOT)/libmspbuiltins/bld/Makefile.target
 #include $(LIB_ROOT)/libmspconsole/bld/Makefile.target
 #include $(LIB_ROOT)/libmspprintf/bld/Makefile.target
 
-ifeq ($(BOARD), mspts430)
-CONFIG_PRINTF_LIB = libmspconsole
-endif
-ifeq ($(BOARD), wisp)
+#ifeq ($(BOARD), mspts430)
+#CONFIG_PRINTF_LIB = libmspconsole
+#endif
+#ifeq ($(BOARD), wisp)
 CONFIG_PRINTF_LIB = libedb
 CONFIG_EDB = 1
-endif
+#endif
 include ../Makefile.config
 include $(LIB_ROOT)/maker/Makefile.console
 
