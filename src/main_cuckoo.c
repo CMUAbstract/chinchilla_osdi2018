@@ -140,8 +140,6 @@ void print_stats(unsigned inserts, unsigned members, unsigned total)
 	}
 }
 
-static __nv unsigned curtask;
-
 //__attribute__((always_inline))
 static hash_t djb_hash(uint8_t* data, unsigned len)
 {
@@ -281,14 +279,12 @@ void(*__vector_timer0_b1)(void) = TimerB1_ISR;
 
 void init()
 {
-#ifdef BOARD_MSP_TS430
 	TBCTL &= 0xE6FF; //set 12,11 bit to zero (16bit) also 8 to zero (SMCLK)
 	TBCTL |= 0x0200; //set 9 to one (SMCLK)
 	TBCTL |= 0x00C0; //set 7-6 bit to 11 (divider = 8);
 	TBCTL &= 0xFFEF; //set bit 4 to zero
 	TBCTL |= 0x0020; //set bit 5 to one (5-4=10: continuous mode)
 	TBCTL |= 0x0002; //interrupt enable
-#endif
 	init_hw();
 #ifdef CONFIG_EDB
 	edb_init();
@@ -357,7 +353,8 @@ int main()
 	//	unsigned count = 0;
 	while (1) {
 		__loop_bound__(999);
-		PRINTF("start\r\n");
+		//PRINTF("start\r\n");
+		PRINTF("REAL TIME start is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
 		for (i = 0; i < NUM_BUCKETS; ++i)
 			filter[i] = 0;
 
@@ -390,7 +387,7 @@ int main()
 		}
 		LOG("members/total: %u/%u\r\n", members, NUM_KEYS);
 
-		//PRINTF("REAL TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+		PRINTF("REAL TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
 		PRINTF("end\r\n");
 		end_run();
 		PRINTF("chkpt cnt: %u\r\n", chkpt_count);

@@ -103,8 +103,6 @@ static const char bits[256] =
 #endif // !DINO
 
 void __loop_bound__(unsigned i);
-static __nv unsigned curtask;
-
 unsigned overflow=0;
 __attribute__((interrupt(51))) 
 	void TimerB1_ISR(void){
@@ -127,14 +125,12 @@ static void init_hw()
 
 void init()
 {
-#ifdef BOARD_MSP_TS430
-	//	TBCTL &= 0xE6FF; //set 12,11 bit to zero (16bit) also 8 to zero (SMCLK)
-	//	TBCTL |= 0x0200; //set 9 to one (SMCLK)
-	//	TBCTL |= 0x00C0; //set 7-6 bit to 11 (divider = 8);
-	//	TBCTL &= 0xFFEF; //set bit 4 to zero
-	//	TBCTL |= 0x0020; //set bit 5 to one (5-4=10: continuous mode)
-	//	TBCTL |= 0x0002; //interrupt enable
-#endif
+		TBCTL &= 0xE6FF; //set 12,11 bit to zero (16bit) also 8 to zero (SMCLK)
+		TBCTL |= 0x0200; //set 9 to one (SMCLK)
+		TBCTL |= 0x00C0; //set 7-6 bit to 11 (divider = 8);
+		TBCTL &= 0xFFEF; //set bit 4 to zero
+		TBCTL |= 0x0020; //set bit 5 to one (5-4=10: continuous mode)
+		TBCTL |= 0x0002; //interrupt enable
 	init_hw();
 #ifdef CONFIG_EDB
 	edb_init();
@@ -262,7 +258,7 @@ int main()
 		n_4=0;
 		n_5=0;
 		n_6=0;
-		PRINTF("START\r\n");
+		//PRINTF("START\r\n");
 
 		for (func = 0; func < 7; func++) {
 			LOG("func: %u\r\n", func);
@@ -303,28 +299,21 @@ int main()
 				}
 			}
 		}
-		//PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
 
-		PRINTF("a%u.\r\n", curctx->cur_reg[15]);
+		PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
 		end_run();
-		no_chkpt_start();
-		BLOCK_PRINTF_BEGIN();
-//		unsigned chkpt_i;
-//		for (chkpt_i = 0; chkpt_i < CHKPT_NUM; chkpt_i++){
-//			if (chkpt_status[chkpt_i] == 0) {
-//				BLOCK_PRINTF("active chkpt: %u\r\n", chkpt_i);
-//			}
-//		}
-		BLOCK_PRINTF("chkpt cnt: %u\r\n", chkpt_count);
-		BLOCK_PRINTF("%u\r\n", n_0);
-		BLOCK_PRINTF("%u\r\n", n_1);
-		BLOCK_PRINTF("%u\r\n", n_2);
-		BLOCK_PRINTF("%u\r\n", n_3);
-		BLOCK_PRINTF("%u\r\n", n_4);
-		BLOCK_PRINTF("%u\r\n", n_5);
-		BLOCK_PRINTF("%u\r\n", n_6);
-		BLOCK_PRINTF_END();
-		no_chkpt_end();
+//		no_chkpt_start();
+//		BLOCK_PRINTF_BEGIN();
+//		BLOCK_PRINTF("chkpt cnt: %u\r\n", chkpt_count);
+//		BLOCK_PRINTF("%u\r\n", n_0);
+//		BLOCK_PRINTF("%u\r\n", n_1);
+//		BLOCK_PRINTF("%u\r\n", n_2);
+//		BLOCK_PRINTF("%u\r\n", n_3);
+//		BLOCK_PRINTF("%u\r\n", n_4);
+//		BLOCK_PRINTF("%u\r\n", n_5);
+//		BLOCK_PRINTF("%u\r\n", n_6);
+//		BLOCK_PRINTF_END();
+//		no_chkpt_end();
 	}
 	return 0;
 }

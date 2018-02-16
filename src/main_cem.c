@@ -68,12 +68,11 @@ typedef struct _log_t {
 	unsigned count;
 	unsigned sample_count;
 } log_t;
-static __nv unsigned curtask;
 //__attribute__((always_inline))
 void print_log(log_t *log)
 {
 	unsigned i;
-	//PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+	PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
 	BLOCK_PRINTF_BEGIN();
 	BLOCK_PRINTF("rate: samples/block: %u/%u\r\n",
 			log->sample_count, log->count);
@@ -121,8 +120,6 @@ void init_dict(dict_t *dict)
 	dict->node_count = 0;
 
 	for (l = 0; l < NUM_LETTERS; ++l) {
-		curtask = l; // HACK for progress display
-
 		node_t *node = &dict->nodes[l];
 		node->letter = l;
 		node->sibling = 0;
@@ -217,14 +214,12 @@ void append_compressed(index_t parent, log_t *log)
 
 void init()
 {
-#ifdef BOARD_MSP_TS430
 		TBCTL &= 0xE6FF; //set 12,11 bit to zero (16bit) also 8 to zero (SMCLK)
 		TBCTL |= 0x0200; //set 9 to one (SMCLK)
 		TBCTL |= 0x00C0; //set 7-6 bit to 11 (divider = 8);
 		TBCTL &= 0xFFEF; //set bit 4 to zero
 		TBCTL |= 0x0020; //set bit 5 to one (5-4=10: continuous mode)
 		TBCTL |= 0x0002; //interrupt enable
-#endif
 #if OVERHEAD == 1
 	//	TBCTL &= ~(0x0020);
 #endif
@@ -272,9 +267,9 @@ int main()
 	// test
 	while (1) {
 		__loop_bound__(999);
-		PRINTF("start: \r\n");
+//		PRINTF("start: \r\n");
 //		PRINTF("start2: \r\n");
-//		PRINTF("TIME start is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+		PRINTF("TIME start is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
 		init_dict(&dict);
 		// Initialize the pointer into the dictionary to one of the root nodes
 		// Assume all streams start with a fixed prefix ('0'), to avoid having

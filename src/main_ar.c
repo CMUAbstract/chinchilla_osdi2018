@@ -27,58 +27,10 @@
 #include "pins.h"
 
 void __loop_bound__(unsigned val){};
-static __nv unsigned curtask;
 unsigned count = 0;
 unsigned seed = 1;
 
 /* This is for progress reporting only */
-#define SET_CURTASK(t) curtask = t
-
-#define TASK_MAIN                   1
-#define TASK_SELECT_MODE            2
-#define TASK_WARMUP                 3
-#define TASK_TRAIN                  4
-#define TASK_SAMPLE                 5
-#define TASK_FEATURIZE              6
-#define TASK_CLASSIFY               7
-#define TASK_RECORD_STATS           8
-#define TASK_COUNT		9
-
-#ifdef DINO
-
-#define TASK_BOUNDARY(t) \
-        DINO_TASK_BOUNDARY(NULL); \
-        SET_CURTASK(t); \
-
-#define DINO_MANUAL_RESTORE_NONE() \
-        DINO_MANUAL_REVERT_BEGIN() \
-        DINO_MANUAL_REVERT_END() \
-
-#define DINO_MANUAL_RESTORE_PTR(nm, type) \
-        DINO_MANUAL_REVERT_BEGIN() \
-        DINO_MANUAL_REVERT_PTR(type, nm); \
-        DINO_MANUAL_REVERT_END() \
-
-#define DINO_MANUAL_RESTORE_VAL(nm, label) \
-        DINO_MANUAL_REVERT_BEGIN() \
-        DINO_MANUAL_REVERT_VAL(nm, label); \
-        DINO_MANUAL_REVERT_END() \
-
-#else // !DINO
-
-#define TASK_BOUNDARY(t) SET_CURTASK(t)
-
-#define DINO_RESTORE_CHECK()
-#define DINO_MANUAL_VERSION_PTR(...)
-#define DINO_MANUAL_VERSION_VAL(...)
-#define DINO_MANUAL_RESTORE_NONE()
-#define DINO_MANUAL_RESTORE_PTR(...)
-#define DINO_MANUAL_RESTORE_VAL(...)
-#define DINO_MANUAL_REVERT_BEGIN(...)
-#define DINO_MANUAL_REVERT_END(...)
-#define DINO_MANUAL_REVERT_VAL(...)
-
-#endif // !DINO
 
 // Number of samples to discard before recording training set
 #define NUM_WARMUP_SAMPLES 3
@@ -88,29 +40,7 @@ unsigned seed = 1;
 #define SAMPLE_NOISE_FLOOR 10 // TODO: made up value
 
 // Number of classifications to complete in one experiment
-#define SAMPLES_TO_COLLECT 128
-
-#define SEC_TO_CYCLES 4000000 /* 4 MHz */
-
-#define IDLE_WAIT SEC_TO_CYCLES
-
-#define IDLE_BLINKS 1
-#define IDLE_BLINK_DURATION SEC_TO_CYCLES
-#define SELECT_MODE_BLINKS  4
-#define SELECT_MODE_BLINK_DURATION  (SEC_TO_CYCLES / 5)
-#define SAMPLE_BLINKS  1
-#define SAMPLE_BLINK_DURATION  (SEC_TO_CYCLES * 2)
-#define FEATURIZE_BLINKS  2
-#define FEATURIZE_BLINK_DURATION  (SEC_TO_CYCLES * 2)
-#define CLASSIFY_BLINKS 1
-#define CLASSIFY_BLINK_DURATION (SEC_TO_CYCLES * 4)
-#define WARMUP_BLINKS 2
-#define WARMUP_BLINK_DURATION (SEC_TO_CYCLES / 2)
-#define TRAIN_BLINKS 1
-#define TRAIN_BLINK_DURATION (SEC_TO_CYCLES * 4)
-
-#define LED1 (1 << 0)
-#define LED2 (1 << 1)
+#define SAMPLES_TO_COLLECT 8
 
 #ifdef ACCEL_16BIT_TYPE
 typedef threeAxis_t accelReading;
@@ -335,10 +265,6 @@ class_t classify(features_t *features, model_t *model)
 //__attribute__((always_inline))
 void record_stats(stats_t *stats, class_t class)
 {
-	DINO_MANUAL_VERSION_VAL(stats_t, *stats, stats);
-	TASK_BOUNDARY(TASK_RECORD_STATS);
-	DINO_MANUAL_RESTORE_VAL(*stats, stats);
-
 	/* stats->totalCount, stats->movingCount, and stats->stationaryCount have an
 	 * nv-internal consistency requirement.  This code should be atomic. */
 
@@ -389,9 +315,6 @@ void warmup_sensor()
 	unsigned discardedSamplesCount = 0;
 	accelReading sample;
 
-	DINO_MANUAL_VERSION_VAL(unsigned, seed, seed);
-	TASK_BOUNDARY(TASK_WARMUP);
-	DINO_MANUAL_RESTORE_VAL(seed, seed);
 	LOG("warmup\r\n");
 
 	while (__loop_bound__(3), discardedSamplesCount++ < NUM_WARMUP_SAMPLES) {
@@ -459,13 +382,11 @@ run_mode_t select_mode(uint8_t *prev_pin_state)
 
 	count++;
 	LOG("count: %u\r\n", count);
-	if(count >= 3) pin_state = 2;
-	//	    PRINTF("3-5\r\n");
-	if(count >= 5) pin_state = 0;
-	//	    PRINTF("5-7\r\n");
-	if(count >= 7) {   
-		//PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
-		update_checkpoints_pair();
+	if(count >= 2) pin_state = 2;
+	if(count >= 3) pin_state = 0;
+	if(count >= 4) {   
+		PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+		end_run();
 		PRINTF("chkpt cnt: %u\r\n", chkpt_count);
 		PRINTF("a%u.\r\n", curctx->cur_reg[15]);
 		PRINTF("done\r\n");
@@ -500,14 +421,12 @@ static void init_accel()
 
 void init()
 {
-#ifdef BOARD_MSP_TS430
 	TBCTL &= 0xE6FF; //set 12,11 bit to zero (16bit) also 8 to zero (SMCLK)
 	TBCTL |= 0x0200; //set 9 to one (SMCLK)
 	TBCTL |= 0x00C0; //set 7-6 bit to 11 (divider = 8);
 	TBCTL &= 0xFFEF; //set bit 4 to zero
 	TBCTL |= 0x0020; //set bit 5 to one (5-4=10: continuous mode)
 	TBCTL |= 0x0002; //interrupt enable
-#endif
 	init_hw();
 #ifdef CONFIG_EDB
 	edb_init();
@@ -531,7 +450,8 @@ int main()
 
 	while (1) {
 		__loop_bound__(8);
-		PRINTF("start\r\n");
+		//PRINTF("start\r\n");
+		PRINTF("TIME start is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
 		run_mode_t mode = select_mode(&prev_pin_state);
 		switch (mode) {
 			case MODE_TRAIN_STATIONARY:

@@ -612,14 +612,12 @@ static void init_hw()
 
 void init()
 {
-#ifdef BOARD_MSP_TS430
 	TBCTL &= 0xE6FF; //set 12,11 bit to zero (16bit) also 8 to zero (SMCLK)
 	TBCTL |= 0x0200; //set 9 to one (SMCLK)
 	TBCTL |= 0x00C0; //set 7-6 bit to 11 (divider = 8);
 	TBCTL &= 0xFFEF; //set bit 4 to zero
 	TBCTL |= 0x0020; //set bit 5 to one (5-4=10: continuous mode)
 	TBCTL |= 0x0002; //interrupt enable
-#endif
 	init_hw();
 #ifdef CONFIG_EDB
 	edb_init();
@@ -640,9 +638,11 @@ int main()
 
 	while (1) {
 		__loop_bound__(999);
-		PRINTF("start\r\n");
+		//PRINTF("start\r\n");
+		PRINTF("TIME start is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
 		encrypt(CYPHERTEXT, &CYPHERTEXT_LEN, PLAINTEXT, message_length, &pubkey);
 
+		PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
 		PRINTF("a%u.\r\n", curctx->cur_reg[15]);
 		end_run();
 		PRINTF("chkpt cnt: %u\r\n", chkpt_count);

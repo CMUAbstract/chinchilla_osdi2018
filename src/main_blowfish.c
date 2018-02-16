@@ -41,56 +41,7 @@ void TimerB1_ISR(void){
 }
 __attribute__((section("__interrupt_vector_timer0_b1"),aligned(2)))
 void(*__vector_timer0_b1)(void) = TimerB1_ISR;
-static __nv unsigned curtask;
-
 /* This is for progress reporting only */
-#define SET_CURTASK(t) curtask = t
-
-#define TASK_INIT                   1
-#define TASK_SET_UKEY               2
-#define TASK_INIT_KEY               3
-#define TASK_INIT_S                 4
-#define TASK_SET_KEY                5
-#define TASK_ENCRYPT                6
-#define TASK_ENCRYPT_END            7
-#define TASK_START_ENCRYPT          8
-#define TASK_START_ENCRYPT2     9
-
-#ifdef DINO
-
-#define TASK_BOUNDARY(t) \
-        DINO_TASK_BOUNDARY(NULL); \
-        SET_CURTASK(t); \
-
-#define DINO_MANUAL_RESTORE_NONE() \
-        DINO_MANUAL_REVERT_BEGIN() \
-        DINO_MANUAL_REVERT_END() \
-
-#define DINO_MANUAL_RESTORE_PTR(nm, type) \
-        DINO_MANUAL_REVERT_BEGIN() \
-        DINO_MANUAL_REVERT_PTR(type, nm); \
-        DINO_MANUAL_REVERT_END() \
-
-#define DINO_MANUAL_RESTORE_VAL(nm, label) \
-        DINO_MANUAL_REVERT_BEGIN() \
-        DINO_MANUAL_REVERT_VAL(nm, label); \
-        DINO_MANUAL_REVERT_END() \
-
-#else // !DINO
-
-#define TASK_BOUNDARY(t) SET_CURTASK(t)
-
-#define DINO_RESTORE_CHECK()
-#define DINO_MANUAL_VERSION_PTR(...)
-#define DINO_MANUAL_VERSION_VAL(...)
-#define DINO_MANUAL_RESTORE_NONE()
-#define DINO_MANUAL_RESTORE_PTR(...)
-#define DINO_MANUAL_RESTORE_VAL(...)
-#define DINO_MANUAL_REVERT_BEGIN(...)
-#define DINO_MANUAL_REVERT_END(...)
-#define DINO_MANUAL_REVERT_VAL(...)
-
-#endif // !DINO
 
 static void init_hw()
 {
@@ -389,7 +340,6 @@ static const uint32_t init_s3[256] = {
 	0xb74e6132L, 0xce77e25bL, 0x578fdfe3L, 0x3ac372e6L, 
 };
 #if VERBOSE > 0
-__attribute__((always_inline))
 void print_long(uint32_t l) {
 	LOG("%04x", (unsigned)((l>>16) & 0xffff));
 	LOG("%04x\r\n",l & 0xffff);
@@ -397,12 +347,12 @@ void print_long(uint32_t l) {
 #endif
 void init()
 {
-//	TBCTL &= 0xE6FF; //set 12,11 bit to zero (16bit) also 8 to zero (SMCLK)
-//	TBCTL |= 0x0200; //set 9 to one (SMCLK)
-//	TBCTL |= 0x00C0; //set 7-6 bit to 11 (divider = 8);
-//	TBCTL &= 0xFFEF; //set bit 4 to zero
-//	TBCTL |= 0x0020; //set bit 5 to one (5-4=10: continuous mode)
-//	TBCTL |= 0x0002; //interrupt enable
+	TBCTL &= 0xE6FF; //set 12,11 bit to zero (16bit) also 8 to zero (SMCLK)
+	TBCTL |= 0x0200; //set 9 to one (SMCLK)
+	TBCTL |= 0x00C0; //set 7-6 bit to 11 (divider = 8);
+	TBCTL &= 0xFFEF; //set bit 4 to zero
+	TBCTL |= 0x0020; //set bit 5 to one (5-4=10: continuous mode)
+	TBCTL |= 0x0002; //interrupt enable
 #if OVERHEAD == 1
 //	TBCTL &= ~(0x0020);
 #endif
@@ -418,7 +368,6 @@ void init()
     __enable_interrupt();
 	PRINTF("a%u.\r\n", curctx->cur_reg[15]);
 }
-__attribute__((always_inline))
 //#if OPTED == 1
 //void BF_encrypt(uint32_t *data){
 //#else
@@ -426,8 +375,6 @@ void BF_encrypt(uint32_t *data, uint32_t *key){
 //#endif
 	//CHECKPOINT
 	//
-        TASK_BOUNDARY(TASK_ENCRYPT);
-        DINO_MANUAL_RESTORE_NONE();
 	uint32_t l, r, p, s0_t, s1_t, s2_t, s3_t, tmp;
 	r = data[0];
 	l = data[1];
@@ -470,7 +417,6 @@ void BF_encrypt(uint32_t *data, uint32_t *key){
 	data[1] = r;
 	data[0] = l;
 }
-__attribute__((always_inline))
 //#if OPTED == 1
 //void BF_set_key(unsigned char *data){
 //#else
@@ -479,8 +425,6 @@ void BF_set_key(unsigned char *data, uint32_t *key){
 	unsigned i;
 	uint32_t ri, ri2;
 	unsigned d = 0;
-        TASK_BOUNDARY(TASK_INIT_S);
-        DINO_MANUAL_RESTORE_NONE();
 	for (i=0; i<18; ++i){
 		ri= data[d++];
 
@@ -503,8 +447,6 @@ void BF_set_key(unsigned char *data, uint32_t *key){
 
 		key[i]^=ri;
 	}
-        TASK_BOUNDARY(TASK_SET_KEY);
-        DINO_MANUAL_RESTORE_NONE();
 	//CHECKPOINT
 	
 	uint32_t in[2]={0L,0L};
@@ -603,7 +545,6 @@ void BF_set_key(unsigned char *data, uint32_t *key){
 		}
 	}
 }
-__attribute__((always_inline))
 //#if OPTED == 1
 //void BF_cfb64_encrypt(unsigned char* out, unsigned char* iv){
 //#else
@@ -613,8 +554,6 @@ void BF_cfb64_encrypt(unsigned char* out, unsigned char* iv, uint32_t *key){
 	unsigned char c;
 	unsigned n = 0;
 	for (unsigned i=0; i< LENGTH; ++i){
-		TASK_BOUNDARY(TASK_START_ENCRYPT);
-		DINO_MANUAL_RESTORE_NONE();
 		if (n == 0){
 			for (unsigned j=0; j<8; ++j){
 				LOG("before: iv[%u]=%u\r\n",j,iv[j]);
@@ -659,12 +598,9 @@ void BF_cfb64_encrypt(unsigned char* out, unsigned char* iv, uint32_t *key){
 			}	
 #endif
 		}
-		TASK_BOUNDARY(TASK_START_ENCRYPT2);
-		DINO_MANUAL_RESTORE_NONE();
 		c= indata[i]^iv[n];
 		out[i]=c;
-		PRINTF("result: %x\r\n", c);
-		PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+		//PRINTF("result: %x\r\n", c);
 		iv[n]=c;
 		n=(n+1)&0x07;
 	}
@@ -681,6 +617,7 @@ int main()
 
 	while (1) {
 		__loop_bound__(999);
+		//PRINTF("TIME start is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
 	unsigned i = 0, by = 0;	
 
 	for (i = 0; i < 8; ++i){
@@ -722,6 +659,8 @@ int main()
 //#else
 	BF_set_key(ukey, key);
 	BF_cfb64_encrypt(outdata, ivec, key);
+		PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+	end_run();
 	}
 //#endif
 }
