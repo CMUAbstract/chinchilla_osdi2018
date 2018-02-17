@@ -347,12 +347,14 @@ void print_long(uint32_t l) {
 #endif
 void init()
 {
+#ifndef CONFIG_EDB
 	TBCTL &= 0xE6FF; //set 12,11 bit to zero (16bit) also 8 to zero (SMCLK)
 	TBCTL |= 0x0200; //set 9 to one (SMCLK)
 	TBCTL |= 0x00C0; //set 7-6 bit to 11 (divider = 8);
 	TBCTL &= 0xFFEF; //set bit 4 to zero
 	TBCTL |= 0x0020; //set bit 5 to one (5-4=10: continuous mode)
 	TBCTL |= 0x0002; //interrupt enable
+#endif
 #if OVERHEAD == 1
 //	TBCTL &= ~(0x0020);
 #endif
