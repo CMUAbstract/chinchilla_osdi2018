@@ -41,22 +41,30 @@ void init()
     INIT_CONSOLE();
 
     __enable_interrupt();
-	PRINTF("test1\r\n");
+	PRINTF("a%u.\r\n", curctx->cur_reg[15]);
 }
 void __loop_bound__(unsigned i) {}
 
+typedef struct {
+	int A[3];
+	int B[3];
+} st_t;
 
-int main() {
-	uint8_t a = 0x77;
-	unsigned b = 0xFFFF;
-	uint8_t c = 0x44;
+void func(int* arg) {
+	(*arg) = 3;
 	for (int i = 0; i < 500; ++i) {
 		__loop_bound__(999);
-		a = 1;
 	}
+	(*arg) = 3;
+}
 
-	PRINTF("%u %u %u\r\n", a, b, c);
-	PRINTF(".%u.\r\n", curctx->cur_reg[15]);
+int main() {
+	st_t test;
+	func(test.A);
+	for (int i = 0; i < 500; ++i) {
+		__loop_bound__(999);
+	}
+	func(test.B);
 	return 0;
 }
 

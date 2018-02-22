@@ -23,12 +23,13 @@
 #include <libalpaca/alpaca.h>
 
 #include "pins.h"
+#include "param.h"
 
 // #define SHOW_PROGRESS_ON_LED
 #include <stdint.h>
 
-//#define NUM_BUCKETS 256 // must be a power of 2
-#define NUM_BUCKETS 128 // must be a power of 2
+//#define NUM_BUCKETS 128 // must be a power of 2
+#define NUM_BUCKETS 512 // must be a power of 2
 //#define NUM_BUCKETS 64 // must be a power of 2
 #define MAX_RELOCATIONS 8
 
@@ -136,8 +137,8 @@ void print_stats(unsigned inserts, unsigned members, unsigned total)
 {
 	PRINTF("stats: inserts %u members %u total %u\r\n",
 			inserts, members, total);
-	while (__loop_bound__(999),members != 32) {
-	}
+//	while (__loop_bound__(999),members != 32) {
+//	}
 }
 
 //__attribute__((always_inline))
@@ -296,6 +297,9 @@ void init()
 
 	__enable_interrupt();
 	PRINTF(".%u.\r\n", curctx->cur_reg[15]);
+	for (unsigned i = 0; i < LOOP_IDX; ++i) {
+
+	}
 }
 #if 0
 void write_stack(){
@@ -355,8 +359,8 @@ int main()
 	//	unsigned count = 0;
 	while (1) {
 		__loop_bound__(999);
-		//PRINTF("start\r\n");
-		PRINTF("REAL TIME start is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+		PRINTF("start\r\n");
+		//PRINTF("REAL TIME start is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
 		for (i = 0; i < NUM_BUCKETS; ++i)
 			filter[i] = 0;
 
@@ -389,11 +393,11 @@ int main()
 		}
 		LOG("members/total: %u/%u\r\n", members, NUM_KEYS);
 
-		PRINTF("REAL TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+		//PRINTF("REAL TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
 		PRINTF("end\r\n");
 		end_run();
-		PRINTF("chkpt cnt: %u\r\n", chkpt_count);
-		PRINTF(".%u.\r\n", curctx->cur_reg[15]);
+		//PRINTF("chkpt cnt: %u\r\n", chkpt_count);
+		//PRINTF(".%u.\r\n", curctx->cur_reg[15]);
 		//print_filter(filter);
 		print_stats(inserts, members, NUM_KEYS);
 		//print_stack();

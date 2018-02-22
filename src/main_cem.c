@@ -22,6 +22,7 @@
 
 #include <libalpaca/alpaca.h>
 
+#include "param.h"
 #include "pins.h"
 void __loop_bound__(unsigned val){};
 unsigned overflow=0;
@@ -73,7 +74,7 @@ void print_log(log_t *log)
 {
 	unsigned i;
 	BLOCK_PRINTF_BEGIN();
-	BLOCK_PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+	//BLOCK_PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
 	BLOCK_PRINTF("rate: samples/block: %u/%u\r\n",
 			log->sample_count, log->count);
 //	BLOCK_PRINTF("compressed block:\r\n");
@@ -237,6 +238,9 @@ void init()
 	__enable_interrupt();
 
 	PRINTF("a%u.\r\n", curctx->cur_reg[15]);
+	for (unsigned i = 0; i < LOOP_IDX; ++i) {
+
+	}
 }
 
 int main()
@@ -310,6 +314,7 @@ int main()
 				log.count = 0;
 				log.sample_count = 0;
 
+				PRINTF("end\r\n");
 				//PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
 				//PRINTF("MAX BACKUP: %u\r\n", max_backup);
 //				BLOCK_PRINTF_BEGIN();
@@ -322,10 +327,10 @@ int main()
 //				BLOCK_PRINTF_END();
 				//update_checkpoints_pair();
 				end_run();
-				BLOCK_PRINTF_BEGIN();
-				BLOCK_PRINTF(".%u.\r\n", curctx->cur_reg[15]);
-				BLOCK_PRINTF("chkpt cnt: %u\r\n", chkpt_count);
-				BLOCK_PRINTF_END();
+//				BLOCK_PRINTF_BEGIN();
+//				BLOCK_PRINTF(".%u.\r\n", curctx->cur_reg[15]);
+//				BLOCK_PRINTF("chkpt cnt: %u\r\n", chkpt_count);
+//				BLOCK_PRINTF_END();
 				//			history[history_counter++] = 3;
 				//				exit(0);
 				break;

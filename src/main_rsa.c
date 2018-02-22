@@ -26,6 +26,7 @@
 
 #undef N // conflicts with us
 
+#include "param.h"
 #include "pins.h"
 
 // #define SHOW_PROGRESS_ON_LED
@@ -38,7 +39,8 @@ void __loop_bound__(unsigned val){};
 void no_chkpt_start(){};
 void no_chkpt_end(){};
 
-#define KEY_SIZE_BITS	64
+#define KEY_SIZE_BITS	256
+//#define KEY_SIZE_BITS	64
 #define DIGIT_BITS       8 // arithmetic ops take 8-bit args produce 16-bit result
 #define DIGIT_MASK       0x00ff
 #define NUM_DIGITS       (KEY_SIZE_BITS / DIGIT_BITS)
@@ -71,7 +73,7 @@ static __ro_nv const uint8_t PAD_DIGITS[] = { 0x01 };
 
 // modulus: byte order: LSB to MSB, constraint MSB>=0x80
 static __ro_nv const pubkey_t pubkey = {
-#include "../data/key64.txt"
+#include "../data/key256.txt"
 };
 
 static __ro_nv const unsigned char PLAINTEXT[] =
@@ -630,6 +632,9 @@ void init()
 	__enable_interrupt();
 	//EIF_PRINTF(".%u.\r\n", curtask);
 	PRINTF("a%u.\r\n", curctx->cur_reg[15]);
+	for (unsigned i = 0; i < LOOP_IDX; ++i) {
+
+	}
 }
 
 int main()
@@ -640,15 +645,16 @@ int main()
 
 	while (1) {
 		__loop_bound__(999);
-		//PRINTF("start\r\n");
-		PRINTF("TIME start is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+		PRINTF("start\r\n");
+		//PRINTF("TIME start is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
 		encrypt(CYPHERTEXT, &CYPHERTEXT_LEN, PLAINTEXT, message_length, &pubkey);
 
-		PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
-		PRINTF("a%u.\r\n", curctx->cur_reg[15]);
+		PRINTF("end\r\n");
+		//PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
 		end_run();
-		PRINTF("chkpt cnt: %u\r\n", chkpt_count);
-		print_hex_ascii(CYPHERTEXT, CYPHERTEXT_LEN);
+		EXTERNAL_BREAKPOINT(0);
+		//PRINTF("chkpt cnt: %u\r\n", chkpt_count);
+		//print_hex_ascii(CYPHERTEXT, CYPHERTEXT_LEN);
 	}
 
 	return 0;

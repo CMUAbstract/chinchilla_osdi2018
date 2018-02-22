@@ -23,6 +23,7 @@
 
 #include <libalpaca/alpaca.h>
 
+#include "param.h"
 #include "pins.h"
 
 #define SEED 4L
@@ -142,6 +143,9 @@ void init()
 
 	__enable_interrupt();
 	PRINTF("a%u.\r\n", curctx->cur_reg[15]);
+	for (unsigned i = 0; i < LOOP_IDX; ++i) {
+
+	}
 }
 
 /*
@@ -260,7 +264,7 @@ int main()
 		n_4=0;
 		n_5=0;
 		n_6=0;
-		//PRINTF("START\r\n");
+		PRINTF("START\r\n");
 
 		for (func = 0; func < 7; func++) {
 			LOG("func: %u\r\n", func);
@@ -302,20 +306,20 @@ int main()
 			}
 		}
 
-		PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+		PRINTF("end\r\n");
+		//PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
 		end_run();
-//		no_chkpt_start();
-//		BLOCK_PRINTF_BEGIN();
-//		BLOCK_PRINTF("chkpt cnt: %u\r\n", chkpt_count);
-//		BLOCK_PRINTF("%u\r\n", n_0);
-//		BLOCK_PRINTF("%u\r\n", n_1);
-//		BLOCK_PRINTF("%u\r\n", n_2);
-//		BLOCK_PRINTF("%u\r\n", n_3);
-//		BLOCK_PRINTF("%u\r\n", n_4);
-//		BLOCK_PRINTF("%u\r\n", n_5);
-//		BLOCK_PRINTF("%u\r\n", n_6);
-//		BLOCK_PRINTF_END();
-//		no_chkpt_end();
+		no_chkpt_start();
+		BLOCK_PRINTF_BEGIN();
+		BLOCK_PRINTF("%u\r\n", n_0);
+		BLOCK_PRINTF("%u\r\n", n_1);
+		BLOCK_PRINTF("%u\r\n", n_2);
+		BLOCK_PRINTF("%u\r\n", n_3);
+		BLOCK_PRINTF("%u\r\n", n_4);
+		BLOCK_PRINTF("%u\r\n", n_5);
+		BLOCK_PRINTF("%u\r\n", n_6);
+		BLOCK_PRINTF_END();
+		no_chkpt_end();
 	}
 	return 0;
 }

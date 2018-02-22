@@ -22,6 +22,7 @@
 #define ENERGY_GUARD_END()
 #endif
 
+#include "param.h"
 #include "pins.h"
 #define LENGTH 13
 
@@ -369,6 +370,9 @@ void init()
 
     __enable_interrupt();
 	PRINTF("a%u.\r\n", curctx->cur_reg[15]);
+	for (unsigned i = 0; i < LOOP_IDX; ++i) {
+
+	}
 }
 //#if OPTED == 1
 //void BF_encrypt(uint32_t *data){
@@ -602,7 +606,7 @@ void BF_cfb64_encrypt(unsigned char* out, unsigned char* iv, uint32_t *key){
 		}
 		c= indata[i]^iv[n];
 		out[i]=c;
-		//PRINTF("result: %x\r\n", c);
+		PRINTF("result: %x\r\n", c);
 		iv[n]=c;
 		n=(n+1)&0x07;
 	}
@@ -620,6 +624,7 @@ int main()
 	while (1) {
 		__loop_bound__(999);
 		//PRINTF("TIME start is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+		PRINTF("start\r\n");
 	unsigned i = 0, by = 0;	
 
 	for (i = 0; i < 8; ++i){
@@ -661,7 +666,8 @@ int main()
 //#else
 	BF_set_key(ukey, key);
 	BF_cfb64_encrypt(outdata, ivec, key);
-		PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+	PRINTF("end\r\n");
+		//PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
 	end_run();
 	}
 //#endif

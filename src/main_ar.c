@@ -23,10 +23,12 @@
 #endif
 
 #include <libalpaca/alpaca.h>
-
+#include "param.h"
 #include "pins.h"
 
 void __loop_bound__(unsigned val){};
+void no_chkpt_start(){};
+void no_chkpt_end(){};
 unsigned count = 0;
 unsigned seed = 1;
 
@@ -35,7 +37,8 @@ unsigned seed = 1;
 // Number of samples to discard before recording training set
 #define NUM_WARMUP_SAMPLES 3
 
-#define ACCEL_WINDOW_SIZE 3
+//#define ACCEL_WINDOW_SIZE 3
+#define ACCEL_WINDOW_SIZE 30
 #define MODEL_SIZE 16
 #define SAMPLE_NOISE_FLOOR 10 // TODO: made up value
 
@@ -214,6 +217,8 @@ class_t classify(features_t *features, model_t *model)
 	int stat_less_error = 0;
 	features_t *model_features;
 	int i;
+		LOG("check3: mn %u sd %u %u\r\n",
+					 model->moving[15].meanmag, model->moving[15].stddevmag);
 
 	LOG("mean %u stddev %u\r\n", features->meanmag, features->stddevmag);
 	for (i = 0; i < MODEL_SIZE; ++i) {
@@ -229,7 +234,7 @@ class_t classify(features_t *features, model_t *model)
 			: (features->stddevmag - model_features->stddevmag);
 
 		model_features = &model->moving[i];
-		LOG("moving mean %u stddev %u\r\n", model_features->meanmag, model_features->stddevmag);
+		LOG("moving mean %u stddev %u %u\r\n", model_features->meanmag, model_features->stddevmag, i);
 
 		long int move_mean_err = (model_features->meanmag > features->meanmag)
 			? (model_features->meanmag - features->meanmag)
@@ -302,11 +307,14 @@ void print_stats(stats_t *stats)
 
 	unsigned sum = stats->stationaryCount + stats->movingCount;
 
+
+	no_chkpt_start();
 	PRINTF("stats: s %u (%u%%) m %u (%u%%) sum/tot %u/%u: %c\r\n",
 			stats->stationaryCount, resultStationaryPct,
 			stats->movingCount, resultMovingPct,
 			stats->totalCount, sum,
 			sum == stats->totalCount && sum == SAMPLES_TO_COLLECT ? 'V' : 'X');
+	no_chkpt_end();
 }
 
 //__attribute__((always_inline))
@@ -339,10 +347,12 @@ void train(features_t *classModel)
 		featurize(&features, sampleWindow);
 
 		classModel[i] = features;
+		LOG("train: done2: mn %u sd %u %u\r\n",
+					 classModel[i].meanmag, classModel[i].stddevmag, i);
 	}
 
-	//   PRINTF("train: done: mn %u sd %u\r\n",
-	//          features.meanmag, features.stddevmag);
+	LOG("train: done: mn %u sd %u\r\n",
+	       features.meanmag, features.stddevmag);
 }
 
 //__attribute__((always_inline))
@@ -363,6 +373,8 @@ void recognize(model_t *model)
 	stats.movingCount = 0;
 
 	for (i = 0; i < SAMPLES_TO_COLLECT; ++i) {
+		LOG("check2: mn %u sd %u %u\r\n",
+					 model->moving[15].meanmag, model->moving[15].stddevmag);
 		acquire_window(sampleWindow);
 		transform(sampleWindow);
 		LOG("bf mean %u stddev %u\r\n", features.meanmag, features.stddevmag);
@@ -378,21 +390,21 @@ void recognize(model_t *model)
 //__attribute__((always_inline))
 run_mode_t select_mode(uint8_t *prev_pin_state)
 {
+	PRINTF("start\r\n");
 	uint8_t pin_state = 1;
 
 	count++;
 	LOG("count: %u\r\n", count);
 	if(count >= 2) pin_state = 2;
 	if(count >= 3) pin_state = 0;
-	if(count >= 4) {   
-		PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+	if(count >= 4) {
+		//PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+		PRINTF("end\r\n");
 		end_run();
-		PRINTF("chkpt cnt: %u\r\n", chkpt_count);
-		PRINTF("a%u.\r\n", curctx->cur_reg[15]);
-		PRINTF("done\r\n");
 		count = 0;
 		seed = 1;
-		pin_state = 1;
+		*prev_pin_state = MODE_IDLE;
+		pin_state = 99;
 		//		exit(0);
 	}
 	// Don't re-launch training after finishing training
@@ -439,7 +451,10 @@ void init()
 	__enable_interrupt();
 	init_accel();
 
-	//PRINTF("a%u.\r\n", curctx->cur_reg[15]);
+	PRINTF("a%u.\r\n", curctx->cur_reg[15]);
+	for (unsigned i = 0; i < LOOP_IDX; ++i) {
+
+	}
 }
 
 int main()
@@ -452,8 +467,7 @@ int main()
 
 	while (1) {
 		__loop_bound__(8);
-		//PRINTF("start\r\n");
-		PRINTF("TIME start is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+		//PRINTF("TIME start is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
 		run_mode_t mode = select_mode(&prev_pin_state);
 		switch (mode) {
 			case MODE_TRAIN_STATIONARY:
@@ -463,9 +477,13 @@ int main()
 			case MODE_TRAIN_MOVING:
 				LOG("mode: moving\r\n");
 				train(model.moving);
+				LOG("check0: mn %u sd %u\r\n",
+							 model.moving[15].meanmag, model.moving[15].stddevmag);
 				break;
 			case MODE_RECOGNIZE:
 				LOG("mode: recognize\r\n");
+				LOG("check1: mn %u sd %u %u\r\n",
+							 model.moving[15].meanmag, model.moving[15].stddevmag);
 				recognize(&model);
 				break;
 			default:
