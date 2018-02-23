@@ -30,12 +30,18 @@ def flush(prev_line, func_name, problematic_location):
         assert(push_counter == 0 or pop_counter == 0 or push_counter == pop_counter)
 
         for line in prev_line:
+            isEntry = False
             # We know ret address saving and pushing, popping only occurs at the
             # beginning and end of function. No SR needs to be concerned.
             # in stack shrinking at the end of BB, SR need to be maintained
             if push_counter > 0:
                 # if it is beginning bb of function
                 if line == prev_line[1]:
+                    # For compatibility with CleanCut,
+                    # We need to put entry log at the very beginning of the block
+                    assert('entry' in line)
+                    print line,
+                    isEntry = True
                     # at the beginning, increase sp (this stack grows up)
                     soft_stack.grow(push_counter + 1)
                     nv_sp = 0
@@ -114,7 +120,8 @@ def flush(prev_line, func_name, problematic_location):
                         print "\tpush.w\tr2"
                         soft_stack.shrink(problematic_num)
                         print "\tpop.w\tr2"
-                print line,
+                if not isEntry:
+                    print line,
 
 def get_spilled_location(line):
     location = line.split(', ')[1].split('(')[0]
