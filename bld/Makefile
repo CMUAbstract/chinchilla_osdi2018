@@ -29,6 +29,8 @@ CONFIG_EDB = 1
 #endif
 include ../Makefile.config
 include $(LIB_ROOT)/maker/Makefile.console
+override CFLAGS += \
+	-DENERGY=$(ENERGY) \
 
 #include $(LIB_ROOT)/libedb/bld/Makefile.target
 

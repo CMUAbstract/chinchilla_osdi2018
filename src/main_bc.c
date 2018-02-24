@@ -56,55 +56,10 @@ static const char bits[256] =
 
 
 /* This is for progress reporting only */
-#define SET_CURTASK(t) curtask = t
-
-/* Tasks */
-#define TASK_INIT            0
-#define TASK_SELECT_FUNC                    1
-#define TASK_B0                    2
-#define TASK_B1                       3
-#define TASK_B2                     4
-#define TASK_B3           5
-#define TASK_B4        6
-#define TASK_B5             7
-#define TASK_B6            8
-#define TASK_END            9
-
-#ifdef DINO
-
-#define TASK_BOUNDARY(t, x) \
-	DINO_TASK_BOUNDARY(x); \
-	SET_CURTASK(t); \
-
-#define DINO_MANUAL_RESTORE_NONE() \
-	DINO_MANUAL_REVERT_BEGIN() \
-	DINO_MANUAL_REVERT_END() \
-
-#define DINO_MANUAL_RESTORE_PTR(nm, type) \
-	DINO_MANUAL_REVERT_BEGIN() \
-	DINO_MANUAL_REVERT_PTR(type, nm); \
-	DINO_MANUAL_REVERT_END() \
-
-#define DINO_MANUAL_RESTORE_VAL(nm, label) \
-	DINO_MANUAL_REVERT_BEGIN() \
-	DINO_MANUAL_REVERT_VAL(nm, label); \
-	DINO_MANUAL_REVERT_END() \
-
-#else // !DINO
-
-#define TASK_BOUNDARY(t, x) SET_CURTASK(t)
-
-#define DINO_RESTORE_CHECK()
-#define DINO_MANUAL_VERSION_PTR(...)
-#define DINO_MANUAL_VERSION_VAL(...)
-#define DINO_MANUAL_RESTORE_NONE()
-#define DINO_MANUAL_RESTORE_PTR(...)
-#define DINO_MANUAL_RESTORE_VAL(...)
-
-#endif // !DINO
 
 void __loop_bound__(unsigned i);
 unsigned overflow=0;
+#if ENERGY == 0
 __attribute__((interrupt(51))) 
 	void TimerB1_ISR(void){
 		TBCTL &= ~(0x0002);
@@ -117,6 +72,8 @@ __attribute__((interrupt(51)))
 	}
 __attribute__((section("__interrupt_vector_timer0_b1"),aligned(2)))
 void(*__vector_timer0_b1)(void) = TimerB1_ISR;
+#endif
+
 static void init_hw()
 {
 	msp_watchdog_disable();
@@ -249,7 +206,6 @@ static int bit_shifter(uint32_t x)
 }
 int main()
 {
-	DINO_RESTORE_CHECK();
 	unsigned n_0, n_1, n_2, n_3, n_4, n_5, n_6;
 	uint32_t seed;
 	unsigned iter;

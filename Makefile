@@ -25,6 +25,7 @@ TOOLCHAINS = \
 #export BOARD = mspts430
 export BOARD = mspts430
 export SRC = rsa
+export ENERGY ?= 0
 
 include ext/maker/Makefile
 
