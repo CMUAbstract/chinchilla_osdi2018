@@ -3,7 +3,7 @@ make bld/gcc/depclean BOARD=$1 SRC=$2
 make bld/gcc/dep BOARD=$1
 #make bld/gcc/all BOARD=$1 SRC=$2
 make bld/alpaca/depclean BOARD=$1 SRC=$2
-make bld/alpaca/dep BOARD=$1
+make bld/alpaca/dep BOARD=$1 ENERGY=$4
 make bld/alpaca/all BOARD=$1 SRC=$2 VERBOSE=$3
 /opt/ti/mspgcc/bin/msp430-elf-objdump -S ./bld/alpaca/$2.out >> ./ext/python_dissembler/source.src
 /opt/ti/mspgcc/bin/msp430-elf-objdump -x ./bld/alpaca/$2.out >> ./ext/python_dissembler/mem.src
