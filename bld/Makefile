@@ -27,7 +27,7 @@ include $(LIB_ROOT)/libmspbuiltins/bld/Makefile.target
 CONFIG_PRINTF_LIB = libedb
 CONFIG_EDB = 1
 #endif
-include ../Makefile.config
+#include ../Makefile.config
 include $(LIB_ROOT)/maker/Makefile.console
 override CFLAGS += \
 	-DENERGY=$(ENERGY) \

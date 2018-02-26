@@ -2,12 +2,14 @@ OOLS = \
 	dino \
 	mementos \
 	alpaca \
+	edbprof
 
 TOOLCHAINS = \
 	gcc \
 	clang \
 	dino \
 	alpaca \
+	edbprof
 
 #OPTED ?= 0
 #GBUF ?= 1
@@ -31,6 +33,7 @@ include ext/maker/Makefile
 
 # Paths to toolchains here if not in or different from defaults in Makefile.env
 
+export EDBPROF_ROOT ?= $(LIB_ROOT)/edbprof
 export MEMENTOS_ROOT = $(LIB_ROOT)/mementos
 export DINO_ROOT = $(LIB_ROOT)/dino
 export ALPACA_ROOT = $(LIB_ROOT)/alpaca

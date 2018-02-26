@@ -26,6 +26,7 @@
 #include "pins.h"
 void __loop_bound__(unsigned val){};
 unsigned overflow=0;
+#if ENERGY == 0
 __attribute__((interrupt(51))) 
 	void TimerB1_ISR(void){
 		TBCTL &= ~(0x0002);
@@ -38,6 +39,7 @@ __attribute__((interrupt(51)))
 	}
 __attribute__((section("__interrupt_vector_timer0_b1"),aligned(2)))
 void(*__vector_timer0_b1)(void) = TimerB1_ISR;
+#endif
 #define TEST_SAMPLE_DATA
 
 #define NIL 0 // like NULL, but for indexes, not real pointers

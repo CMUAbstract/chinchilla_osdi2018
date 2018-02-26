@@ -1,0 +1,41 @@
+import fileinput
+import sys
+import numpy as np
+import scipy as sp
+import scipy.stats
+
+def confidence_interval(data, confidence=0.95):
+        a = 1.0*np.array(data)
+        n = len(a)
+        m, se = np.mean(a), scipy.stats.sem(a)
+        h = se * sp.stats.t._ppf((1+confidence)/2., n-1)
+        return m, 2*h
+
+fileName = sys.argv[1]
+start = False
+results = []
+for line in fileinput.input(fileName):
+    if ':' in line:
+        s = line.split(':')[0].strip()
+
+        time = float(line.split(':')[0].strip())
+        log = line.split(':')[1].strip()
+
+        if 'start' in log:
+            start = True
+            startTime = time
+
+        if start and 'end' in log:
+            start = False
+            endTime = time
+            result = endTime - startTime
+            results.append(result)
+
+    if len(results) != 0:
+        m, interval = confidence_interval(results)
+
+        if (interval < m / 10):
+            print(results)
+            print(m)
+            while(1):
+                pass
