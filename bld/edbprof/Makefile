@@ -9,7 +9,7 @@
 # to come up with when reproducing (e.g. device number, hostname), we keep
 # in Makefile.sys, outside of the version control.
 
-PROFILED_OBJECTS = app
+PROFILED_OBJECTS = $(SRC)
 
 # Config specific to a system (not version controlled)
 -include Makefile.sys

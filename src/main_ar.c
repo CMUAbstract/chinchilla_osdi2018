@@ -22,7 +22,13 @@
 #define ENERGY_GUARD_END()
 #endif
 
+#ifdef ALPACA
 #include <libalpaca/alpaca.h>
+#endif
+#ifdef RATCHET
+#include <libratchet/ratchet.h>
+#endif
+
 #include "param.h"
 #include "pins.h"
 
@@ -58,6 +64,7 @@ static void init_hw()
 }
 unsigned overflow=0;
 //__attribute__((interrupt(TIMERB1_VECTOR))) 
+#if ENERGY == 0
 __attribute__((interrupt(51))) 
 void TimerB1_ISR(void){
 	TBCTL &= ~(0x0002);
@@ -70,6 +77,7 @@ void TimerB1_ISR(void){
 }
 __attribute__((section("__interrupt_vector_timer0_b1"),aligned(2)))
 void(*__vector_timer0_b1)(void) = TimerB1_ISR;
+#endif
 
 typedef accelReading accelWindow[ACCEL_WINDOW_SIZE];
 
@@ -308,6 +316,7 @@ void print_stats(stats_t *stats)
 	unsigned sum = stats->stationaryCount + stats->movingCount;
 
 
+#if ENERGY == 0
 	no_chkpt_start();
 	PRINTF("stats: s %u (%u%%) m %u (%u%%) sum/tot %u/%u: %c\r\n",
 			stats->stationaryCount, resultStationaryPct,
@@ -315,6 +324,7 @@ void print_stats(stats_t *stats)
 			stats->totalCount, sum,
 			sum == stats->totalCount && sum == SAMPLES_TO_COLLECT ? 'V' : 'X');
 	no_chkpt_end();
+#endif
 }
 
 //__attribute__((always_inline))
@@ -390,7 +400,9 @@ void recognize(model_t *model)
 //__attribute__((always_inline))
 run_mode_t select_mode(uint8_t *prev_pin_state)
 {
+#if ENERGY == 0
 	PRINTF("start\r\n");
+#endif
 	uint8_t pin_state = 1;
 
 	count++;
@@ -399,7 +411,9 @@ run_mode_t select_mode(uint8_t *prev_pin_state)
 	if(count >= 3) pin_state = 0;
 	if(count >= 4) {
 		//PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+#if ENERGY == 0
 		PRINTF("end\r\n");
+#endif
 		end_run();
 		count = 0;
 		seed = 1;
@@ -459,6 +473,9 @@ void init()
 
 int main()
 {
+#ifdef RATCHET
+	restore_regs();
+#endif
 	// "Globals" must be on the stack because Mementos doesn't handle real
 	// globals correctly
 	uint8_t prev_pin_state = MODE_IDLE;

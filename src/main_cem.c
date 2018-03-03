@@ -20,7 +20,12 @@
 #define ENERGY_GUARD_END()
 #endif
 
+#ifdef ALPACA
 #include <libalpaca/alpaca.h>
+#endif
+#ifdef RATCHET
+#include <libratchet/ratchet.h>
+#endif
 
 #include "param.h"
 #include "pins.h"
@@ -75,6 +80,7 @@ typedef struct _log_t {
 void print_log(log_t *log)
 {
 	unsigned i;
+#if ENERGY == 0
 	BLOCK_PRINTF_BEGIN();
 	//BLOCK_PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
 	BLOCK_PRINTF("rate: samples/block: %u/%u\r\n",
@@ -91,6 +97,7 @@ void print_log(log_t *log)
 //	}
 //	BLOCK_PRINTF("\r\n");
 	BLOCK_PRINTF_END();
+#endif
 	if (log->sample_count != 353) {
 		exit(0);
 	}
@@ -169,7 +176,9 @@ index_t find_child(letter_t letter, index_t parent, dict_t *dict)
 void add_node(letter_t letter, index_t parent, dict_t *dict)
 {
 	if (dict->node_count == DICT_SIZE) {
+#if ENERGY == 0
 		PRINTF("add node: table full\r\n");
+#endif
 		//while(1); // bail for now
 	}
 	// Initialize the new node
@@ -247,6 +256,9 @@ void init()
 
 int main()
 {
+#ifdef RATCHET
+	restore_regs();
+#endif
 	// Mementos can't handle globals: it restores them to .data, when they are
 	// in .bss... So, for now, just keep all data on stack.
 	//static __nv dict_t dict;
@@ -256,7 +268,9 @@ int main()
 	// test
 	while (1) {
 		__loop_bound__(999);
+#if ENERGY == 0
 		PRINTF("start: \r\n");
+#endif
 //		PRINTF("start2: \r\n");
 //		PRINTF("TIME start is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
 		init_dict(&dict);
@@ -316,7 +330,9 @@ int main()
 				log.count = 0;
 				log.sample_count = 0;
 
+#if ENERGY == 0
 				PRINTF("end\r\n");
+#endif
 				//PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
 				//PRINTF("MAX BACKUP: %u\r\n", max_backup);
 //				BLOCK_PRINTF_BEGIN();

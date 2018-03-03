@@ -1,5 +1,6 @@
-OOLS = \
+TOOLS = \
 	dino \
+	ratchet \
 	mementos \
 	alpaca \
 	edbprof
@@ -9,6 +10,7 @@ TOOLCHAINS = \
 	clang \
 	dino \
 	alpaca \
+	ratchet \
 	edbprof
 
 #OPTED ?= 0
@@ -37,6 +39,7 @@ export EDBPROF_ROOT ?= $(LIB_ROOT)/edbprof
 export MEMENTOS_ROOT = $(LIB_ROOT)/mementos
 export DINO_ROOT = $(LIB_ROOT)/dino
 export ALPACA_ROOT = $(LIB_ROOT)/alpaca
+export RATCHET_ROOT = $(LIB_ROOT)/ratchet
 
 
 clean:

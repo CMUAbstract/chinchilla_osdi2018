@@ -22,7 +22,13 @@
 #define ENERGY_GUARD_END()
 #endif
 
+#ifdef ALPACA
 #include <libalpaca/alpaca.h>
+#endif
+#ifdef RATCHET
+#include <libratchet/ratchet.h>
+#endif
+
 
 #undef N // conflicts with us
 
@@ -99,6 +105,7 @@ bigint_t qxn;
 bigint_t product;
 #endif
 unsigned overflow=0;
+#if ENERGY == 0
 __attribute__((interrupt(51))) 
 void TimerB1_ISR(void){
 	TBCTL &= ~(0x0002);
@@ -111,27 +118,35 @@ void TimerB1_ISR(void){
 }
 __attribute__((section("__interrupt_vector_timer0_b1"),aligned(2)))
 void(*__vector_timer0_b1)(void) = TimerB1_ISR;
+#endif
 
 //__attribute__((always_inline))
 void print_bigint(const bigint_t n, unsigned digits)
 {
     int i;
-    for (i = digits - 1;__loop_bound__(8),  i >= 0; --i)
+    for (i = digits - 1;__loop_bound__(8),  i >= 0; --i) {
+#if ENERGY == 0
         PRINTF("%02x ", n[i]);
+#endif
+		}
 }
 
 //__attribute__((always_inline))
 void log_bigint(const bigint_t n, unsigned digits)
 {
     int i;
-    for (i = digits - 1; __loop_bound__(8),i >= 0; --i)
+    for (i = digits - 1; __loop_bound__(8),i >= 0; --i) {
+#if ENERGY == 0
         BLOCK_LOG("%02x ", n[i]);
+#endif
+		}
 }
 
 //__attribute__((always_inline))
 void print_hex_ascii(const uint8_t *m, unsigned len)
 {
     int i, j;
+#if ENERGY == 0
 		no_chkpt_start();
 		BLOCK_PRINTF_BEGIN();
     for (i = 0;__loop_bound__(2), i < len; i += PRINT_HEX_ASCII_COLS) {
@@ -150,6 +165,7 @@ void print_hex_ascii(const uint8_t *m, unsigned len)
     }
 		BLOCK_PRINTF_END();
 		no_chkpt_end();
+#endif
 }
 
 //__attribute__((always_inline))
@@ -639,20 +655,26 @@ void init()
 
 int main()
 {
+#ifdef RATCHET
+	restore_regs();
+#endif
 	unsigned message_length;
 
 	message_length = sizeof(PLAINTEXT) - 1; // exclude null byte
 
 	while (1) {
 		__loop_bound__(999);
+#if ENERGY == 0
 		PRINTF("start\r\n");
+#endif
 		//PRINTF("TIME start is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
 		encrypt(CYPHERTEXT, &CYPHERTEXT_LEN, PLAINTEXT, message_length, &pubkey);
 
+#if ENERGY == 0
 		PRINTF("end\r\n");
+#endif
 		//PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
 		end_run();
-		EXTERNAL_BREAKPOINT(0);
 		//PRINTF("chkpt cnt: %u\r\n", chkpt_count);
 		//print_hex_ascii(CYPHERTEXT, CYPHERTEXT_LEN);
 	}

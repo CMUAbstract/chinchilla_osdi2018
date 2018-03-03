@@ -22,7 +22,10 @@
 #endif
 
 #include <libalpaca/alpaca.h>
-
+#endif
+#ifdef RATCHET
+#include <libratchet/ratchet.h>
+#endif
 #include "param.h"
 #include "pins.h"
 
@@ -206,6 +209,9 @@ static int bit_shifter(uint32_t x)
 }
 int main()
 {
+#ifdef RATCHET
+	restore_regs();
+#endif
 	unsigned n_0, n_1, n_2, n_3, n_4, n_5, n_6;
 	uint32_t seed;
 	unsigned iter;

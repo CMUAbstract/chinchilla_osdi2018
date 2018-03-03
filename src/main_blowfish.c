@@ -13,7 +13,13 @@
 #include <libmsp/watchdog.h>
 #include <libmsp/gpio.h>
 #include <libmspmath/msp-math.h>
+
+#ifdef ALPACA
 #include <libalpaca/alpaca.h>
+#endif
+#ifdef RATCHET
+#include <libratchet/ratchet.h>
+#endif
 
 #ifdef CONFIG_EDB
 #include <libedb/edb.h>
@@ -29,6 +35,7 @@
 void __loop_bound__(unsigned i);
 //bool test11 = 0;
 unsigned overflow=0;
+#if ENERGY == 0
 //__attribute__((interrupt(TIMERB1_VECTOR))) 
 __attribute__((interrupt(51))) 
 void TimerB1_ISR(void){
@@ -42,6 +49,7 @@ void TimerB1_ISR(void){
 }
 __attribute__((section("__interrupt_vector_timer0_b1"),aligned(2)))
 void(*__vector_timer0_b1)(void) = TimerB1_ISR;
+#endif
 /* This is for progress reporting only */
 
 static void init_hw()
@@ -606,7 +614,9 @@ void BF_cfb64_encrypt(unsigned char* out, unsigned char* iv, uint32_t *key){
 		}
 		c= indata[i]^iv[n];
 		out[i]=c;
+#if ENERGY == 0
 		PRINTF("result: %x\r\n", c);
+#endif
 		iv[n]=c;
 		n=(n+1)&0x07;
 	}
@@ -615,6 +625,9 @@ void BF_cfb64_encrypt(unsigned char* out, unsigned char* iv, uint32_t *key){
 
 int main()
 {
+#ifdef RATCHET
+	restore_regs();
+#endif
 //#if OPTED == 0
 	uint32_t key[18];
 //#endif
@@ -624,7 +637,9 @@ int main()
 	while (1) {
 		__loop_bound__(999);
 		//PRINTF("TIME start is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+#if ENERGY == 0
 		PRINTF("start\r\n");
+#endif
 	unsigned i = 0, by = 0;	
 
 	for (i = 0; i < 8; ++i){
@@ -637,8 +652,11 @@ int main()
 			by = (by << 4) + cp[i] - '0';
 		else if(cp[i] >= 'A' && cp[i] <= 'F') //currently, key should be 0-9 or A-F
 			by = (by << 4) + cp[i] - 'A' + 10;
-		else
+		else { 
+#if ENERGY == 0
 			PRINTF("Key must be hexadecimal!!\r\n");
+#endif
+		}
 		if ((i++) & 1) {
 			ukey[i/2-1] = by & 0xff;
 			LOG("ukey[%u]: %u\r\n",i/2-1,by & 0xff);
@@ -666,7 +684,9 @@ int main()
 //#else
 	BF_set_key(ukey, key);
 	BF_cfb64_encrypt(outdata, ivec, key);
+#if ENERGY == 0
 	PRINTF("end\r\n");
+#endif
 		//PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
 	end_run();
 	}

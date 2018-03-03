@@ -20,7 +20,14 @@
 #define ENERGY_GUARD_BEGIN()
 #define ENERGY_GUARD_END()
 #endif
+
+#ifdef ALPACA
 #include <libalpaca/alpaca.h>
+#endif
+#ifdef RATCHET
+#include <libratchet/ratchet.h>
+#endif
+
 
 #include "pins.h"
 #include "param.h"
@@ -39,62 +46,6 @@ typedef uint16_t hash_t;
 typedef uint16_t fingerprint_t;
 typedef uint16_t index_t; // bucket index
 
-#define NUM_KEYS (NUM_BUCKETS / 4) // shoot for 25% occupancy
-#define INIT_KEY 0x1
-
-#define TASK_MAIN                   1
-#define TASK_GENERATE_KEY           2
-#define TASK_INSERT_FINGERPRINT     3
-#define TASK_INSERT_INDEX_1         4
-#define TASK_INSERT_INDEX_2         5
-#define TASK_INSERT_UPDATE          6
-#define TASK_RELOCATE_VICTIM        7
-#define TASK_RELOCATE_UPDATE        8
-#define TASK_LOOKUP_FINGERPRINT     9
-#define TASK_LOOKUP_INDEX_1        10
-#define TASK_LOOKUP_INDEX_2        11
-#define TASK_LOOKUP_CHECK          12
-#define TASK_PRINT_RESULTS         13
-
-#ifdef DINO
-
-#define TASK_BOUNDARY(t) \
-	DINO_TASK_BOUNDARY(NULL); \
-SET_CURTASK(t); \
-
-#define DINO_MANUAL_RESTORE_NONE() \
-	DINO_MANUAL_REVERT_BEGIN() \
-DINO_MANUAL_REVERT_END() \
-
-#define DINO_MANUAL_RESTORE_PTR(nm, type) \
-	DINO_MANUAL_REVERT_BEGIN() \
-DINO_MANUAL_REVERT_PTR(type, nm); \
-DINO_MANUAL_REVERT_END() \
-
-#define DINO_MANUAL_RESTORE_VAL(nm, label) \
-	DINO_MANUAL_REVERT_BEGIN() \
-DINO_MANUAL_REVERT_VAL(nm, label); \
-DINO_MANUAL_REVERT_END() \
-
-#else // !DINO
-
-#define TASK_BOUNDARY(t) SET_CURTASK(t)
-#define TASK_BOUNDARY(t, a)
-
-#define DINO_RESTORE_CHECK()
-#define DINO_MANUAL_VERSION_PTR(...)
-#define DINO_MANUAL_VERSION_VAL(...)
-#define DINO_MANUAL_RESTORE_NONE()
-#define DINO_MANUAL_RESTORE_PTR(...)
-#define DINO_MANUAL_RESTORE_VAL(...)
-#define DINO_MANUAL_REVERT_BEGIN(...)
-#define DINO_MANUAL_REVERT_END(...)
-#define DINO_MANUAL_REVERT_VAL(...)
-
-#endif // !DINO
-#define SET_CURTASK(t) curtask = t
-
-
 static void init_hw()
 {
 	msp_watchdog_disable();
@@ -105,6 +56,7 @@ static void init_hw()
 void print_filter(fingerprint_t *filter)
 {
 	unsigned i;
+#if ENERGY == 0
 	BLOCK_PRINTF_BEGIN();
 	for (i = 0; i < NUM_BUCKETS; ++i) {
 		BLOCK_PRINTF("%04x ", filter[i]);
@@ -113,12 +65,14 @@ void print_filter(fingerprint_t *filter)
 		}
 	}
 	BLOCK_PRINTF_END();
+#endif
 }
 
 //__attribute__((always_inline))
 void log_filter(fingerprint_t *filter)
 {
 	unsigned i;
+#if ENERGY == 0
 	BLOCK_LOG_BEGIN();
 	for (i = 0; i < NUM_BUCKETS; ++i) {
 		BLOCK_LOG("%04x ", filter[i]);
@@ -126,6 +80,7 @@ void log_filter(fingerprint_t *filter)
 			BLOCK_LOG("\r\n");
 	}
 	BLOCK_LOG_END();
+#endif
 }
 
 // TODO: to avoid having to wrap every thing printf macro (to prevent
@@ -135,8 +90,10 @@ void log_filter(fingerprint_t *filter)
 //__attribute__((always_inline))
 void print_stats(unsigned inserts, unsigned members, unsigned total)
 {
+#if ENERGY == 0
 	PRINTF("stats: inserts %u members %u total %u\r\n",
 			inserts, members, total);
+#endif
 //	while (__loop_bound__(999),members != 32) {
 //	}
 }
@@ -238,7 +195,9 @@ static bool insert(fingerprint_t *filter, value_t key)
 			} while (fp_victim && ++relocation_count < MAX_RELOCATIONS);
 
 			if (fp_victim) {
+#if ENERGY == 0
 				PRINTF("insert: lost fp %04x\r\n", fp_victim);
+#endif
 				return false;
 			}
 		}
@@ -265,6 +224,7 @@ static bool lookup(fingerprint_t *filter, value_t key)
 	return filter[index1] == fp || filter[index2] == fp;
 }
 unsigned overflow=0;
+#if ENERGY == 0
 __attribute__((interrupt(51))) 
 	void TimerB1_ISR(void){
 		TBCTL &= ~(0x0002);
@@ -277,6 +237,7 @@ __attribute__((interrupt(51)))
 	}
 __attribute__((section("__interrupt_vector_timer0_b1"),aligned(2)))
 void(*__vector_timer0_b1)(void) = TimerB1_ISR;
+#endif
 
 void init()
 {
@@ -344,6 +305,9 @@ void print_stack(){
 #endif
 int main()
 {
+#ifdef RATCHET
+	restore_regs();
+#endif
 
 	unsigned i;
 	value_t key;
@@ -359,7 +323,9 @@ int main()
 	//	unsigned count = 0;
 	while (1) {
 		__loop_bound__(999);
+#if ENERGY == 0
 		PRINTF("start\r\n");
+#endif
 		//PRINTF("REAL TIME start is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
 		for (i = 0; i < NUM_BUCKETS; ++i)
 			filter[i] = 0;
@@ -370,8 +336,11 @@ int main()
 			key = generate_key(key);
 			bool success = insert(filter, key);
 			LOG("insert: key %04x success %u\r\n", key, success);
-			if (!success)
+			if (!success) {
+#if ENERGY == 0
 				PRINTF("insert: key %04x failed\r\n", key);
+#endif
+			}
 			//log_filter(filter);
 
 			inserts += success;
@@ -387,14 +356,18 @@ int main()
 			LOG("lookup: key %04x member %u\r\n", key, member);
 			if (!member) {
 				fingerprint_t fp = hash_to_fingerprint(key);
+#if ENERGY == 0
 				PRINTF("lookup: key %04x fp %04x not member\r\n", key, fp);
+#endif
 			}
 			members += member;
 		}
 		LOG("members/total: %u/%u\r\n", members, NUM_KEYS);
 
 		//PRINTF("REAL TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+#if ENERGY == 0
 		PRINTF("end\r\n");
+#endif
 		end_run();
 		//PRINTF("chkpt cnt: %u\r\n", chkpt_count);
 		//PRINTF(".%u.\r\n", curctx->cur_reg[15]);
