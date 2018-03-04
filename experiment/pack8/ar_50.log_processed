@@ -1,0 +1,12 @@
+iter:0 time:8.174 chkpt status:{46: 0}
+iter:1 time:7.805 chkpt status:{46: 1}
+iter:2 time:7.805 chkpt status:{46: 1}
+iter:3 time:7.805 chkpt status:{46: 1}
+iter:4 time:7.878 chkpt status:{46: 2, 43: 0}
+iter:5 time:8.087999999999997 chkpt status:{46: 4, 43: 0}
+iter:6 time:8.087999999999997 chkpt status:{46: 4, 43: 0}
+iter:7 time:8.135999999999996 chkpt status:{46: 8, 43: 0}
+iter:8 time:7.805 chkpt status:{46: 16, 43: 0}
+iter:9 time:7.873999999999995 chkpt status:{46: 32, 43: 0}
+iter:10 time:8.168 chkpt status:{46: 64, 43: 0}
+iter:11 time:8.168 chkpt status:{46: 64, 43: 0}
