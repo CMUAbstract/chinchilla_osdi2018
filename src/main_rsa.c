@@ -13,7 +13,6 @@
 #include <libmsp/watchdog.h>
 #include <libmsp/gpio.h>
 #include <libmspmath/msp-math.h>
-#include <libalpaca/alpaca.h>
 
 #ifdef CONFIG_EDB
 #include <libedb/edb.h>
@@ -41,12 +40,11 @@
 
 /* This is for progress reporting only */
 
-void __loop_bound__(unsigned val){};
 void no_chkpt_start(){};
 void no_chkpt_end(){};
 
-#define KEY_SIZE_BITS	256
-//#define KEY_SIZE_BITS	64
+//#define KEY_SIZE_BITS	256
+#define KEY_SIZE_BITS	64
 #define DIGIT_BITS       8 // arithmetic ops take 8-bit args produce 16-bit result
 #define DIGIT_MASK       0x00ff
 #define NUM_DIGITS       (KEY_SIZE_BITS / DIGIT_BITS)
@@ -79,7 +77,8 @@ static __ro_nv const uint8_t PAD_DIGITS[] = { 0x01 };
 
 // modulus: byte order: LSB to MSB, constraint MSB>=0x80
 static __ro_nv const pubkey_t pubkey = {
-#include "../data/key256.txt"
+//#include "../data/key256.txt"
+#include "../data/key64.txt"
 };
 
 static __ro_nv const unsigned char PLAINTEXT[] =
@@ -124,7 +123,7 @@ void(*__vector_timer0_b1)(void) = TimerB1_ISR;
 void print_bigint(const bigint_t n, unsigned digits)
 {
     int i;
-    for (i = digits - 1;__loop_bound__(8),  i >= 0; --i) {
+    for (i = digits - 1; i >= 0; --i) {
 #if ENERGY == 0
         PRINTF("%02x ", n[i]);
 #endif
@@ -135,7 +134,7 @@ void print_bigint(const bigint_t n, unsigned digits)
 void log_bigint(const bigint_t n, unsigned digits)
 {
     int i;
-    for (i = digits - 1; __loop_bound__(8),i >= 0; --i) {
+    for (i = digits - 1; i >= 0; --i) {
 #if ENERGY == 0
         BLOCK_LOG("%02x ", n[i]);
 #endif
@@ -149,13 +148,13 @@ void print_hex_ascii(const uint8_t *m, unsigned len)
 #if ENERGY == 0
 		no_chkpt_start();
 		BLOCK_PRINTF_BEGIN();
-    for (i = 0;__loop_bound__(2), i < len; i += PRINT_HEX_ASCII_COLS) {
-        for (j = 0; __loop_bound__(8),j < PRINT_HEX_ASCII_COLS && i + j < len; ++j)
+    for (i = 0; i < len; i += PRINT_HEX_ASCII_COLS) {
+        for (j = 0; j < PRINT_HEX_ASCII_COLS && i + j < len; ++j)
             BLOCK_PRINTF("%02x ", m[i + j]);
-        for (; __loop_bound__(8),j < PRINT_HEX_ASCII_COLS; ++j)
+        for (; j < PRINT_HEX_ASCII_COLS; ++j)
             BLOCK_PRINTF("   ");
         BLOCK_PRINTF(" ");
-        for (j = 0; __loop_bound__(8),j < PRINT_HEX_ASCII_COLS && i + j < len; ++j) {
+        for (j = 0; j < PRINT_HEX_ASCII_COLS && i + j < len; ++j) {
             char c = m[i + j];
             if (!(32 <= c && c <= 127)) // not printable
                 c = '.';
@@ -169,28 +168,24 @@ void print_hex_ascii(const uint8_t *m, unsigned len)
 }
 
 //__attribute__((always_inline))
-void mult(bigint_t a, bigint_t b)
+void mult(bigint_t a, bigint_t b, bigint_t product)
 {
-#ifdef MEMENTOS
-    bigint_t product = {0};
-#endif
-
     int i;
     unsigned digit;
     digit_t p, c, dp;
     digit_t carry = 0;
 
-    //BLOCK_LOG_BEGIN();
-    //BLOCK_LOG("mult: a = "); log_bigint(a, NUM_DIGITS); BLOCK_LOG("\r\n");
-    //BLOCK_LOG("mult: b = "); log_bigint(b, NUM_DIGITS); BLOCK_LOG("\r\n");
-    //BLOCK_LOG_END();
+    BLOCK_LOG_BEGIN();
+    BLOCK_LOG("mult: a = "); log_bigint(a, NUM_DIGITS); BLOCK_LOG("\r\n");
+    BLOCK_LOG("mult: b = "); log_bigint(b, NUM_DIGITS); BLOCK_LOG("\r\n");
+    BLOCK_LOG_END();
 
-    for (digit = 0; __loop_bound__(16),digit < NUM_DIGITS * 2; ++digit) {
+    for (digit = 0; digit < NUM_DIGITS * 2; ++digit) {
         LOG("mult: d=%u\r\n", digit);
 
         p = carry;
         c = 0;
-        for (i = 0; __loop_bound__(8),i < NUM_DIGITS; ++i) {
+        for (i = 0; i < NUM_DIGITS; ++i) {
             if (i <= digit && digit - i < NUM_DIGITS) {
                 dp = a[digit - i] * b[i];
 
@@ -208,15 +203,15 @@ void mult(bigint_t a, bigint_t b)
         carry = c;
     }
 
-    //BLOCK_LOG_BEGIN();
-    //BLOCK_LOG("mult: product = ");
-    //log_bigint(product, 2 * NUM_DIGITS);
-    //BLOCK_LOG("\r\n");
-    //BLOCK_LOG_END();
+    BLOCK_LOG_BEGIN();
+    BLOCK_LOG("mult: product = ");
+    log_bigint(product, 2 * NUM_DIGITS);
+    BLOCK_LOG("\r\n");
+    BLOCK_LOG_END();
 
-		for (i = 0; __loop_bound__(16),i < 2 * NUM_DIGITS; ++i) {
-			a[i] = product[i];
-		}
+//		for (i = 0; i < 2 * NUM_DIGITS; ++i) {
+//			a[i] = product[i];
+//		}
 }
 
 //__attribute__((always_inline))
@@ -224,21 +219,18 @@ bool reduce_normalizable(bigint_t m, const bigint_t n, unsigned d)
 {
 	int i;
 	unsigned offset;
-	digit_t n_d, m_d;
+	digit_t n_d;
 	bool normalizable = true;
 
 	offset = d + 1 - NUM_DIGITS; // TODO: can this go below zero
 	LOG("reduce: normalizable: d=%u offset=%u\r\n", d, offset);
 
-	for (i = d; __loop_bound__(8),i >= 0; --i) {// arb num
-		m_d = m[i];
-		n_d = n[i - offset];
+	for (i = d; i >= 0; --i) {// arb num
+		LOG("normalizable: m[%u]=%x n[%u]=%x\r\n", i, m[i], i - offset, n[i-offset]);
 
-		LOG("normalizable: m[%u]=%x n[%u]=%x\r\n", i, m_d, i - offset, n_d);
-
-		if (m_d > n_d) {
+		if (m[i] > n[i-offset]) {
 			break;
-		} else if (m_d < n_d) {
+		} else if (m[i] < n[i-offset]) {
 			normalizable = false;
 			break;
 		}
@@ -259,7 +251,7 @@ void reduce_normalize(bigint_t m, const bigint_t n, unsigned digit)
 	offset = digit + 1 - NUM_DIGITS; // TODO: can this go below zero
 
 	borrow = 0;
-	for (i = 0; __loop_bound__(8),i < NUM_DIGITS; ++i) {
+	for (i = 0; i < NUM_DIGITS; ++i) {
 		m_d = m[i + offset];
 		n_d = n[i];
 
@@ -282,29 +274,21 @@ void reduce_normalize(bigint_t m, const bigint_t n, unsigned digit)
 //__attribute__((always_inline))
 void reduce_quotient(digit_t *quotient, bigint_t m, const bigint_t n, unsigned d)
 {
-	digit_t m_d[3]; // [2]=m[d], [1]=m[d-1], [0]=m[d-2]
-	digit_t q, n_div, n_n;
+	digit_t q, n_div;
 	uint32_t n_q, qn;
 	uint16_t m_dividend;
 
 	// Divisor, derived from modulus, for refining quotient guess into exact value
 	n_div = ((n[NUM_DIGITS - 1] << DIGIT_BITS) + n[NUM_DIGITS - 2]);
 
-	n_n = n[NUM_DIGITS - 1];
-
-	m_d[2] = m[d];
-	m_d[1] = m[d - 1];
-	m_d[0] = m[d - 2];
-
-	LOG("reduce: quotient: n_n=%x m[d]=%x\r\n", n_n, m[2]);
+	LOG("reduce: quotient: r_n=%x m[d]=%x\r\n", n[NUM_DIGITS-1], m[d]);
 
 	// Choose an initial guess for quotient
-	if (m_d[2] == n_n) {
+	if (m[d] == n[NUM_DIGITS - 1]) {
 		q = (1 << DIGIT_BITS) - 1;
 	} else {
 		// TODO: The long todo described below applies here.
-		m_dividend = (m_d[2] << DIGIT_BITS) + m_d[1];
-		q = m_dividend / n_n;
+		q = ((m[d] << DIGIT_BITS) + m[d-1]) / n[NUM_DIGITS - 1];
 		LOG("reduce quotient: m_dividend=%x q=%x\r\n", m_dividend, q);
 	}
 
@@ -313,17 +297,16 @@ void reduce_quotient(digit_t *quotient, bigint_t m, const bigint_t n, unsigned d
 	// TODO: An alternative to composing the digits into one variable, is to
 	// have a loop that does the comparison digit by digit to implement the
 	// condition of the while loop below.
-	n_q = ((uint32_t)m_d[2] << (2 * DIGIT_BITS)) + (m_d[1] << DIGIT_BITS) + m_d[0];
+	n_q = ((uint32_t)m[d] << (2 * DIGIT_BITS)) + (m[d-1] << DIGIT_BITS) + m[d-2];
 
 	LOG("reduce: quotient: m[d]=%x m[d-1]=%x m[d-2]=%x n_q=%02x%02x\r\n",
-			m_d[2], m_d[1], m_d[0],
+			m[d], m[d-1], m[d-2],
 			(uint16_t)((n_q >> 16) & 0xffff), (uint16_t)(n_q & 0xffff));
 
 	LOG("reduce: quotient: q0=%x\r\n", q);
 
 	q++;
 	do {
-		__loop_bound__(16); // arbitrary
 		q--;
 		// NOTE: yes, this result can be >16-bit because:
 		//   n_n min = 0x80 (by constraint on modulus msb being set)
@@ -368,11 +351,11 @@ void reduce_multiply(bigint_t product, digit_t q, const bigint_t n, unsigned d)
 	LOG("reduce: multiply: offset=%u\r\n", offset);
 
 	// Left-shift zeros
-	for (i = 0; __loop_bound__(3),i < offset; ++i)
+	for (i = 0; i < offset; ++i)
 		product[i] = 0;
 
 	c = 0;
-	for (i = offset; __loop_bound__(16),i < 2 * NUM_DIGITS; ++i) {
+	for (i = offset; i < 2 * NUM_DIGITS; ++i) {
 		// This condition creates the left-shifted zeros.
 		// TODO: consider adding number of digits to go along with the 'product' field,
 		// then we would not have to zero out the MSDs
@@ -394,11 +377,11 @@ void reduce_multiply(bigint_t product, digit_t q, const bigint_t n, unsigned d)
 		product[i] = p;
 	}
 
-	//BLOCK_LOG_BEGIN();
-	//BLOCK_LOG("reduce: multiply: product = ");
-	//log_bigint(product, 2 * NUM_DIGITS);
-	//BLOCK_LOG("\r\n");
-	//BLOCK_LOG_END();
+	BLOCK_LOG_BEGIN();
+	BLOCK_LOG("reduce: multiply: product = ");
+	log_bigint(product, 2 * NUM_DIGITS);
+	BLOCK_LOG("\r\n");
+	BLOCK_LOG_END();
 }
 
 //__attribute__((always_inline))
@@ -408,7 +391,7 @@ int reduce_compare(bigint_t a, bigint_t b)
 	int i;
 	int relation = 0;
 
-	for (i = NUM_DIGITS * 2 - 1; __loop_bound__(16),i >= 0; --i) {
+	for (i = NUM_DIGITS * 2 - 1; i >= 0; --i) {
 		LOG("reduce: compare: m[%u]=%x qn[%u]=%x\r\n", i, a[i], i, b[i]);
 		if (a[i] > b[i]) {
 			relation = 1;
@@ -434,7 +417,7 @@ void reduce_add(bigint_t a, const bigint_t b, unsigned d)
 	offset = d - NUM_DIGITS;
 
 	c = 0;
-	for (i = offset; __loop_bound__(16),i < 2 * NUM_DIGITS; ++i) {
+	for (i = offset; i < 2 * NUM_DIGITS; ++i) {
 		m = a[i];
 
 		// Shifted index of the modulus digit
@@ -458,11 +441,11 @@ void reduce_add(bigint_t a, const bigint_t b, unsigned d)
 		a[i] = r;
 	}
 
-	//BLOCK_LOG_BEGIN();
-	//BLOCK_LOG("reduce: add: sum = ");
-	//log_bigint(a, 2 * NUM_DIGITS);
-	//BLOCK_LOG("\r\n");
-	//BLOCK_LOG_END();
+	BLOCK_LOG_BEGIN();
+	BLOCK_LOG("reduce: add: sum = ");
+	log_bigint(a, 2 * NUM_DIGITS);
+	BLOCK_LOG("\r\n");
+	BLOCK_LOG_END();
 }
 
 //__attribute__((always_inline))
@@ -479,7 +462,7 @@ void reduce_subtract(bigint_t a, bigint_t b, unsigned d)
 	LOG("reduce: subtract: d=%u offset=%u\r\n", d, offset);
 
 	borrow = 0;
-	for (i = offset; __loop_bound__(16),i < 2 * NUM_DIGITS; ++i) {
+	for (i = offset; i < 2 * NUM_DIGITS; ++i) {
 		m = a[i];
 
 		qn = b[i];
@@ -499,31 +482,25 @@ void reduce_subtract(bigint_t a, bigint_t b, unsigned d)
 		a[i] = r;
 	}
 
-	//BLOCK_LOG_BEGIN();
-	//BLOCK_LOG("reduce: subtract: sum = ");
-	//log_bigint(a, 2 * NUM_DIGITS);
-	//BLOCK_LOG("\r\n");
-	//BLOCK_LOG_END();
+	BLOCK_LOG_BEGIN();
+	BLOCK_LOG("reduce: subtract: sum = ");
+	log_bigint(a, 2 * NUM_DIGITS);
+	BLOCK_LOG("\r\n");
+	BLOCK_LOG_END();
 }
 
 //__attribute__((always_inline))
 void reduce(bigint_t m, const bigint_t n)
 {
-#ifdef MEMENTOS
-	bigint_t qxn = {0};
-#endif
-
-	digit_t q, m_d;
+	digit_t q;
 	unsigned d;
 
 	// Start reduction loop at most significant non-zero digit
 	d = 2 * NUM_DIGITS;
 	do {
-		__loop_bound__(16);
 		d--;
-		m_d = m[d];
-		LOG("reduce digits: p[%u]=%x\r\n", d, m_d);
-	} while (m_d == 0 && d > 0);
+		LOG("reduce digits: p[%u]=%x\r\n", d, m[d]);
+	} while (m[d] == 0 && d > 0);
 
 	LOG("reduce digits: d=%x\r\n", d);
 
@@ -534,7 +511,7 @@ void reduce(bigint_t m, const bigint_t n)
 		return;
 	}
 
-	while (__loop_bound__(8),d >= NUM_DIGITS) {
+	while (d >= NUM_DIGITS) {
 		reduce_quotient(&q, m, n, d);
 		reduce_multiply(qxn, q, n, d);
 		if (reduce_compare(m, qxn) < 0)
@@ -543,40 +520,55 @@ void reduce(bigint_t m, const bigint_t n)
 		d--;
 	}
 
-	//BLOCK_LOG_BEGIN();
-	//BLOCK_LOG("reduce: num = ");
-	//log_bigint(m, NUM_DIGITS);
-	//BLOCK_LOG("\r\n");
-	//BLOCK_LOG_END();
+	BLOCK_LOG_BEGIN();
+	BLOCK_LOG("reduce: num = ");
+	log_bigint(m, NUM_DIGITS);
+	BLOCK_LOG("\r\n");
+	BLOCK_LOG_END();
 }
 
-//__attribute__((always_inline))
-void mod_mult(bigint_t a, bigint_t b, const bigint_t n)
+void mod_mult(bigint_t a, bigint_t b, const bigint_t n, bigint_t product)
 {
-	mult(a, b);
-	reduce(a, n);
+	mult(a, b, product);
+	reduce(product, n);
 }
 
-//__attribute__((always_inline))
 void mod_exp(bigint_t out_block, bigint_t base, digit_t e, const bigint_t n)
 {
+	bigint_t product;
 	int i;
 
 	// Result initialized to 1
 	out_block[0] = 0x1;
-	for (i = 1; __loop_bound__(7),i < NUM_DIGITS; ++i)
+	for (i = 1; i < NUM_DIGITS; ++i)
 		out_block[i] = 0x0;
 
-	while (__loop_bound__(3), e > 0) { //arbitrary bound
+	while (e > 0) { //arbitrary bound
 		LOG("mod exp: e=%x\r\n", e);
 
-		if (e & 0x1)
-			mod_mult(out_block, base, n);
-		mod_mult(base, base, n);
-		e >>= 1;
+		if (e & 0x1) {
+			e >>= 1;
+			mod_mult(out_block, base, n, product);
+			for (unsigned i = 0; i < NUM_DIGITS; ++i)
+				out_block[i] = product[i];
+			if (e <= 0) {
+				break;
+			}
+			else {
+				mod_mult(base, base, n, product);
+				for (unsigned i = 0; i < NUM_DIGITS; ++i)
+					base[i] = product[i];
+			}
+		}
+		else {
+			e >>= 1;
+			mod_mult(base, base, n, product);
+			for (unsigned i = 0; i < NUM_DIGITS; ++i)
+				base[i] = product[i];
+		}
 	}
 }
-//__attribute__((always_inline))
+
 void encrypt(uint8_t *cyphertext, unsigned *cyphertext_len,
 		const uint8_t *message, unsigned message_length,
 		const pubkey_t *k)
@@ -587,13 +579,13 @@ void encrypt(uint8_t *cyphertext, unsigned *cyphertext_len,
 	in_block_offset = 0;
 	out_block_offset = 0;
 	LOG("cyphertext len: %u\r\n", message_length);
-	while (__loop_bound__(2), in_block_offset < message_length) { //arb bound
+	while (in_block_offset < message_length) { //arb bound
 		LOG("Blk offset: %u\r\n", in_block_offset);
 
-		for (i = 0; __loop_bound__(7),i < NUM_DIGITS - NUM_PAD_DIGITS; ++i)
+		for (i = 0; i < NUM_DIGITS - NUM_PAD_DIGITS; ++i)
 			in_block[i] = (in_block_offset + i < message_length) ?
 				message[in_block_offset + i] : 0xFF;
-		for (i = 0; __loop_bound__(1),i < NUM_PAD_DIGITS; ++i)
+		for (i = 0; i < NUM_PAD_DIGITS; ++i)
 			in_block[NUM_DIGITS - NUM_PAD_DIGITS + i] = PAD_DIGITS[i];
 
 		//        BLOCK_LOG_BEGIN();
@@ -610,7 +602,7 @@ void encrypt(uint8_t *cyphertext, unsigned *cyphertext_len,
 		//BLOCK_LOG("\r\n");
 		//BLOCK_LOG_END();
 
-		for (i = 0; __loop_bound__(8),i < NUM_DIGITS; ++i)
+		for (i = 0; i < NUM_DIGITS; ++i)
 			cyphertext[out_block_offset + i] = out_block[i];
 
 		in_block_offset += NUM_DIGITS - NUM_PAD_DIGITS;
@@ -656,6 +648,7 @@ void init()
 int main()
 {
 #ifdef RATCHET
+	init();
 	restore_regs();
 #endif
 	unsigned message_length;
@@ -663,20 +656,19 @@ int main()
 	message_length = sizeof(PLAINTEXT) - 1; // exclude null byte
 
 	while (1) {
-		__loop_bound__(999);
 #if ENERGY == 0
 		PRINTF("start\r\n");
 #endif
-		//PRINTF("TIME start is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+		PRINTF("TIME start is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
 		encrypt(CYPHERTEXT, &CYPHERTEXT_LEN, PLAINTEXT, message_length, &pubkey);
 
+		PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
 #if ENERGY == 0
 		PRINTF("end\r\n");
 #endif
-		//PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
 		end_run();
 		//PRINTF("chkpt cnt: %u\r\n", chkpt_count);
-		//print_hex_ascii(CYPHERTEXT, CYPHERTEXT_LEN);
+		print_hex_ascii(CYPHERTEXT, CYPHERTEXT_LEN);
 	}
 
 	return 0;
