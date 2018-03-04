@@ -1,0 +1,21 @@
+iter:0 time:12.711 chkpt status:{26: 0, 82: 0}
+iter:1 time:11.779 chkpt status:{26: 1, 82: 0}
+iter:2 time:11.975999999999999 chkpt status:{26: 2, 82: 1}
+iter:3 time:11.506 chkpt status:{26: 4, 82: 2}
+iter:4 time:7.513999999999996 chkpt status:{26: 8, 82: 4}
+iter:5 time:7.013999999999996 chkpt status:{26: 16, 82: 8}
+iter:6 time:7.5120000000000005 chkpt status:{26: 32, 82: 16}
+iter:7 time:7.034999999999997 chkpt status:{26: 64, 82: 32}
+iter:8 time:7.033999999999992 chkpt status:{26: 128, 82: 64}
+iter:9 time:6.856999999999999 chkpt status:{26: 256, 82: 128}
+iter:10 time:7.016000000000005 chkpt status:{26: 256, 82: 256}
+iter:11 time:7.015999999999991 chkpt status:{26: 256, 82: 512}
+iter:12 time:6.780000000000001 chkpt status:{26: 512, 82: 1024}
+iter:13 time:7.003 chkpt status:{26: 512, 82: 2048}
+iter:14 time:7.034000000000006 chkpt status:{26: 512, 82: 4096}
+iter:15 time:7.289999999999992 chkpt status:{26: 512, 82: 8192}
+iter:16 time:6.824999999999989 chkpt status:{26: 1024, 82: 16384}
+iter:17 time:6.981999999999999 chkpt status:{26: 1024, 82: 32768}
+iter:18 time:7.324999999999989 chkpt status:{26: 1024, 82: 65535}
+iter:19 time:13.081999999999994 chkpt status:{26: 1024, 29: 0, 84: 0}
+iter:20 time:11.918999999999983 chkpt status:{26: 2048, 29: 1, 84: 1}

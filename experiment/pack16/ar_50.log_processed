@@ -1,0 +1,18 @@
+iter:0 time:10.108 chkpt status:{10: 0, 35: 0}
+iter:1 time:8.353 chkpt status:{10: 1, 35: 0}
+iter:2 time:8.353 chkpt status:{}
+iter:3 time:7.9559999999999995 chkpt status:{10: 2, 35: 0}
+iter:4 time:7.9559999999999995 chkpt status:{}
+iter:5 time:7.921999999999997 chkpt status:{10: 4, 35: 0}
+iter:6 time:7.921999999999997 chkpt status:{}
+iter:7 time:7.931999999999995 chkpt status:{10: 8, 35: 0}
+iter:8 time:7.931999999999995 chkpt status:{}
+iter:9 time:7.962000000000003 chkpt status:{10: 16, 35: 0}
+iter:10 time:7.962000000000003 chkpt status:{}
+iter:11 time:7.8870000000000005 chkpt status:{10: 32, 35: 0}
+iter:12 time:7.8870000000000005 chkpt status:{}
+iter:13 time:7.933000000000007 chkpt status:{10: 64, 35: 0}
+iter:14 time:7.933000000000007 chkpt status:{}
+iter:15 time:7.859999999999999 chkpt status:{10: 128, 35: 0}
+iter:16 time:7.859999999999999 chkpt status:{}
+iter:17 time:7.920000000000002 chkpt status:{10: 256, 35: 0}
