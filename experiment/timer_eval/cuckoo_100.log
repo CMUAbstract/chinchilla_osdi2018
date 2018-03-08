@@ -1,0 +1,633 @@
+./edb
+> wait> attach -d /dev/ttyUSB0
+> attach -d /dev/ttyUSB0> wait[K
+8.545: .16465.
+8.546: start
+8.586: end
+8.586: improve: 256 65535 127
+8.587: stats: inserts 32 members 32 total 32
+8.588: start
+8.625: end
+8.626: improve: 512 0 20
+8.626: stats: inserts 32 members 32 total 32
+8.627: start
+8.642: end
+8.666: improve: 512 2 20
+8.667: stats: inserts 32 members 32 total 32
+8.668: start
+8.702: end
+8.702: improve: 512 4 20
+8.703: stats: inserts 32 members 32 total 32
+8.704: start
+8.720: end
+8.741: improve: 512 8 20
+8.742: stats: inserts 32 members 32 total 32
+8.743: start
+8.757: end
+8.779: improve: 512 16 20
+8.780: stats: inserts 32 members 32 total 32
+8.781: start
+8.818: end
+8.819: improve: 512 32 20
+8.820: stats: inserts 32 members 32 total 32
+8.820: start
+8.859: end
+8.860: improve: 512 64 32
+8.862: stats: inserts 32 members 32 total 32
+8.863: start
+8.873: end
+8.898: improve: 512 128 64
+8.899: stats: inserts 32 members 32 total 32
+8.899: start
+8.915: end
+8.936: improve: 512 256 128
+8.938: stats: inserts 32 members 32 total 32
+8.939: start
+8.953: end
+8.977: improve: 512 512 256
+8.978: stats: inserts 32 members 32 total 32
+8.979: start
+8.990: end
+9.016: improve: 512 1024 512
+9.017: stats: inserts 32 members 32 total 32
+9.018: start
+9.032: end
+9.056: improve: 512 2048 1024
+9.058: stats: inserts 32 members 32 total 32
+9.058: start
+9.326: .0.
+9.327: improve: 512 2048 1024
+9.328: stats: inserts 32 members 32 total 32
+9.328: start
+9.341: end
+9.362: improve: 512 4096 2048
+9.364: stats: inserts 32 members 32 total 32
+9.364: start
+9.378: end
+9.401: improve: 512 8192 4096
+9.404: stats: inserts 32 members 32 total 32
+9.405: start
+9.419: end
+9.447: improve: 512 16384 8192
+9.448: stats: inserts 32 members 32 total 32
+9.449: start
+9.479: end
+9.479: improve: 512 32768 16384
+9.480: stats: inserts 32 members 32 total 32
+9.480: start
+9.517: end
+9.518: improve: 1024 0 20
+9.519: stats: inserts 32 members 32 total 32
+9.520: start
+9.563: end
+9.564: improve: 1024 2 20
+9.565: stats: inserts 32 members 32 total 32
+9.565: start
+9.599: end
+9.600: improve: 1024 4 20
+9.600: stats: inserts 32 members 32 total 32
+9.601: start
+9.638: end
+9.639: improve: 1024 8 20
+9.640: stats: inserts 32 members 32 total 32
+9.640: start
+9.681: end
+9.682: improve: 1024 16 20
+9.683: stats: inserts 32 members 32 total 32
+9.683: start
+9.694: end
+9.716: improve: 1024 32 20
+9.717: stats: inserts 32 members 32 total 32
+9.718: start
+9.735: end
+9.757: improve: 1024 64 32
+9.758: stats: inserts 32 members 32 total 32
+9.759: start
+9.774: end
+9.798: improve: 1024 128 64
+9.799: stats: inserts 32 members 32 total 32
+9.800: start
+10.068: .0.
+10.069: improve: 1024 128 64
+10.083: stats: inserts 32 members 32 total 32
+10.084: start
+10.098: end
+10.122: improve: 1024 256 128
+10.123: stats: inserts 32 members 32 total 32
+10.124: start
+10.140: end
+10.161: improve: 1024 512 256
+10.162: stats: inserts 32 members 32 total 32
+10.162: start
+10.176: end
+10.200: improve: 1024 1024 512
+10.201: stats: inserts 32 members 32 total 32
+10.201: start
+10.218: end
+10.239: improve: 1024 2048 1024
+10.240: stats: inserts 32 members 32 total 32
+10.240: start
+10.257: end
+10.280: improve: 1024 4096 2048
+10.281: stats: inserts 32 members 32 total 32
+10.282: start
+10.321: end
+10.321: improve: 1024 8192 4096
+10.322: stats: inserts 32 members 32 total 32
+10.322: start
+10.361: end
+10.362: improve: 1024 16384 8192
+10.363: stats: inserts 32 members 32 total 32
+10.363: start
+10.398: end
+10.399: improve: 1024 32768 16384
+10.400: stats: inserts 32 members 32 total 32
+10.401: start
+10.414: end
+10.438: improve: 2048 0 20
+10.439: stats: inserts 32 members 32 total 32
+10.439: start
+10.475: end
+10.475: improve: 2048 2 20
+10.476: stats: inserts 32 members 32 total 32
+10.477: start
+10.517: end
+10.518: improve: 2048 4 20
+10.519: stats: inserts 32 members 32 total 32
+10.519: start
+10.532: end
+10.556: improve: 2048 8 20
+10.557: stats: inserts 32 members 32 total 32
+10.557: start
+10.826: .0.
+10.828: improve: 2048 8 20
+10.847: stats: inserts 32 members 32 total 32
+10.848: start
+10.884: end
+10.885: improve: 2048 16 20
+10.886: stats: inserts 32 members 32 total 32
+10.887: start
+10.921: end
+10.922: improve: 2048 32 20
+10.923: stats: inserts 32 members 32 total 32
+10.924: start
+10.939: end
+10.962: improve: 2048 64 32
+10.963: stats: inserts 32 members 32 total 32
+10.964: start
+10.976: end
+10.999: improve: 2048 128 64
+11.000: stats: inserts 32 members 32 total 32
+11.000: start
+11.018: end
+11.038: improve: 2048 256 128
+11.039: stats: inserts 32 members 32 total 32
+11.039: start
+11.056: end
+11.077: improve: 2048 512 256
+11.089: stats: inserts 32 members 32 total 32
+11.090: start
+11.120: end
+11.120: improve: 2048 1024 512
+11.121: stats: inserts 32 members 32 total 32
+11.122: start
+11.156: end
+11.157: improve: 2048 2048 1024
+11.158: stats: inserts 32 members 32 total 32
+11.158: start
+11.199: end
+11.200: improve: 2048 4096 2048
+11.200: stats: inserts 32 members 32 total 32
+11.201: start
+11.212: end
+11.238: improve: 2048 8192 4096
+11.239: stats: inserts 32 members 32 total 32
+11.240: start
+11.251: end
+11.274: improve: 2048 16384 8192
+11.275: stats: inserts 32 members 32 total 32
+11.275: start
+11.317: end
+11.318: improve: 2048 32768 16384
+11.320: stats: inserts 32 members 32 total 32
+11.321: start
+11.613: .0.
+11.615: improve: 2048 32768 16384
+11.616: stats: inserts 32 members 32 total 32
+11.616: start
+11.631: end
+11.652: improve: 4096 0 20
+11.654: stats: inserts 32 members 32 total 32
+11.654: start
+11.668: end
+11.691: improve: 4096 2 20
+11.692: stats: inserts 32 members 32 total 32
+11.694: start
+11.706: end
+11.729: improve: 4096 4 20
+11.730: stats: inserts 32 members 32 total 32
+11.730: start
+11.767: end
+11.768: improve: 4096 8 20
+11.768: stats: inserts 32 members 32 total 32
+11.769: start
+11.786: end
+11.807: improve: 4096 16 20
+11.808: stats: inserts 32 members 32 total 32
+11.808: start
+11.824: end
+11.848: improve: 4096 32 20
+11.849: stats: inserts 32 members 32 total 32
+11.849: start
+11.861: end
+11.884: improve: 4096 64 32
+11.885: stats: inserts 32 members 32 total 32
+11.886: start
+11.900: end
+11.923: improve: 4096 128 64
+11.924: stats: inserts 32 members 32 total 32
+11.925: start
+11.941: end
+11.963: improve: 4096 256 128
+11.965: stats: inserts 32 members 32 total 32
+11.966: start
+11.979: end
+12.001: improve: 4096 512 256
+12.002: stats: inserts 32 members 32 total 32
+12.002: start
+12.020: end
+12.044: improve: 4096 1024 512
+12.045: stats: inserts 32 members 32 total 32
+12.045: start
+12.058: end
+12.082: improve: 4096 2048 1024
+12.083: stats: inserts 32 members 32 total 32
+12.083: start
+12.368: .0.
+12.369: improve: 4096 2048 1024
+12.387: stats: inserts 32 members 32 total 32
+12.387: start
+12.402: end
+12.423: improve: 4096 4096 2048
+12.424: stats: inserts 32 members 32 total 32
+12.425: start
+12.438: end
+12.465: improve: 4096 8192 4096
+12.466: stats: inserts 32 members 32 total 32
+12.466: start
+12.477: end
+12.501: improve: 4096 16384 8192
+12.502: stats: inserts 32 members 32 total 32
+12.502: start
+12.540: end
+12.541: improve: 4096 32768 16384
+12.542: stats: inserts 32 members 32 total 32
+12.542: start
+12.556: end
+12.578: improve: 8192 0 20
+12.579: stats: inserts 32 members 32 total 32
+12.579: start
+12.621: end
+12.622: improve: 8192 2 20
+12.623: stats: inserts 32 members 32 total 32
+12.623: start
+12.661: end
+12.662: improve: 8192 4 20
+12.663: stats: inserts 32 members 32 total 32
+12.664: start
+12.683: end
+12.701: improve: 8192 8 20
+12.702: stats: inserts 32 members 32 total 32
+12.702: start
+12.740: end
+12.741: improve: 8192 16 20
+12.742: stats: inserts 32 members 32 total 32
+12.742: start
+12.780: end
+12.780: improve: 8192 32 20
+12.781: stats: inserts 32 members 32 total 32
+12.782: start
+12.793: end
+12.816: improve: 8192 64 32
+12.818: stats: inserts 32 members 32 total 32
+12.818: start
+12.832: end
+12.859: improve: 8192 128 64
+12.861: stats: inserts 32 members 32 total 32
+12.861: start
+13.129: .0.
+13.131: improve: 8192 128 64
+13.146: stats: inserts 32 members 32 total 32
+13.147: start
+13.159: end
+13.184: improve: 8192 256 128
+13.186: stats: inserts 32 members 32 total 32
+13.186: start
+13.198: end
+13.221: improve: 8192 512 256
+13.223: stats: inserts 32 members 32 total 32
+13.224: start
+13.237: end
+13.263: improve: 8192 1024 512
+13.265: stats: inserts 32 members 32 total 32
+13.265: start
+13.276: end
+13.299: improve: 8192 2048 1024
+13.301: stats: inserts 32 members 32 total 32
+13.302: start
+13.339: end
+13.340: improve: 8192 4096 2048
+13.342: stats: inserts 32 members 32 total 32
+13.342: start
+13.357: end
+13.378: improve: 8192 8192 4096
+13.380: stats: inserts 32 members 32 total 32
+13.381: start
+13.418: end
+13.419: improve: 8192 16384 8192
+13.421: stats: inserts 32 members 32 total 32
+13.421: start
+13.460: end
+13.461: improve: 8192 32768 16384
+13.463: stats: inserts 32 members 32 total 32
+13.464: start
+13.474: end
+13.496: improve: 16384 0 20
+13.498: stats: inserts 32 members 32 total 32
+13.499: start
+13.536: end
+13.536: improve: 16384 2 20
+13.537: stats: inserts 32 members 32 total 32
+13.538: start
+13.574: end
+13.574: improve: 16384 4 20
+13.575: stats: inserts 32 members 32 total 32
+13.576: start
+13.592: end
+13.613: improve: 16384 8 20
+13.615: stats: inserts 32 members 32 total 32
+13.615: start
+13.914: .0.
+13.916: improve: 16384 8 20
+13.919: stats: inserts 32 members 32 total 32
+13.920: start
+13.930: end
+13.954: improve: 16384 16 20
+13.957: stats: inserts 32 members 32 total 32
+13.958: start
+13.971: end
+13.996: improve: 16384 32 20
+14.001: stats: inserts 32 members 32 total 32
+14.002: start
+14.008: end
+14.031: improve: 16384 64 32
+14.034: stats: inserts 32 members 32 total 32
+14.035: start
+14.071: end
+14.073: improve: 16384 128 64
+14.074: stats: inserts 32 members 32 total 32
+14.075: start
+14.109: end
+14.110: improve: 16384 256 128
+14.112: stats: inserts 32 members 32 total 32
+14.112: start
+14.126: end
+14.150: improve: 16384 512 256
+14.152: stats: inserts 32 members 32 total 32
+14.152: start
+14.188: end
+14.190: improve: 16384 1024 512
+14.192: stats: inserts 32 members 32 total 32
+14.192: start
+14.204: end
+14.228: improve: 16384 2048 1024
+14.230: stats: inserts 32 members 32 total 32
+14.231: start
+14.267: end
+14.269: improve: 16384 4096 2048
+14.271: stats: inserts 32 members 32 total 32
+14.271: start
+14.283: end
+14.309: improve: 16384 8192 4096
+14.311: stats: inserts 32 members 32 total 32
+14.311: start
+14.322: end
+14.346: improve: 16384 16384 8192
+14.347: stats: inserts 32 members 32 total 32
+14.348: start
+14.387: end
+14.388: improve: 16384 32768 16384
+14.389: stats: inserts 32 members 32 total 32
+14.390: start
+14.692: .0.
+14.694: improve: 16384 32768 16384
+14.696: stats: inserts 32 members 32 total 32
+14.697: start
+14.702: end
+14.725: improve: 32768 0 20
+14.726: stats: inserts 32 members 32 total 32
+14.726: start
+14.738: end
+14.760: improve: 32768 2 20
+14.761: stats: inserts 32 members 32 total 32
+14.762: start
+14.799: end
+14.800: improve: 32768 4 20
+14.802: stats: inserts 32 members 32 total 32
+14.803: start
+14.838: end
+14.839: improve: 32768 8 20
+14.841: stats: inserts 32 members 32 total 32
+14.842: start
+14.879: end
+14.880: improve: 32768 16 20
+14.882: stats: inserts 32 members 32 total 32
+14.883: start
+14.893: end
+14.917: improve: 32768 32 20
+14.920: stats: inserts 32 members 32 total 32
+14.920: start
+14.959: end
+14.961: improve: 32768 64 32
+14.964: stats: inserts 32 members 32 total 32
+14.965: start
+14.973: end
+14.997: improve: 32768 128 64
+15.000: stats: inserts 32 members 32 total 32
+15.000: start
+15.012: end
+15.037: improve: 32768 256 128
+15.039: stats: inserts 32 members 32 total 32
+15.040: start
+15.052: end
+15.079: improve: 32768 512 256
+15.081: stats: inserts 32 members 32 total 32
+15.081: start
+15.093: end
+15.118: improve: 32768 1024 512
+15.120: stats: inserts 32 members 32 total 32
+15.121: start
+15.132: end
+15.154: improve: 32768 2048 1024
+15.157: stats: inserts 32 members 32 total 32
+15.157: start
+15.426: .0.
+15.427: improve: 32768 2048 1024
+15.442: stats: inserts 32 members 32 total 32
+15.443: start
+15.482: end
+15.484: improve: 32768 4096 2048
+15.487: stats: inserts 32 members 32 total 32
+15.487: start
+15.521: end
+15.523: improve: 32768 8192 4096
+15.524: stats: inserts 32 members 32 total 32
+15.524: start
+15.537: end
+15.562: improve: 32768 16384 8192
+15.563: stats: inserts 32 members 32 total 32
+15.564: start
+15.600: end
+15.601: improve: 32768 32768 16384
+15.602: stats: inserts 32 members 32 total 32
+15.602: start
+15.616: end
+15.643: improve: 32768 0 20
+15.644: stats: inserts 32 members 32 total 32
+15.644: start
+15.658: end
+15.692: improve: 32768 2 20
+15.694: stats: inserts 32 members 32 total 32
+15.695: start
+15.725: end
+15.726: improve: 32768 4 20
+15.726: stats: inserts 32 members 32 total 32
+15.727: start
+15.741: end
+15.761: improve: 32768 8 20
+15.762: stats: inserts 32 members 32 total 32
+15.763: start
+15.777: end
+15.801: improve: 32768 16 20
+15.802: stats: inserts 32 members 32 total 32
+15.803: start
+15.841: end
+15.843: improve: 32768 32 20
+15.844: stats: inserts 32 members 32 total 32
+15.845: start
+15.878: end
+15.879: improve: 32768 64 32
+15.881: stats: inserts 32 members 32 total 32
+15.882: start
+15.917: end
+15.918: improve: 32768 128 64
+15.920: stats: inserts 32 members 32 total 32
+15.920: start
+16.214: .0.
+16.216: improve: 32768 128 64
+16.218: stats: inserts 32 members 32 total 32
+16.219: start
+16.255: end
+16.257: improve: 32768 256 128
+16.259: stats: inserts 32 members 32 total 32
+16.260: start
+16.294: end
+16.295: improve: 32768 512 256
+16.298: stats: inserts 32 members 32 total 32
+16.299: start
+16.331: end
+16.333: improve: 32768 1024 512
+16.337: stats: inserts 32 members 32 total 32
+16.338: start
+16.350: end
+16.370: improve: 32768 2048 1024
+16.372: stats: inserts 32 members 32 total 32
+16.372: start
+16.387: end
+16.411: improve: 32768 4096 2048
+16.413: stats: inserts 32 members 32 total 32
+16.413: start
+16.452: end
+16.453: improve: 32768 8192 4096
+16.454: stats: inserts 32 members 32 total 32
+16.455: start
+16.493: end
+16.494: improve: 32768 16384 8192
+16.495: stats: inserts 32 members 32 total 32
+16.495: start
+16.532: end
+16.533: improve: 32768 32768 16384
+16.534: stats: inserts 32 members 32 total 32
+16.534: start
+16.548: end
+16.571: improve: 32768 0 20
+16.572: stats: inserts 32 members 32 total 32
+16.573: start
+16.589: end
+16.611: improve: 32768 2 20
+16.612: stats: inserts 32 members 32 total 32
+16.613: start
+16.650: end
+16.651: improve: 32768 4 20
+16.652: stats: inserts 32 members 32 total 32
+16.653: start
+16.687: end
+16.687: improve: 32768 8 20
+16.689: stats: inserts 32 members 32 total 32
+16.689: start
+16.974: .0.
+16.975: improve: 32768 8 20
+16.978: stats: inserts 32 members 32 total 32
+16.979: start
+16.992: end
+17.012: improve: 32768 16 20
+17.013: stats: inserts 32 members 32 total 32
+17.014: start
+17.052: end
+17.053: improve: 32768 32 20
+17.055: stats: inserts 32 members 32 total 32
+17.055: start
+17.089: end
+17.090: improve: 32768 64 32
+17.091: stats: inserts 32 members 32 total 32
+17.092: start
+17.128: end
+17.129: improve: 32768 128 64
+17.130: stats: inserts 32 members 32 total 32
+17.131: start
+17.167: end
+17.168: improve: 32768 256 128
+17.169: stats: inserts 32 members 32 total 32
+17.170: start
+17.208: end
+17.209: improve: 32768 512 256
+17.210: stats: inserts 32 members 32 total 32
+17.211: start
+17.251: end
+17.252: improve: 32768 1024 512
+17.253: stats: inserts 32 members 32 total 32
+17.254: start
+17.288: end
+17.289: improve: 32768 2048 1024
+17.291: stats: inserts 32 members 32 total 32
+17.291: start
+17.304: end
+17.330: improve: 32768 4096 2048
+17.332: stats: inserts 32 members 32 total 32
+17.332: start
+17.346: end
+17.369: improve: 32768 8192 4096
+17.371: stats: inserts 32 members 32 total 32
+17.371: start
+17.406: end
+17.407: improve: 32768 16384 8192
+17.409: stats: inserts 32 members 32 total 32
+17.409: start
+17.422: end
+17.445: improve: 32768 32768 16384
+17.448: stats: inserts 32 members 32 total 32
+17.448: start
+17.719: .0.
+17.720: improve: 32768 32768 16384
+17.734: stats: inserts 32 members 32 total 32
+17.735: start

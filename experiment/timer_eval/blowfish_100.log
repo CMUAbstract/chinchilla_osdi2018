@@ -1,0 +1,211 @@
+./edb
+> wait> attach -d /dev/ttyUSB0
+> attach -d /dev/ttyUSB0> wait[K
+2.980: a16465.
+2.981: start
+3.422: result: 3E
+3.423: result: CB
+3.423: result: F3
+3.424: result: E6
+3.425: result: B0
+3.426: result: B5
+3.426: result: 80
+3.427: result: 57
+3.427: result: D7
+3.427: result: DB
+3.428: result: C6
+3.428: result: 6B
+3.429: result: 31
+3.429: end
+3.429: improve: 256 65535 127
+3.430: start
+3.742: a0.
+3.743: improve: 256 65535 127
+3.758: start
+4.189: result: 3E
+4.190: result: CB
+4.190: result: F3
+4.191: result: E6
+4.191: result: B0
+4.192: result: B5
+4.192: result: 80
+4.193: result: 57
+4.193: result: D7
+4.194: result: DB
+4.194: result: C6
+4.195: result: 6B
+4.196: result: 31
+4.196: end
+4.197: improve: 512 0 20
+4.197: start
+4.493: a0.
+4.509: improve: 512 0 20
+4.510: start
+4.911: result: 3E
+4.911: result: CB
+4.950: result: F3
+4.950: result: E6
+4.950: result: B0
+4.951: result: B5
+4.951: result: 80
+4.952: result: 57
+4.952: result: D7
+4.953: result: DB
+4.953: result: C6
+4.954: result: 6B
+4.954: result: 31
+4.955: end
+4.956: improve: 512 2 20
+4.956: start
+5.268: a0.
+5.284: improve: 512 2 20
+5.285: start
+5.728: result: 3E
+5.729: result: CB
+5.730: result: F3
+5.730: result: E6
+5.731: result: B0
+5.732: result: B5
+5.733: result: 80
+5.735: result: 57
+5.736: result: D7
+5.737: result: DB
+5.737: result: C6
+5.738: result: 6B
+5.739: result: 31
+5.740: end
+5.741: improve: 512 4 20
+5.742: start
+6.023: a0.
+6.039: improve: 512 4 20
+6.039: start
+6.440: result: 3E
+6.441: result: CB
+6.478: result: F3
+6.479: result: E6
+6.480: result: B0
+6.481: result: B5
+6.482: result: 80
+6.483: result: 57
+6.484: result: D7
+6.485: result: DB
+6.485: result: C6
+6.486: result: 6B
+6.487: result: 31
+6.487: end
+6.488: improve: 512 8 20
+6.488: start
+6.797: a0.
+6.799: improve: 512 8 20
+6.800: start
+7.201: result: 3E
+7.234: result: CB
+7.236: result: F3
+7.238: result: E6
+7.239: result: B0
+7.241: result: B5
+7.242: result: 80
+7.244: result: 57
+7.246: result: D7
+7.248: result: DB
+7.249: result: C6
+7.251: result: 6B
+7.256: result: 31
+7.258: end
+7.260: improve: 512 16 20
+7.261: start
+7.557: a0.
+7.559: improve: 512 16 20
+7.560: start
+7.999: result: 3E
+8.000: result: CB
+8.000: result: F3
+8.000: result: E6
+8.001: result: B0
+8.001: result: B5
+8.002: result: 80
+8.002: result: 57
+8.003: result: D7
+8.003: result: DB
+8.003: result: C6
+8.004: result: 6B
+8.004: result: 31
+8.005: end
+8.005: improve: 512 32 20
+8.006: start
+8.303: a0.
+8.319: improve: 512 32 20
+8.320: start
+8.720: result: 3E
+8.721: result: CB
+8.761: result: F3
+8.762: result: E6
+8.763: result: B0
+8.763: result: B5
+8.764: result: 80
+8.765: result: 57
+8.765: result: D7
+8.766: result: DB
+8.766: result: C6
+8.768: result: 6B
+8.769: result: 31
+8.770: end
+8.771: improve: 512 64 32
+8.771: start
+9.080: a0.
+9.097: improve: 512 64 32
+9.097: start
+9.529: result: 3E
+9.531: result: CB
+9.532: result: F3
+9.533: result: E6
+9.534: result: B0
+9.536: result: B5
+9.537: result: 80
+9.538: result: 57
+9.539: result: D7
+9.541: result: DB
+9.542: result: C6
+9.543: result: 6B
+9.544: result: 31
+9.545: end
+9.546: improve: 512 128 64
+9.547: start
+9.832: a0.
+9.851: improve: 512 128 64
+9.851: start
+10.248: result: 3E
+10.248: result: CB
+10.287: result: F3
+10.288: result: E6
+10.288: result: B0
+10.289: result: B5
+10.289: result: 80
+10.290: result: 57
+10.290: result: D7
+10.291: result: DB
+10.291: result: C6
+10.292: result: 6B
+10.292: result: 31
+10.293: end
+10.294: improve: 512 256 128
+10.294: start
+10.607: a0.
+10.623: improve: 512 256 128
+10.624: start
+11.061: result: 3E
+11.062: result: CB
+11.063: result: F3
+11.064: result: E6
+11.065: result: B0
+11.066: result: B5
+11.066: result: 80
+11.067: result: 57
+11.068: result: D7
+11.068: result: DB
+11.069: result: C6
+11.069: result: 6B
+11.070: result: 31
+11.070: end
+11.071: improve: 512 512 256
+11.072: start

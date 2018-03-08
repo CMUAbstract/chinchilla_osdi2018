@@ -1,0 +1,222 @@
+./edb
+> wait> attach -d /dev/ttyUSB0
+> attach -d /dev/ttyUSB0> wait[K
+6.391: a16465.
+6.392: start: 
+6.493: rate: samples/block: 353/64
+6.494: end
+6.494: improve: 256 65535 127
+6.495: start: 
+6.570: rate: samples/block: 353/64
+6.570: end
+6.586: improve: 512 0 20
+6.587: start: 
+6.685: rate: samples/block: 353/64
+6.685: end
+6.686: improve: 512 2 20
+6.686: start: 
+6.765: rate: samples/block: 353/64
+6.766: end
+6.781: improve: 512 4 20
+6.782: start: 
+6.881: rate: samples/block: 353/64
+6.881: end
+6.882: improve: 512 8 20
+6.882: start: 
+7.153: a0.
+7.154: improve: 512 8 20
+7.155: start: 
+7.265: rate: samples/block: 353/64
+7.266: end
+7.267: improve: 512 16 20
+7.267: start: 
+7.342: rate: samples/block: 353/64
+7.342: end
+7.358: improve: 512 32 20
+7.358: start: 
+7.441: rate: samples/block: 353/64
+7.456: end
+7.457: improve: 512 64 32
+7.457: start: 
+7.555: rate: samples/block: 353/64
+7.555: end
+7.556: improve: 512 128 64
+7.557: start: 
+7.636: rate: samples/block: 353/64
+7.636: end
+7.650: improve: 512 256 128
+7.651: start: 
+7.907: a0.
+7.926: improve: 512 256 128
+7.927: start: 
+8.002: rate: samples/block: 353/64
+8.018: end
+8.019: improve: 512 512 256
+8.019: start: 
+8.122: rate: samples/block: 353/64
+8.123: end
+8.123: improve: 512 1024 512
+8.124: start: 
+8.200: rate: samples/block: 353/64
+8.200: end
+8.215: improve: 512 2048 1024
+8.216: start: 
+8.316: rate: samples/block: 353/64
+8.316: end
+8.317: improve: 512 4096 2048
+8.318: start: 
+8.398: rate: samples/block: 353/64
+8.398: end
+8.414: improve: 512 8192 4096
+8.415: start: 
+8.683: a0.
+8.684: improve: 512 8192 4096
+8.685: start: 
+8.798: rate: samples/block: 353/64
+8.799: end
+8.800: improve: 512 16384 8192
+8.800: start: 
+8.874: rate: samples/block: 353/64
+8.875: end
+8.888: improve: 512 32768 16384
+8.888: start: 
+8.988: rate: samples/block: 353/64
+8.989: end
+8.989: improve: 1024 0 20
+8.990: start: 
+9.071: rate: samples/block: 353/64
+9.071: end
+9.084: improve: 1024 2 20
+9.084: start: 
+9.184: rate: samples/block: 353/64
+9.184: end
+9.185: improve: 1024 4 20
+9.185: start: 
+9.456: a0.
+9.473: improve: 1024 4 20
+9.474: start: 
+9.555: rate: samples/block: 353/64
+9.569: end
+9.570: improve: 1024 8 20
+9.570: start: 
+9.668: rate: samples/block: 353/64
+9.668: end
+9.669: improve: 1024 16 20
+9.669: start: 
+9.749: rate: samples/block: 353/64
+9.749: end
+9.765: improve: 1024 32 20
+9.765: start: 
+9.867: rate: samples/block: 353/64
+9.867: end
+9.868: improve: 1024 64 32
+9.868: start: 
+9.946: rate: samples/block: 353/64
+9.946: end
+9.959: improve: 1024 128 64
+9.960: start: 
+10.215: a0.
+10.234: improve: 1024 128 64
+10.235: start: 
+10.332: rate: samples/block: 353/64
+10.332: end
+10.333: improve: 1024 256 128
+10.333: start: 
+10.412: rate: samples/block: 353/64
+10.412: end
+10.428: improve: 1024 512 256
+10.428: start: 
+10.528: rate: samples/block: 353/64
+10.528: end
+10.529: improve: 1024 1024 512
+10.529: start: 
+10.608: rate: samples/block: 353/64
+10.625: end
+10.626: improve: 1024 2048 1024
+10.626: start: 
+10.725: rate: samples/block: 353/64
+10.726: end
+10.727: improve: 1024 4096 2048
+10.727: start: 
+10.980: a0.
+10.981: improve: 1024 4096 2048
+10.982: start: 
+11.092: rate: samples/block: 353/64
+11.093: end
+11.093: improve: 1024 8192 4096
+11.094: start: 
+11.172: rate: samples/block: 353/64
+11.172: end
+11.188: improve: 1024 16384 8192
+11.188: start: 
+11.290: rate: samples/block: 353/64
+11.291: end
+11.292: improve: 1024 32768 16384
+11.293: start: 
+11.372: rate: samples/block: 353/64
+11.373: end
+11.385: improve: 2048 0 20
+11.386: start: 
+11.483: rate: samples/block: 353/64
+11.484: end
+11.484: improve: 2048 2 20
+11.485: start: 
+11.739: a0.
+11.754: improve: 2048 2 20
+11.755: start: 
+11.836: rate: samples/block: 353/64
+11.850: end
+11.850: improve: 2048 4 20
+11.851: start: 
+11.950: rate: samples/block: 353/64
+11.950: end
+11.951: improve: 2048 8 20
+11.952: start: 
+12.029: rate: samples/block: 353/64
+12.030: end
+12.046: improve: 2048 16 20
+12.046: start: 
+12.128: rate: samples/block: 353/64
+12.141: end
+12.142: improve: 2048 32 20
+12.142: start: 
+12.246: rate: samples/block: 353/64
+12.246: end
+12.247: improve: 2048 64 32
+12.247: start: 
+12.514: a0.
+12.516: improve: 2048 64 32
+12.517: start: 
+12.622: rate: samples/block: 353/64
+12.622: end
+12.623: improve: 2048 128 64
+12.624: start: 
+12.703: rate: samples/block: 353/64
+12.704: end
+12.717: improve: 2048 256 128
+12.718: start: 
+12.818: rate: samples/block: 353/64
+12.818: end
+12.819: improve: 2048 512 256
+12.819: start: 
+12.897: rate: samples/block: 353/64
+12.897: end
+12.915: improve: 2048 1024 512
+12.916: start: 
+13.014: rate: samples/block: 353/64
+13.014: end
+13.015: improve: 2048 2048 1024
+13.016: start: 
+13.270: a0.
+13.271: improve: 2048 2048 1024
+13.272: start: 
+13.368: rate: samples/block: 353/64
+13.369: end
+13.382: improve: 2048 4096 2048
+13.383: start: 
+13.463: rate: samples/block: 353/64
+13.477: end
+13.479: improve: 2048 8192 4096
+13.479: start: 
+^C> 
+_reviewer@chainvm:~/src/edb-console\[reviewer@chainvm edb-console]$ 

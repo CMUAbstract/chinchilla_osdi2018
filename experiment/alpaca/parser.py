@@ -27,11 +27,7 @@ for line in fileinput.input(fileName):
         endTime = float(end.group("name"))
         runTime = endTime - startTime
         values.append(runTime)
-
-    timer = re.search(r"improve: [0-9]+ (?P<name>[0-9]+) [0-9]+", line)
-    if timer is not None:
-        interval = int(timer.group("name"))
-        f.write("time:" + str(runTime) + " interval:" + str(interval) + "\n")
+        f.write("time:" + str(runTime) + "\n")
 
 # Mean of last 5 vals
 f.write("mean:" + str(avg(values[-5:len(values)])));

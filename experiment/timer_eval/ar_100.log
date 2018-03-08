@@ -1,0 +1,122 @@
+./edb
+> wait> attach -d /dev/ttyUSB0
+> attach -d /dev/ttyUSB0> wait[K
+3.280: a16464.
+3.296: start
+3.432: stats: s 5 (62%) m 3 (37%) sum/tot 8/8: V
+3.433: end
+3.434: improve: 256 65535 127
+3.434: start
+3.565: stats: s 5 (62%) m 3 (37%) sum/tot 8/8: V
+3.565: end
+3.566: improve: 512 0 20
+3.567: start
+3.701: stats: s 5 (62%) m 3 (37%) sum/tot 8/8: V
+3.701: end
+3.702: improve: 512 2 20
+3.702: start
+4.050: a0.
+4.066: improve: 512 2 20
+4.066: start
+4.202: stats: s 5 (62%) m 3 (37%) sum/tot 8/8: V
+4.203: end
+4.203: improve: 512 4 20
+4.204: start
+4.336: stats: s 5 (62%) m 3 (37%) sum/tot 8/8: V
+4.337: end
+4.337: improve: 512 8 20
+4.337: start
+4.471: stats: s 5 (62%) m 3 (37%) sum/tot 8/8: V
+4.471: end
+4.472: improve: 512 16 20
+4.472: start
+4.822: a0.
+4.823: improve: 512 16 20
+4.824: start
+4.971: stats: s 5 (62%) m 3 (37%) sum/tot 8/8: V
+4.972: end
+4.973: improve: 512 32 20
+4.973: start
+5.097: stats: s 5 (62%) m 3 (37%) sum/tot 8/8: V
+5.097: end
+5.098: improve: 512 64 32
+5.098: start
+5.231: stats: s 5 (62%) m 3 (37%) sum/tot 8/8: V
+5.232: end
+5.232: improve: 512 128 64
+5.233: start
+5.582: a0.
+5.584: improve: 512 128 64
+5.585: start
+5.724: stats: s 5 (62%) m 3 (37%) sum/tot 8/8: V
+5.725: end
+5.727: improve: 512 256 128
+5.727: start
+5.857: stats: s 5 (62%) m 3 (37%) sum/tot 8/8: V
+5.858: end
+5.859: improve: 512 512 256
+5.859: start
+5.992: stats: s 5 (62%) m 3 (37%) sum/tot 8/8: V
+5.992: end
+5.993: improve: 512 1024 512
+5.993: start
+6.346: a0.
+6.349: improve: 512 1024 512
+6.350: start
+6.483: stats: s 5 (62%) m 3 (37%) sum/tot 8/8: V
+6.484: end
+6.485: improve: 512 2048 1024
+6.485: start
+6.624: stats: s 5 (62%) m 3 (37%) sum/tot 8/8: V
+6.625: end
+6.628: improve: 512 4096 2048
+6.629: start
+6.756: stats: s 5 (62%) m 3 (37%) sum/tot 8/8: V
+6.756: end
+6.757: improve: 512 8192 4096
+6.757: start
+7.104: a0.
+7.105: improve: 512 8192 4096
+7.105: start
+7.244: stats: s 5 (62%) m 3 (37%) sum/tot 8/8: V
+7.245: end
+7.245: improve: 512 16384 8192
+7.246: start
+7.379: stats: s 5 (62%) m 3 (37%) sum/tot 8/8: V
+7.380: end
+7.381: improve: 512 32768 16384
+7.382: start
+7.515: stats: s 5 (62%) m 3 (37%) sum/tot 8/8: V
+7.515: end
+7.516: improve: 1024 0 20
+7.516: start
+7.865: a0.
+7.867: improve: 1024 0 20
+7.868: start
+8.013: stats: s 5 (62%) m 3 (37%) sum/tot 8/8: V
+8.013: end
+8.014: improve: 1024 2 20
+8.014: start
+8.146: stats: s 5 (62%) m 3 (37%) sum/tot 8/8: V
+8.147: end
+8.147: improve: 1024 4 20
+8.148: start
+8.280: stats: s 5 (62%) m 3 (37%) sum/tot 8/8: V
+8.281: end
+8.281: improve: 1024 8 20
+8.282: start
+8.634: a0.
+8.635: improve: 1024 8 20
+8.648: start
+8.785: stats: s 5 (62%) m 3 (37%) sum/tot 8/8: V
+8.786: end
+8.786: improve: 1024 16 20
+8.787: start
+8.918: stats: s 5 (62%) m 3 (37%) sum/tot 8/8: V
+8.918: end
+8.919: improve: 1024 32 20
+8.920: start
+9.055: stats: s 5 (62%) m 3 (37%) sum/tot 8/8: V
+9.055: end
+9.056: improve: 1024 64 32
+9.057: start

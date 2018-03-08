@@ -34,5 +34,5 @@ for line in fileinput.input(fileName):
         f.write("time:" + str(runTime) + " interval:" + str(interval) + "\n")
 
 # Mean of last 5 vals
-f.write("mean:" + str(avg(values[-5:len(values)])));
-print(str(avg(values[-5:len(values)])))
+f.write("mean:" + str(avg(values)));
+print(str(avg(values)))
