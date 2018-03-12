@@ -6,7 +6,19 @@
 #include <stdlib.h>
 
 #include <libmspbuiltins/builtins.h>
+#ifdef LOGIC
+#define LOG(...)
+#define PRINTF(...)
+#define BLOCK_PRINTF(...)
+#define BLOCK_PRINTF_BEGIN(...)
+#define BLOCK_PRINTF_END(...)
+#define BLOCK_LOG(...)
+#define BLOCK_LOG_BEGIN(...)
+#define BLOCK_LOG_END(...)
+#define INIT_CONSOLE(...)
+#else
 #include <libio/log.h>
+#endif
 #include <libmsp/mem.h>
 #include <libmsp/periph.h>
 #include <libmsp/clock.h>
@@ -35,12 +47,14 @@
 // #define SHOW_PROGRESS_ON_LED
 #include <stdint.h>
 
-//#define NUM_BUCKETS 128 // must be a power of 2
-#define NUM_BUCKETS 512 // must be a power of 2
+#define NUM_BUCKETS 128 // must be a power of 2
+//#define NUM_BUCKETS 512 // must be a power of 2
 //#define NUM_BUCKETS 64 // must be a power of 2
 #define MAX_RELOCATIONS 8
 
-void __loop_bound__(unsigned val){};
+#define NUM_KEYS (NUM_BUCKETS / 4) // shoot for 25% occupancy
+#define INIT_KEY 0x1
+
 typedef uint16_t value_t;
 typedef uint16_t hash_t;
 typedef uint16_t fingerprint_t;
@@ -74,12 +88,14 @@ void log_filter(fingerprint_t *filter)
 	unsigned i;
 #if ENERGY == 0
 	BLOCK_LOG_BEGIN();
+	BLOCK_LOG("address: %x\r\n", filter);
 	for (i = 0; i < NUM_BUCKETS; ++i) {
 		BLOCK_LOG("%04x ", filter[i]);
 		if (i > 0 && (i + 1) % 8 == 0)
 			BLOCK_LOG("\r\n");
 	}
 	BLOCK_LOG_END();
+//	PMMCTL0 = PMMPW | PMMSWPOR;
 #endif
 }
 
@@ -104,8 +120,9 @@ static hash_t djb_hash(uint8_t* data, unsigned len)
 	uint32_t hash = 5381;
 	unsigned int i;
 
-	for(i = 0; __loop_bound__(2), i < len; data++, i++) {
+	for(i = 0; i < len; data++, i++) {
 		hash = ((hash << 5) + hash) + (*data);
+//		PMMCTL0 = PMMPW | PMMSWPOR;
 	}
 
 	return hash & 0xFFFF;
@@ -114,6 +131,7 @@ static hash_t djb_hash(uint8_t* data, unsigned len)
 //__attribute__((always_inline))
 static index_t hash_fp_to_index(fingerprint_t fp)
 {
+	PRINTF("1\r\n");
 	hash_t hash = djb_hash((uint8_t *)&fp, sizeof(fingerprint_t));
 	return hash & (NUM_BUCKETS - 1); // NUM_BUCKETS must be power of 2
 }
@@ -121,6 +139,7 @@ static index_t hash_fp_to_index(fingerprint_t fp)
 //__attribute__((always_inline))
 static index_t hash_key_to_index(value_t fp)
 {
+	PRINTF("2\r\n");
 	hash_t hash = djb_hash((uint8_t *)&fp, sizeof(value_t));
 	return hash & (NUM_BUCKETS - 1); // NUM_BUCKETS must be power of 2
 }
@@ -128,6 +147,7 @@ static index_t hash_key_to_index(value_t fp)
 //__attribute__((always_inline))
 static fingerprint_t hash_to_fingerprint(value_t key)
 {
+	PRINTF("3\r\n");
 	return djb_hash((uint8_t *)&key, sizeof(value_t));
 }
 
@@ -181,7 +201,6 @@ static bool insert(fingerprint_t *filter, value_t key)
 			filter[index_victim] = fp; // evict victim
 
 			do { // relocate victim(s)
-				__loop_bound__(8);
 				fp_hash_victim = hash_fp_to_index(fp_victim);
 				index_victim = index_victim ^ fp_hash_victim;
 
@@ -242,12 +261,12 @@ void(*__vector_timer0_b1)(void) = TimerB1_ISR;
 void init()
 {
 #ifndef CONFIG_EDB
-	TBCTL &= 0xE6FF; //set 12,11 bit to zero (16bit) also 8 to zero (SMCLK)
-	TBCTL |= 0x0200; //set 9 to one (SMCLK)
-	TBCTL |= 0x00C0; //set 7-6 bit to 11 (divider = 8);
-	TBCTL &= 0xFFEF; //set bit 4 to zero
-	TBCTL |= 0x0020; //set bit 5 to one (5-4=10: continuous mode)
-	TBCTL |= 0x0002; //interrupt enable
+//	TBCTL &= 0xE6FF; //set 12,11 bit to zero (16bit) also 8 to zero (SMCLK)
+//	TBCTL |= 0x0200; //set 9 to one (SMCLK)
+//	TBCTL |= 0x00C0; //set 7-6 bit to 11 (divider = 8);
+//	TBCTL &= 0xFFEF; //set bit 4 to zero
+//	TBCTL |= 0x0020; //set bit 5 to one (5-4=10: continuous mode)
+//	TBCTL |= 0x0002; //interrupt enable
 #endif
 	init_hw();
 #ifdef CONFIG_EDB
@@ -257,7 +276,30 @@ void init()
 	INIT_CONSOLE();
 
 	__enable_interrupt();
-	PRINTF(".%u.\r\n", curctx->cur_reg[15]);
+#ifdef LOGIC
+	// Output enabled
+	GPIO(PORT_AUX, DIR) |= BIT(PIN_AUX_1);
+	GPIO(PORT_AUX, DIR) |= BIT(PIN_AUX_2);
+#endif
+#ifdef RATCHET
+	if (cur_reg == regs_0) {
+		unsigned* i = 0x4a5a;
+		unsigned* b = 0x4a60;
+		unsigned* i2 = 0x4a58;
+		unsigned* b2 = 0x4a5e;
+		PRINTF("%x %x %x %x %x\r\n", regs_1[0], *i, *b, *i2, *b2);
+	}
+	else {
+		//PRINTF("%x\r\n", regs_0[0]);
+		unsigned* i = 0x4a5a;
+		unsigned* b = 0x4a60;
+		unsigned* i2 = 0x4a58;
+		unsigned* b2 = 0x4a5e;
+		PRINTF("%x %x %x %x %x\r\n", regs_0[0], *i, *b, *i2, *b2);
+	}
+#else
+	PRINTF("a%u.\r\n", curctx->cur_reg[15]);
+#endif
 	for (unsigned i = 0; i < LOOP_IDX; ++i) {
 
 	}
@@ -303,10 +345,18 @@ void print_stack(){
 	}
 }
 #endif
+//__nv static fingerprint_t filter[NUM_BUCKETS];
 int main()
 {
 #ifdef RATCHET
+	init();
 	restore_regs();
+	// Static makes it end up in .bss (initialized to zero on every boot)
+	// This is not what we want
+	// For Chinchilla, the compiler automatically moves it so no problem
+	fingerprint_t filter[NUM_BUCKETS];
+#else
+	static fingerprint_t filter[NUM_BUCKETS];
 #endif
 
 	unsigned i;
@@ -318,15 +368,23 @@ int main()
 	// memset, but the memset linked in by GCC is of the wrong calling
 	// convention, but we can't override with our own memset because C runtime
 	// calls memset with GCC's calling convention. Catch 22.
-	static fingerprint_t filter[NUM_BUCKETS];
 
 	//	unsigned count = 0;
 	while (1) {
-		__loop_bound__(999);
+#ifdef LOGIC
+		// Out high
+		GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_1);
+		// Out low
+		GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_1);
+#endif
+
+		for (unsigned cnt = 0; cnt < 20; ++cnt) {
 #if ENERGY == 0
 		PRINTF("start\r\n");
 #endif
-		//PRINTF("REAL TIME start is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+#ifndef CONFIG_EDB
+//		PRINTF("REAL TIME start is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+#endif
 		for (i = 0; i < NUM_BUCKETS; ++i)
 			filter[i] = 0;
 
@@ -364,11 +422,12 @@ int main()
 		}
 		LOG("members/total: %u/%u\r\n", members, NUM_KEYS);
 
-		//PRINTF("REAL TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+#ifndef CONFIG_EDB
+//		PRINTF("REAL TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+#endif
 #if ENERGY == 0
 		PRINTF("end\r\n");
 #endif
-		end_run();
 		//PRINTF("chkpt cnt: %u\r\n", chkpt_count);
 		//PRINTF(".%u.\r\n", curctx->cur_reg[15]);
 		//print_filter(filter);
@@ -379,6 +438,16 @@ int main()
 		//			count = 0;
 		//			exit(0);
 		//		}
+		}
+#ifdef LOGIC
+				// Out high
+				GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_2);
+				// Out low
+				GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_2);
+				// tmp
+				unsigned tmp = curctx->cur_reg[15];
+#endif
+		end_run();
 	}
 
 	return 0;

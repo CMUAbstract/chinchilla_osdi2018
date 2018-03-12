@@ -24,6 +24,7 @@ def insertStackProtection():
 
 roi_start = False
 
+prevLine = ''
 # pop and ret patch
 for line in fileinput.input(sys.argv[1], inplace=1):
     if not roi_start:
@@ -54,6 +55,25 @@ for line in fileinput.input(sys.argv[1], inplace=1):
             print "\tmov.w\tr14, r0"
             isChanged = True
 
+
+
+
+        # For the checkpoint function (which automatically writes to the stack
+        # the PC whenever it is called) to never corrupt the stack,
+        # every stack pointer increase (stack shrink) should be guarded by
+        # the checkpoint before.
+        # pop and ret is already dealt above, and we need to put checkpoint
+        # before every add.w #constant, r1
+        # In theory, we also have to guard every inc r1, incd r1, ..
+        # every instruction that can increase r1. But lets hope that
+        # never occurs for now...
+        spIncrease = re.search(r"add\.w\t#[0-9]+, r1$", line)
+        if spIncrease is not None:
+            if re.match("\tcall\t#checkpoint", prevLine) is None:
+                # is there was no guarding checkpoint
+                print "\tcall\t#checkpoint"
+        prevLine = line
+
         if not isChanged:
             print line,
 
@@ -72,10 +92,11 @@ for line in fileinput.input(sys.argv[1], inplace=1):
     if mainStart:
         # right after the first push of r4
         if re.search("push.w\tr4", line) is not None:
-            print line,
             insertStackProtection()
+            print line,
             mainStart = False
         else:
             print line,
     else:
         print line,
+
