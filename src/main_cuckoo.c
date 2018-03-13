@@ -131,7 +131,6 @@ static hash_t djb_hash(uint8_t* data, unsigned len)
 //__attribute__((always_inline))
 static index_t hash_fp_to_index(fingerprint_t fp)
 {
-	PRINTF("1\r\n");
 	hash_t hash = djb_hash((uint8_t *)&fp, sizeof(fingerprint_t));
 	return hash & (NUM_BUCKETS - 1); // NUM_BUCKETS must be power of 2
 }
@@ -139,7 +138,6 @@ static index_t hash_fp_to_index(fingerprint_t fp)
 //__attribute__((always_inline))
 static index_t hash_key_to_index(value_t fp)
 {
-	PRINTF("2\r\n");
 	hash_t hash = djb_hash((uint8_t *)&fp, sizeof(value_t));
 	return hash & (NUM_BUCKETS - 1); // NUM_BUCKETS must be power of 2
 }
@@ -147,7 +145,6 @@ static index_t hash_key_to_index(value_t fp)
 //__attribute__((always_inline))
 static fingerprint_t hash_to_fingerprint(value_t key)
 {
-	PRINTF("3\r\n");
 	return djb_hash((uint8_t *)&key, sizeof(value_t));
 }
 
@@ -283,19 +280,10 @@ void init()
 #endif
 #ifdef RATCHET
 	if (cur_reg == regs_0) {
-		unsigned* i = 0x4a5a;
-		unsigned* b = 0x4a60;
-		unsigned* i2 = 0x4a58;
-		unsigned* b2 = 0x4a5e;
-		PRINTF("%x %x %x %x %x\r\n", regs_1[0], *i, *b, *i2, *b2);
+		PRINTF("%x\r\n", regs_1[0]);
 	}
 	else {
-		//PRINTF("%x\r\n", regs_0[0]);
-		unsigned* i = 0x4a5a;
-		unsigned* b = 0x4a60;
-		unsigned* i2 = 0x4a58;
-		unsigned* b2 = 0x4a5e;
-		PRINTF("%x %x %x %x %x\r\n", regs_0[0], *i, *b, *i2, *b2);
+		PRINTF("%x\r\n", regs_0[0]);
 	}
 #else
 	PRINTF("a%u.\r\n", curctx->cur_reg[15]);

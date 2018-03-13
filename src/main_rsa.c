@@ -6,7 +6,16 @@
 #include <stdlib.h>
 
 #include <libmspbuiltins/builtins.h>
+#ifdef LOGIC
+#define LOG(...)
+#define PRINTF(...)
+#define BLOCK_PRINTF(...)
+#define BLOCK_PRINTF_BEGIN(...)
+#define BLOCK_PRINTF_END(...)
+#define INIT_CONSOLE(...)
+#else
 #include <libio/log.h>
+#endif
 #include <libmsp/mem.h>
 #include <libmsp/periph.h>
 #include <libmsp/clock.h>
@@ -88,8 +97,8 @@ static __ro_nv const unsigned char PLAINTEXT[] =
 #define NUM_PLAINTEXT_BLOCKS (sizeof(PLAINTEXT) / (NUM_DIGITS - NUM_PAD_DIGITS) + 1)
 #define CYPHERTEXT_SIZE (NUM_PLAINTEXT_BLOCKS * NUM_DIGITS)
 
-uint8_t CYPHERTEXT[CYPHERTEXT_SIZE] = {0};
-unsigned CYPHERTEXT_LEN = 0;
+__nv uint8_t CYPHERTEXT[CYPHERTEXT_SIZE] = {0};
+__nv unsigned CYPHERTEXT_LEN = 0;
 
 // Store in NV memory to reduce RAM footprint (might not even fit in RAM)
 // Except with Mementos, which cannot handle NV state. With mementos
@@ -97,22 +106,19 @@ unsigned CYPHERTEXT_LEN = 0;
 // opposed to letting them be (volatile) globals is a workaround
 // for Mementos including the read-only globals into the checkpoint,
 // if it is told to include any globals at all.
-#ifndef MEMENTOS
-bigint_t in_block;
-bigint_t out_block;
-bigint_t qxn;
-bigint_t product;
-#endif
+//bigint_t in_block;
+//bigint_t out_block;
+//bigint_t qxn;
 unsigned overflow=0;
 #if ENERGY == 0
-__attribute__((interrupt(51))) 
+__attribute__((interrupt(51)))
 void TimerB1_ISR(void){
 	TBCTL &= ~(0x0002);
 	if(TBCTL && 0x0001){
 		overflow++;
 		TBCTL |= 0x0004;
 		TBCTL |= (0x0002);
-		TBCTL &= ~(0x0001);	
+		TBCTL &= ~(0x0001);
 	}
 }
 __attribute__((section("__interrupt_vector_timer0_b1"),aligned(2)))
@@ -133,24 +139,31 @@ void print_bigint(const bigint_t n, unsigned digits)
 //__attribute__((always_inline))
 void log_bigint(const bigint_t n, unsigned digits)
 {
+		no_chkpt_start();
+    BLOCK_PRINTF_BEGIN();
     int i;
     for (i = digits - 1; i >= 0; --i) {
 #if ENERGY == 0
-        BLOCK_LOG("%02x ", n[i]);
+        BLOCK_PRINTF("%02x ", n[i]);
 #endif
 		}
+		BLOCK_PRINTF("\r\n");
+    BLOCK_PRINTF_END();
+		no_chkpt_end();
 }
 
 //__attribute__((always_inline))
 void print_hex_ascii(const uint8_t *m, unsigned len)
 {
+		//PMMCTL0 = PMMPW | PMMSWPOR;
     int i, j;
 #if ENERGY == 0
 		no_chkpt_start();
 		BLOCK_PRINTF_BEGIN();
     for (i = 0; i < len; i += PRINT_HEX_ASCII_COLS) {
-        for (j = 0; j < PRINT_HEX_ASCII_COLS && i + j < len; ++j)
+        for (j = 0; j < PRINT_HEX_ASCII_COLS && i + j < len; ++j) {
             BLOCK_PRINTF("%02x ", m[i + j]);
+				}
         for (; j < PRINT_HEX_ASCII_COLS; ++j)
             BLOCK_PRINTF("   ");
         BLOCK_PRINTF(" ");
@@ -175,10 +188,8 @@ void mult(bigint_t a, bigint_t b, bigint_t product)
     digit_t p, c, dp;
     digit_t carry = 0;
 
-    BLOCK_LOG_BEGIN();
-    BLOCK_LOG("mult: a = "); log_bigint(a, NUM_DIGITS); BLOCK_LOG("\r\n");
-    BLOCK_LOG("mult: b = "); log_bigint(b, NUM_DIGITS); BLOCK_LOG("\r\n");
-    BLOCK_LOG_END();
+//    PRINTF("mult: a = "); log_bigint(a, NUM_DIGITS); BLOCK_LOG("\r\n");
+//    PRINTF("mult: b = "); log_bigint(b, NUM_DIGITS); BLOCK_LOG("\r\n");
 
     for (digit = 0; digit < NUM_DIGITS * 2; ++digit) {
         LOG("mult: d=%u\r\n", digit);
@@ -203,11 +214,21 @@ void mult(bigint_t a, bigint_t b, bigint_t product)
         carry = c;
     }
 
-    BLOCK_LOG_BEGIN();
-    BLOCK_LOG("mult: product = ");
-    log_bigint(product, 2 * NUM_DIGITS);
-    BLOCK_LOG("\r\n");
-    BLOCK_LOG_END();
+//		no_chkpt_start();
+//    BLOCK_PRINTF_BEGIN();
+//    BLOCK_PRINTF("mult: product = ");
+//    for (i = 2*NUM_DIGITS - 1; i >= 0; --i) {
+//    	BLOCK_PRINTF("%02x ", product[i]);
+//		}
+//    BLOCK_PRINTF("\r\n");
+//    BLOCK_PRINTF_END();
+//		no_chkpt_end();
+
+//    BLOCK_LOG_BEGIN();
+//    BLOCK_LOG("mult: product = ");
+//    log_bigint(product, 2 * NUM_DIGITS);
+//    BLOCK_LOG("\r\n");
+//    BLOCK_LOG_END();
 
 //		for (i = 0; i < 2 * NUM_DIGITS; ++i) {
 //			a[i] = product[i];
@@ -377,11 +398,13 @@ void reduce_multiply(bigint_t product, digit_t q, const bigint_t n, unsigned d)
 		product[i] = p;
 	}
 
-	BLOCK_LOG_BEGIN();
-	BLOCK_LOG("reduce: multiply: product = ");
-	log_bigint(product, 2 * NUM_DIGITS);
-	BLOCK_LOG("\r\n");
-	BLOCK_LOG_END();
+//	PRINTF("reduce: multiply: product = ");
+//	log_bigint(product, 2 * NUM_DIGITS);
+//	BLOCK_LOG_BEGIN();
+//	BLOCK_LOG("reduce: multiply: product = ");
+//	log_bigint(product, 2 * NUM_DIGITS);
+//	BLOCK_LOG("\r\n");
+//	BLOCK_LOG_END();
 }
 
 //__attribute__((always_inline))
@@ -441,11 +464,13 @@ void reduce_add(bigint_t a, const bigint_t b, unsigned d)
 		a[i] = r;
 	}
 
-	BLOCK_LOG_BEGIN();
-	BLOCK_LOG("reduce: add: sum = ");
-	log_bigint(a, 2 * NUM_DIGITS);
-	BLOCK_LOG("\r\n");
-	BLOCK_LOG_END();
+//	PRINTF("reduce: add: sum = ");
+//	log_bigint(a, 2 * NUM_DIGITS);
+//	BLOCK_LOG_BEGIN();
+//	BLOCK_LOG("reduce: add: sum = ");
+//	log_bigint(a, 2 * NUM_DIGITS);
+//	BLOCK_LOG("\r\n");
+//	BLOCK_LOG_END();
 }
 
 //__attribute__((always_inline))
@@ -482,11 +507,13 @@ void reduce_subtract(bigint_t a, bigint_t b, unsigned d)
 		a[i] = r;
 	}
 
-	BLOCK_LOG_BEGIN();
-	BLOCK_LOG("reduce: subtract: sum = ");
-	log_bigint(a, 2 * NUM_DIGITS);
-	BLOCK_LOG("\r\n");
-	BLOCK_LOG_END();
+//	PRINTF("reduce: subtract: sum = ");
+//	log_bigint(a, 2 * NUM_DIGITS);
+//	BLOCK_LOG_BEGIN();
+//	BLOCK_LOG("reduce: subtract: sum = ");
+//	log_bigint(a, 2 * NUM_DIGITS);
+//	BLOCK_LOG("\r\n");
+//	BLOCK_LOG_END();
 }
 
 //__attribute__((always_inline))
@@ -494,6 +521,7 @@ void reduce(bigint_t m, const bigint_t n)
 {
 	digit_t q;
 	unsigned d;
+	bigint_t qxn;
 
 	// Start reduction loop at most significant non-zero digit
 	d = 2 * NUM_DIGITS;
@@ -520,11 +548,13 @@ void reduce(bigint_t m, const bigint_t n)
 		d--;
 	}
 
-	BLOCK_LOG_BEGIN();
-	BLOCK_LOG("reduce: num = ");
-	log_bigint(m, NUM_DIGITS);
-	BLOCK_LOG("\r\n");
-	BLOCK_LOG_END();
+//	PRINTF("reduce: num = ");
+//	log_bigint(m, NUM_DIGITS);
+//	BLOCK_LOG_BEGIN();
+//	BLOCK_LOG("reduce: num = ");
+//	log_bigint(m, NUM_DIGITS);
+//	BLOCK_LOG("\r\n");
+//	BLOCK_LOG_END();
 }
 
 void mod_mult(bigint_t a, bigint_t b, const bigint_t n, bigint_t product)
@@ -546,6 +576,8 @@ void mod_exp(bigint_t out_block, bigint_t base, digit_t e, const bigint_t n)
 	while (e > 0) { //arbitrary bound
 		LOG("mod exp: e=%x\r\n", e);
 
+		// Looks weird, but tried my best to mimic
+		// the Alpaca code
 		if (e & 0x1) {
 			e >>= 1;
 			mod_mult(out_block, base, n, product);
@@ -575,6 +607,8 @@ void encrypt(uint8_t *cyphertext, unsigned *cyphertext_len,
 {
 	int i;
 	unsigned in_block_offset, out_block_offset;
+	bigint_t in_block;
+	bigint_t out_block;
 
 	in_block_offset = 0;
 	out_block_offset = 0;
@@ -623,12 +657,12 @@ static void init_hw()
 void init()
 {
 #ifndef CONFIG_EDB
-	TBCTL &= 0xE6FF; //set 12,11 bit to zero (16bit) also 8 to zero (SMCLK)
-	TBCTL |= 0x0200; //set 9 to one (SMCLK)
-	TBCTL |= 0x00C0; //set 7-6 bit to 11 (divider = 8);
-	TBCTL &= 0xFFEF; //set bit 4 to zero
-	TBCTL |= 0x0020; //set bit 5 to one (5-4=10: continuous mode)
-	TBCTL |= 0x0002; //interrupt enable
+//	TBCTL &= 0xE6FF; //set 12,11 bit to zero (16bit) also 8 to zero (SMCLK)
+//	TBCTL |= 0x0200; //set 9 to one (SMCLK)
+//	TBCTL |= 0x00C0; //set 7-6 bit to 11 (divider = 8);
+//	TBCTL &= 0xFFEF; //set bit 4 to zero
+//	TBCTL |= 0x0020; //set bit 5 to one (5-4=10: continuous mode)
+//	TBCTL |= 0x0002; //interrupt enable
 #endif
 	init_hw();
 #ifdef CONFIG_EDB
@@ -638,8 +672,21 @@ void init()
 	INIT_CONSOLE();
 
 	__enable_interrupt();
-	//EIF_PRINTF(".%u.\r\n", curtask);
+#ifdef LOGIC
+	// Output enabled
+	GPIO(PORT_AUX, DIR) |= BIT(PIN_AUX_1);
+	GPIO(PORT_AUX, DIR) |= BIT(PIN_AUX_2);
+#endif
+#ifdef RATCHET
+	if (cur_reg == regs_0) {
+		PRINTF("%x\r\n", regs_1[0]);
+	}
+	else {
+		PRINTF("%x\r\n", regs_0[0]);
+	}
+#else
 	PRINTF("a%u.\r\n", curctx->cur_reg[15]);
+#endif
 	for (unsigned i = 0; i < LOOP_IDX; ++i) {
 
 	}
@@ -654,21 +701,44 @@ int main()
 	unsigned message_length;
 
 	message_length = sizeof(PLAINTEXT) - 1; // exclude null byte
+//	uint8_t CYPHERTEXT[CYPHERTEXT_SIZE] = {0};
+// 	unsigned CYPHERTEXT_LEN = 0;
 
 	while (1) {
+#ifdef LOGIC
+		// Out high
+		GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_1);
+		// Out low
+		GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_1);
+#endif
 #if ENERGY == 0
 		PRINTF("start\r\n");
+#ifndef CONFIG_EDB
+//		PRINTF("TIME start is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
 #endif
-		PRINTF("TIME start is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+#endif
+		for (unsigned cnt = 0; cnt < 10; ++cnt) {
 		encrypt(CYPHERTEXT, &CYPHERTEXT_LEN, PLAINTEXT, message_length, &pubkey);
 
-		PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
 #if ENERGY == 0
+#ifndef CONFIG_EDB
+//		PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+#endif
 		PRINTF("end\r\n");
+		print_hex_ascii(CYPHERTEXT, CYPHERTEXT_LEN);
+#endif
+		}
+#ifdef LOGIC
+				// Out high
+				GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_2);
+				// Out low
+				GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_2);
+				// tmp
+				unsigned tmp = curctx->cur_reg[15];
 #endif
 		end_run();
 		//PRINTF("chkpt cnt: %u\r\n", chkpt_count);
-		print_hex_ascii(CYPHERTEXT, CYPHERTEXT_LEN);
+		//print_hex_ascii(CYPHERTEXT, CYPHERTEXT_LEN);
 	}
 
 	return 0;

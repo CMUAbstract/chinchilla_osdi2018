@@ -6,7 +6,16 @@
 #include <stdlib.h>
 
 #include <libmspbuiltins/builtins.h>
+#ifdef LOGIC
+#define LOG(...)
+#define PRINTF(...)
+#define BLOCK_PRINTF(...)
+#define BLOCK_PRINTF_BEGIN(...)
+#define BLOCK_PRINTF_END(...)
+#define INIT_CONSOLE(...)
+#else
 #include <libio/log.h>
+#endif
 #include <libmsp/mem.h>
 #include <libmsp/periph.h>
 #include <libmsp/clock.h>
@@ -29,7 +38,6 @@
 
 #include "param.h"
 #include "pins.h"
-void __loop_bound__(unsigned val){};
 unsigned overflow=0;
 #if ENERGY == 0
 __attribute__((interrupt(51))) 
@@ -45,6 +53,7 @@ __attribute__((interrupt(51)))
 __attribute__((section("__interrupt_vector_timer0_b1"),aligned(2)))
 void(*__vector_timer0_b1)(void) = TimerB1_ISR;
 #endif
+
 #define TEST_SAMPLE_DATA
 
 #define NIL 0 // like NULL, but for indexes, not real pointers
@@ -82,7 +91,9 @@ void print_log(log_t *log)
 	unsigned i;
 #if ENERGY == 0
 	BLOCK_PRINTF_BEGIN();
-	//BLOCK_PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+#ifndef CONFIG_EDB
+//	BLOCK_PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+#endif
 	BLOCK_PRINTF("rate: samples/block: %u/%u\r\n",
 			log->sample_count, log->count);
 //	BLOCK_PRINTF("compressed block:\r\n");
@@ -136,7 +147,8 @@ void init_dict(dict_t *dict)
 		node->child = 0;
 
 		dict->node_count++;
-		LOG("init dict: node count %u\r\n", dict->node_count);
+		LOG("init dict: node count %u %u\r\n", dict->node_count, l);
+//		PMMCTL0 = PMMPW | PMMSWPOR;
 	}
 }
 
@@ -153,7 +165,7 @@ index_t find_child(letter_t letter, index_t parent, dict_t *dict)
 	}
 
 	index_t sibling = parent_node->child;
-	while (__loop_bound__(256),sibling != NIL) { //bound: temp
+	while (sibling != NIL) { //bound: temp
 
 		node_t *sibling_node = &dict->nodes[sibling];
 
@@ -169,7 +181,7 @@ index_t find_child(letter_t letter, index_t parent, dict_t *dict)
 	}
 
 	LOG("find child: not found (no match)\r\n");
-	return NIL; 
+	return NIL;
 }
 
 //__attribute__((always_inline))
@@ -201,7 +213,7 @@ void add_node(letter_t letter, index_t parent, dict_t *dict)
 		// Find the last sibling in list
 		index_t sibling = child;
 		node_t *sibling_node = &dict->nodes[sibling];
-		while (__loop_bound__(256),sibling_node->sibling != NIL) { //temp bound for test
+		while (sibling_node->sibling != NIL) { //temp bound for test
 			LOG("add node: sibling %u, l %u s %u\r\n",
 					sibling, letter, sibling_node->sibling);
 			sibling = sibling_node->sibling;
@@ -227,12 +239,12 @@ void append_compressed(index_t parent, log_t *log)
 void init()
 {
 #ifndef CONFIG_EDB
-		TBCTL &= 0xE6FF; //set 12,11 bit to zero (16bit) also 8 to zero (SMCLK)
-		TBCTL |= 0x0200; //set 9 to one (SMCLK)
-		TBCTL |= 0x00C0; //set 7-6 bit to 11 (divider = 8);
-		TBCTL &= 0xFFEF; //set bit 4 to zero
-		TBCTL |= 0x0020; //set bit 5 to one (5-4=10: continuous mode)
-		TBCTL |= 0x0002; //interrupt enable
+//		TBCTL &= 0xE6FF; //set 12,11 bit to zero (16bit) also 8 to zero (SMCLK)
+//		TBCTL |= 0x0200; //set 9 to one (SMCLK)
+//		TBCTL |= 0x00C0; //set 7-6 bit to 11 (divider = 8);
+//		TBCTL &= 0xFFEF; //set bit 4 to zero
+//		TBCTL |= 0x0020; //set bit 5 to one (5-4=10: continuous mode)
+//		TBCTL |= 0x0002; //interrupt enable
 #endif
 #if OVERHEAD == 1
 	//	TBCTL &= ~(0x0020);
@@ -247,8 +259,24 @@ void init()
 	INIT_CONSOLE();
 
 	__enable_interrupt();
+#ifdef LOGIC
+	// Output enabled
+	GPIO(PORT_AUX, DIR) |= BIT(PIN_AUX_1);
+	GPIO(PORT_AUX, DIR) |= BIT(PIN_AUX_2);
+	GPIO(PORT_AUX3, DIR) |= BIT(PIN_AUX_3);
+	//
+				// Out high
+				GPIO(PORT_AUX3, OUT) |= BIT(PIN_AUX_3);
+				// Out low
+				GPIO(PORT_AUX3, OUT) &= ~BIT(PIN_AUX_3);
+#endif
 
+
+#ifdef RATCHET
+	PRINTF("reboot\r\n");
+#else
 	PRINTF("a%u.\r\n", curctx->cur_reg[15]);
+#endif
 	for (unsigned i = 0; i < LOOP_IDX; ++i) {
 
 	}
@@ -257,22 +285,44 @@ void init()
 int main()
 {
 #ifdef RATCHET
+	// Temp: assume the bottom 48 bit of the stack
+	// is not used by the program (used by boot sequence)
+	// And assume init and restore_regs does not use
+	// more than 48 bit from the stack (This is a temp assumption)
+	// Boot sequence stack: 0x4400~0x4430
+	// 0x4430 = 17465
+//	if (chkpt_ever_taken) {
+//		__asm__ volatile ("mov.w #17465, R1"); // LR is going to be the next PC
+//	}
+	init();
 	restore_regs();
 #endif
 	// Mementos can't handle globals: it restores them to .data, when they are
 	// in .bss... So, for now, just keep all data on stack.
 	//static __nv dict_t dict;
 	//static __nv log_t log;
+#ifndef RATCHET
 	dict_t dict;
 	log_t log;
+#else
+	static __nv dict_t dict;
+	static __nv log_t log;
+#endif
 	// test
 	while (1) {
-		__loop_bound__(999);
+#ifdef LOGIC
+		// Out high
+		GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_1);
+		// Out low
+		GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_1);
+#endif
+		for (unsigned cnt = 0; cnt < 2; ++cnt) {
 #if ENERGY == 0
 		PRINTF("start: \r\n");
-#endif
-//		PRINTF("start2: \r\n");
+#ifndef CONFIG_EDB
 //		PRINTF("TIME start is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+#endif
+#endif
 		init_dict(&dict);
 		// Initialize the pointer into the dictionary to one of the root nodes
 		// Assume all streams start with a fixed prefix ('0'), to avoid having
@@ -287,7 +337,6 @@ int main()
 		log.count = 0; // init compressed counter
 
 		while (1) {
-			__loop_bound__(999);
 
 			child = (index_t)letter; // relyes on initialization of dict
 			LOG("compress: parent %u\r\n", child); // naming is odd due to loop
@@ -303,7 +352,6 @@ int main()
 			if (letter_idx == NUM_LETTERS_IN_SAMPLE)
 				letter_idx = 0;
 			do {
-				__loop_bound__(256);
 				//PRINTF("child before: %u\r\n", child);
 				unsigned letter_idx_tmp = (letter_idx == 0) ? NUM_LETTERS_IN_SAMPLE : letter_idx - 1; 
 
@@ -322,7 +370,6 @@ int main()
 			} while (child != NIL);
 
 			append_compressed(parent, &log);
-			//WDTCTL=0;
 			add_node(letter, parent, &dict);
 
 			if (log.count == BLOCK_SIZE) {
@@ -333,28 +380,25 @@ int main()
 #if ENERGY == 0
 				PRINTF("end\r\n");
 #endif
-				//PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
-				//PRINTF("MAX BACKUP: %u\r\n", max_backup);
-//				BLOCK_PRINTF_BEGIN();
-//				for (unsigned i = 0; i < CHKPT_NUM; ++i) {
-//					BLOCK_PRINTF("chkpt[%u] = %u\r\n", i, chkpt_book[i]);
-//				}
-//				for (unsigned i = 0; i < CHKPT_NUM; ++i) {
-//					BLOCK_PRINTF("chkpt_status[%u] = %u\r\n", i, chkpt_status[i]);
-//				}
-//				BLOCK_PRINTF_END();
-				//update_checkpoints_pair();
-				end_run();
-//				BLOCK_PRINTF_BEGIN();
-//				BLOCK_PRINTF(".%u.\r\n", curctx->cur_reg[15]);
-//				BLOCK_PRINTF("chkpt cnt: %u\r\n", chkpt_count);
-//				BLOCK_PRINTF_END();
-				//			history[history_counter++] = 3;
-				//				exit(0);
 				break;
-				//while(1);
 			}
 		}
+		}
+#ifdef LOGIC
+				// Out high
+//				GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_2);
+				// Out low
+//				GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_2);
+				// tmp
+				unsigned tmp = curctx->cur_reg[15];
+#endif
+#ifdef LOGIC
+	// Out high
+	GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_2);
+	// Out low
+	GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_2);
+#endif
+				end_run();
 	//	end_run();
 	}
 	return 0;
