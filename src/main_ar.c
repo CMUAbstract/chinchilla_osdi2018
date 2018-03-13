@@ -7,7 +7,16 @@
 
 #include <libwispbase/accel.h>
 #include <libmspbuiltins/builtins.h>
+#ifdef LOGIC
+#define LOG(...)
+#define PRINTF(...)
+#define BLOCK_PRINTF(...)
+#define BLOCK_PRINTF_BEGIN(...)
+#define BLOCK_PRINTF_END(...)
+#define INIT_CONSOLE(...)
+#else
 #include <libio/log.h>
+#endif
 #include <libmsp/mem.h>
 #include <libmsp/periph.h>
 #include <libmsp/clock.h>
@@ -24,27 +33,29 @@
 
 #ifdef ALPACA
 #include <libalpaca/alpaca.h>
+void no_chkpt_start(){};
+void no_chkpt_end(){};
 #endif
 #ifdef RATCHET
 #include <libratchet/ratchet.h>
+#define no_chkpt_start()
+#define no_chkpt_end()
 #endif
 
 #include "param.h"
 #include "pins.h"
 
-void __loop_bound__(unsigned val){};
-void no_chkpt_start(){};
-void no_chkpt_end(){};
-unsigned count = 0;
-unsigned seed = 1;
+__nv unsigned count = 0;
+__nv unsigned seed = 1;
+__nv unsigned cnt;
 
 /* This is for progress reporting only */
 
 // Number of samples to discard before recording training set
 #define NUM_WARMUP_SAMPLES 3
 
-//#define ACCEL_WINDOW_SIZE 3
-#define ACCEL_WINDOW_SIZE 30
+#define ACCEL_WINDOW_SIZE 3
+//#define ACCEL_WINDOW_SIZE 30
 #define MODEL_SIZE 16
 #define SAMPLE_NOISE_FLOOR 10 // TODO: made up value
 
@@ -130,7 +141,7 @@ void acquire_window(accelWindow window)
 	accelReading sample;
 	unsigned samplesInWindow = 0;
 
-	while (__loop_bound__(3), samplesInWindow < ACCEL_WINDOW_SIZE) {
+	while ( samplesInWindow < ACCEL_WINDOW_SIZE) {
 		accel_sample(seed, &sample);
 		LOG("seed: %u\r\n", seed);
 		seed++;
@@ -335,7 +346,7 @@ void warmup_sensor()
 
 	LOG("warmup\r\n");
 
-	while (__loop_bound__(3), discardedSamplesCount++ < NUM_WARMUP_SAMPLES) {
+	while ( discardedSamplesCount++ < NUM_WARMUP_SAMPLES) {
 		accel_sample(seed, &sample);
 		LOG("seed: %u\r\n", seed);
 		seed++;
@@ -400,9 +411,6 @@ void recognize(model_t *model)
 //__attribute__((always_inline))
 run_mode_t select_mode(uint8_t *prev_pin_state)
 {
-#if ENERGY == 0
-	PRINTF("start\r\n");
-#endif
 	uint8_t pin_state = 1;
 
 	count++;
@@ -410,11 +418,25 @@ run_mode_t select_mode(uint8_t *prev_pin_state)
 	if(count >= 2) pin_state = 2;
 	if(count >= 3) pin_state = 0;
 	if(count >= 4) {
-		//PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+#ifndef CONFIG_EDB
+//		PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+#endif
 #if ENERGY == 0
 		PRINTF("end\r\n");
 #endif
-		end_run();
+		cnt++;
+		if (cnt == 5) {
+#ifdef LOGIC
+				// Out high
+				GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_2);
+				// Out low
+				GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_2);
+				// tmp
+				unsigned tmp = curctx->cur_reg[15];
+#endif
+				end_run();
+				cnt = 0;
+		}
 		count = 0;
 		seed = 1;
 		*prev_pin_state = MODE_IDLE;
@@ -436,36 +458,51 @@ run_mode_t select_mode(uint8_t *prev_pin_state)
 }
 
 //__attribute__((always_inline))
-static void init_accel()
-{
-#ifdef ACCEL_16BIT_TYPE
-	threeAxis_t accelID = {0};
-#else
-	threeAxis_t_8 accelID = {0};
-#endif
-}
+//static void init_accel()
+//{
+//#ifdef ACCEL_16BIT_TYPE
+//	threeAxis_t accelID = {0};
+//#else
+//	threeAxis_t_8 accelID = {0};
+//#endif
+//}
 
 void init()
 {
 #ifndef CONFIG_EDB
-	TBCTL &= 0xE6FF; //set 12,11 bit to zero (16bit) also 8 to zero (SMCLK)
-	TBCTL |= 0x0200; //set 9 to one (SMCLK)
-	TBCTL |= 0x00C0; //set 7-6 bit to 11 (divider = 8);
-	TBCTL &= 0xFFEF; //set bit 4 to zero
-	TBCTL |= 0x0020; //set bit 5 to one (5-4=10: continuous mode)
-	TBCTL |= 0x0002; //interrupt enable
+//	TBCTL &= 0xE6FF; //set 12,11 bit to zero (16bit) also 8 to zero (SMCLK)
+//	TBCTL |= 0x0200; //set 9 to one (SMCLK)
+//	TBCTL |= 0x00C0; //set 7-6 bit to 11 (divider = 8);
+//	TBCTL &= 0xFFEF; //set bit 4 to zero
+//	TBCTL |= 0x0020; //set bit 5 to one (5-4=10: continuous mode)
+//	TBCTL |= 0x0002; //interrupt enable
 #endif
 	init_hw();
 #ifdef CONFIG_EDB
-	edb_init();
+//	edb_init();
 #endif
 
 	INIT_CONSOLE();
 
 	__enable_interrupt();
-	init_accel();
+	//init_accel();
 
+	//PRINTF("a%u.\r\n", curctx->cur_reg[15]);
+#ifdef LOGIC
+	// Output enabled
+	GPIO(PORT_AUX, DIR) |= BIT(PIN_AUX_1);
+	GPIO(PORT_AUX, DIR) |= BIT(PIN_AUX_2);
+#endif
+#ifdef RATCHET
+	if (cur_reg == regs_0) {
+		PRINTF("%x\r\n", regs_1[0]);
+	}
+	else {
+		PRINTF("%x\r\n", regs_0[0]);
+	}
+#else
 	PRINTF("a%u.\r\n", curctx->cur_reg[15]);
+#endif
 	for (unsigned i = 0; i < LOOP_IDX; ++i) {
 
 	}
@@ -474,6 +511,7 @@ void init()
 int main()
 {
 #ifdef RATCHET
+	init();
 	restore_regs();
 #endif
 	// "Globals" must be on the stack because Mementos doesn't handle real
@@ -481,10 +519,24 @@ int main()
 	uint8_t prev_pin_state = MODE_IDLE;
 
 	model_t model;
-
+	cnt = 0;
 	while (1) {
-		__loop_bound__(8);
-		//PRINTF("TIME start is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+#if ENERGY == 0
+	if (count == 0) {
+		if (cnt == 0) {
+#ifdef LOGIC
+			// Out high
+			GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_1);
+			// Out low
+			GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_1);
+#endif
+		}
+		PRINTF("start\r\n");
+#ifndef CONFIG_EDB
+//		PRINTF("TIME start is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+#endif
+	}
+#endif
 		run_mode_t mode = select_mode(&prev_pin_state);
 		switch (mode) {
 			case MODE_TRAIN_STATIONARY:

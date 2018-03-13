@@ -6,7 +6,16 @@
 #include <stdlib.h>
 
 #include <libmspbuiltins/builtins.h>
+#ifdef LOGIC
+#define LOG(...)
+#define PRINTF(...)
+#define BLOCK_PRINTF(...)
+#define BLOCK_PRINTF_BEGIN(...)
+#define BLOCK_PRINTF_END(...)
+#define INIT_CONSOLE(...)
+#else
 #include <libio/log.h>
+#endif
 #include <libmsp/mem.h>
 #include <libmsp/periph.h>
 #include <libmsp/clock.h>
@@ -21,10 +30,15 @@
 #define ENERGY_GUARD_END()
 #endif
 
+#ifdef ALPACA
 #include <libalpaca/alpaca.h>
+void no_chkpt_start(){};
+void no_chkpt_end(){};
 #endif
 #ifdef RATCHET
 #include <libratchet/ratchet.h>
+#define no_chkpt_start()
+#define no_chkpt_end()
 #endif
 #include "param.h"
 #include "pins.h"
@@ -32,8 +46,6 @@
 #define SEED 4L
 #define ITER 100
 #define CHAR_BIT 8
-void no_chkpt_start(){};
-void no_chkpt_end(){};
 static const char bits[256] =
 {
 	0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4,  /* 0   - 15  */
@@ -60,7 +72,6 @@ static const char bits[256] =
 
 /* This is for progress reporting only */
 
-void __loop_bound__(unsigned i);
 unsigned overflow=0;
 #if ENERGY == 0
 __attribute__((interrupt(51))) 
@@ -87,12 +98,12 @@ static void init_hw()
 void init()
 {
 #ifndef CONFIG_EDB
-		TBCTL &= 0xE6FF; //set 12,11 bit to zero (16bit) also 8 to zero (SMCLK)
-		TBCTL |= 0x0200; //set 9 to one (SMCLK)
-		TBCTL |= 0x00C0; //set 7-6 bit to 11 (divider = 8);
-		TBCTL &= 0xFFEF; //set bit 4 to zero
-		TBCTL |= 0x0020; //set bit 5 to one (5-4=10: continuous mode)
-		TBCTL |= 0x0002; //interrupt enable
+//		TBCTL &= 0xE6FF; //set 12,11 bit to zero (16bit) also 8 to zero (SMCLK)
+//		TBCTL |= 0x0200; //set 9 to one (SMCLK)
+//		TBCTL |= 0x00C0; //set 7-6 bit to 11 (divider = 8);
+//		TBCTL &= 0xFFEF; //set bit 4 to zero
+//		TBCTL |= 0x0020; //set bit 5 to one (5-4=10: continuous mode)
+//		TBCTL |= 0x0002; //interrupt enable
 #endif
 	init_hw();
 #ifdef CONFIG_EDB
@@ -102,7 +113,21 @@ void init()
 	INIT_CONSOLE();
 
 	__enable_interrupt();
+#ifdef RATCHET
+	if (cur_reg == regs_0) {
+		PRINTF("%x\r\n", regs_1[0]);
+	}
+	else {
+		PRINTF("%x\r\n", regs_0[0]);
+	}
+#else
 	PRINTF("a%u.\r\n", curctx->cur_reg[15]);
+#endif
+#ifdef LOGIC
+	// Output enabled
+	GPIO(PORT_AUX, DIR) |= BIT(PIN_AUX_1);
+	GPIO(PORT_AUX, DIR) |= BIT(PIN_AUX_2);
+#endif
 	for (unsigned i = 0; i < LOOP_IDX; ++i) {
 
 	}
@@ -126,7 +151,6 @@ unsigned bit_count(uint32_t x)
 	 ** twice as fast as the shift/test method.
 	 */
 	if (x) do {
-		__loop_bound__(32);
 		n++;
 	} while (0 != (x = x&(x-1))) ;
 	return n;
@@ -193,7 +217,7 @@ int ntbl_bitcnt(uint32_t x)
 {
 	int cnt = bits[(int)(x & 0x0000000FL)];
 
-	while (__loop_bound__(8), 0L != (x >>= 4)) {
+	while (0L != (x >>= 4)) {
 		cnt += bits[(int)(x & 0x0000000FL)];
 	}
 
@@ -203,13 +227,14 @@ int ntbl_bitcnt(uint32_t x)
 static int bit_shifter(uint32_t x)
 {
 	int i, n;
-	for (i = n = 0; __loop_bound__(32), x && (i < (sizeof(uint32_t) * CHAR_BIT)); ++i, x >>= 1)
+	for (i = n = 0; x && (i < (sizeof(uint32_t) * CHAR_BIT)); ++i, x >>= 1)
 		n += (int)(x & 1L);
 	return n;
 }
 int main()
 {
 #ifdef RATCHET
+	init();
 	restore_regs();
 #endif
 	unsigned n_0, n_1, n_2, n_3, n_4, n_5, n_6;
@@ -218,7 +243,13 @@ int main()
 	unsigned func;
 
 	while (1) {
-		__loop_bound__(999);
+#ifdef LOGIC
+		// Out high
+		GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_1);
+		// Out low
+		GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_1);
+#endif
+		for (unsigned cnt = 0; cnt < 10; ++cnt) {
 		n_0=0;
 		n_1=0;
 		n_2=0;
@@ -226,7 +257,10 @@ int main()
 		n_4=0;
 		n_5=0;
 		n_6=0;
-		PRINTF("START\r\n");
+		PRINTF("start\r\n");
+#ifndef CONFIG_EDB
+//		PRINTF("TIME start is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+#endif
 
 		for (func = 0; func < 7; func++) {
 			LOG("func: %u\r\n", func);
@@ -269,8 +303,9 @@ int main()
 		}
 
 		PRINTF("end\r\n");
-		//PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
-		end_run();
+#ifndef CONFIG_EDB
+//		PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+#endif
 		no_chkpt_start();
 		BLOCK_PRINTF_BEGIN();
 		BLOCK_PRINTF("%u\r\n", n_0);
@@ -282,6 +317,16 @@ int main()
 		BLOCK_PRINTF("%u\r\n", n_6);
 		BLOCK_PRINTF_END();
 		no_chkpt_end();
+		}
+#ifdef LOGIC
+				// Out high
+				GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_2);
+				// Out low
+				GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_2);
+				// tmp
+				unsigned tmp = curctx->cur_reg[15];
+#endif
+		end_run();
 	}
 	return 0;
 }

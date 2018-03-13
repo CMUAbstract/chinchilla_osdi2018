@@ -32,9 +32,13 @@
 
 #ifdef ALPACA
 #include <libalpaca/alpaca.h>
+void no_chkpt_start(){};
+void no_chkpt_end(){};
 #endif
 #ifdef RATCHET
 #include <libratchet/ratchet.h>
+#define no_chkpt_start()
+#define no_chkpt_end()
 #endif
 
 
@@ -49,8 +53,6 @@
 
 /* This is for progress reporting only */
 
-void no_chkpt_start(){};
-void no_chkpt_end(){};
 
 //#define KEY_SIZE_BITS	256
 #define KEY_SIZE_BITS	64

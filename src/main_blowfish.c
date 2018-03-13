@@ -6,7 +6,16 @@
 #include <stdlib.h>
 
 #include <libmspbuiltins/builtins.h>
+#ifdef LOGIC
+#define LOG(...)
+#define PRINTF(...)
+#define BLOCK_PRINTF(...)
+#define BLOCK_PRINTF_BEGIN(...)
+#define BLOCK_PRINTF_END(...)
+#define INIT_CONSOLE(...)
+#else
 #include <libio/log.h>
+#endif
 #include <libmsp/mem.h>
 #include <libmsp/periph.h>
 #include <libmsp/clock.h>
@@ -32,7 +41,6 @@
 #include "pins.h"
 #define LENGTH 13
 
-void __loop_bound__(unsigned i);
 //bool test11 = 0;
 unsigned overflow=0;
 #if ENERGY == 0
@@ -72,15 +80,18 @@ static const uint32_t init_key[18] = {
 	0xc0ac29b7L, 0xc97c50ddL, 0x3f84d5b5L, 0xb5470917L,
 	0x9216d5d9L, 0x8979fb1b
 };
-//#if OPTED == 1
-//uint32_t key[18], s0[256], s1[256], s2[256], s3[256];
-//uint32_t __nv key[18], s0[256], s1[256], s2[256], s3[256];
-//#else
-//uint32_t __nv s0[256], s1[256], s2[256], s3[256];
+
+#ifdef RATCHET
+__nv uint32_t s0[256], s1[256], s2[256], s3[256];
+#else
 uint32_t s0[256], s1[256], s2[256], s3[256];
-//#endif
+#endif
+
+#ifdef RATCHET
+__ro_nv static const uint32_t init_s0[256] = {
+#else
 static const uint32_t init_s0[256] = {
-//static __ro_nv const uint32_t init_s0[256] = {
+#endif
 	0xd1310ba6L, 0x98dfb5acL, 0x2ffd72dbL, 0xd01adfb7L, 
 	0xb8e1afedL, 0x6a267e96L, 0xba7c9045L, 0xf12c7f99L, 
 	0x24a19947L, 0xb3916cf7L, 0x0801f2e2L, 0x858efc16L, 
@@ -147,7 +158,11 @@ static const uint32_t init_s0[256] = {
 	0x53b02d5dL, 0xa99f8fa1L, 0x08ba4799L, 0x6e85076aL, 
 };
 
+#ifdef RATCHET
+__ro_nv static const uint32_t init_s1[256] = {
+#else
 static const uint32_t init_s1[256] = {
+#endif
 //static __ro_nv const uint32_t init_s1[256] = {
 	0x4b7a70e9L, 0xb5b32944L, 0xdb75092eL, 0xc4192623L, 
 	0xad6ea6b0L, 0x49a7df7dL, 0x9cee60b8L, 0x8fedb266L, 
@@ -215,7 +230,11 @@ static const uint32_t init_s1[256] = {
 	0x153e21e7L, 0x8fb03d4aL, 0xe6e39f2bL, 0xdb83adf7L, 
 };
 
+#ifdef RATCHET
+__ro_nv static const uint32_t init_s2[256] = {
+#else
 static const uint32_t init_s2[256] = {
+#endif
 	0xe93d5a68L, 0x948140f7L, 0xf64c261cL, 0x94692934L, 
 	0x411520f7L, 0x7602d4f7L, 0xbcf46b2eL, 0xd4a20068L, 
 	0xd4082471L, 0x3320f46aL, 0x43b7d4b7L, 0x500061afL, 
@@ -282,7 +301,11 @@ static const uint32_t init_s2[256] = {
 	0xd79a3234L, 0x92638212L, 0x670efa8eL, 0x406000e0L, 
 };
 
+#ifdef RATCHET
+__ro_nv static const uint32_t init_s3[256] = {
+#else
 static const uint32_t init_s3[256] = {
+#endif
 	0x3a39ce37L, 0xd3faf5cfL, 0xabc27737L, 0x5ac52d1bL, 
 	0x5cb0679eL, 0x4fa33742L, 0xd3822740L, 0x99bc9bbeL, 
 	0xd5118e9dL, 0xbf0f7315L, 0xd62d1c7eL, 0xc700c47bL, 
@@ -357,12 +380,12 @@ void print_long(uint32_t l) {
 void init()
 {
 #ifndef CONFIG_EDB
-	TBCTL &= 0xE6FF; //set 12,11 bit to zero (16bit) also 8 to zero (SMCLK)
-	TBCTL |= 0x0200; //set 9 to one (SMCLK)
-	TBCTL |= 0x00C0; //set 7-6 bit to 11 (divider = 8);
-	TBCTL &= 0xFFEF; //set bit 4 to zero
-	TBCTL |= 0x0020; //set bit 5 to one (5-4=10: continuous mode)
-	TBCTL |= 0x0002; //interrupt enable
+//	TBCTL &= 0xE6FF; //set 12,11 bit to zero (16bit) also 8 to zero (SMCLK)
+//	TBCTL |= 0x0200; //set 9 to one (SMCLK)
+//	TBCTL |= 0x00C0; //set 7-6 bit to 11 (divider = 8);
+//	TBCTL &= 0xFFEF; //set bit 4 to zero
+//	TBCTL |= 0x0020; //set bit 5 to one (5-4=10: continuous mode)
+//	TBCTL |= 0x0002; //interrupt enable
 #endif
 #if OVERHEAD == 1
 //	TBCTL &= ~(0x0020);
@@ -377,7 +400,21 @@ void init()
     INIT_CONSOLE();
 
     __enable_interrupt();
+#ifdef RATCHET
+	if (cur_reg == regs_0) {
+		PRINTF("%x\r\n", regs_1[0]);
+	}
+	else {
+		PRINTF("%x\r\n", regs_0[0]);
+	}
+#else
 	PRINTF("a%u.\r\n", curctx->cur_reg[15]);
+#endif
+#ifdef LOGIC
+	// Output enabled
+	GPIO(PORT_AUX, DIR) |= BIT(PIN_AUX_1);
+	GPIO(PORT_AUX, DIR) |= BIT(PIN_AUX_2);
+#endif
 	for (unsigned i = 0; i < LOOP_IDX; ++i) {
 
 	}
@@ -398,7 +435,7 @@ void BF_encrypt(uint32_t *data, uint32_t *key){
 //	LOG("l =\r\n");
 //	print_long(l);
 //			}
-	for (unsigned index = 0; __loop_bound__(17), index < 17; ++index){
+	for (unsigned index = 0; index < 17; ++index){
 		p = key[index];
 
 		if (index == 0) {
@@ -626,6 +663,7 @@ void BF_cfb64_encrypt(unsigned char* out, unsigned char* iv, uint32_t *key){
 int main()
 {
 #ifdef RATCHET
+	init();
 	restore_regs();
 #endif
 //#if OPTED == 0
@@ -635,10 +673,17 @@ int main()
 	unsigned char indata[40], outdata[40], ivec[8];
 
 	while (1) {
-		__loop_bound__(999);
-		//PRINTF("TIME start is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+#ifdef LOGIC
+		// Out high
+		GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_1);
+		// Out low
+		GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_1);
+#endif
 #if ENERGY == 0
 		PRINTF("start\r\n");
+#ifndef CONFIG_EDB
+//		PRINTF("TIME start is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+#endif
 #endif
 	unsigned i = 0, by = 0;	
 
@@ -647,7 +692,7 @@ int main()
 	}
 	i = 0;
 	//CHECKPOINT
-	while (__loop_bound__(32), i < 32) {
+	while (i < 32) {
 		if(cp[i] >= '0' && cp[i] <= '9')
 			by = (by << 4) + cp[i] - '0';
 		else if(cp[i] >= 'A' && cp[i] <= 'F') //currently, key should be 0-9 or A-F
@@ -686,8 +731,18 @@ int main()
 	BF_cfb64_encrypt(outdata, ivec, key);
 #if ENERGY == 0
 	PRINTF("end\r\n");
+#ifndef CONFIG_EDB
+//		PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
 #endif
-		//PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+#endif
+#ifdef LOGIC
+				// Out high
+				GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_2);
+				// Out low
+				GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_2);
+				// tmp
+				unsigned tmp = curctx->cur_reg[15];
+#endif
 	end_run();
 	}
 //#endif
