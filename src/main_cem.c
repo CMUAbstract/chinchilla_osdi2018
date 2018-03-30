@@ -147,7 +147,7 @@ void init_dict(dict_t *dict)
 		node->child = 0;
 
 		dict->node_count++;
-		LOG("init dict: node count %u %u\r\n", dict->node_count, l);
+//		PRINTF("init dict: node count %u %u\r\n", dict->node_count, l);
 //		PMMCTL0 = PMMPW | PMMSWPOR;
 	}
 }
@@ -260,22 +260,30 @@ void init()
 
 	__enable_interrupt();
 #ifdef LOGIC
+				GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_2);
+
+				GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_1);
+				GPIO(PORT_AUX3, OUT) &= ~BIT(PIN_AUX_3);
 	// Output enabled
 	GPIO(PORT_AUX, DIR) |= BIT(PIN_AUX_1);
 	GPIO(PORT_AUX, DIR) |= BIT(PIN_AUX_2);
 	GPIO(PORT_AUX3, DIR) |= BIT(PIN_AUX_3);
 	//
 				// Out high
-				GPIO(PORT_AUX3, OUT) |= BIT(PIN_AUX_3);
+				GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_2);
 				// Out low
-				GPIO(PORT_AUX3, OUT) &= ~BIT(PIN_AUX_3);
+				GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_2);
+				// Out high
+//				GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_2);
+				// Out low
+				// tmp
 #endif
 
 
 #ifdef RATCHET
 	PRINTF("reboot\r\n");
 #else
-	PRINTF("a%u.\r\n", curctx->cur_reg[15]);
+	PRINTF("%x\r\n", curctx->cur_reg[0]);
 #endif
 	for (unsigned i = 0; i < LOOP_IDX; ++i) {
 
@@ -316,7 +324,8 @@ int main()
 		// Out low
 		GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_1);
 #endif
-		for (unsigned cnt = 0; cnt < 2; ++cnt) {
+		for (unsigned cnt = 0; cnt < 1; ++cnt) {
+		//for (unsigned cnt = 0; cnt < 20; ++cnt) {
 #if ENERGY == 0
 		PRINTF("start: \r\n");
 #ifndef CONFIG_EDB
@@ -340,7 +349,6 @@ int main()
 
 			child = (index_t)letter; // relyes on initialization of dict
 			LOG("compress: parent %u\r\n", child); // naming is odd due to loop
-
 
 			if (letter_idx == 0) {
 				sample = acquire_sample(prev_sample);
@@ -390,13 +398,9 @@ int main()
 				// Out low
 //				GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_2);
 				// tmp
+#ifndef RATCHET
 				unsigned tmp = curctx->cur_reg[15];
 #endif
-#ifdef LOGIC
-	// Out high
-	GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_2);
-	// Out low
-	GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_2);
 #endif
 				end_run();
 	//	end_run();

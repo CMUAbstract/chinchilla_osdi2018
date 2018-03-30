@@ -204,7 +204,7 @@ static bool insert(fingerprint_t *filter, value_t key)
 				fp_next_victim = filter[index_victim];
 				filter[index_victim] = fp_victim;
 
-				LOG("insert: moved %04x to %u; next victim %04x\r\n",
+				PRINTF("insert: moved %04x to %u; next victim %04x\r\n",
 						fp_victim, index_victim, fp_next_victim);
 
 				fp_victim = fp_next_victim;
@@ -232,9 +232,9 @@ static bool lookup(fingerprint_t *filter, value_t key)
 	index_t fp_hash = hash_fp_to_index(fp);
 	index_t index2 = index1 ^ fp_hash;
 
-	LOG("lookup: key %04x fp %04x h %04x i1 %u i2 %u\r\n",
+	PRINTF("lookup: key %04x fp %04x h %04x i1 %u i2 %u\r\n",
 			key, fp, fp_hash, index1, index2);
-	LOG("f[%u] %04x f[%u] %04x\r\n",
+	PRINTF("f[%u] %04x f[%u] %04x\r\n",
 			index1, filter[index1], index2, filter[index2]);
 
 	return filter[index1] == fp || filter[index2] == fp;
@@ -274,9 +274,23 @@ void init()
 
 	__enable_interrupt();
 #ifdef LOGIC
+				GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_2);
+
+				GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_1);
+				GPIO(PORT_AUX3, OUT) &= ~BIT(PIN_AUX_3);
 	// Output enabled
 	GPIO(PORT_AUX, DIR) |= BIT(PIN_AUX_1);
 	GPIO(PORT_AUX, DIR) |= BIT(PIN_AUX_2);
+	GPIO(PORT_AUX3, DIR) |= BIT(PIN_AUX_3);
+	//
+				// Out high
+				GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_2);
+				// Out low
+				GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_2);
+				// Out high
+//				GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_2);
+				// Out low
+				// tmp
 #endif
 #ifdef RATCHET
 	if (cur_reg == regs_0) {
@@ -286,53 +300,17 @@ void init()
 		PRINTF("%x\r\n", regs_0[0]);
 	}
 #else
-	PRINTF("a%u.\r\n", curctx->cur_reg[15]);
+	if (curctx->cur_reg == regs_0) {
+		PRINTF("%x\r\n", regs_1[0]);
+	}
+	else {
+		PRINTF("%x\r\n", regs_0[0]);
+	}
 #endif
 	for (unsigned i = 0; i < LOOP_IDX; ++i) {
 
 	}
 }
-#if 0
-void write_stack(){
-	unsigned j;
-	__asm__ volatile ("MOV R1, %0" :"=m"(j)); // j = SP
-	PRINTF("stack pointer: %u\r\n", j);
-	//	char* sp;
-	//	sp = (char*)j;
-	//	for (unsigned ii=0; ii<500;++ii){
-	//		sp-=2;
-	//		*((unsigned*)(sp)) = 0x2222;
-	//	}
-}
-void test_stack(){
-	int a[300];
-	for (unsigned i = 0; i < 300; i++){
-		a[i] = 0;
-	}
-}
-#define TOS 0x2400
-void print_stack(){
-	unsigned j;
-	bool overflow = true;
-	__asm__ volatile ("MOV R1, %0" :"=m"(j)); // j = SP
-	char* sp;
-	sp = (char*)j;
-	PRINTF("stack address: %u\r\n", j); 
-	for (unsigned ii=0; ii<500;++ii){
-		sp-=2;
-		PRINTF("stack value(%u): %u\r\n", (unsigned)sp, *((unsigned*)(sp)));
-		if (*((unsigned*)(sp)) == 0x2222){
-			PRINTF("used stack address up to %u\r\n", sp+2);
-			PRINTF("max stack size is %u\r\n", TOS-(unsigned)sp-2);
-			overflow = false;
-			break;
-		}
-	}
-	if(overflow){
-		PRINTF("overflow!!\r\n");
-	}
-}
-#endif
 //__nv static fingerprint_t filter[NUM_BUCKETS];
 int main()
 {
@@ -344,7 +322,7 @@ int main()
 	// For Chinchilla, the compiler automatically moves it so no problem
 	fingerprint_t filter[NUM_BUCKETS];
 #else
-	static fingerprint_t filter[NUM_BUCKETS];
+	fingerprint_t filter[NUM_BUCKETS];
 #endif
 
 	unsigned i;
@@ -366,7 +344,8 @@ int main()
 		GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_1);
 #endif
 
-		for (unsigned cnt = 0; cnt < 20; ++cnt) {
+		for (unsigned cnt = 0; cnt < 1; ++cnt) {
+		//for (unsigned cnt = 0; cnt < 40; ++cnt) {
 #if ENERGY == 0
 		PRINTF("start\r\n");
 #endif
@@ -429,11 +408,13 @@ int main()
 		}
 #ifdef LOGIC
 				// Out high
-				GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_2);
+//				GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_2);
 				// Out low
-				GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_2);
+//				GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_2);
 				// tmp
+#ifndef RATCHET
 				unsigned tmp = curctx->cur_reg[15];
+#endif
 #endif
 		end_run();
 	}
