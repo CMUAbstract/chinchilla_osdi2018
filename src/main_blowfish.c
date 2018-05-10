@@ -41,22 +41,17 @@
 #include "pins.h"
 #define LENGTH 13
 
+__nv uint32_t nv_cnt;
 //bool test11 = 0;
-unsigned overflow=0;
 #if ENERGY == 0
-//__attribute__((interrupt(TIMERB1_VECTOR))) 
-__attribute__((interrupt(51))) 
-void TimerB1_ISR(void){
-	TBCTL &= ~(0x0002);
-	if(TBCTL && 0x0001){
-		overflow++;
-		TBCTL |= 0x0004;
-		TBCTL |= (0x0002);
-		TBCTL &= ~(0x0001);	
+__attribute__((interrupt(51)))
+	void TimerB1_ISR(void){
+		PMMCTL0 = PMMPW | PMMSWPOR;
+		BITSET(TBCTL, TBCLR);
 	}
-}
 __attribute__((section("__interrupt_vector_timer0_b1"),aligned(2)))
 void(*__vector_timer0_b1)(void) = TimerB1_ISR;
+
 #endif
 /* This is for progress reporting only */
 
@@ -379,6 +374,9 @@ void print_long(uint32_t l) {
 #endif
 void init()
 {
+	BITSET(TBCTL, (TBSSEL_1 | ID_3 | MC_2 | TBCLR));
+	BITSET(TBCCTL1 , CCIE);
+	TBCCR1 = 40;
 #ifndef CONFIG_EDB
 //	TBCTL &= 0xE6FF; //set 12,11 bit to zero (16bit) also 8 to zero (SMCLK)
 //	TBCTL |= 0x0200; //set 9 to one (SMCLK)
@@ -393,13 +391,32 @@ void init()
     //WISP_init();
 	init_hw();
 #ifdef CONFIG_EDB
-   // debug_setup();
-    edb_init();
+	// debug_setup();
+	edb_init();
 #endif
 
-    INIT_CONSOLE();
+	INIT_CONSOLE();
 
-    __enable_interrupt();
+	__enable_interrupt();
+#ifdef LOGIC
+	GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_2);
+
+	GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_1);
+	GPIO(PORT_AUX3, OUT) &= ~BIT(PIN_AUX_3);
+	// Output enabled
+	GPIO(PORT_AUX, DIR) |= BIT(PIN_AUX_1);
+	GPIO(PORT_AUX, DIR) |= BIT(PIN_AUX_2);
+	GPIO(PORT_AUX3, DIR) |= BIT(PIN_AUX_3);
+	//
+	// Out high
+	GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_2);
+	// Out low
+	GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_2);
+	// Out high
+	//				GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_2);
+	// Out low
+	// tmp
+#else
 #ifdef RATCHET
 	if (cur_reg == regs_0) {
 		PRINTF("%x\r\n", regs_1[0]);
@@ -410,43 +427,36 @@ void init()
 #else
 	PRINTF("a%u.\r\n", curctx->cur_reg[15]);
 #endif
-#ifdef LOGIC
-	// Output enabled
-	GPIO(PORT_AUX, DIR) |= BIT(PIN_AUX_1);
-	GPIO(PORT_AUX, DIR) |= BIT(PIN_AUX_2);
 #endif
-	for (unsigned i = 0; i < LOOP_IDX; ++i) {
-
-	}
 }
 //#if OPTED == 1
 //void BF_encrypt(uint32_t *data){
 //#else
 void BF_encrypt(uint32_t *data, uint32_t *key){
-//#endif
+	//#endif
 	//CHECKPOINT
 	//
 	uint32_t l, r, p, s0_t, s1_t, s2_t, s3_t, tmp;
 	r = data[0];
 	l = data[1];
-//			if (test11){
-//	LOG("r =\r\n");
-//	print_long(r);
-//	LOG("l =\r\n");
-//	print_long(l);
-//			}
+	//			if (test11){
+	//	LOG("r =\r\n");
+	//	print_long(r);
+	//	LOG("l =\r\n");
+	//	print_long(l);
+	//			}
 	for (unsigned index = 0; index < 17; ++index){
 		p = key[index];
 
 		if (index == 0) {
 			r ^= p;
 			++index;
-//			if (test11){
-//			LOG("p[0] (%u th)=\r\n",index);
-//			print_long(p);
-//			LOG("r (%u th)=\r\n",index);
-//			print_long(r);
-//			}
+			//			if (test11){
+			//			LOG("p[0] (%u th)=\r\n",index);
+			//			print_long(p);
+			//			LOG("r (%u th)=\r\n",index);
+			//			print_long(r);
+			//			}
 		}
 		p = key[index];
 		l^=p; 
@@ -455,9 +465,9 @@ void BF_encrypt(uint32_t *data, uint32_t *key){
 		s2_t = s2[((r>> 8L)&0xff)];
 		s3_t = s3[((r     )&0xff)];
 		l^=(((	s0_t + 
-			s1_t)^ 
-			s2_t)+ 
-			s3_t)&0xffffffff;
+						s1_t)^ 
+					s2_t)+ 
+				s3_t)&0xffffffff;
 
 		tmp = r;
 		r = l;
@@ -472,7 +482,7 @@ void BF_encrypt(uint32_t *data, uint32_t *key){
 //void BF_set_key(unsigned char *data){
 //#else
 void BF_set_key(unsigned char *data, uint32_t *key){
-//#endif
+	//#endif
 	unsigned i;
 	uint32_t ri, ri2;
 	unsigned d = 0;
@@ -499,13 +509,13 @@ void BF_set_key(unsigned char *data, uint32_t *key){
 		key[i]^=ri;
 	}
 	//CHECKPOINT
-	
+
 	uint32_t in[2]={0L,0L};
-//#if OPTED == 1
-//	BF_encrypt(in);
-//#else
+	//#if OPTED == 1
+	//	BF_encrypt(in);
+	//#else
 	BF_encrypt(in, key);
-//#endif
+	//#endif
 	//CHECKPOINT
 	uint32_t li;
 	for (li=2; li< 256*4+20; li+=2){
@@ -519,11 +529,11 @@ void BF_set_key(unsigned char *data, uint32_t *key){
 			LOG("key[%u]=", li-1);
 			print_long(in[1]);	
 #endif
-//#if OPTED == 1
-//			BF_encrypt(in);
-//#else
+			//#if OPTED == 1
+			//			BF_encrypt(in);
+			//#else
 			BF_encrypt(in, key);
-//#endif
+			//#endif
 			//CHECKPOINT
 		}
 		else if(li < 256+20){
@@ -537,11 +547,11 @@ void BF_set_key(unsigned char *data, uint32_t *key){
 				print_long(in[1]);
 			}
 #endif
-//#if OPTED == 1
-//			BF_encrypt(in);
-//#else
+			//#if OPTED == 1
+			//			BF_encrypt(in);
+			//#else
 			BF_encrypt(in, key);
-//#endif
+			//#endif
 		}
 		else if(li < 512+20){
 			s1[li-(256+20)] = in[0];
@@ -554,11 +564,11 @@ void BF_set_key(unsigned char *data, uint32_t *key){
 				print_long(in[1]);
 			}
 #endif
-//#if OPTED == 1
-//			BF_encrypt(in);
-//#else
+			//#if OPTED == 1
+			//			BF_encrypt(in);
+			//#else
 			BF_encrypt(in, key);
-//#endif
+			//#endif
 		}
 		else if(li < 256*3+20){
 			s2[li-(256*2+20)] = in[0];
@@ -571,11 +581,11 @@ void BF_set_key(unsigned char *data, uint32_t *key){
 				print_long(in[1]);
 			}
 #endif
-//#if OPTED == 1
-//			BF_encrypt(in);
-//#else
+			//#if OPTED == 1
+			//			BF_encrypt(in);
+			//#else
 			BF_encrypt(in, key);
-//#endif
+			//#endif
 		}
 		else if(li < 256*4+20){
 			s3[li-(256*3+20)] = in[0];
@@ -588,11 +598,11 @@ void BF_set_key(unsigned char *data, uint32_t *key){
 				print_long(in[1]);
 			}
 #endif
-//#if OPTED == 1
-//			BF_encrypt(in);
-//#else
+			//#if OPTED == 1
+			//			BF_encrypt(in);
+			//#else
 			BF_encrypt(in, key);
-//#endif
+			//#endif
 		}
 	}
 }
@@ -600,7 +610,7 @@ void BF_set_key(unsigned char *data, uint32_t *key){
 //void BF_cfb64_encrypt(unsigned char* out, unsigned char* iv){
 //#else
 void BF_cfb64_encrypt(unsigned char* out, unsigned char* iv, uint32_t *key){
-//#endif
+	//#endif
 	uint32_t ti[2];
 	unsigned char c;
 	unsigned n = 0;
@@ -623,11 +633,11 @@ void BF_cfb64_encrypt(unsigned char* out, unsigned char* iv, uint32_t *key){
 				print_long(ti[j]);
 			}	
 #endif
-//#if OPTED == 1
-//			BF_encrypt(ti);
-//#else
+			//#if OPTED == 1
+			//			BF_encrypt(ti);
+			//#else
 			BF_encrypt(ti, key);
-//#endif
+			//#endif
 #if VERBOSE == 1
 			for (unsigned j=0; j<2; ++j){
 				LOG("after: ti[%u]=\r\n",j);
@@ -666,87 +676,96 @@ int main()
 	init();
 	restore_regs();
 #endif
-//#if OPTED == 0
+	//#if OPTED == 0
 	uint32_t key[18];
-//#endif
+	//#endif
 	unsigned char ukey[16];
 	unsigned char indata[40], outdata[40], ivec[8];
 
 	while (1) {
+		nv_cnt = 0;
 #ifdef LOGIC
 		// Out high
 		GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_1);
 		// Out low
 		GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_1);
 #endif
+		for (unsigned loop_cnt = 0; loop_cnt < 1; ++loop_cnt) {
+		//for (unsigned loop_cnt = 0; loop_cnt < 5; ++loop_cnt) {
 #if ENERGY == 0
-		PRINTF("start\r\n");
+			PRINTF("start\r\n");
 #ifndef CONFIG_EDB
-//		PRINTF("TIME start is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+			//		PRINTF("TIME start is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
 #endif
 #endif
-	unsigned i = 0, by = 0;	
+			unsigned i = 0, by = 0;	
 
-	for (i = 0; i < 8; ++i){
-		ivec[i] = 0;
-	}
-	i = 0;
-	//CHECKPOINT
-	while (i < 32) {
-		if(cp[i] >= '0' && cp[i] <= '9')
-			by = (by << 4) + cp[i] - '0';
-		else if(cp[i] >= 'A' && cp[i] <= 'F') //currently, key should be 0-9 or A-F
-			by = (by << 4) + cp[i] - 'A' + 10;
-		else { 
+			for (i = 0; i < 8; ++i){
+				ivec[i] = 0;
+			}
+			i = 0;
+			//CHECKPOINT
+			while (i < 32) {
+				if(cp[i] >= '0' && cp[i] <= '9')
+					by = (by << 4) + cp[i] - '0';
+				else if(cp[i] >= 'A' && cp[i] <= 'F') //currently, key should be 0-9 or A-F
+					by = (by << 4) + cp[i] - 'A' + 10;
+				else { 
 #if ENERGY == 0
-			PRINTF("Key must be hexadecimal!!\r\n");
+					PRINTF("Key must be hexadecimal!!\r\n");
 #endif
-		}
-		if ((i++) & 1) {
-			ukey[i/2-1] = by & 0xff;
-			LOG("ukey[%u]: %u\r\n",i/2-1,by & 0xff);
-		}
+				}
+				if ((i++) & 1) {
+					ukey[i/2-1] = by & 0xff;
+					LOG("ukey[%u]: %u\r\n",i/2-1,by & 0xff);
+				}
 
-	}
-	for (i = 0; i < 18; ++i)
-		key[i] = init_key[i];
-	
-	for (i = 0; i < 1024; ++i) {
-		if (i == 0 || i == 256 || i == 256*2 || i == 256*3){
-		}
-		if (i < 256) 
-			s0[i] = init_s0[i];
-		else if (i < 256*2)
-			s1[i-256] = init_s1[i-256];
-		else if (i < 256*3)
-			s2[i-256*2] = init_s2[i-256*2];
-		else 
-			s3[i-256*3] = init_s3[i-256*3];
-	}
-//#if OPTED == 1
-//	BF_set_key(ukey);
-//	BF_cfb64_encrypt(outdata, ivec);
-//#else
-	BF_set_key(ukey, key);
-	BF_cfb64_encrypt(outdata, ivec, key);
+			}
+			for (i = 0; i < 18; ++i)
+				key[i] = init_key[i];
+
+			for (i = 0; i < 1024; ++i) {
+				if (i == 0 || i == 256 || i == 256*2 || i == 256*3){
+				}
+				if (i < 256) 
+					s0[i] = init_s0[i];
+				else if (i < 256*2)
+					s1[i-256] = init_s1[i-256];
+				else if (i < 256*3)
+					s2[i-256*2] = init_s2[i-256*2];
+				else 
+					s3[i-256*3] = init_s3[i-256*3];
+			}
+			//#if OPTED == 1
+			//	BF_set_key(ukey);
+			//	BF_cfb64_encrypt(outdata, ivec);
+			//#else
+			BF_set_key(ukey, key);
+			BF_cfb64_encrypt(outdata, ivec, key);
 #if ENERGY == 0
-	PRINTF("end\r\n");
+			PRINTF("end\r\n");
 #ifndef CONFIG_EDB
-//		PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+			//		PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
 #endif
 #endif
+		}
 #ifdef LOGIC
-				// Out high
-				GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_2);
-				// Out low
-				GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_2);
-				// tmp
-				unsigned tmp = curctx->cur_reg[15];
+		// Out high
+		//				GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_2);
+		// Out low
+		//				GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_2);
+		// tmp
+#ifndef RATCHET
+		unsigned tmp = curctx->cur_reg[15];
 #endif
-	end_run();
+#endif
+		end_run();
+		PRINTF("cnt:");
+		PRINTF("%04x", (unsigned)((nv_cnt>>16) & 0xffff));
+		PRINTF("%04x\r\n",nv_cnt & 0xffff);
+		}
+		//#endif
 	}
-//#endif
-}
 
 
 

@@ -38,22 +38,15 @@
 
 #include "param.h"
 #include "pins.h"
-unsigned overflow=0;
-#if ENERGY == 0
-__attribute__((interrupt(51))) 
+__attribute__((interrupt(51)))
 	void TimerB1_ISR(void){
-		TBCTL &= ~(0x0002);
-		if(TBCTL && 0x0001){
-			overflow++;
-			TBCTL |= 0x0004;
-			TBCTL |= (0x0002);
-			TBCTL &= ~(0x0001);	
-		}
+		PMMCTL0 = PMMPW | PMMSWPOR;
+		BITSET(TBCTL, TBCLR);
 	}
 __attribute__((section("__interrupt_vector_timer0_b1"),aligned(2)))
 void(*__vector_timer0_b1)(void) = TimerB1_ISR;
-#endif
 
+__nv uint32_t nv_cnt;
 #define TEST_SAMPLE_DATA
 
 #define NIL 0 // like NULL, but for indexes, not real pointers
@@ -238,13 +231,16 @@ void append_compressed(index_t parent, log_t *log)
 
 void init()
 {
+	BITSET(TBCTL, (TBSSEL_1 | ID_3 | MC_2 | TBCLR));
+	BITSET(TBCCTL1 , CCIE);
+	TBCCR1 = 40;
 #ifndef CONFIG_EDB
-//		TBCTL &= 0xE6FF; //set 12,11 bit to zero (16bit) also 8 to zero (SMCLK)
-//		TBCTL |= 0x0200; //set 9 to one (SMCLK)
-//		TBCTL |= 0x00C0; //set 7-6 bit to 11 (divider = 8);
-//		TBCTL &= 0xFFEF; //set bit 4 to zero
-//		TBCTL |= 0x0020; //set bit 5 to one (5-4=10: continuous mode)
-//		TBCTL |= 0x0002; //interrupt enable
+	//		TBCTL &= 0xE6FF; //set 12,11 bit to zero (16bit) also 8 to zero (SMCLK)
+	//		TBCTL |= 0x0200; //set 9 to one (SMCLK)
+	//		TBCTL |= 0x00C0; //set 7-6 bit to 11 (divider = 8);
+	//		TBCTL &= 0xFFEF; //set bit 4 to zero
+	//		TBCTL |= 0x0020; //set bit 5 to one (5-4=10: continuous mode)
+	//		TBCTL |= 0x0002; //interrupt enable
 #endif
 #if OVERHEAD == 1
 	//	TBCTL &= ~(0x0020);
@@ -260,34 +256,30 @@ void init()
 
 	__enable_interrupt();
 #ifdef LOGIC
-				GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_2);
+	GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_2);
 
-				GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_1);
-				GPIO(PORT_AUX3, OUT) &= ~BIT(PIN_AUX_3);
+	GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_1);
+	GPIO(PORT_AUX3, OUT) &= ~BIT(PIN_AUX_3);
 	// Output enabled
 	GPIO(PORT_AUX, DIR) |= BIT(PIN_AUX_1);
 	GPIO(PORT_AUX, DIR) |= BIT(PIN_AUX_2);
 	GPIO(PORT_AUX3, DIR) |= BIT(PIN_AUX_3);
 	//
-				// Out high
-				GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_2);
-				// Out low
-				GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_2);
-				// Out high
-//				GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_2);
-				// Out low
-				// tmp
-#endif
-
-
+	// Out high
+	GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_2);
+	// Out low
+	GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_2);
+	// Out high
+	//				GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_2);
+	// Out low
+	// tmp
+#else
 #ifdef RATCHET
 	PRINTF("reboot\r\n");
 #else
 	PRINTF("%x\r\n", curctx->cur_reg[0]);
 #endif
-	for (unsigned i = 0; i < LOOP_IDX; ++i) {
-
-	}
+#endif
 }
 
 int main()
@@ -299,9 +291,9 @@ int main()
 	// more than 48 bit from the stack (This is a temp assumption)
 	// Boot sequence stack: 0x4400~0x4430
 	// 0x4430 = 17465
-//	if (chkpt_ever_taken) {
-//		__asm__ volatile ("mov.w #17465, R1"); // LR is going to be the next PC
-//	}
+	//	if (chkpt_ever_taken) {
+	//		__asm__ volatile ("mov.w #17465, R1"); // LR is going to be the next PC
+	//	}
 	init();
 	restore_regs();
 #endif
@@ -318,6 +310,7 @@ int main()
 #endif
 	// test
 	while (1) {
+		nv_cnt = 0;
 #ifdef LOGIC
 		// Out high
 		GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_1);
@@ -327,83 +320,86 @@ int main()
 		for (unsigned cnt = 0; cnt < 1; ++cnt) {
 		//for (unsigned cnt = 0; cnt < 20; ++cnt) {
 #if ENERGY == 0
-		PRINTF("start: \r\n");
+			//PRINTF("start: \r\n");
 #ifndef CONFIG_EDB
-//		PRINTF("TIME start is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+			//		PRINTF("TIME start is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
 #endif
 #endif
-		init_dict(&dict);
-		// Initialize the pointer into the dictionary to one of the root nodes
-		// Assume all streams start with a fixed prefix ('0'), to avoid having
-		// to letterize this out-of-band sample.
-		letter_t letter = 0;
+			init_dict(&dict);
+			// Initialize the pointer into the dictionary to one of the root nodes
+			// Assume all streams start with a fixed prefix ('0'), to avoid having
+			// to letterize this out-of-band sample.
+			letter_t letter = 0;
 
-		unsigned letter_idx = 0;
-		index_t parent, child;
-		sample_t sample, prev_sample = 0;
+			unsigned letter_idx = 0;
+			index_t parent, child;
+			sample_t sample, prev_sample = 0;
 
-		log.sample_count = 1; // count the initial sample (see above)
-		log.count = 0; // init compressed counter
+			log.sample_count = 1; // count the initial sample (see above)
+			log.count = 0; // init compressed counter
 
-		while (1) {
+			while (1) {
 
-			child = (index_t)letter; // relyes on initialization of dict
-			LOG("compress: parent %u\r\n", child); // naming is odd due to loop
+				child = (index_t)letter; // relyes on initialization of dict
+				LOG("compress: parent %u\r\n", child); // naming is odd due to loop
 
-			if (letter_idx == 0) {
-				sample = acquire_sample(prev_sample);
-				prev_sample = sample;
-			}
-			LOG("letter index: %u\r\n", letter_idx);
-			//PRINTF("letter index: %u\r\n", letter_idx);
-			letter_idx++;
-			if (letter_idx == NUM_LETTERS_IN_SAMPLE)
-				letter_idx = 0;
-			do {
-				//PRINTF("child before: %u\r\n", child);
-				unsigned letter_idx_tmp = (letter_idx == 0) ? NUM_LETTERS_IN_SAMPLE : letter_idx - 1; 
+				if (letter_idx == 0) {
+					sample = acquire_sample(prev_sample);
+					prev_sample = sample;
+				}
+				LOG("letter index: %u\r\n", letter_idx);
+				//PRINTF("letter index: %u\r\n", letter_idx);
+				letter_idx++;
+				if (letter_idx == NUM_LETTERS_IN_SAMPLE)
+					letter_idx = 0;
+				do {
+					//PRINTF("child before: %u\r\n", child);
+					unsigned letter_idx_tmp = (letter_idx == 0) ? NUM_LETTERS_IN_SAMPLE : letter_idx - 1; 
 
-				unsigned letter_shift = LETTER_SIZE_BITS * letter_idx_tmp;
-				letter = (sample & (LETTER_MASK << letter_shift)) >> letter_shift;
-				LOG("letterize: sample %x letter %x (%u)\r\n",
-						sample, letter, letter);
-				//PRINTF("letterize: sample %x letter %x (%u)\r\n",
-				//		sample, letter, letter);
+					unsigned letter_shift = LETTER_SIZE_BITS * letter_idx_tmp;
+					letter = (sample & (LETTER_MASK << letter_shift)) >> letter_shift;
+					LOG("letterize: sample %x letter %x (%u)\r\n",
+							sample, letter, letter);
+					//PRINTF("letterize: sample %x letter %x (%u)\r\n",
+					//		sample, letter, letter);
 
-				log.sample_count++;
-				parent = child;
-				child = find_child(letter, parent, &dict);
-				//PRINTF("child: %u\r\n", child);
-				LOG("child: %u\r\n", child);
-			} while (child != NIL);
+					log.sample_count++;
+					parent = child;
+					child = find_child(letter, parent, &dict);
+					//PRINTF("child: %u\r\n", child);
+					LOG("child: %u\r\n", child);
+				} while (child != NIL);
 
-			append_compressed(parent, &log);
-			add_node(letter, parent, &dict);
+				append_compressed(parent, &log);
+				add_node(letter, parent, &dict);
 
-			if (log.count == BLOCK_SIZE) {
-				print_log(&log);
-				log.count = 0;
-				log.sample_count = 0;
+				if (log.count == BLOCK_SIZE) {
+					//print_log(&log);
+					log.count = 0;
+					log.sample_count = 0;
 
 #if ENERGY == 0
-				PRINTF("end\r\n");
+					//PRINTF("end\r\n");
 #endif
-				break;
+					break;
+				}
 			}
 		}
-		}
 #ifdef LOGIC
-				// Out high
-//				GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_2);
-				// Out low
-//				GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_2);
-				// tmp
+		// Out high
+		//				GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_2);
+		// Out low
+		//				GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_2);
+		// tmp
 #ifndef RATCHET
-				unsigned tmp = curctx->cur_reg[15];
+		unsigned tmp = curctx->cur_reg[15];
 #endif
 #endif
-				end_run();
-	//	end_run();
+		end_run();
+		//	end_run();
+		PRINTF("cnt:");
+		PRINTF("%04x", (unsigned)((nv_cnt>>16) & 0xffff));
+		PRINTF("%04x\r\n",nv_cnt & 0xffff);
+		}
+		return 0;
 	}
-	return 0;
-}

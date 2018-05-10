@@ -5,7 +5,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include <libwispbase/accel.h>
+//#include <libwispbase/accel.h>
+typedef struct {
+    uint8_t x;
+    uint8_t y;
+    uint8_t z;
+#ifdef __clang__
+    uint8_t padding; // clang crashes with type size mismatch assert failure
+#endif
+} threeAxis_t_8;
 #include <libmspbuiltins/builtins.h>
 #ifdef LOGIC
 #define LOG(...)
@@ -73,19 +81,13 @@ static void init_hw()
 	msp_gpio_unlock();
 	msp_clock_setup();
 }
-unsigned overflow=0;
-//__attribute__((interrupt(TIMERB1_VECTOR))) 
+__nv unsigned nv_cnt;
 #if ENERGY == 0
-__attribute__((interrupt(51))) 
-void TimerB1_ISR(void){
-	TBCTL &= ~(0x0002);
-	if(TBCTL && 0x0001){
-		overflow++;
-		TBCTL |= 0x0004;
-		TBCTL |= (0x0002);
-		TBCTL &= ~(0x0001);	
+__attribute__((interrupt(51)))
+	void TimerB1_ISR(void){
+		PMMCTL0 = PMMPW | PMMSWPOR;
+		BITSET(TBCTL, TBCLR);
 	}
-}
 __attribute__((section("__interrupt_vector_timer0_b1"),aligned(2)))
 void(*__vector_timer0_b1)(void) = TimerB1_ISR;
 #endif
@@ -125,15 +127,10 @@ typedef struct {
 } stats_t;
 
 
-//__attribute__((always_inline))
 void accel_sample(unsigned seed, accelReading* result){
-//void ngleSample_(unsigned seed, accelReading* result){
-//void ACCEL_singleSample_(unsigned seed, threeAxis_t_8* result){
 	result->x = (seed*17)%85;
 	result->y = (seed*17*17)%85;
 	result->z = (seed*17*17*17)%85;
-//	seed++;
-//	return 1;
 }
 //__attribute__((always_inline))
 void acquire_window(accelWindow window)
@@ -329,11 +326,11 @@ void print_stats(stats_t *stats)
 
 #if ENERGY == 0
 	no_chkpt_start();
-	PRINTF("stats: s %u (%u%%) m %u (%u%%) sum/tot %u/%u: %c\r\n",
-			stats->stationaryCount, resultStationaryPct,
-			stats->movingCount, resultMovingPct,
-			stats->totalCount, sum,
-			sum == stats->totalCount && sum == SAMPLES_TO_COLLECT ? 'V' : 'X');
+	//PRINTF("stats: s %u (%u%%) m %u (%u%%) sum/tot %u/%u: %c\r\n",
+	//		stats->stationaryCount, resultStationaryPct,
+	//		stats->movingCount, resultMovingPct,
+	//		stats->totalCount, sum,
+	//		sum == stats->totalCount && sum == SAMPLES_TO_COLLECT ? 'V' : 'X');
 	no_chkpt_end();
 #endif
 }
@@ -419,20 +416,24 @@ run_mode_t select_mode(uint8_t *prev_pin_state)
 	if(count >= 3) pin_state = 0;
 	if(count >= 4) {
 #ifndef CONFIG_EDB
+		PRINTF("cnt:%u\r\n", nv_cnt);
 //		PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
 #endif
 #if ENERGY == 0
 		PRINTF("end\r\n");
 #endif
 		cnt++;
-		if (cnt == 5) {
+		if (cnt == 1) {
+		//if (cnt == 20) {
 #ifdef LOGIC
 				// Out high
-				GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_2);
+//				GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_2);
 				// Out low
-				GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_2);
+//				GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_2);
 				// tmp
+#ifndef RATCHET
 				unsigned tmp = curctx->cur_reg[15];
+#endif
 #endif
 				end_run();
 				cnt = 0;
@@ -470,6 +471,9 @@ run_mode_t select_mode(uint8_t *prev_pin_state)
 void init()
 {
 #ifndef CONFIG_EDB
+	BITSET(TBCTL, (TBSSEL_1 | ID_3 | MC_2 | TBCLR));
+	BITSET(TBCCTL1 , CCIE);
+	TBCCR1 = 40;
 //	TBCTL &= 0xE6FF; //set 12,11 bit to zero (16bit) also 8 to zero (SMCLK)
 //	TBCTL |= 0x0200; //set 9 to one (SMCLK)
 //	TBCTL |= 0x00C0; //set 7-6 bit to 11 (divider = 8);
@@ -489,10 +493,24 @@ void init()
 
 	//PRINTF("a%u.\r\n", curctx->cur_reg[15]);
 #ifdef LOGIC
+	GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_2);
+
+	GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_1);
+	GPIO(PORT_AUX3, OUT) &= ~BIT(PIN_AUX_3);
 	// Output enabled
 	GPIO(PORT_AUX, DIR) |= BIT(PIN_AUX_1);
 	GPIO(PORT_AUX, DIR) |= BIT(PIN_AUX_2);
-#endif
+	GPIO(PORT_AUX3, DIR) |= BIT(PIN_AUX_3);
+	//
+	// Out high
+	GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_2);
+	// Out low
+	GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_2);
+	// Out high
+	//				GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_2);
+	// Out low
+	// tmp
+#else
 #ifdef RATCHET
 	if (cur_reg == regs_0) {
 		PRINTF("%x\r\n", regs_1[0]);
@@ -501,11 +519,14 @@ void init()
 		PRINTF("%x\r\n", regs_0[0]);
 	}
 #else
-	PRINTF("a%u.\r\n", curctx->cur_reg[15]);
-#endif
-	for (unsigned i = 0; i < LOOP_IDX; ++i) {
-
+	if (curctx->cur_reg == regs_0) {
+		PRINTF("%x\r\n", regs_1[0]);
 	}
+	else {
+		PRINTF("%x\r\n", regs_0[0]);
+	}
+#endif
+#endif
 }
 
 int main()
@@ -522,20 +543,21 @@ int main()
 	cnt = 0;
 	while (1) {
 #if ENERGY == 0
-	if (count == 0) {
-		if (cnt == 0) {
+		if (count == 0) {
+			nv_cnt = 0;
+			if (cnt == 0) {
 #ifdef LOGIC
-			// Out high
-			GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_1);
-			// Out low
-			GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_1);
+				// Out high
+				GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_1);
+				// Out low
+				GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_1);
+#endif
+			}
+			PRINTF("start\r\n");
+#ifndef CONFIG_EDB
+			//		PRINTF("TIME start is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
 #endif
 		}
-		PRINTF("start\r\n");
-#ifndef CONFIG_EDB
-//		PRINTF("TIME start is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
-#endif
-	}
 #endif
 		run_mode_t mode = select_mode(&prev_pin_state);
 		switch (mode) {
@@ -547,12 +569,12 @@ int main()
 				LOG("mode: moving\r\n");
 				train(model.moving);
 				LOG("check0: mn %u sd %u\r\n",
-							 model.moving[15].meanmag, model.moving[15].stddevmag);
+						model.moving[15].meanmag, model.moving[15].stddevmag);
 				break;
 			case MODE_RECOGNIZE:
 				LOG("mode: recognize\r\n");
 				LOG("check1: mn %u sd %u %u\r\n",
-							 model.moving[15].meanmag, model.moving[15].stddevmag);
+						model.moving[15].meanmag, model.moving[15].stddevmag);
 				recognize(&model);
 				break;
 			default:

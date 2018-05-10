@@ -30,6 +30,7 @@
 #define ENERGY_GUARD_END()
 #endif
 
+__nv unsigned nv_cnt;
 #ifdef ALPACA
 #include <libalpaca/alpaca.h>
 void no_chkpt_start(){};
@@ -111,21 +112,6 @@ __nv unsigned CYPHERTEXT_LEN = 0;
 //bigint_t in_block;
 //bigint_t out_block;
 //bigint_t qxn;
-unsigned overflow=0;
-#if ENERGY == 0
-__attribute__((interrupt(51)))
-void TimerB1_ISR(void){
-	TBCTL &= ~(0x0002);
-	if(TBCTL && 0x0001){
-		overflow++;
-		TBCTL |= 0x0004;
-		TBCTL |= (0x0002);
-		TBCTL &= ~(0x0001);
-	}
-}
-__attribute__((section("__interrupt_vector_timer0_b1"),aligned(2)))
-void(*__vector_timer0_b1)(void) = TimerB1_ISR;
-#endif
 
 //__attribute__((always_inline))
 void print_bigint(const bigint_t n, unsigned digits)
@@ -215,26 +201,6 @@ void mult(bigint_t a, bigint_t b, bigint_t product)
         product[digit] = p;
         carry = c;
     }
-
-//		no_chkpt_start();
-//    BLOCK_PRINTF_BEGIN();
-//    BLOCK_PRINTF("mult: product = ");
-//    for (i = 2*NUM_DIGITS - 1; i >= 0; --i) {
-//    	BLOCK_PRINTF("%02x ", product[i]);
-//		}
-//    BLOCK_PRINTF("\r\n");
-//    BLOCK_PRINTF_END();
-//		no_chkpt_end();
-
-//    BLOCK_LOG_BEGIN();
-//    BLOCK_LOG("mult: product = ");
-//    log_bigint(product, 2 * NUM_DIGITS);
-//    BLOCK_LOG("\r\n");
-//    BLOCK_LOG_END();
-
-//		for (i = 0; i < 2 * NUM_DIGITS; ++i) {
-//			a[i] = product[i];
-//		}
 }
 
 //__attribute__((always_inline))
@@ -656,9 +622,19 @@ static void init_hw()
 	msp_clock_setup();
 }
 
+__attribute__((interrupt(51)))
+	void TimerB1_ISR(void){
+		PMMCTL0 = PMMPW | PMMSWPOR;
+		BITSET(TBCTL, TBCLR);
+	}
+__attribute__((section("__interrupt_vector_timer0_b1"),aligned(2)))
+void(*__vector_timer0_b1)(void) = TimerB1_ISR;
 void init()
 {
 #ifndef CONFIG_EDB
+	BITSET(TBCTL, (TBSSEL_1 | ID_3 | MC_2 | TBCLR));
+	BITSET(TBCCTL1 , CCIE);
+	TBCCR1 = 40;
 //	TBCTL &= 0xE6FF; //set 12,11 bit to zero (16bit) also 8 to zero (SMCLK)
 //	TBCTL |= 0x0200; //set 9 to one (SMCLK)
 //	TBCTL |= 0x00C0; //set 7-6 bit to 11 (divider = 8);
@@ -675,10 +651,24 @@ void init()
 
 	__enable_interrupt();
 #ifdef LOGIC
+	GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_2);
+
+	GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_1);
+	GPIO(PORT_AUX3, OUT) &= ~BIT(PIN_AUX_3);
 	// Output enabled
 	GPIO(PORT_AUX, DIR) |= BIT(PIN_AUX_1);
 	GPIO(PORT_AUX, DIR) |= BIT(PIN_AUX_2);
-#endif
+	GPIO(PORT_AUX3, DIR) |= BIT(PIN_AUX_3);
+	//
+	// Out high
+	GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_2);
+	// Out low
+	GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_2);
+	// Out high
+	//				GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_2);
+	// Out low
+	// tmp
+#else
 #ifdef RATCHET
 	if (cur_reg == regs_0) {
 		PRINTF("%x\r\n", regs_1[0]);
@@ -689,9 +679,7 @@ void init()
 #else
 	PRINTF("a%u.\r\n", curctx->cur_reg[15]);
 #endif
-	for (unsigned i = 0; i < LOOP_IDX; ++i) {
-
-	}
+#endif
 }
 
 int main()
@@ -703,10 +691,11 @@ int main()
 	unsigned message_length;
 
 	message_length = sizeof(PLAINTEXT) - 1; // exclude null byte
-//	uint8_t CYPHERTEXT[CYPHERTEXT_SIZE] = {0};
-// 	unsigned CYPHERTEXT_LEN = 0;
+	//	uint8_t CYPHERTEXT[CYPHERTEXT_SIZE] = {0};
+	// 	unsigned CYPHERTEXT_LEN = 0;
 
 	while (1) {
+		nv_cnt = 0;
 #ifdef LOGIC
 		// Out high
 		GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_1);
@@ -716,32 +705,36 @@ int main()
 #if ENERGY == 0
 		PRINTF("start\r\n");
 #ifndef CONFIG_EDB
-//		PRINTF("TIME start is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+		//		PRINTF("TIME start is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
 #endif
 #endif
-		for (unsigned cnt = 0; cnt < 10; ++cnt) {
-		encrypt(CYPHERTEXT, &CYPHERTEXT_LEN, PLAINTEXT, message_length, &pubkey);
+		for (unsigned cnt = 0; cnt < 1; ++cnt) {
+		//for (unsigned cnt = 0; cnt < 20; ++cnt) {
+			encrypt(CYPHERTEXT, &CYPHERTEXT_LEN, PLAINTEXT, message_length, &pubkey);
 
 #if ENERGY == 0
 #ifndef CONFIG_EDB
-//		PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+			//		PRINTF("TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
 #endif
-		PRINTF("end\r\n");
-		print_hex_ascii(CYPHERTEXT, CYPHERTEXT_LEN);
+			PRINTF("end\r\n");
+			//print_hex_ascii(CYPHERTEXT, CYPHERTEXT_LEN);
 #endif
 		}
 #ifdef LOGIC
-				// Out high
-				GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_2);
-				// Out low
-				GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_2);
-				// tmp
-				unsigned tmp = curctx->cur_reg[15];
+		// Out high
+		//				GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_2);
+		// Out low
+		//				GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_2);
+		// tmp
+#ifndef RATCHET
+		unsigned tmp = curctx->cur_reg[15];
+#endif
 #endif
 		end_run();
+		PRINTF("nv_cnt: %u\r\n", nv_cnt);
 		//PRINTF("chkpt cnt: %u\r\n", chkpt_count);
 		//print_hex_ascii(CYPHERTEXT, CYPHERTEXT_LEN);
-	}
+		}
 
-	return 0;
-}
+		return 0;
+	}

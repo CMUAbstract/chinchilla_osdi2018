@@ -40,9 +40,18 @@
 #include <libratchet/ratchet.h>
 #endif
 
+__nv unsigned nv_cnt;
 
 #include "pins.h"
 #include "param.h"
+
+__attribute__((interrupt(51)))
+	void TimerB1_ISR(void){
+		PMMCTL0 = PMMPW | PMMSWPOR;
+		BITSET(TBCTL, TBCLR);
+	}
+__attribute__((section("__interrupt_vector_timer0_b1"),aligned(2)))
+void(*__vector_timer0_b1)(void) = TimerB1_ISR;
 
 // #define SHOW_PROGRESS_ON_LED
 #include <stdint.h>
@@ -66,11 +75,15 @@ static void init_hw()
 	msp_gpio_unlock();
 	msp_clock_setup();
 }
+
+void no_chkpt_start(){};
+void no_chkpt_end(){};
 //__attribute__((always_inline))
 void print_filter(fingerprint_t *filter)
 {
 	unsigned i;
 #if ENERGY == 0
+	no_chkpt_start();
 	BLOCK_PRINTF_BEGIN();
 	for (i = 0; i < NUM_BUCKETS; ++i) {
 		BLOCK_PRINTF("%04x ", filter[i]);
@@ -79,14 +92,14 @@ void print_filter(fingerprint_t *filter)
 		}
 	}
 	BLOCK_PRINTF_END();
+	no_chkpt_end();
 #endif
 }
-
 //__attribute__((always_inline))
 void log_filter(fingerprint_t *filter)
 {
 	unsigned i;
-#if ENERGY == 0
+	no_chkpt_start();
 	BLOCK_LOG_BEGIN();
 	BLOCK_LOG("address: %x\r\n", filter);
 	for (i = 0; i < NUM_BUCKETS; ++i) {
@@ -95,8 +108,7 @@ void log_filter(fingerprint_t *filter)
 			BLOCK_LOG("\r\n");
 	}
 	BLOCK_LOG_END();
-//	PMMCTL0 = PMMPW | PMMSWPOR;
-#endif
+	no_chkpt_end();
 }
 
 // TODO: to avoid having to wrap every thing printf macro (to prevent
@@ -122,7 +134,6 @@ static hash_t djb_hash(uint8_t* data, unsigned len)
 
 	for(i = 0; i < len; data++, i++) {
 		hash = ((hash << 5) + hash) + (*data);
-//		PMMCTL0 = PMMPW | PMMSWPOR;
 	}
 
 	return hash & 0xFFFF;
@@ -172,20 +183,19 @@ static bool insert(fingerprint_t *filter, value_t key)
 	index_t fp_hash = hash_fp_to_index(fp);
 	index_t index2 = index1 ^ fp_hash;
 
-	LOG("insert: key %04x fp %04x h %04x i1 %u i2 %u\r\n",
-			key, fp, fp_hash, index1, index2);
+	//PRINTF("insert: key %04x fp %04x h %04x i1 %u i2 %u\r\n",
+	//		key, fp, fp_hash, index1, index2);
 
 	fp1 = filter[index1];
-	LOG("insert: fp1 %04x\r\n", fp1);
+	//PRINTF("insert: fp1 %04x\r\n", fp1);
 	if (!fp1) { // slot 1 is free
 		filter[index1] = fp;
 	} else {
 		fp2 = filter[index2];
-		LOG("insert: fp2 %04x\r\n", fp2);
+		//PRINTF("insert: fp2 %04x\r\n", fp2);
 		if (!fp2) { // slot 2 is free
 			filter[index2] = fp;
 		} else { // both slots occupied, evict
-//			if (rand() & 0x80) { // don't use lsb because it's systematic
 			if (rand() & 0x80) { // don't use lsb because it's systematic
 				index_victim = index1;
 				fp_victim = fp1;
@@ -204,8 +214,8 @@ static bool insert(fingerprint_t *filter, value_t key)
 				fp_next_victim = filter[index_victim];
 				filter[index_victim] = fp_victim;
 
-				PRINTF("insert: moved %04x to %u; next victim %04x\r\n",
-						fp_victim, index_victim, fp_next_victim);
+				//PRINTF("insert: moved %04x to %u; next victim %04x\r\n",
+				//		fp_victim, index_victim, fp_next_victim);
 
 				fp_victim = fp_next_victim;
 			} while (fp_victim && ++relocation_count < MAX_RELOCATIONS);
@@ -232,38 +242,29 @@ static bool lookup(fingerprint_t *filter, value_t key)
 	index_t fp_hash = hash_fp_to_index(fp);
 	index_t index2 = index1 ^ fp_hash;
 
-	PRINTF("lookup: key %04x fp %04x h %04x i1 %u i2 %u\r\n",
+	LOG("lookup: key %04x fp %04x h %04x i1 %u i2 %u\r\n",
 			key, fp, fp_hash, index1, index2);
-	PRINTF("f[%u] %04x f[%u] %04x\r\n",
+	LOG("f[%u] %04x f[%u] %04x\r\n",
 			index1, filter[index1], index2, filter[index2]);
 
 	return filter[index1] == fp || filter[index2] == fp;
 }
-unsigned overflow=0;
 #if ENERGY == 0
-__attribute__((interrupt(51))) 
-	void TimerB1_ISR(void){
-		TBCTL &= ~(0x0002);
-		if(TBCTL && 0x0001){
-			overflow++;
-			TBCTL |= 0x0004;
-			TBCTL |= (0x0002);
-			TBCTL &= ~(0x0001);	
-		}
-	}
-__attribute__((section("__interrupt_vector_timer0_b1"),aligned(2)))
-void(*__vector_timer0_b1)(void) = TimerB1_ISR;
+//__attribute__((interrupt(51)))
+//	void TimerB1_ISR(void){
+//		PMMCTL0 = PMMPW | PMMSWPOR;
+//		BITSET(TBCTL, TBCLR);
+//	}
+//__attribute__((section("__interrupt_vector_timer0_b1"),aligned(2)))
+//void(*__vector_timer0_b1)(void) = TimerB1_ISR;
 #endif
 
 void init()
 {
 #ifndef CONFIG_EDB
-//	TBCTL &= 0xE6FF; //set 12,11 bit to zero (16bit) also 8 to zero (SMCLK)
-//	TBCTL |= 0x0200; //set 9 to one (SMCLK)
-//	TBCTL |= 0x00C0; //set 7-6 bit to 11 (divider = 8);
-//	TBCTL &= 0xFFEF; //set bit 4 to zero
-//	TBCTL |= 0x0020; //set bit 5 to one (5-4=10: continuous mode)
-//	TBCTL |= 0x0002; //interrupt enable
+	BITSET(TBCTL, (TBSSEL_1 | ID_3 | MC_2 | TBCLR));
+	BITSET(TBCCTL1 , CCIE);
+	TBCCR1 = 40;
 #endif
 	init_hw();
 #ifdef CONFIG_EDB
@@ -274,24 +275,24 @@ void init()
 
 	__enable_interrupt();
 #ifdef LOGIC
-				GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_2);
+	GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_2);
 
-				GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_1);
-				GPIO(PORT_AUX3, OUT) &= ~BIT(PIN_AUX_3);
+	GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_1);
+	GPIO(PORT_AUX3, OUT) &= ~BIT(PIN_AUX_3);
 	// Output enabled
 	GPIO(PORT_AUX, DIR) |= BIT(PIN_AUX_1);
 	GPIO(PORT_AUX, DIR) |= BIT(PIN_AUX_2);
 	GPIO(PORT_AUX3, DIR) |= BIT(PIN_AUX_3);
 	//
-				// Out high
-				GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_2);
-				// Out low
-				GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_2);
-				// Out high
-//				GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_2);
-				// Out low
-				// tmp
-#endif
+	// Out high
+	GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_2);
+	// Out low
+	GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_2);
+	// Out high
+	//				GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_2);
+	// Out low
+	// tmp
+#else
 #ifdef RATCHET
 	if (cur_reg == regs_0) {
 		PRINTF("%x\r\n", regs_1[0]);
@@ -307,9 +308,7 @@ void init()
 		PRINTF("%x\r\n", regs_0[0]);
 	}
 #endif
-	for (unsigned i = 0; i < LOOP_IDX; ++i) {
-
-	}
+#endif
 }
 //__nv static fingerprint_t filter[NUM_BUCKETS];
 int main()
@@ -337,6 +336,7 @@ int main()
 
 	//	unsigned count = 0;
 	while (1) {
+		nv_cnt = 0;
 #ifdef LOGIC
 		// Out high
 		GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_1);
@@ -344,80 +344,81 @@ int main()
 		GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_1);
 #endif
 
-		for (unsigned cnt = 0; cnt < 1; ++cnt) {
-		//for (unsigned cnt = 0; cnt < 40; ++cnt) {
+		for (unsigned cnt = 0; cnt < 5; ++cnt) {
+			//for (unsigned cnt = 0; cnt < 40; ++cnt) {
 #if ENERGY == 0
-		PRINTF("start\r\n");
+			PRINTF("start\r\n");
 #endif
 #ifndef CONFIG_EDB
-//		PRINTF("REAL TIME start is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+			//		PRINTF("REAL TIME start is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
 #endif
-		for (i = 0; i < NUM_BUCKETS; ++i)
-			filter[i] = 0;
+			for (i = 0; i < NUM_BUCKETS; ++i)
+				filter[i] = 0;
 
-		key = INIT_KEY;
-		unsigned inserts = 0;
-		for (i = 0; i < NUM_KEYS; ++i) {
-			key = generate_key(key);
-			bool success = insert(filter, key);
-			LOG("insert: key %04x success %u\r\n", key, success);
-			if (!success) {
+			key = INIT_KEY;
+			unsigned inserts = 0;
+			for (i = 0; i < NUM_KEYS; ++i) {
+				key = generate_key(key);
+				bool success = insert(filter, key);
+				LOG("insert: key %04x success %u\r\n", key, success);
+				if (!success) {
 #if ENERGY == 0
-				PRINTF("insert: key %04x failed\r\n", key);
+					PRINTF("insert: key %04x failed\r\n", key);
 #endif
+				}
+				//print_filter(filter);
+
+				inserts += success;
+
 			}
-			//log_filter(filter);
+			LOG("inserts/total: %u/%u\r\n", inserts, NUM_KEYS);
 
-			inserts += success;
-
-		}
-		LOG("inserts/total: %u/%u\r\n", inserts, NUM_KEYS);
-
-		key = INIT_KEY;
-		unsigned members = 0;
-		for (i = 0; i < NUM_KEYS; ++i) {
-			key = generate_key(key);
-			bool member = lookup(filter, key);
-			LOG("lookup: key %04x member %u\r\n", key, member);
-			if (!member) {
-				fingerprint_t fp = hash_to_fingerprint(key);
+			key = INIT_KEY;
+			unsigned members = 0;
+			for (i = 0; i < NUM_KEYS; ++i) {
+				key = generate_key(key);
+				bool member = lookup(filter, key);
+				LOG("lookup: key %04x member %u\r\n", key, member);
+				if (!member) {
+					fingerprint_t fp = hash_to_fingerprint(key);
 #if ENERGY == 0
-				PRINTF("lookup: key %04x fp %04x not member\r\n", key, fp);
+					PRINTF("lookup: key %04x fp %04x not member\r\n", key, fp);
 #endif
+				}
+				members += member;
 			}
-			members += member;
-		}
-		LOG("members/total: %u/%u\r\n", members, NUM_KEYS);
+			LOG("members/total: %u/%u\r\n", members, NUM_KEYS);
 
 #ifndef CONFIG_EDB
-//		PRINTF("REAL TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
+			//		PRINTF("REAL TIME end is 65536*%u+%u\r\n",overflow,(unsigned)TBR);
 #endif
 #if ENERGY == 0
-		PRINTF("end\r\n");
+			PRINTF("end\r\n");
 #endif
-		//PRINTF("chkpt cnt: %u\r\n", chkpt_count);
-		//PRINTF(".%u.\r\n", curctx->cur_reg[15]);
-		//print_filter(filter);
-		print_stats(inserts, members, NUM_KEYS);
-		//print_stack();
-		//		count++;
-		//		if(count == 5){
-		//			count = 0;
-		//			exit(0);
-		//		}
+			//PRINTF("chkpt cnt: %u\r\n", chkpt_count);
+			//PRINTF(".%u.\r\n", curctx->cur_reg[15]);
+			//print_filter(filter);
+			print_stats(inserts, members, NUM_KEYS);
+			//print_stack();
+			//		count++;
+			//		if(count == 5){
+			//			count = 0;
+			//			exit(0);
+			//		}
 		}
 #ifdef LOGIC
-				// Out high
-//				GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_2);
-				// Out low
-//				GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_2);
-				// tmp
+		// Out high
+		//				GPIO(PORT_AUX, OUT) |= BIT(PIN_AUX_2);
+		// Out low
+		//				GPIO(PORT_AUX, OUT) &= ~BIT(PIN_AUX_2);
+		// tmp
 #ifndef RATCHET
-				unsigned tmp = curctx->cur_reg[15];
+		unsigned tmp = curctx->cur_reg[15];
 #endif
 #endif
 		end_run();
-	}
+		PRINTF("nv_cnt: %u\r\n", nv_cnt);
+		}
 
-	return 0;
-}
+		return 0;
+	}

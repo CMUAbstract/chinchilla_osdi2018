@@ -1,0 +1,30 @@
+# This is the Makefile for using the Alpaca toolchain to build an app.
+# Include it from a bld/alpaca directory in your app (built with 'maker').
+
+include $(MAKER_ROOT)/Makefile.env
+
+LOCAL_CFLAGS += -DRATCHET
+
+RATCHET_LIB = $(RATCHET_ROOT)/LLVM/build/src/libRatchetPass.so
+
+%.ratchet.bc : %.bc
+	$(OPT) -debug -stats \
+		-no-stack-slot-sharing \
+		-load $(RATCHET_LIB) \
+	  -ratchet \
+	  -o $@ $<
+
+
+LINK_OBJECTS = $(OBJECTS:.o=.ratchet.bc)
+
+override DEPS += \
+	libratchet \
+
+DEP_ROOT_libratchet = $(RATCHET_ROOT)/RatchetRuntime
+
+override CLFAGS += $(LOCAL_CFLAGS) \
+
+include $(MAKER_ROOT)/Makefile.clang
+
+# do not remove any intermediate artifacts
+.SECONDARY:
