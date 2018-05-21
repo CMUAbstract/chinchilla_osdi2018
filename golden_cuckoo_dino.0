@@ -1,0 +1,1040 @@
+.0.
+start
+insert: key 0022 fp 6EA7 h 003A i1 39 i2 29
+insert: fp1 0000
+insert: key 0022 success 1
+insert: key 0253 fp 74FA h 0073 i1 122 i2 9
+insert: fp1 0000
+insert: key 0253 success 1
+insert: key 2794 fp 7D80 h 0042 i1 0 i2 66
+insert: fp1 0000
+insert: key 2794 success 1
+insert: key A0E5 fp 886A h 0077 i1 106 i2 29
+insert: fp1 0000
+insert: key A0E5 success 1
+insert: key AF46 fp 73FA h 0072 i1 122 i2 8
+insert: fp1 74FA
+insert: fp2 0000
+insert: key AF46 success 1
+insert: key A3B7 fp 827F h 0026 i1 127 i2 89
+insert: fp1 0000
+insert: key A3B7 success 1
+insert: key DF38 fp 725C h 0013 i1 92 i2 79
+insert: fp1 0000
+insert: key DF38 success 1
+insert: key D2C9 fp 8500 h 004A i1 0 i2 74
+insert: fp1 7D80
+insert: fp2 0000
+insert: key D2C9 success 1
+insert: key FF6A fp 78EE h 006B i1 110 i2 5
+insert: fp1 0000
+insert: key FF6A success 1
+insert: key F61B fp 6EB6 h 0029 i1 54 i2 31
+insert: fp1 0000
+insert: key F61B success 1
+insert: key 57DC fp 86F8 h 0043 i1 120 i2 59
+insert: fp1 0000
+insert: key 57DC success 1
+insert: key D5AD fp 8167 h 000D i1 103 i2 106
+insert: fp1 0000
+insert: key D5AD success 1
+insert: key 308E fp 7CC3 h 0064 i1 67 i2 39
+insert: fp1 0000
+insert: key 308E success 1
+insert: key 397F fp 7ADD h 003C i1 93 i2 97
+insert: fp1 0000
+insert: key 397F success 1
+insert: key D180 fp 7B96 h 0016 i1 22 i2 0
+insert: fp1 0000
+insert: key D180 success 1
+insert: key E991 fp 7DDF h 0001 i1 95 i2 94
+insert: fp1 0000
+insert: key E991 success 1
+insert: key 82B2 fp 81B9 h 001F i1 57 i2 38
+insert: fp1 0000
+insert: key 82B2 success 1
+insert: key ADE3 fp 8835 h 0022 i1 53 i2 23
+insert: fp1 0000
+insert: key ADE3 success 1
+insert: key 8C24 fp 6F75 h 0049 i1 117 i2 60
+insert: fp1 0000
+insert: key 8C24 success 1
+insert: key 4E75 fp 79A8 h 0066 i1 40 i2 78
+insert: fp1 0000
+insert: key 4E75 success 1
+insert: key 35D6 fp 8610 h 005B i1 16 i2 75
+insert: fp1 0000
+insert: key 35D6 success 1
+insert: key 9347 fp 73FF h 0017 i1 127 i2 104
+insert: fp1 827F
+insert: fp2 0000
+insert: key 9347 success 1
+insert: key C7C8 fp 84D4 h 001D i1 84 i2 73
+insert: fp1 0000
+insert: key C7C8 success 1
+insert: key 4459 fp 7602 h 007D i1 2 i2 127
+insert: fp1 0000
+insert: key 4459 success 1
+insert: key 89FA fp 8B08 h 0058 i1 8 i2 80
+insert: fp1 73FA
+insert: fp2 0000
+insert: key 89FA success 1
+insert: key 29AB fp 8079 h 005E i1 121 i2 39
+insert: fp1 0000
+insert: key 29AB success 1
+insert: key C46C fp 78F5 h 0052 i1 117 i2 39
+insert: fp1 6F75
+insert: fp2 6EA7
+insert: evict [39] = 6EA7
+insert: moved 6EA7 to 29; next victim 0000
+insert: key C46C success 1
+insert: key 0B3D fp 722D h 0004 i1 45 i2 41
+insert: fp1 0000
+insert: key 0B3D success 1
+insert: key BF1E fp 6EE2 h 0055 i1 98 i2 55
+insert: fp1 0000
+insert: key BF1E success 1
+insert: key B10F fp 6CE5 h 0036 i1 101 i2 83
+insert: fp1 0000
+insert: key B10F success 1
+insert: key C210 fp 6D17 h 0029 i1 23 i2 62
+insert: fp1 0000
+insert: key C210 success 1
+insert: key E321 fp 6F69 h 003D i1 105 i2 84
+insert: fp1 0000
+insert: key E321 success 1
+inserts/total: 32/32
+lookup: key 0022 fp 6EA7 h 003A i1 39 i2 29
+lookup: key 0022 member 1
+lookup: key 0253 fp 74FA h 0073 i1 122 i2 9
+lookup: key 0253 member 1
+lookup: key 2794 fp 7D80 h 0042 i1 0 i2 66
+lookup: key 2794 member 1
+lookup: key A0E5 fp 886A h 0077 i1 106 i2 29
+lookup: key A0E5 member 1
+lookup: key AF46 fp 73FA h 0072 i1 122 i2 8
+lookup: key AF46 member 1
+lookup: key A3B7 fp 827F h 0026 i1 127 i2 89
+lookup: key A3B7 member 1
+lookup: key DF38 fp 725C h 0013 i1 92 i2 79
+lookup: key DF38 member 1
+lookup: key D2C9 fp 8500 h 004A i1 0 i2 74
+lookup: key D2C9 member 1
+lookup: key FF6A fp 78EE h 006B i1 110 i2 5
+lookup: key FF6A member 1
+lookup: key F61B fp 6EB6 h 0029 i1 54 i2 31
+lookup: key F61B member 1
+lookup: key 57DC fp 86F8 h 0043 i1 120 i2 59
+lookup: key 57DC member 1
+lookup: key D5AD fp 8167 h 000D i1 103 i2 106
+lookup: key D5AD member 1
+lookup: key 308E fp 7CC3 h 0064 i1 67 i2 39
+lookup: key 308E member 1
+lookup: key 397F fp 7ADD h 003C i1 93 i2 97
+lookup: key 397F member 1
+lookup: key D180 fp 7B96 h 0016 i1 22 i2 0
+lookup: key D180 member 1
+lookup: key E991 fp 7DDF h 0001 i1 95 i2 94
+lookup: key E991 member 1
+lookup: key 82B2 fp 81B9 h 001F i1 57 i2 38
+lookup: key 82B2 member 1
+lookup: key ADE3 fp 8835 h 0022 i1 53 i2 23
+lookup: key ADE3 member 1
+lookup: key 8C24 fp 6F75 h 0049 i1 117 i2 60
+lookup: key 8C24 member 1
+lookup: key 4E75 fp 79A8 h 0066 i1 40 i2 78
+lookup: key 4E75 member 1
+lookup: key 35D6 fp 8610 h 005B i1 16 i2 75
+lookup: key 35D6 member 1
+lookup: key 9347 fp 73FF h 0017 i1 127 i2 104
+lookup: key 9347 member 1
+lookup: key C7C8 fp 84D4 h 001D i1 84 i2 73
+lookup: key C7C8 member 1
+lookup: key 4459 fp 7602 h 007D i1 2 i2 127
+lookup: key 4459 member 1
+lookup: key 89FA fp 8B08 h 0058 i1 8 i2 80
+lookup: key 89FA member 1
+lookup: key 29AB fp 8079 h 005E i1 121 i2 39
+lookup: key 29AB member 1
+lookup: key C46C fp 78F5 h 0052 i1 117 i2 39
+lookup: key C46C member 1
+lookup: key 0B3D fp 722D h 0004 i1 45 i2 41
+lookup: key 0B3D member 1
+lookup: key BF1E fp 6EE2 h 0055 i1 98 i2 55
+lookup: key BF1E member 1
+lookup: key B10F fp 6CE5 h 0036 i1 101 i2 83
+lookup: key B10F member 1
+lookup: key C210 fp 6D17 h 0029 i1 23 i2 62
+lookup: key C210 member 1
+lookup: key E321 fp 6F69 h 003D i1 105 i2 84
+lookup: key E321 member 1
+members/total: 32/32
+stats: inserts 32 members 32 total 32
+start
+insert: key 0022 fp 6EA7 h 003A i1 39 i2 29
+insert: fp1 0000
+insert: key 0022 success 1
+insert: key 0253 fp 74FA h 0073 i1 122 i2 9
+insert: fp1 0000
+insert: key 0253 success 1
+insert: key 2794 fp 7D80 h 0042 i1 0 i2 66
+insert: fp1 0000
+insert: key 2794 success 1
+insert: key A0E5 fp 886A h 0077 i1 106 i2 29
+insert: fp1 0000
+insert: key A0E5 success 1
+insert: key AF46 fp 73FA h 0072 i1 122 i2 8
+insert: fp1 74FA
+insert: fp2 0000
+insert: key AF46 success 1
+insert: key A3B7 fp 827F h 0026 i1 127 i2 89
+insert: fp1 0000
+insert: key A3B7 success 1
+insert: key DF38 fp 725C h 0013 i1 92 i2 79
+insert: fp1 0000
+insert: key DF38 success 1
+insert: key D2C9 fp 8500 h 004A i1 0 i2 74
+insert: fp1 7D80
+insert: fp2 0000
+insert: key D2C9 success 1
+insert: key FF6A fp 78EE h 006B i1 110 i2 5
+insert: fp1 0000
+insert: key FF6A success 1
+insert: key F61B fp 6EB6 h 0029 i1 54 i2 31
+insert: fp1 0000
+insert: key F61B success 1
+insert: key 57DC fp 86F8 h 0043 i1 120 i2 59
+insert: fp1 0000
+insert: key 57DC success 1
+insert: key D5AD fp 8167 h 000D i1 103 i2 106
+insert: fp1 0000
+insert: key D5AD success 1
+insert: key 308E fp 7CC3 h 0064 i1 67 i2 39
+insert: fp1 0000
+insert: key 308E success 1
+insert: key 397F fp 7ADD h 003C i1 93 i2 97
+insert: fp1 0000
+insert: key 397F success 1
+insert: key D180 fp 7B96 h 0016 i1 22 i2 0
+insert: fp1 0000
+insert: key D180 success 1
+insert: key E991 fp 7DDF h 0001 i1 95 i2 94
+insert: fp1 0000
+insert: key E991 success 1
+insert: key 82B2 fp 81B9 h 001F i1 57 i2 38
+insert: fp1 0000
+insert: key 82B2 success 1
+insert: key ADE3 fp 8835 h 0022 i1 53 i2 23
+insert: fp1 0000
+insert: key ADE3 success 1
+insert: key 8C24 fp 6F75 h 0049 i1 117 i2 60
+insert: fp1 0000
+insert: key 8C24 success 1
+insert: key 4E75 fp 79A8 h 0066 i1 40 i2 78
+insert: fp1 0000
+insert: key 4E75 success 1
+insert: key 35D6 fp 8610 h 005B i1 16 i2 75
+insert: fp1 0000
+insert: key 35D6 success 1
+insert: key 9347 fp 73FF h 0017 i1 127 i2 104
+insert: fp1 827F
+insert: fp2 0000
+insert: key 9347 success 1
+insert: key C7C8 fp 84D4 h 001D i1 84 i2 73
+insert: fp1 0000
+insert: key C7C8 success 1
+insert: key 4459 fp 7602 h 007D i1 2 i2 127
+insert: fp1 0000
+insert: key 4459 success 1
+insert: key 89FA fp 8B08 h 0058 i1 8 i2 80
+insert: fp1 73FA
+insert: fp2 0000
+insert: key 89FA success 1
+insert: key 29AB fp 8079 h 005E i1 121 i2 39
+insert: fp1 0000
+insert: key 29AB success 1
+insert: key C46C fp 78F5 h 0052 i1 117 i2 39
+insert: fp1 6F75
+insert: fp2 6EA7
+insert: evict [39] = 6EA7
+insert: moved 6EA7 to 29; next victim 0000
+insert: key C46C success 1
+insert: key 0B3D fp 722D h 0004 i1 45 i2 41
+insert: fp1 0000
+insert: key 0B3D success 1
+insert: key BF1E fp 6EE2 h 0055 i1 98 i2 55
+insert: fp1 0000
+insert: key BF1E success 1
+insert: key B10F fp 6CE5 h 0036 i1 101 i2 83
+insert: fp1 0000
+insert: key B10F success 1
+insert: key C210 fp 6D17 h 0029 i1 23 i2 62
+insert: fp1 0000
+insert: key C210 success 1
+insert: key E321 fp 6F69 h 003D i1 105 i2 84
+insert: fp1 0000
+insert: key E321 success 1
+inserts/total: 32/32
+lookup: key 0022 fp 6EA7 h 003A i1 39 i2 29
+lookup: key 0022 member 1
+lookup: key 0253 fp 74FA h 0073 i1 122 i2 9
+lookup: key 0253 member 1
+lookup: key 2794 fp 7D80 h 0042 i1 0 i2 66
+lookup: key 2794 member 1
+lookup: key A0E5 fp 886A h 0077 i1 106 i2 29
+lookup: key A0E5 member 1
+lookup: key AF46 fp 73FA h 0072 i1 122 i2 8
+lookup: key AF46 member 1
+lookup: key A3B7 fp 827F h 0026 i1 127 i2 89
+lookup: key A3B7 member 1
+lookup: key DF38 fp 725C h 0013 i1 92 i2 79
+lookup: key DF38 member 1
+lookup: key D2C9 fp 8500 h 004A i1 0 i2 74
+lookup: key D2C9 member 1
+lookup: key FF6A fp 78EE h 006B i1 110 i2 5
+lookup: key FF6A member 1
+lookup: key F61B fp 6EB6 h 0029 i1 54 i2 31
+lookup: key F61B member 1
+lookup: key 57DC fp 86F8 h 0043 i1 120 i2 59
+lookup: key 57DC member 1
+lookup: key D5AD fp 8167 h 000D i1 103 i2 106
+lookup: key D5AD member 1
+lookup: key 308E fp 7CC3 h 0064 i1 67 i2 39
+lookup: key 308E member 1
+lookup: key 397F fp 7ADD h 003C i1 93 i2 97
+lookup: key 397F member 1
+lookup: key D180 fp 7B96 h 0016 i1 22 i2 0
+lookup: key D180 member 1
+lookup: key E991 fp 7DDF h 0001 i1 95 i2 94
+lookup: key E991 member 1
+lookup: key 82B2 fp 81B9 h 001F i1 57 i2 38
+lookup: key 82B2 member 1
+lookup: key ADE3 fp 8835 h 0022 i1 53 i2 23
+lookup: key ADE3 member 1
+lookup: key 8C24 fp 6F75 h 0049 i1 117 i2 60
+lookup: key 8C24 member 1
+lookup: key 4E75 fp 79A8 h 0066 i1 40 i2 78
+lookup: key 4E75 member 1
+lookup: key 35D6 fp 8610 h 005B i1 16 i2 75
+lookup: key 35D6 member 1
+lookup: key 9347 fp 73FF h 0017 i1 127 i2 104
+lookup: key 9347 member 1
+lookup: key C7C8 fp 84D4 h 001D i1 84 i2 73
+lookup: key C7C8 member 1
+lookup: key 4459 fp 7602 h 007D i1 2 i2 127
+lookup: key 4459 member 1
+lookup: key 89FA fp 8B08 h 0058 i1 8 i2 80
+lookup: key 89FA member 1
+lookup: key 29AB fp 8079 h 005E i1 121 i2 39
+lookup: key 29AB member 1
+lookup: key C46C fp 78F5 h 0052 i1 117 i2 39
+lookup: key C46C member 1
+lookup: key 0B3D fp 722D h 0004 i1 45 i2 41
+lookup: key 0B3D member 1
+lookup: key BF1E fp 6EE2 h 0055 i1 98 i2 55
+lookup: key BF1E member 1
+lookup: key B10F fp 6CE5 h 0036 i1 101 i2 83
+lookup: key B10F member 1
+lookup: key C210 fp 6D17 h 0029 i1 23 i2 62
+lookup: key C210 member 1
+lookup: key E321 fp 6F69 h 003D i1 105 i2 84
+lookup: key E321 member 1
+members/total: 32/32
+stats: inserts 32 members 32 total 32
+start
+insert: key 0022 fp 6EA7 h 003A i1 39 i2 29
+insert: fp1 0000
+insert: key 0022 success 1
+insert: key 0253 fp 74FA h 0073 i1 122 i2 9
+insert: fp1 0000
+insert: key 0253 success 1
+insert: key 2794 fp 7D80 h 0042 i1 0 i2 66
+insert: fp1 0000
+insert: key 2794 success 1
+insert: key A0E5 fp 886A h 0077 i1 106 i2 29
+insert: fp1 0000
+insert: key A0E5 success 1
+insert: key AF46 fp 73FA h 0072 i1 122 i2 8
+insert: fp1 74FA
+insert: fp2 0000
+insert: key AF46 success 1
+insert: key A3B7 fp 827F h 0026 i1 127 i2 89
+insert: fp1 0000
+insert: key A3B7 success 1
+insert: key DF38 fp 725C h 0013 i1 92 i2 79
+insert: fp1 0000
+insert: key DF38 success 1
+insert: key D2C9 fp 8500 h 004A i1 0 i2 74
+insert: fp1 7D80
+insert: fp2 0000
+insert: key D2C9 success 1
+insert: key FF6A fp 78EE h 006B i1 110 i2 5
+insert: fp1 0000
+insert: key FF6A success 1
+insert: key F61B fp 6EB6 h 0029 i1 54 i2 31
+insert: fp1 0000
+insert: key F61B success 1
+insert: key 57DC fp 86F8 h 0043 i1 120 i2 59
+insert: fp1 0000
+insert: key 57DC success 1
+insert: key D5AD fp 8167 h 000D i1 103 i2 106
+insert: fp1 0000
+insert: key D5AD success 1
+insert: key 308E fp 7CC3 h 0064 i1 67 i2 39
+insert: fp1 0000
+insert: key 308E success 1
+insert: key 397F fp 7ADD h 003C i1 93 i2 97
+insert: fp1 0000
+insert: key 397F success 1
+insert: key D180 fp 7B96 h 0016 i1 22 i2 0
+insert: fp1 0000
+insert: key D180 success 1
+insert: key E991 fp 7DDF h 0001 i1 95 i2 94
+insert: fp1 0000
+insert: key E991 success 1
+insert: key 82B2 fp 81B9 h 001F i1 57 i2 38
+insert: fp1 0000
+insert: key 82B2 success 1
+insert: key ADE3 fp 8835 h 0022 i1 53 i2 23
+insert: fp1 0000
+insert: key ADE3 success 1
+insert: key 8C24 fp 6F75 h 0049 i1 117 i2 60
+insert: fp1 0000
+insert: key 8C24 success 1
+insert: key 4E75 fp 79A8 h 0066 i1 40 i2 78
+insert: fp1 0000
+insert: key 4E75 success 1
+insert: key 35D6 fp 8610 h 005B i1 16 i2 75
+insert: fp1 0000
+insert: key 35D6 success 1
+insert: key 9347 fp 73FF h 0017 i1 127 i2 104
+insert: fp1 827F
+insert: fp2 0000
+insert: key 9347 success 1
+insert: key C7C8 fp 84D4 h 001D i1 84 i2 73
+insert: fp1 0000
+insert: key C7C8 success 1
+insert: key 4459 fp 7602 h 007D i1 2 i2 127
+insert: fp1 0000
+insert: key 4459 success 1
+insert: key 89FA fp 8B08 h 0058 i1 8 i2 80
+insert: fp1 73FA
+insert: fp2 0000
+insert: key 89FA success 1
+insert: key 29AB fp 8079 h 005E i1 121 i2 39
+insert: fp1 0000
+insert: key 29AB success 1
+insert: key C46C fp 78F5 h 0052 i1 117 i2 39
+insert: fp1 6F75
+insert: fp2 6EA7
+insert: evict [39] = 6EA7
+insert: moved 6EA7 to 29; next victim 0000
+insert: key C46C success 1
+insert: key 0B3D fp 722D h 0004 i1 45 i2 41
+insert: fp1 0000
+insert: key 0B3D success 1
+insert: key BF1E fp 6EE2 h 0055 i1 98 i2 55
+insert: fp1 0000
+insert: key BF1E success 1
+insert: key B10F fp 6CE5 h 0036 i1 101 i2 83
+insert: fp1 0000
+insert: key B10F success 1
+insert: key C210 fp 6D17 h 0029 i1 23 i2 62
+insert: fp1 0000
+insert: key C210 success 1
+insert: key E321 fp 6F69 h 003D i1 105 i2 84
+insert: fp1 0000
+insert: key E321 success 1
+inserts/total: 32/32
+lookup: key 0022 fp 6EA7 h 003A i1 39 i2 29
+lookup: key 0022 member 1
+lookup: key 0253 fp 74FA h 0073 i1 122 i2 9
+lookup: key 0253 member 1
+lookup: key 2794 fp 7D80 h 0042 i1 0 i2 66
+lookup: key 2794 member 1
+lookup: key A0E5 fp 886A h 0077 i1 106 i2 29
+lookup: key A0E5 member 1
+lookup: key AF46 fp 73FA h 0072 i1 122 i2 8
+lookup: key AF46 member 1
+lookup: key A3B7 fp 827F h 0026 i1 127 i2 89
+lookup: key A3B7 member 1
+lookup: key DF38 fp 725C h 0013 i1 92 i2 79
+lookup: key DF38 member 1
+lookup: key D2C9 fp 8500 h 004A i1 0 i2 74
+lookup: key D2C9 member 1
+lookup: key FF6A fp 78EE h 006B i1 110 i2 5
+lookup: key FF6A member 1
+lookup: key F61B fp 6EB6 h 0029 i1 54 i2 31
+lookup: key F61B member 1
+lookup: key 57DC fp 86F8 h 0043 i1 120 i2 59
+lookup: key 57DC member 1
+lookup: key D5AD fp 8167 h 000D i1 103 i2 106
+lookup: key D5AD member 1
+lookup: key 308E fp 7CC3 h 0064 i1 67 i2 39
+lookup: key 308E member 1
+lookup: key 397F fp 7ADD h 003C i1 93 i2 97
+lookup: key 397F member 1
+lookup: key D180 fp 7B96 h 0016 i1 22 i2 0
+lookup: key D180 member 1
+lookup: key E991 fp 7DDF h 0001 i1 95 i2 94
+lookup: key E991 member 1
+lookup: key 82B2 fp 81B9 h 001F i1 57 i2 38
+lookup: key 82B2 member 1
+lookup: key ADE3 fp 8835 h 0022 i1 53 i2 23
+lookup: key ADE3 member 1
+lookup: key 8C24 fp 6F75 h 0049 i1 117 i2 60
+lookup: key 8C24 member 1
+lookup: key 4E75 fp 79A8 h 0066 i1 40 i2 78
+lookup: key 4E75 member 1
+lookup: key 35D6 fp 8610 h 005B i1 16 i2 75
+lookup: key 35D6 member 1
+lookup: key 9347 fp 73FF h 0017 i1 127 i2 104
+lookup: key 9347 member 1
+lookup: key C7C8 fp 84D4 h 001D i1 84 i2 73
+lookup: key C7C8 member 1
+lookup: key 4459 fp 7602 h 007D i1 2 i2 127
+lookup: key 4459 member 1
+lookup: key 89FA fp 8B08 h 0058 i1 8 i2 80
+lookup: key 89FA member 1
+lookup: key 29AB fp 8079 h 005E i1 121 i2 39
+lookup: key 29AB member 1
+lookup: key C46C fp 78F5 h 0052 i1 117 i2 39
+lookup: key C46C member 1
+lookup: key 0B3D fp 722D h 0004 i1 45 i2 41
+lookup: key 0B3D member 1
+lookup: key BF1E fp 6EE2 h 0055 i1 98 i2 55
+lookup: key BF1E member 1
+lookup: key B10F fp 6CE5 h 0036 i1 101 i2 83
+lookup: key B10F member 1
+lookup: key C210 fp 6D17 h 0029 i1 23 i2 62
+lookup: key C210 member 1
+lookup: key E321 fp 6F69 h 003D i1 105 i2 84
+lookup: key E321 member 1
+members/total: 32/32
+stats: inserts 32 members 32 total 32
+start
+insert: key 0022 fp 6EA7 h 003A i1 39 i2 29
+insert: fp1 0000
+insert: key 0022 success 1
+insert: key 0253 fp 74FA h 0073 i1 122 i2 9
+insert: fp1 0000
+insert: key 0253 success 1
+insert: key 2794 fp 7D80 h 0042 i1 0 i2 66
+insert: fp1 0000
+insert: key 2794 success 1
+insert: key A0E5 fp 886A h 0077 i1 106 i2 29
+insert: fp1 0000
+insert: key A0E5 success 1
+insert: key AF46 fp 73FA h 0072 i1 122 i2 8
+insert: fp1 74FA
+insert: fp2 0000
+insert: key AF46 success 1
+insert: key A3B7 fp 827F h 0026 i1 127 i2 89
+insert: fp1 0000
+insert: key A3B7 success 1
+insert: key DF38 fp 725C h 0013 i1 92 i2 79
+insert: fp1 0000
+insert: key DF38 success 1
+insert: key D2C9 fp 8500 h 004A i1 0 i2 74
+insert: fp1 7D80
+insert: fp2 0000
+insert: key D2C9 success 1
+insert: key FF6A fp 78EE h 006B i1 110 i2 5
+insert: fp1 0000
+insert: key FF6A success 1
+insert: key F61B fp 6EB6 h 0029 i1 54 i2 31
+insert: fp1 0000
+insert: key F61B success 1
+insert: key 57DC fp 86F8 h 0043 i1 120 i2 59
+insert: fp1 0000
+insert: key 57DC success 1
+insert: key D5AD fp 8167 h 000D i1 103 i2 106
+insert: fp1 0000
+insert: key D5AD success 1
+insert: key 308E fp 7CC3 h 0064 i1 67 i2 39
+insert: fp1 0000
+insert: key 308E success 1
+insert: key 397F fp 7ADD h 003C i1 93 i2 97
+insert: fp1 0000
+insert: key 397F success 1
+insert: key D180 fp 7B96 h 0016 i1 22 i2 0
+insert: fp1 0000
+insert: key D180 success 1
+insert: key E991 fp 7DDF h 0001 i1 95 i2 94
+insert: fp1 0000
+insert: key E991 success 1
+insert: key 82B2 fp 81B9 h 001F i1 57 i2 38
+insert: fp1 0000
+insert: key 82B2 success 1
+insert: key ADE3 fp 8835 h 0022 i1 53 i2 23
+insert: fp1 0000
+insert: key ADE3 success 1
+insert: key 8C24 fp 6F75 h 0049 i1 117 i2 60
+insert: fp1 0000
+insert: key 8C24 success 1
+insert: key 4E75 fp 79A8 h 0066 i1 40 i2 78
+insert: fp1 0000
+insert: key 4E75 success 1
+insert: key 35D6 fp 8610 h 005B i1 16 i2 75
+insert: fp1 0000
+insert: key 35D6 success 1
+insert: key 9347 fp 73FF h 0017 i1 127 i2 104
+insert: fp1 827F
+insert: fp2 0000
+insert: key 9347 success 1
+insert: key C7C8 fp 84D4 h 001D i1 84 i2 73
+insert: fp1 0000
+insert: key C7C8 success 1
+insert: key 4459 fp 7602 h 007D i1 2 i2 127
+insert: fp1 0000
+insert: key 4459 success 1
+insert: key 89FA fp 8B08 h 0058 i1 8 i2 80
+insert: fp1 73FA
+insert: fp2 0000
+insert: key 89FA success 1
+insert: key 29AB fp 8079 h 005E i1 121 i2 39
+insert: fp1 0000
+insert: key 29AB success 1
+insert: key C46C fp 78F5 h 0052 i1 117 i2 39
+insert: fp1 6F75
+insert: fp2 6EA7
+insert: evict [39] = 6EA7
+insert: moved 6EA7 to 29; next victim 0000
+insert: key C46C success 1
+insert: key 0B3D fp 722D h 0004 i1 45 i2 41
+insert: fp1 0000
+insert: key 0B3D success 1
+insert: key BF1E fp 6EE2 h 0055 i1 98 i2 55
+insert: fp1 0000
+insert: key BF1E success 1
+insert: key B10F fp 6CE5 h 0036 i1 101 i2 83
+insert: fp1 0000
+insert: key B10F success 1
+insert: key C210 fp 6D17 h 0029 i1 23 i2 62
+insert: fp1 0000
+insert: key C210 success 1
+insert: key E321 fp 6F69 h 003D i1 105 i2 84
+insert: fp1 0000
+insert: key E321 success 1
+inserts/total: 32/32
+lookup: key 0022 fp 6EA7 h 003A i1 39 i2 29
+lookup: key 0022 member 1
+lookup: key 0253 fp 74FA h 0073 i1 122 i2 9
+lookup: key 0253 member 1
+lookup: key 2794 fp 7D80 h 0042 i1 0 i2 66
+lookup: key 2794 member 1
+lookup: key A0E5 fp 886A h 0077 i1 106 i2 29
+lookup: key A0E5 member 1
+lookup: key AF46 fp 73FA h 0072 i1 122 i2 8
+lookup: key AF46 member 1
+lookup: key A3B7 fp 827F h 0026 i1 127 i2 89
+lookup: key A3B7 member 1
+lookup: key DF38 fp 725C h 0013 i1 92 i2 79
+lookup: key DF38 member 1
+lookup: key D2C9 fp 8500 h 004A i1 0 i2 74
+lookup: key D2C9 member 1
+lookup: key FF6A fp 78EE h 006B i1 110 i2 5
+lookup: key FF6A member 1
+lookup: key F61B fp 6EB6 h 0029 i1 54 i2 31
+lookup: key F61B member 1
+lookup: key 57DC fp 86F8 h 0043 i1 120 i2 59
+lookup: key 57DC member 1
+lookup: key D5AD fp 8167 h 000D i1 103 i2 106
+lookup: key D5AD member 1
+lookup: key 308E fp 7CC3 h 0064 i1 67 i2 39
+lookup: key 308E member 1
+lookup: key 397F fp 7ADD h 003C i1 93 i2 97
+lookup: key 397F member 1
+lookup: key D180 fp 7B96 h 0016 i1 22 i2 0
+lookup: key D180 member 1
+lookup: key E991 fp 7DDF h 0001 i1 95 i2 94
+lookup: key E991 member 1
+lookup: key 82B2 fp 81B9 h 001F i1 57 i2 38
+lookup: key 82B2 member 1
+lookup: key ADE3 fp 8835 h 0022 i1 53 i2 23
+lookup: key ADE3 member 1
+lookup: key 8C24 fp 6F75 h 0049 i1 117 i2 60
+lookup: key 8C24 member 1
+lookup: key 4E75 fp 79A8 h 0066 i1 40 i2 78
+lookup: key 4E75 member 1
+lookup: key 35D6 fp 8610 h 005B i1 16 i2 75
+lookup: key 35D6 member 1
+lookup: key 9347 fp 73FF h 0017 i1 127 i2 104
+lookup: key 9347 member 1
+lookup: key C7C8 fp 84D4 h 001D i1 84 i2 73
+lookup: key C7C8 member 1
+lookup: key 4459 fp 7602 h 007D i1 2 i2 127
+lookup: key 4459 member 1
+lookup: key 89FA fp 8B08 h 0058 i1 8 i2 80
+lookup: key 89FA member 1
+lookup: key 29AB fp 8079 h 005E i1 121 i2 39
+lookup: key 29AB member 1
+lookup: key C46C fp 78F5 h 0052 i1 117 i2 39
+lookup: key C46C member 1
+lookup: key 0B3D fp 722D h 0004 i1 45 i2 41
+lookup: key 0B3D member 1
+lookup: key BF1E fp 6EE2 h 0055 i1 98 i2 55
+lookup: key BF1E member 1
+lookup: key B10F fp 6CE5 h 0036 i1 101 i2 83
+lookup: key B10F member 1
+lookup: key C210 fp 6D17 h 0029 i1 23 i2 62
+lookup: key C210 member 1
+lookup: key E321 fp 6F69 h 003D i1 105 i2 84
+lookup: key E321 member 1
+members/total: 32/32
+stats: inserts 32 members 32 total 32
+start
+insert: key 0022 fp 6EA7 h 003A i1 39 i2 29
+insert: fp1 0000
+insert: key 0022 success 1
+insert: key 0253 fp 74FA h 0073 i1 122 i2 9
+insert: fp1 0000
+insert: key 0253 success 1
+insert: key 2794 fp 7D80 h 0042 i1 0 i2 66
+insert: fp1 0000
+insert: key 2794 success 1
+insert: key A0E5 fp 886A h 0077 i1 106 i2 29
+insert: fp1 0000
+insert: key A0E5 success 1
+insert: key AF46 fp 73FA h 0072 i1 122 i2 8
+insert: fp1 74FA
+insert: fp2 0000
+insert: key AF46 success 1
+insert: key A3B7 fp 827F h 0026 i1 127 i2 89
+insert: fp1 0000
+insert: key A3B7 success 1
+insert: key DF38 fp 725C h 0013 i1 92 i2 79
+insert: fp1 0000
+insert: key DF38 success 1
+insert: key D2C9 fp 8500 h 004A i1 0 i2 74
+insert: fp1 7D80
+insert: fp2 0000
+insert: key D2C9 success 1
+insert: key FF6A fp 78EE h 006B i1 110 i2 5
+insert: fp1 0000
+insert: key FF6A success 1
+insert: key F61B fp 6EB6 h 0029 i1 54 i2 31
+insert: fp1 0000
+insert: key F61B success 1
+insert: key 57DC fp 86F8 h 0043 i1 120 i2 59
+insert: fp1 0000
+insert: key 57DC success 1
+insert: key D5AD fp 8167 h 000D i1 103 i2 106
+insert: fp1 0000
+insert: key D5AD success 1
+insert: key 308E fp 7CC3 h 0064 i1 67 i2 39
+insert: fp1 0000
+insert: key 308E success 1
+insert: key 397F fp 7ADD h 003C i1 93 i2 97
+insert: fp1 0000
+insert: key 397F success 1
+insert: key D180 fp 7B96 h 0016 i1 22 i2 0
+insert: fp1 0000
+insert: key D180 success 1
+insert: key E991 fp 7DDF h 0001 i1 95 i2 94
+insert: fp1 0000
+insert: key E991 success 1
+insert: key 82B2 fp 81B9 h 001F i1 57 i2 38
+insert: fp1 0000
+insert: key 82B2 success 1
+insert: key ADE3 fp 8835 h 0022 i1 53 i2 23
+insert: fp1 0000
+insert: key ADE3 success 1
+insert: key 8C24 fp 6F75 h 0049 i1 117 i2 60
+insert: fp1 0000
+insert: key 8C24 success 1
+insert: key 4E75 fp 79A8 h 0066 i1 40 i2 78
+insert: fp1 0000
+insert: key 4E75 success 1
+insert: key 35D6 fp 8610 h 005B i1 16 i2 75
+insert: fp1 0000
+insert: key 35D6 success 1
+insert: key 9347 fp 73FF h 0017 i1 127 i2 104
+insert: fp1 827F
+insert: fp2 0000
+insert: key 9347 success 1
+insert: key C7C8 fp 84D4 h 001D i1 84 i2 73
+insert: fp1 0000
+insert: key C7C8 success 1
+insert: key 4459 fp 7602 h 007D i1 2 i2 127
+insert: fp1 0000
+insert: key 4459 success 1
+insert: key 89FA fp 8B08 h 0058 i1 8 i2 80
+insert: fp1 73FA
+insert: fp2 0000
+insert: key 89FA success 1
+insert: key 29AB fp 8079 h 005E i1 121 i2 39
+insert: fp1 0000
+insert: key 29AB success 1
+insert: key C46C fp 78F5 h 0052 i1 117 i2 39
+insert: fp1 6F75
+insert: fp2 6EA7
+insert: evict [39] = 6EA7
+insert: moved 6EA7 to 29; next victim 0000
+insert: key C46C success 1
+insert: key 0B3D fp 722D h 0004 i1 45 i2 41
+insert: fp1 0000
+insert: key 0B3D success 1
+insert: key BF1E fp 6EE2 h 0055 i1 98 i2 55
+insert: fp1 0000
+insert: key BF1E success 1
+insert: key B10F fp 6CE5 h 0036 i1 101 i2 83
+insert: fp1 0000
+insert: key B10F success 1
+insert: key C210 fp 6D17 h 0029 i1 23 i2 62
+insert: fp1 0000
+insert: key C210 success 1
+insert: key E321 fp 6F69 h 003D i1 105 i2 84
+insert: fp1 0000
+insert: key E321 success 1
+inserts/total: 32/32
+lookup: key 0022 fp 6EA7 h 003A i1 39 i2 29
+lookup: key 0022 member 1
+lookup: key 0253 fp 74FA h 0073 i1 122 i2 9
+lookup: key 0253 member 1
+lookup: key 2794 fp 7D80 h 0042 i1 0 i2 66
+lookup: key 2794 member 1
+lookup: key A0E5 fp 886A h 0077 i1 106 i2 29
+lookup: key A0E5 member 1
+lookup: key AF46 fp 73FA h 0072 i1 122 i2 8
+lookup: key AF46 member 1
+lookup: key A3B7 fp 827F h 0026 i1 127 i2 89
+lookup: key A3B7 member 1
+lookup: key DF38 fp 725C h 0013 i1 92 i2 79
+lookup: key DF38 member 1
+lookup: key D2C9 fp 8500 h 004A i1 0 i2 74
+lookup: key D2C9 member 1
+lookup: key FF6A fp 78EE h 006B i1 110 i2 5
+lookup: key FF6A member 1
+lookup: key F61B fp 6EB6 h 0029 i1 54 i2 31
+lookup: key F61B member 1
+lookup: key 57DC fp 86F8 h 0043 i1 120 i2 59
+lookup: key 57DC member 1
+lookup: key D5AD fp 8167 h 000D i1 103 i2 106
+lookup: key D5AD member 1
+lookup: key 308E fp 7CC3 h 0064 i1 67 i2 39
+lookup: key 308E member 1
+lookup: key 397F fp 7ADD h 003C i1 93 i2 97
+lookup: key 397F member 1
+lookup: key D180 fp 7B96 h 0016 i1 22 i2 0
+lookup: key D180 member 1
+lookup: key E991 fp 7DDF h 0001 i1 95 i2 94
+lookup: key E991 member 1
+lookup: key 82B2 fp 81B9 h 001F i1 57 i2 38
+lookup: key 82B2 member 1
+lookup: key ADE3 fp 8835 h 0022 i1 53 i2 23
+lookup: key ADE3 member 1
+lookup: key 8C24 fp 6F75 h 0049 i1 117 i2 60
+lookup: key 8C24 member 1
+lookup: key 4E75 fp 79A8 h 0066 i1 40 i2 78
+lookup: key 4E75 member 1
+lookup: key 35D6 fp 8610 h 005B i1 16 i2 75
+lookup: key 35D6 member 1
+lookup: key 9347 fp 73FF h 0017 i1 127 i2 104
+lookup: key 9347 member 1
+lookup: key C7C8 fp 84D4 h 001D i1 84 i2 73
+lookup: key C7C8 member 1
+lookup: key 4459 fp 7602 h 007D i1 2 i2 127
+lookup: key 4459 member 1
+lookup: key 89FA fp 8B08 h 0058 i1 8 i2 80
+lookup: key 89FA member 1
+lookup: key 29AB fp 8079 h 005E i1 121 i2 39
+lookup: key 29AB member 1
+lookup: key C46C fp 78F5 h 0052 i1 117 i2 39
+lookup: key C46C member 1
+lookup: key 0B3D fp 722D h 0004 i1 45 i2 41
+lookup: key 0B3D member 1
+lookup: key BF1E fp 6EE2 h 0055 i1 98 i2 55
+lookup: key BF1E member 1
+lookup: key B10F fp 6CE5 h 0036 i1 101 i2 83
+lookup: key B10F member 1
+lookup: key C210 fp 6D17 h 0029 i1 23 i2 62
+lookup: key C210 member 1
+lookup: key E321 fp 6F69 h 003D i1 105 i2 84
+lookup: key E321 member 1
+members/total: 32/32
+stats: inserts 32 members 32 total 32
+start
+insert: key 0022 fp 6EA7 h 003A i1 39 i2 29
+insert: fp1 0000
+insert: key 0022 success 1
+insert: key 0253 fp 74FA h 0073 i1 122 i2 9
+insert: fp1 0000
+insert: key 0253 success 1
+insert: key 2794 fp 7D80 h 0042 i1 0 i2 66
+insert: fp1 0000
+insert: key 2794 success 1
+insert: key A0E5 fp 886A h 0077 i1 106 i2 29
+insert: fp1 0000
+insert: key A0E5 success 1
+insert: key AF46 fp 73FA h 0072 i1 122 i2 8
+insert: fp1 74FA
+insert: fp2 0000
+insert: key AF46 success 1
+insert: key A3B7 fp 827F h 0026 i1 127 i2 89
+insert: fp1 0000
+insert: key A3B7 success 1
+insert: key DF38 fp 725C h 0013 i1 92 i2 79
+insert: fp1 0000
+insert: key DF38 success 1
+insert: key D2C9 fp 8500 h 004A i1 0 i2 74
+insert: fp1 7D80
+insert: fp2 0000
+insert: key D2C9 success 1
+insert: key FF6A fp 78EE h 006B i1 110 i2 5
+insert: fp1 0000
+insert: key FF6A success 1
+insert: key F61B fp 6EB6 h 0029 i1 54 i2 31
+insert: fp1 0000
+insert: key F61B success 1
+insert: key 57DC fp 86F8 h 0043 i1 120 i2 59
+insert: fp1 0000
+insert: key 57DC success 1
+insert: key D5AD fp 8167 h 000D i1 103 i2 106
+insert: fp1 0000
+insert: key D5AD success 1
+insert: key 308E fp 7CC3 h 0064 i1 67 i2 39
+insert: fp1 0000
+insert: key 308E success 1
+insert: key 397F fp 7ADD h 003C i1 93 i2 97
+insert: fp1 0000
+insert: key 397F success 1
+insert: key D180 fp 7B96 h 0016 i1 22 i2 0
+insert: fp1 0000
+insert: key D180 success 1
+insert: key E991 fp 7DDF h 0001 i1 95 i2 94
+insert: fp1 0000
+insert: key E991 success 1
+insert: key 82B2 fp 81B9 h 001F i1 57 i2 38
+insert: fp1 0000
+insert: key 82B2 success 1
+insert: key ADE3 fp 8835 h 0022 i1 53 i2 23
+insert: fp1 0000
+insert: key ADE3 success 1
+insert: key 8C24 fp 6F75 h 0049 i1 117 i2 60
+insert: fp1 0000
+insert: key 8C24 success 1
+insert: key 4E75 fp 79A8 h 0066 i1 40 i2 78
+insert: fp1 0000
+insert: key 4E75 success 1
+insert: key 35D6 fp 8610 h 005B i1 16 i2 75
+insert: fp1 0000
+insert: key 35D6 success 1
+insert: key 9347 fp 73FF h 0017 i1 127 i2 104
+insert: fp1 827F
+insert: fp2 0000
+insert: key 9347 success 1
+insert: key C7C8 fp 84D4 h 001D i1 84 i2 73
+insert: fp1 0000
+insert: key C7C8 success 1
+insert: key 4459 fp 7602 h 007D i1 2 i2 127
+insert: fp1 0000
+insert: key 4459 success 1
+insert: key 89FA fp 8B08 h 0058 i1 8 i2 80
+insert: fp1 73FA
+insert: fp2 0000
+insert: key 89FA success 1
+insert: key 29AB fp 8079 h 005E i1 121 i2 39
+insert: fp1 0000
+insert: key 29AB success 1
+insert: key C46C fp 78F5 h 0052 i1 117 i2 39
+insert: fp1 6F75
+insert: fp2 6EA7
+insert: evict [39] = 6EA7
+insert: moved 6EA7 to 29; next victim 0000
+insert: key C46C success 1
+insert: key 0B3D fp 722D h 0004 i1 45 i2 41
+insert: fp1 0000
+insert: key 0B3D success 1
+insert: key BF1E fp 6EE2 h 0055 i1 98 i2 55
+insert: fp1 0000
+insert: key BF1E success 1
+insert: key B10F fp 6CE5 h 0036 i1 101 i2 83
+insert: fp1 0000
+insert: key B10F success 1
+insert: key C210 fp 6D17 h 0029 i1 23 i2 62
+insert: fp1 0000
+insert: key C210 success 1
+insert: key E321 fp 6F69 h 003D i1 105 i2 84
+insert: fp1 0000
+insert: key E321 success 1
+inserts/total: 32/32
+lookup: key 0022 fp 6EA7 h 003A i1 39 i2 29
+lookup: key 0022 member 1
+lookup: key 0253 fp 74FA h 0073 i1 122 i2 9
+lookup: key 0253 member 1
+lookup: key 2794 fp 7D80 h 0042 i1 0 i2 66
+lookup: key 2794 member 1
+lookup: key A0E5 fp 886A h 0077 i1 106 i2 29
+lookup: key A0E5 member 1
+lookup: key AF46 fp 73FA h 0072 i1 122 i2 8
+lookup: key AF46 member 1
+lookup: key A3B7 fp 827F h 0026 i1 127 i2 89
+lookup: key A3B7 member 1
+lookup: key DF38 fp 725C h 0013 i1 92 i2 79
+lookup: key DF38 member 1
+lookup: key D2C9 fp 8500 h 004A i1 0 i2 74
+lookup: key D2C9 member 1
+lookup: key FF6A fp 78EE h 006B i1 110 i2 5
+lookup: key FF6A member 1
+lookup: key F61B fp 6EB6 h 0029 i1 54 i2 31
+lookup: key F61B member 1
+lookup: key 57DC fp 86F8 h 0043 i1 120 i2 59
+lookup: key 57DC member 1
+lookup: key D5AD fp 8167 h 000D i1 103 i2 106
+lookup: key D5AD member 1
+lookup: key 308E fp 7CC3 h 0064 i1 67 i2 39
+lookup: key 308E member 1
+lookup: key 397F fp 7ADD h 003C i1 93 i2 97
+lookup: key 397F member 1
+lookup: key D180 fp 7B96 h 0016 i1 22 i2 0
+lookup: key D180 member 1
+lookup: key E991 fp 7DDF h 0001 i1 95 i2 94
+lookup: key E991 member 1
+lookup: key 82B2 fp 81B9 h 001F i1 57 i2 38
+lookup: key 82B2 member 1
+lookup: key ADE3 fp 8835 h 0022 i1 53 i2 23
+lookup: key ADE3 member 1
+lookup: key 8C24 fp 6F75 h 0049 i1 117 i2 60
+lookup: key 8C24 member 1
+lookup: key 4E75 fp 79A8 h 0066 i1 40 i2 78
+lookup: key 4E75 member 1
+lookup: key 35D6 fp 8610 h 005B i1 16 i2 75
+lookup: key 35D6 member 1
+lookup: key 9347 fp 73FF h 0017 i1 127 i2 104
+lookup: key 9347 member 1
+lookup: key C7C8 fp 84D4 h 001D i1 84 i2 73
+lookup: key C7C8 member 1
+lookup: key 4459 fp 7602 h 007D i1 2 i2 127
+lookup: key 4459 member 1
+lookup: key 89FA fp 8B08 h 0058 i1 8 i2 80
+lookup: key 89FA member 1
+lookup: key 29AB fp 8079 h 005E i1 121 i2 39
+lookup: key 29AB member 1
+lookup: key C46C fp 78F5 h 0052 i1 117 i2 39
+lookup: key C46C member 1
+lookup: key 0B3D fp 722D h 0004 i1 45 i2 41
+lookup: key 0B3D member 1
+lookup: key BF1E fp 6EE2 h 0055 i1 98 i2 55
+lookup: key BF1E member 1
+lookup: key B10F fp 6CE5 h 0036 i1 101 i2 83
+lookup: key B10F member 1
+lookup: key C210 fp 6D17 h 0029 i1 23 i2 62
+lookup: key C210 member 1
+lookup: key E321 fp 6F69 h 003D i1 105 i2 84
+lookup: key E321 member 1
+members/total: 32/32
+stats: inserts 32 members 32 total 32
+start
+insert: key 0022 fp 6EA7 h 003A i1 39 i2 29
+insert: fp1 0000
+insert: key 0022 success 1
+insert: key 0253 fp 74FA h 0073 i1 122 i2 9
+insert: fp1 0000
+insert: key 0253 success 1
+insert: key 2794 fp 7D80 h 0042 i1 0 i2 66
+insert: fp1 0000
+insert: key 2794 success 1
+insert: key A0E5 fp 886A h 0077 i1 106 i2 29
+insert: fp1 0000
+inser

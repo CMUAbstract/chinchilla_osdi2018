@@ -1,0 +1,2668 @@
+a16383.
+start
+cyphertext len: 11
+Blk offset: 0
+mod exp: e=3
+mult: a = 00 00 00 00 00 00 00 01 
+mult: b = 01 53 53 53 52 52 52 2E 
+mult: d=0
+mult: i=0 a=1 b=2E dp=2E p=2E
+mult: d=1
+mult: i=0 a=0 b=2E dp=0 p=0
+mult: i=1 a=1 b=52 dp=52 p=52
+mult: d=2
+mult: i=0 a=0 b=2E dp=0 p=0
+mult: i=1 a=0 b=52 dp=0 p=0
+mult: i=2 a=1 b=52 dp=52 p=52
+mult: d=3
+mult: i=0 a=0 b=2E dp=0 p=0
+mult: i=1 a=0 b=52 dp=0 p=0
+mult: i=2 a=0 b=52 dp=0 p=0
+mult: i=3 a=1 b=52 dp=52 p=52
+mult: d=4
+mult: i=0 a=0 b=2E dp=0 p=0
+mult: i=1 a=0 b=52 dp=0 p=0
+mult: i=2 a=0 b=52 dp=0 p=0
+mult: i=3 a=0 b=52 dp=0 p=0
+mult: i=4 a=1 b=53 dp=53 p=53
+mult: d=5
+mult: i=0 a=0 b=2E dp=0 p=0
+mult: i=1 a=0 b=52 dp=0 p=0
+mult: i=2 a=0 b=52 dp=0 p=0
+mult: i=3 a=0 b=52 dp=0 p=0
+mult: i=4 a=0 b=53 dp=0 p=0
+mult: i=5 a=1 b=53 dp=53 p=53
+mult: d=6
+mult: i=0 a=0 b=2E dp=0 p=0
+mult: i=1 a=0 b=52 dp=0 p=0
+mult: i=2 a=0 b=52 dp=0 p=0
+mult: i=3 a=0 b=52 dp=0 p=0
+mult: i=4 a=0 b=53 dp=0 p=0
+mult: i=5 a=0 b=53 dp=0 p=0
+mult: i=6 a=1 b=53 dp=53 p=53
+mult: d=7
+mult: i=0 a=0 b=2E dp=0 p=0
+mult: i=1 a=0 b=52 dp=0 p=0
+mult: i=2 a=0 b=52 dp=0 p=0
+mult: i=3 a=0 b=52 dp=0 p=0
+mult: i=4 a=0 b=53 dp=0 p=0
+mult: i=5 a=0 b=53 dp=0 p=0
+mult: i=6 a=0 b=53 dp=0 p=0
+mult: i=7 a=1 b=1 dp=1 p=1
+mult: d=8
+mult: i=1 a=0 b=52 dp=0 p=0
+mult: i=2 a=0 b=52 dp=0 p=0
+mult: i=3 a=0 b=52 dp=0 p=0
+mult: i=4 a=0 b=53 dp=0 p=0
+mult: i=5 a=0 b=53 dp=0 p=0
+mult: i=6 a=0 b=53 dp=0 p=0
+mult: i=7 a=0 b=1 dp=0 p=0
+mult: d=9
+mult: i=2 a=0 b=52 dp=0 p=0
+mult: i=3 a=0 b=52 dp=0 p=0
+mult: i=4 a=0 b=53 dp=0 p=0
+mult: i=5 a=0 b=53 dp=0 p=0
+mult: i=6 a=0 b=53 dp=0 p=0
+mult: i=7 a=0 b=1 dp=0 p=0
+mult: d=10
+mult: i=3 a=0 b=52 dp=0 p=0
+mult: i=4 a=0 b=53 dp=0 p=0
+mult: i=5 a=0 b=53 dp=0 p=0
+mult: i=6 a=0 b=53 dp=0 p=0
+mult: i=7 a=0 b=1 dp=0 p=0
+mult: d=11
+mult: i=4 a=0 b=53 dp=0 p=0
+mult: i=5 a=0 b=53 dp=0 p=0
+mult: i=6 a=0 b=53 dp=0 p=0
+mult: i=7 a=0 b=1 dp=0 p=0
+mult: d=12
+mult: i=5 a=0 b=53 dp=0 p=0
+mult: i=6 a=0 b=53 dp=0 p=0
+mult: i=7 a=0 b=1 dp=0 p=0
+mult: d=13
+mult: i=6 a=0 b=53 dp=0 p=0
+mult: i=7 a=0 b=1 dp=0 p=0
+mult: d=14
+mult: i=7 a=0 b=1 dp=0 p=0
+mult: d=15
+mult: product = 00 00 00 00 00 00 00 00 01 53 53 53 52 52 52 2E 
+reduce digits: p[15]=0
+reduce digits: p[14]=0
+reduce digits: p[13]=0
+reduce digits: p[12]=0
+reduce digits: p[11]=0
+reduce digits: p[10]=0
+reduce digits: p[9]=0
+reduce digits: p[8]=0
+reduce digits: p[7]=1
+reduce digits: d=7
+reduce: normalizable: d=7 offset=0
+normalizable: m[7]=1 n[7]=A6
+normalizable: 0
+reduce: done: message < modulus
+mult: a = 01 53 53 53 52 52 52 2E 
+mult: b = 01 53 53 53 52 52 52 2E 
+mult: d=0
+mult: i=0 a=2E b=2E dp=844 p=44
+mult: d=1
+mult: i=0 a=52 b=2E dp=EBC p=C4
+mult: i=1 a=2E b=52 dp=EBC p=180
+mult: d=2
+mult: i=0 a=52 b=2E dp=EBC p=D9
+mult: i=1 a=52 b=52 dp=1A44 p=11D
+mult: i=2 a=2E b=52 dp=EBC p=1D9
+mult: d=3
+mult: i=0 a=52 b=2E dp=EBC p=F3
+mult: i=1 a=52 b=52 dp=1A44 p=137
+mult: i=2 a=52 b=52 dp=1A44 p=17B
+mult: i=3 a=2E b=52 dp=EBC p=237
+mult: d=4
+mult: i=0 a=53 b=2E dp=EEA p=13C
+mult: i=1 a=52 b=52 dp=1A44 p=180
+mult: i=2 a=52 b=52 dp=1A44 p=1C4
+mult: i=3 a=52 b=52 dp=1A44 p=208
+mult: i=4 a=2E b=53 dp=EEA p=2F2
+mult: d=5
+mult: i=0 a=53 b=2E dp=EEA p=156
+mult: i=1 a=53 b=52 dp=1A96 p=1EC
+mult: i=2 a=52 b=52 dp=1A44 p=230
+mult: i=3 a=52 b=52 dp=1A44 p=274
+mult: i=4 a=52 b=53 dp=1A96 p=30A
+mult: i=5 a=2E b=53 dp=EEA p=3F4
+mult: d=6
+mult: i=0 a=53 b=2E dp=EEA p=171
+mult: i=1 a=53 b=52 dp=1A96 p=207
+mult: i=2 a=53 b=52 dp=1A96 p=29D
+mult: i=3 a=52 b=52 dp=1A44 p=2E1
+mult: i=4 a=52 b=53 dp=1A96 p=377
+mult: i=5 a=52 b=53 dp=1A96 p=40D
+mult: i=6 a=2E b=53 dp=EEA p=4F7
+mult: d=7
+mult: i=0 a=1 b=2E dp=2E p=D0
+mult: i=1 a=53 b=52 dp=1A96 p=166
+mult: i=2 a=53 b=52 dp=1A96 p=1FC
+mult: i=3 a=53 b=52 dp=1A96 p=292
+mult: i=4 a=52 b=53 dp=1A96 p=328
+mult: i=5 a=52 b=53 dp=1A96 p=3BE
+mult: i=6 a=52 b=53 dp=1A96 p=454
+mult: i=7 a=2E b=1 dp=2E p=482
+mult: d=8
+mult: i=1 a=1 b=52 dp=52 p=F2
+mult: i=2 a=53 b=52 dp=1A96 p=188
+mult: i=3 a=53 b=52 dp=1A96 p=21E
+mult: i=4 a=53 b=53 dp=1AE9 p=307
+mult: i=5 a=52 b=53 dp=1A96 p=39D
+mult: i=6 a=52 b=53 dp=1A96 p=433
+mult: i=7 a=52 b=1 dp=52 p=485
+mult: d=9
+mult: i=2 a=1 b=52 dp=52 p=D8
+mult: i=3 a=53 b=52 dp=1A96 p=16E
+mult: i=4 a=53 b=53 dp=1AE9 p=257
+mult: i=5 a=53 b=53 dp=1AE9 p=340
+mult: i=6 a=52 b=53 dp=1A96 p=3D6
+mult: i=7 a=52 b=1 dp=52 p=428
+mult: d=10
+mult: i=3 a=1 b=52 dp=52 p=BE
+mult: i=4 a=53 b=53 dp=1AE9 p=1A7
+mult: i=5 a=53 b=53 dp=1AE9 p=290
+mult: i=6 a=53 b=53 dp=1AE9 p=379
+mult: i=7 a=52 b=1 dp=52 p=3CB
+mult: d=11
+mult: i=4 a=1 b=53 dp=53 p=A4
+mult: i=5 a=53 b=53 dp=1AE9 p=18D
+mult: i=6 a=53 b=53 dp=1AE9 p=276
+mult: i=7 a=53 b=1 dp=53 p=2C9
+mult: d=12
+mult: i=5 a=1 b=53 dp=53 p=89
+mult: i=6 a=53 b=53 dp=1AE9 p=172
+mult: i=7 a=53 b=1 dp=53 p=1C5
+mult: d=13
+mult: i=6 a=1 b=53 dp=53 p=6E
+mult: i=7 a=53 b=1 dp=53 p=C1
+mult: d=14
+mult: i=7 a=1 b=1 dp=1 p=1
+mult: d=15
+mult: product = 00 01 C1 C5 C9 CB 28 85 82 F7 F4 F2 37 D9 80 44 
+reduce digits: p[15]=0
+reduce digits: p[14]=1
+reduce digits: d=E
+reduce: normalizable: d=14 offset=7
+normalizable: m[14]=1 n[7]=A6
+normalizable: 0
+reduce: quotient: n_n=A6 m[d]=D9
+reduce quotient: m_dividend=1C1 q=2
+reduce: quotient: m[d]=1 m[d-1]=C1 m[d-2]=C5 n_q=01C1C5
+reduce: quotient: q0=2
+reduce: quotient: q=2 n_div=A671 qn=014CE2
+reduce: quotient: q=2
+reduce: multiply: offset=6
+reduce: multiply: n[0]=15 q=2 c=0 m[6]=2A
+reduce: multiply: n[1]=70 q=2 c=0 m[7]=E0
+reduce: multiply: n[2]=F6 q=2 c=0 m[8]=1EC
+reduce: multiply: n[3]=42 q=2 c=1 m[9]=85
+reduce: multiply: n[4]=E q=2 c=0 m[10]=1C
+reduce: multiply: n[5]=82 q=2 c=0 m[11]=104
+reduce: multiply: n[6]=71 q=2 c=1 m[12]=E3
+reduce: multiply: n[7]=A6 q=2 c=0 m[13]=14C
+reduce: multiply: n[8]=0 q=2 c=1 m[14]=1
+reduce: multiply: n[9]=0 q=2 c=0 m[15]=0
+reduce: multiply: product = 00 01 4C E3 04 1C 85 EC E0 2A 00 00 00 00 00 00 
+reduce: compare
+reduce: compare: m[15]=0 qn[15]=0
+reduce: compare: m[14]=1 qn[14]=1
+reduce: compare: m[13]=C1 qn[13]=4C
+reduce: compare: relation d
+reduce: subtract: d=14 offset=6
+reduce: subtract: m[6]=F7 qn[6]=2A b=0 r=CD
+reduce: subtract: m[7]=182 qn[7]=E0 b=1 r=A2
+reduce: subtract: m[8]=185 qn[8]=EC b=1 r=98
+reduce: subtract: m[9]=128 qn[9]=85 b=1 r=A2
+reduce: subtract: m[10]=CB qn[10]=1C b=0 r=AE
+reduce: subtract: m[11]=C9 qn[11]=4 b=0 r=C5
+reduce: subtract: m[12]=1C5 qn[12]=E3 b=1 r=E2
+reduce: subtract: m[13]=C1 qn[13]=4C b=0 r=74
+reduce: subtract: m[14]=1 qn[14]=1 b=0 r=0
+reduce: subtract: m[15]=0 qn[15]=0 b=0 r=0
+reduce: subtract: sum = 00 00 74 E2 C5 AE A2 98 A2 CD F4 F2 37 D9 80 44 
+reduce: quotient: n_n=A6 m[d]=D9
+reduce quotient: m_dividend=74E2 q=B4
+reduce: quotient: m[d]=74 m[d-1]=E2 m[d-2]=C5 n_q=74E2C5
+reduce: quotient: q0=B4
+reduce: quotient: q=B4 n_div=A671 qn=75774
+reduce: quotient: q=B3 n_div=A671 qn=746103
+reduce: quotient: q=B3
+reduce: multiply: offset=5
+reduce: multiply: n[0]=15 q=B3 c=0 m[5]=EAF
+reduce: multiply: n[1]=70 q=B3 c=E m[6]=4E5E
+reduce: multiply: n[2]=F6 q=B3 c=4E m[7]=AC50
+reduce: multiply: n[3]=42 q=B3 c=AC m[8]=2ED2
+reduce: multiply: n[4]=E q=B3 c=2E m[9]=9F8
+reduce: multiply: n[5]=82 q=B3 c=9 m[10]=5AEF
+reduce: multiply: n[6]=71 q=B3 c=5A m[11]=4F5D
+reduce: multiply: n[7]=A6 q=B3 c=4F m[12]=7461
+reduce: multiply: n[8]=0 q=B3 c=74 m[13]=74
+reduce: multiply: n[9]=0 q=B3 c=0 m[14]=0
+reduce: multiply: n[10]=0 q=B3 c=0 m[15]=0
+reduce: multiply: product = 00 00 74 61 5D EF F8 D2 50 5E AF 00 00 00 00 00 
+reduce: compare
+reduce: compare: m[15]=0 qn[15]=0
+reduce: compare: m[14]=0 qn[14]=0
+reduce: compare: m[13]=74 qn[13]=74
+reduce: compare: m[12]=E2 qn[12]=61
+reduce: compare: relation d
+reduce: subtract: d=13 offset=5
+reduce: subtract: m[5]=F4 qn[5]=AF b=0 r=45
+reduce: subtract: m[6]=CD qn[6]=5E b=0 r=6F
+reduce: subtract: m[7]=A2 qn[7]=50 b=0 r=52
+reduce: subtract: m[8]=198 qn[8]=D2 b=1 r=C6
+reduce: subtract: m[9]=1A2 qn[9]=F8 b=1 r=A9
+reduce: subtract: m[10]=1AE qn[10]=EF b=1 r=BE
+reduce: subtract: m[11]=C5 qn[11]=5D b=0 r=67
+reduce: subtract: m[12]=E2 qn[12]=61 b=0 r=81
+reduce: subtract: m[13]=74 qn[13]=74 b=0 r=0
+reduce: subtract: m[14]=0 qn[14]=0 b=0 r=0
+reduce: subtract: m[15]=0 qn[15]=0 b=0 r=0
+reduce: subtract: sum = 00 00 00 81 67 BE A9 C6 52 6F 45 F2 37 D9 80 44 
+reduce: quotient: n_n=A6 m[d]=D9
+reduce quotient: m_dividend=8167 q=C7
+reduce: quotient: m[d]=81 m[d-1]=67 m[d-2]=BE n_q=8167BE
+reduce: quotient: q0=C7
+reduce: quotient: q=C7 n_div=A671 qn=8161D7
+reduce: quotient: q=C7
+reduce: multiply: offset=4
+reduce: multiply: n[0]=15 q=C7 c=0 m[4]=1053
+reduce: multiply: n[1]=70 q=C7 c=10 m[5]=5720
+reduce: multiply: n[2]=F6 q=C7 c=57 m[6]=BF91
+reduce: multiply: n[3]=42 q=C7 c=BF m[7]=340D
+reduce: multiply: n[4]=E q=C7 c=34 m[8]=B16
+reduce: multiply: n[5]=82 q=C7 c=B m[9]=6519
+reduce: multiply: n[6]=71 q=C7 c=65 m[10]=583C
+reduce: multiply: n[7]=A6 q=C7 c=58 m[11]=8162
+reduce: multiply: n[8]=0 q=C7 c=81 m[12]=81
+reduce: multiply: n[9]=0 q=C7 c=0 m[13]=0
+reduce: multiply: n[10]=0 q=C7 c=0 m[14]=0
+reduce: multiply: n[11]=0 q=C7 c=0 m[15]=0
+reduce: multiply: product = 00 00 00 81 62 3C 19 16 0D 91 20 53 00 00 00 00 
+reduce: compare
+reduce: compare: m[15]=0 qn[15]=0
+reduce: compare: m[14]=0 qn[14]=0
+reduce: compare: m[13]=0 qn[13]=0
+reduce: compare: m[12]=81 qn[12]=81
+reduce: compare: m[11]=67 qn[11]=62
+reduce: compare: relation d
+reduce: subtract: d=12 offset=4
+reduce: subtract: m[4]=F2 qn[4]=53 b=0 r=9F
+reduce: subtract: m[5]=45 qn[5]=20 b=0 r=25
+reduce: subtract: m[6]=16F qn[6]=91 b=1 r=DE
+reduce: subtract: m[7]=52 qn[7]=D b=0 r=44
+reduce: subtract: m[8]=C6 qn[8]=16 b=0 r=B0
+reduce: subtract: m[9]=A9 qn[9]=19 b=0 r=90
+reduce: subtract: m[10]=BE qn[10]=3C b=0 r=82
+reduce: subtract: m[11]=67 qn[11]=62 b=0 r=5
+reduce: subtract: m[12]=81 qn[12]=81 b=0 r=0
+reduce: subtract: m[13]=0 qn[13]=0 b=0 r=0
+reduce: subtract: m[14]=0 qn[14]=0 b=0 r=0
+reduce: subtract: m[15]=0 qn[15]=0 b=0 r=0
+reduce: subtract: sum = 00 00 00 00 05 82 90 B0 44 DE 25 9F 37 D9 80 44 
+reduce: quotient: n_n=A6 m[d]=D9
+reduce quotient: m_dividend=582 q=8
+reduce: quotient: m[d]=5 m[d-1]=82 m[d-2]=90 n_q=058290
+reduce: quotient: q0=8
+reduce: quotient: q=8 n_div=A671 qn=053388
+reduce: quotient: q=8
+reduce: multiply: offset=3
+reduce: multiply: n[0]=15 q=8 c=0 m[3]=A8
+reduce: multiply: n[1]=70 q=8 c=0 m[4]=380
+reduce: multiply: n[2]=F6 q=8 c=3 m[5]=7B3
+reduce: multiply: n[3]=42 q=8 c=7 m[6]=217
+reduce: multiply: n[4]=E q=8 c=2 m[7]=72
+reduce: multiply: n[5]=82 q=8 c=0 m[8]=410
+reduce: multiply: n[6]=71 q=8 c=4 m[9]=38C
+reduce: multiply: n[7]=A6 q=8 c=3 m[10]=533
+reduce: multiply: n[8]=0 q=8 c=5 m[11]=5
+reduce: multiply: n[9]=0 q=8 c=0 m[12]=0
+reduce: multiply: n[10]=0 q=8 c=0 m[13]=0
+reduce: multiply: n[11]=0 q=8 c=0 m[14]=0
+reduce: multiply: n[12]=0 q=8 c=0 m[15]=0
+reduce: multiply: product = 00 00 00 00 05 33 8C 10 72 17 B3 80 A8 00 00 00 
+reduce: compare
+reduce: compare: m[15]=0 qn[15]=0
+reduce: compare: m[14]=0 qn[14]=0
+reduce: compare: m[13]=0 qn[13]=0
+reduce: compare: m[12]=0 qn[12]=0
+reduce: compare: m[11]=5 qn[11]=5
+reduce: compare: m[10]=82 qn[10]=33
+reduce: compare: relation d
+reduce: subtract: d=11 offset=3
+reduce: subtract: m[3]=137 qn[3]=A8 b=1 r=8F
+reduce: subtract: m[4]=9F qn[4]=80 b=0 r=1E
+reduce: subtract: m[5]=125 qn[5]=B3 b=1 r=72
+reduce: subtract: m[6]=DE qn[6]=17 b=0 r=C6
+reduce: subtract: m[7]=144 qn[7]=72 b=1 r=D2
+reduce: subtract: m[8]=B0 qn[8]=10 b=0 r=9F
+reduce: subtract: m[9]=90 qn[9]=8C b=0 r=4
+reduce: subtract: m[10]=82 qn[10]=33 b=0 r=4F
+reduce: subtract: m[11]=5 qn[11]=5 b=0 r=0
+reduce: subtract: m[12]=0 qn[12]=0 b=0 r=0
+reduce: subtract: m[13]=0 qn[13]=0 b=0 r=0
+reduce: subtract: m[14]=0 qn[14]=0 b=0 r=0
+reduce: subtract: m[15]=0 qn[15]=0 b=0 r=0
+reduce: subtract: sum = 00 00 00 00 00 4F 04 9F D2 C6 72 1E 8F D9 80 44 
+reduce: quotient: n_n=A6 m[d]=D9
+reduce quotient: m_dividend=4F04 q=79
+reduce: quotient: m[d]=4F m[d-1]=4 m[d-2]=9F n_q=4F49F
+reduce: quotient: q0=79
+reduce: quotient: q=79 n_div=A671 qn=4EAB69
+reduce: quotient: q=79
+reduce: multiply: offset=2
+reduce: multiply: n[0]=15 q=79 c=0 m[2]=9ED
+reduce: multiply: n[1]=70 q=79 c=9 m[3]=34F9
+reduce: multiply: n[2]=F6 q=79 c=34 m[4]=747A
+reduce: multiply: n[3]=42 q=79 c=74 m[5]=1FA6
+reduce: multiply: n[4]=E q=79 c=1F m[6]=6BD
+reduce: multiply: n[5]=82 q=79 c=6 m[7]=3D78
+reduce: multiply: n[6]=71 q=79 c=3D m[8]=35A6
+reduce: multiply: n[7]=A6 q=79 c=35 m[9]=4EAB
+reduce: multiply: n[8]=0 q=79 c=4E m[10]=4E
+reduce: multiply: n[9]=0 q=79 c=0 m[11]=0
+reduce: multiply: n[10]=0 q=79 c=0 m[12]=0
+reduce: multiply: n[11]=0 q=79 c=0 m[13]=0
+reduce: multiply: n[12]=0 q=79 c=0 m[14]=0
+reduce: multiply: n[13]=0 q=79 c=0 m[15]=0
+reduce: multiply: product = 00 00 00 00 00 4E AB A6 78 BD A6 7A F9 ED 00 00 
+reduce: compare
+reduce: compare: m[15]=0 qn[15]=0
+reduce: compare: m[14]=0 qn[14]=0
+reduce: compare: m[13]=0 qn[13]=0
+reduce: compare: m[12]=0 qn[12]=0
+reduce: compare: m[11]=0 qn[11]=0
+reduce: compare: m[10]=4F qn[10]=4E
+reduce: compare: relation d
+reduce: subtract: d=10 offset=2
+reduce: subtract: m[2]=1D9 qn[2]=ED b=1 r=EC
+reduce: subtract: m[3]=18F qn[3]=F9 b=1 r=95
+reduce: subtract: m[4]=11E qn[4]=7A b=1 r=A3
+reduce: subtract: m[5]=172 qn[5]=A6 b=1 r=CB
+reduce: subtract: m[6]=C6 qn[6]=BD b=0 r=8
+reduce: subtract: m[7]=D2 qn[7]=78 b=0 r=5A
+reduce: subtract: m[8]=19F qn[8]=A6 b=1 r=F9
+reduce: subtract: m[9]=104 qn[9]=AB b=1 r=58
+reduce: subtract: m[10]=4F qn[10]=4E b=0 r=0
+reduce: subtract: m[11]=0 qn[11]=0 b=0 r=0
+reduce: subtract: m[12]=0 qn[12]=0 b=0 r=0
+reduce: subtract: m[13]=0 qn[13]=0 b=0 r=0
+reduce: subtract: m[14]=0 qn[14]=0 b=0 r=0
+reduce: subtract: m[15]=0 qn[15]=0 b=0 r=0
+reduce: subtract: sum = 00 00 00 00 00 00 58 F9 5A 08 CB A3 95 EC 80 44 
+reduce: quotient: n_n=A6 m[d]=EC
+reduce quotient: m_dividend=58F9 q=89
+reduce: quotient: m[d]=58 m[d-1]=F9 m[d-2]=5A n_q=58F95A
+reduce: quotient: q0=89
+reduce: quotient: q=89 n_div=A671 qn=591279
+reduce: quotient: q=88 n_div=A671 qn=586C08
+reduce: quotient: q=88
+reduce: multiply: offset=1
+reduce: multiply: n[0]=15 q=88 c=0 m[1]=B28
+reduce: multiply: n[1]=70 q=88 c=B m[2]=3B8B
+reduce: multiply: n[2]=F6 q=88 c=3B m[3]=82EB
+reduce: multiply: n[3]=42 q=88 c=82 m[4]=2392
+reduce: multiply: n[4]=E q=88 c=23 m[5]=793
+reduce: multiply: n[5]=82 q=88 c=7 m[6]=4517
+reduce: multiply: n[6]=71 q=88 c=45 m[7]=3C4D
+reduce: multiply: n[7]=A6 q=88 c=3C m[8]=586C
+reduce: multiply: n[8]=0 q=88 c=58 m[9]=58
+reduce: multiply: n[9]=0 q=88 c=0 m[10]=0
+reduce: multiply: n[10]=0 q=88 c=0 m[11]=0
+reduce: multiply: n[11]=0 q=88 c=0 m[12]=0
+reduce: multiply: n[12]=0 q=88 c=0 m[13]=0
+reduce: multiply: n[13]=0 q=88 c=0 m[14]=0
+reduce: multiply: n[14]=0 q=88 c=0 m[15]=0
+reduce: multiply: product = 00 00 00 00 00 00 58 6C 4D 17 93 92 EB 8B 28 00 
+reduce: compare
+reduce: compare: m[15]=0 qn[15]=0
+reduce: compare: m[14]=0 qn[14]=0
+reduce: compare: m[13]=0 qn[13]=0
+reduce: compare: m[12]=0 qn[12]=0
+reduce: compare: m[11]=0 qn[11]=0
+reduce: compare: m[10]=0 qn[10]=0
+reduce: compare: m[9]=58 qn[9]=58
+reduce: compare: m[8]=F9 qn[8]=6C
+reduce: compare: relation d
+reduce: subtract: d=9 offset=1
+reduce: subtract: m[1]=80 qn[1]=28 b=0 r=58
+reduce: subtract: m[2]=EC qn[2]=8B b=0 r=61
+reduce: subtract: m[3]=195 qn[3]=EB b=1 r=AA
+reduce: subtract: m[4]=A3 qn[4]=92 b=0 r=10
+reduce: subtract: m[5]=CB qn[5]=93 b=0 r=38
+reduce: subtract: m[6]=108 qn[6]=17 b=1 r=F1
+reduce: subtract: m[7]=5A qn[7]=4D b=0 r=C
+reduce: subtract: m[8]=F9 qn[8]=6C b=0 r=8D
+reduce: subtract: m[9]=58 qn[9]=58 b=0 r=0
+reduce: subtract: m[10]=0 qn[10]=0 b=0 r=0
+reduce: subtract: m[11]=0 qn[11]=0 b=0 r=0
+reduce: subtract: m[12]=0 qn[12]=0 b=0 r=0
+reduce: subtract: m[13]=0 qn[13]=0 b=0 r=0
+reduce: subtract: m[14]=0 qn[14]=0 b=0 r=0
+reduce: subtract: m[15]=0 qn[15]=0 b=0 r=0
+reduce: subtract: sum = 00 00 00 00 00 00 00 8D 0C F1 38 10 AA 61 58 44 
+reduce: quotient: n_n=A6 m[d]=61
+reduce quotient: m_dividend=8D0C q=D9
+reduce: quotient: m[d]=8D m[d-1]=C m[d-2]=F1 n_q=8DCF1
+reduce: quotient: q0=D9
+reduce: quotient: q=D9 n_div=A671 qn=8D15C9
+reduce: quotient: q=D8 n_div=A671 qn=8C6F58
+reduce: quotient: q=D8
+reduce: multiply: offset=0
+reduce: multiply: n[0]=15 q=D8 c=0 m[0]=11B8
+reduce: multiply: n[1]=70 q=D8 c=11 m[1]=5E91
+reduce: multiply: n[2]=F6 q=D8 c=5E m[2]=CFEE
+reduce: multiply: n[3]=42 q=D8 c=CF m[3]=387F
+reduce: multiply: n[4]=E q=D8 c=38 m[4]=C08
+reduce: multiply: n[5]=82 q=D8 c=C m[5]=6DBC
+reduce: multiply: n[6]=71 q=D8 c=6D m[6]=5FC5
+reduce: multiply: n[7]=A6 q=D8 c=5F m[7]=8C6F
+reduce: multiply: n[8]=0 q=D8 c=8C m[8]=8C
+reduce: multiply: n[9]=0 q=D8 c=0 m[9]=0
+reduce: multiply: n[10]=0 q=D8 c=0 m[10]=0
+reduce: multiply: n[11]=0 q=D8 c=0 m[11]=0
+reduce: multiply: n[12]=0 q=D8 c=0 m[12]=0
+reduce: multiply: n[13]=0 q=D8 c=0 m[13]=0
+reduce: multiply: n[14]=0 q=D8 c=0 m[14]=0
+reduce: multiply: n[15]=0 q=D8 c=0 m[15]=0
+reduce: multiply: product = 00 00 00 00 00 00 00 8C 6F C5 BC 08 7F EE 91 B8 
+reduce: compare
+reduce: compare: m[15]=0 qn[15]=0
+reduce: compare: m[14]=0 qn[14]=0
+reduce: compare: m[13]=0 qn[13]=0
+reduce: compare: m[12]=0 qn[12]=0
+reduce: compare: m[11]=0 qn[11]=0
+reduce: compare: m[10]=0 qn[10]=0
+reduce: compare: m[9]=0 qn[9]=0
+reduce: compare: m[8]=8D qn[8]=8C
+reduce: compare: relation d
+reduce: subtract: d=8 offset=0
+reduce: subtract: m[0]=144 qn[0]=B8 b=1 r=8C
+reduce: subtract: m[1]=158 qn[1]=91 b=1 r=C6
+reduce: subtract: m[2]=161 qn[2]=EE b=1 r=72
+reduce: subtract: m[3]=AA qn[3]=7F b=0 r=2A
+reduce: subtract: m[4]=10 qn[4]=8 b=0 r=8
+reduce: subtract: m[5]=138 qn[5]=BC b=1 r=7C
+reduce: subtract: m[6]=F1 qn[6]=C5 b=0 r=2B
+reduce: subtract: m[7]=10C qn[7]=6F b=1 r=9D
+reduce: subtract: m[8]=8D qn[8]=8C b=0 r=0
+reduce: subtract: m[9]=0 qn[9]=0 b=0 r=0
+reduce: subtract: m[10]=0 qn[10]=0 b=0 r=0
+reduce: subtract: m[11]=0 qn[11]=0 b=0 r=0
+reduce: subtract: m[12]=0 qn[12]=0 b=0 r=0
+reduce: subtract: m[13]=0 qn[13]=0 b=0 r=0
+reduce: subtract: m[14]=0 qn[14]=0 b=0 r=0
+reduce: subtract: m[15]=0 qn[15]=0 b=0 r=0
+reduce: subtract: sum = 00 00 00 00 00 00 00 00 9D 2B 7C 08 2A 72 C6 8C 
+reduce: num = 9D 2B 7C 08 2A 72 C6 8C 
+mod exp: e=1
+mult: a = 01 53 53 53 52 52 52 2E 
+mult: b = 9D 2B 7C 08 2A 72 C6 8C 
+mult: d=0
+mult: i=0 a=2E b=8C dp=1928 p=28
+mult: d=1
+mult: i=0 a=52 b=8C dp=2CD8 p=F1
+mult: i=1 a=2E b=C6 dp=2394 p=185
+mult: d=2
+mult: i=0 a=52 b=8C dp=2CD8 p=128
+mult: i=1 a=52 b=C6 dp=3F6C p=194
+mult: i=2 a=2E b=72 dp=147C p=210
+mult: d=3
+mult: i=0 a=52 b=8C dp=2CD8 p=159
+mult: i=1 a=52 b=C6 dp=3F6C p=1C5
+mult: i=2 a=52 b=72 dp=2484 p=249
+mult: i=3 a=2E b=2A dp=78C p=2D5
+mult: d=4
+mult: i=0 a=53 b=8C dp=2D64 p=FC
+mult: i=1 a=52 b=C6 dp=3F6C p=168
+mult: i=2 a=52 b=72 dp=2484 p=1EC
+mult: i=3 a=52 b=2A dp=D74 p=260
+mult: i=4 a=2E b=8 dp=170 p=2D0
+mult: d=5
+mult: i=0 a=53 b=8C dp=2D64 p=104
+mult: i=1 a=53 b=C6 dp=4032 p=136
+mult: i=2 a=52 b=72 dp=2484 p=1BA
+mult: i=3 a=52 b=2A dp=D74 p=22E
+mult: i=4 a=52 b=8 dp=290 p=2BE
+mult: i=5 a=2E b=7C dp=1648 p=306
+mult: d=6
+mult: i=0 a=53 b=8C dp=2D64 p=11D
+mult: i=1 a=53 b=C6 dp=4032 p=14F
+mult: i=2 a=53 b=72 dp=24F6 p=245
+mult: i=3 a=52 b=2A dp=D74 p=2B9
+mult: i=4 a=52 b=8 dp=290 p=349
+mult: i=5 a=52 b=7C dp=27B8 p=401
+mult: i=6 a=2E b=2B dp=7BA p=4BB
+mult: d=7
+mult: i=0 a=1 b=8C dp=8C p=15E
+mult: i=1 a=53 b=C6 dp=4032 p=190
+mult: i=2 a=53 b=72 dp=24F6 p=286
+mult: i=3 a=53 b=2A dp=D9E p=324
+mult: i=4 a=52 b=8 dp=290 p=3B4
+mult: i=5 a=52 b=7C dp=27B8 p=46C
+mult: i=6 a=52 b=2B dp=DC6 p=532
+mult: i=7 a=2E b=9D dp=1C36 p=568
+mult: d=8
+mult: i=1 a=1 b=C6 dp=C6 p=18E
+mult: i=2 a=53 b=72 dp=24F6 p=284
+mult: i=3 a=53 b=2A dp=D9E p=322
+mult: i=4 a=53 b=8 dp=298 p=3BA
+mult: i=5 a=52 b=7C dp=27B8 p=472
+mult: i=6 a=52 b=2B dp=DC6 p=538
+mult: i=7 a=52 b=9D dp=324A p=582
+mult: d=9
+mult: i=2 a=1 b=72 dp=72 p=110
+mult: i=3 a=53 b=2A dp=D9E p=1AE
+mult: i=4 a=53 b=8 dp=298 p=246
+mult: i=5 a=53 b=7C dp=2834 p=27A
+mult: i=6 a=52 b=2B dp=DC6 p=340
+mult: i=7 a=52 b=9D dp=324A p=38A
+mult: d=10
+mult: i=3 a=1 b=2A dp=2A p=A3
+mult: i=4 a=53 b=8 dp=298 p=13B
+mult: i=5 a=53 b=7C dp=2834 p=16F
+mult: i=6 a=53 b=2B dp=DF1 p=260
+mult: i=7 a=52 b=9D dp=324A p=2AA
+mult: d=11
+mult: i=4 a=1 b=8 dp=8 p=73
+mult: i=5 a=53 b=7C dp=2834 p=A7
+mult: i=6 a=53 b=2B dp=DF1 p=198
+mult: i=7 a=53 b=9D dp=32E7 p=27F
+mult: d=12
+mult: i=5 a=1 b=7C dp=7C p=E5
+mult: i=6 a=53 b=2B dp=DF1 p=1D6
+mult: i=7 a=53 b=9D dp=32E7 p=2BD
+mult: d=13
+mult: i=6 a=1 b=2B dp=2B p=6C
+mult: i=7 a=53 b=9D dp=32E7 p=153
+mult: d=14
+mult: i=7 a=1 b=9D dp=9D p=D0
+mult: d=15
+mult: product = 00 D0 53 BD 7F AA 8A 82 68 BB 06 D0 D5 10 85 28 
+reduce digits: p[15]=0
+reduce digits: p[14]=D0
+reduce digits: d=E
+reduce: normalizable: d=14 offset=7
+normalizable: m[14]=D0 n[7]=A6
+normalizable: 1
+normalize: m[7]=68 n[0]=15 b=0 d=53
+normalize: m[8]=82 n[1]=70 b=0 d=12
+normalize: m[9]=18A n[2]=F6 b=1 d=94
+normalize: m[10]=AA n[3]=42 b=0 d=67
+normalize: m[11]=7F n[4]=E b=0 d=71
+normalize: m[12]=BD n[5]=82 b=0 d=3B
+normalize: m[13]=153 n[6]=71 b=1 d=E2
+normalize: m[14]=D0 n[7]=A6 b=0 d=29
+reduce: quotient: n_n=A6 m[d]=10
+reduce quotient: m_dividend=29E2 q=40
+reduce: quotient: m[d]=29 m[d-1]=E2 m[d-2]=3B n_q=29E23B
+reduce: quotient: q0=40
+reduce: quotient: q=40 n_div=A671 qn=299C40
+reduce: quotient: q=40
+reduce: multiply: offset=6
+reduce: multiply: n[0]=15 q=40 c=0 m[6]=540
+reduce: multiply: n[1]=70 q=40 c=5 m[7]=1C05
+reduce: multiply: n[2]=F6 q=40 c=1C m[8]=3D9C
+reduce: multiply: n[3]=42 q=40 c=3D m[9]=10BD
+reduce: multiply: n[4]=E q=40 c=10 m[10]=390
+reduce: multiply: n[5]=82 q=40 c=3 m[11]=2083
+reduce: multiply: n[6]=71 q=40 c=20 m[12]=1C60
+reduce: multiply: n[7]=A6 q=40 c=1C m[13]=299C
+reduce: multiply: n[8]=0 q=40 c=29 m[14]=29
+reduce: multiply: n[9]=0 q=40 c=0 m[15]=0
+reduce: multiply: product = 00 29 9C 60 83 90 BD 9C 05 40 00 00 00 00 00 00 
+reduce: compare
+reduce: compare: m[15]=0 qn[15]=0
+reduce: compare: m[14]=29 qn[14]=29
+reduce: compare: m[13]=E2 qn[13]=9C
+reduce: compare: relation d
+reduce: subtract: d=14 offset=6
+reduce: subtract: m[6]=BB qn[6]=40 b=0 r=7B
+reduce: subtract: m[7]=53 qn[7]=5 b=0 r=4E
+reduce: subtract: m[8]=112 qn[8]=9C b=1 r=76
+reduce: subtract: m[9]=194 qn[9]=BD b=1 r=D6
+reduce: subtract: m[10]=167 qn[10]=90 b=1 r=D6
+reduce: subtract: m[11]=171 qn[11]=83 b=1 r=ED
+reduce: subtract: m[12]=13B qn[12]=60 b=1 r=DA
+reduce: subtract: m[13]=E2 qn[13]=9C b=0 r=45
+reduce: subtract: m[14]=29 qn[14]=29 b=0 r=0
+reduce: subtract: m[15]=0 qn[15]=0 b=0 r=0
+reduce: subtract: sum = 00 00 45 DA ED D6 D6 76 4E 7B 06 D0 D5 10 85 28 
+reduce: quotient: n_n=A6 m[d]=10
+reduce quotient: m_dividend=45DA q=6B
+reduce: quotient: m[d]=45 m[d-1]=DA m[d-2]=ED n_q=45DAED
+reduce: quotient: q0=6B
+reduce: quotient: q=6B n_div=A671 qn=45913B
+reduce: quotient: q=6B
+reduce: multiply: offset=5
+reduce: multiply: n[0]=15 q=6B c=0 m[5]=8C7
+reduce: multiply: n[1]=70 q=6B c=8 m[6]=2ED8
+reduce: multiply: n[2]=F6 q=6B c=2E m[7]=6700
+reduce: multiply: n[3]=42 q=6B c=67 m[8]=1BFD
+reduce: multiply: n[4]=E q=6B c=1B m[9]=5F5
+reduce: multiply: n[5]=82 q=6B c=5 m[10]=365B
+reduce: multiply: n[6]=71 q=6B c=36 m[11]=2F71
+reduce: multiply: n[7]=A6 q=6B c=2F m[12]=4591
+reduce: multiply: n[8]=0 q=6B c=45 m[13]=45
+reduce: multiply: n[9]=0 q=6B c=0 m[14]=0
+reduce: multiply: n[10]=0 q=6B c=0 m[15]=0
+reduce: multiply: product = 00 00 45 91 71 5B F5 FD 00 D8 C7 00 00 00 00 00 
+reduce: compare
+reduce: compare: m[15]=0 qn[15]=0
+reduce: compare: m[14]=0 qn[14]=0
+reduce: compare: m[13]=45 qn[13]=45
+reduce: compare: m[12]=DA qn[12]=91
+reduce: compare: relation d
+reduce: subtract: d=13 offset=5
+reduce: subtract: m[5]=106 qn[5]=C7 b=1 r=3F
+reduce: subtract: m[6]=17B qn[6]=D8 b=1 r=A2
+reduce: subtract: m[7]=4E qn[7]=0 b=0 r=4D
+reduce: subtract: m[8]=176 qn[8]=FD b=1 r=79
+reduce: subtract: m[9]=1D6 qn[9]=F5 b=1 r=E0
+reduce: subtract: m[10]=D6 qn[10]=5B b=0 r=7A
+reduce: subtract: m[11]=ED qn[11]=71 b=0 r=7C
+reduce: subtract: m[12]=DA qn[12]=91 b=0 r=49
+reduce: subtract: m[13]=45 qn[13]=45 b=0 r=0
+reduce: subtract: m[14]=0 qn[14]=0 b=0 r=0
+reduce: subtract: m[15]=0 qn[15]=0 b=0 r=0
+reduce: subtract: sum = 00 00 00 49 7C 7A E0 79 4D A2 3F D0 D5 10 85 28 
+reduce: quotient: n_n=A6 m[d]=10
+reduce quotient: m_dividend=497C q=71
+reduce: quotient: m[d]=49 m[d-1]=7C m[d-2]=7A n_q=497C7A
+reduce: quotient: q0=71
+reduce: quotient: q=71 n_div=A671 qn=4977E1
+reduce: quotient: q=71
+reduce: multiply: offset=4
+reduce: multiply: n[0]=15 q=71 c=0 m[4]=945
+reduce: multiply: n[1]=70 q=71 c=9 m[5]=3179
+reduce: multiply: n[2]=F6 q=71 c=31 m[6]=6CC7
+reduce: multiply: n[3]=42 q=71 c=6C m[7]=1D8E
+reduce: multiply: n[4]=E q=71 c=1D m[8]=64B
+reduce: multiply: n[5]=82 q=71 c=6 m[9]=3968
+reduce: multiply: n[6]=71 q=71 c=39 m[10]=321A
+reduce: multiply: n[7]=A6 q=71 c=32 m[11]=4978
+reduce: multiply: n[8]=0 q=71 c=49 m[12]=49
+reduce: multiply: n[9]=0 q=71 c=0 m[13]=0
+reduce: multiply: n[10]=0 q=71 c=0 m[14]=0
+reduce: multiply: n[11]=0 q=71 c=0 m[15]=0
+reduce: multiply: product = 00 00 00 49 78 1A 68 4B 8E C7 79 45 00 00 00 00 
+reduce: compare
+reduce: compare: m[15]=0 qn[15]=0
+reduce: compare: m[14]=0 qn[14]=0
+reduce: compare: m[13]=0 qn[13]=0
+reduce: compare: m[12]=49 qn[12]=49
+reduce: compare: m[11]=7C qn[11]=78
+reduce: compare: relation d
+reduce: subtract: d=12 offset=4
+reduce: subtract: m[4]=D0 qn[4]=45 b=0 r=8B
+reduce: subtract: m[5]=13F qn[5]=79 b=1 r=C6
+reduce: subtract: m[6]=1A2 qn[6]=C7 b=1 r=DA
+reduce: subtract: m[7]=14D qn[7]=8E b=1 r=BE
+reduce: subtract: m[8]=79 qn[8]=4B b=0 r=2D
+reduce: subtract: m[9]=E0 qn[9]=68 b=0 r=78
+reduce: subtract: m[10]=7A qn[10]=1A b=0 r=60
+reduce: subtract: m[11]=7C qn[11]=78 b=0 r=4
+reduce: subtract: m[12]=49 qn[12]=49 b=0 r=0
+reduce: subtract: m[13]=0 qn[13]=0 b=0 r=0
+reduce: subtract: m[14]=0 qn[14]=0 b=0 r=0
+reduce: subtract: m[15]=0 qn[15]=0 b=0 r=0
+reduce: subtract: sum = 00 00 00 00 04 60 78 2D BE DA C6 8B D5 10 85 28 
+reduce: quotient: n_n=A6 m[d]=10
+reduce quotient: m_dividend=460 q=6
+reduce: quotient: m[d]=4 m[d-1]=60 m[d-2]=78 n_q=046078
+reduce: quotient: q0=6
+reduce: quotient: q=6 n_div=A671 qn=03E6A6
+reduce: quotient: q=6
+reduce: multiply: offset=3
+reduce: multiply: n[0]=15 q=6 c=0 m[3]=7E
+reduce: multiply: n[1]=70 q=6 c=0 m[4]=2A0
+reduce: multiply: n[2]=F6 q=6 c=2 m[5]=5C6
+reduce: multiply: n[3]=42 q=6 c=5 m[6]=191
+reduce: multiply: n[4]=E q=6 c=1 m[7]=55
+reduce: multiply: n[5]=82 q=6 c=0 m[8]=30C
+reduce: multiply: n[6]=71 q=6 c=3 m[9]=2A9
+reduce: multiply: n[7]=A6 q=6 c=2 m[10]=3E6
+reduce: multiply: n[8]=0 q=6 c=3 m[11]=3
+reduce: multiply: n[9]=0 q=6 c=0 m[12]=0
+reduce: multiply: n[10]=0 q=6 c=0 m[13]=0
+reduce: multiply: n[11]=0 q=6 c=0 m[14]=0
+reduce: multiply: n[12]=0 q=6 c=0 m[15]=0
+reduce: multiply: product = 00 00 00 00 03 E6 A9 0C 55 91 C6 A0 7E 00 00 00 
+reduce: compare
+reduce: compare: m[15]=0 qn[15]=0
+reduce: compare: m[14]=0 qn[14]=0
+reduce: compare: m[13]=0 qn[13]=0
+reduce: compare: m[12]=0 qn[12]=0
+reduce: compare: m[11]=4 qn[11]=3
+reduce: compare: relation d
+reduce: subtract: d=11 offset=3
+reduce: subtract: m[3]=D5 qn[3]=7E b=0 r=57
+reduce: subtract: m[4]=18B qn[4]=A0 b=1 r=EB
+reduce: subtract: m[5]=1C6 qn[5]=C6 b=1 r=FF
+reduce: subtract: m[6]=DA qn[6]=91 b=0 r=48
+reduce: subtract: m[7]=BE qn[7]=55 b=0 r=69
+reduce: subtract: m[8]=2D qn[8]=C b=0 r=21
+reduce: subtract: m[9]=178 qn[9]=A9 b=1 r=CF
+reduce: subtract: m[10]=160 qn[10]=E6 b=1 r=79
+reduce: subtract: m[11]=4 qn[11]=3 b=0 r=0
+reduce: subtract: m[12]=0 qn[12]=0 b=0 r=0
+reduce: subtract: m[13]=0 qn[13]=0 b=0 r=0
+reduce: subtract: m[14]=0 qn[14]=0 b=0 r=0
+reduce: subtract: m[15]=0 qn[15]=0 b=0 r=0
+reduce: subtract: sum = 00 00 00 00 00 79 CF 21 69 48 FF EB 57 10 85 28 
+reduce: quotient: n_n=A6 m[d]=10
+reduce quotient: m_dividend=79CF q=BB
+reduce: quotient: m[d]=79 m[d-1]=CF m[d-2]=21 n_q=79CF21
+reduce: quotient: q0=BB
+reduce: quotient: q=BB n_div=A671 qn=79948B
+reduce: quotient: q=BB
+reduce: multiply: offset=2
+reduce: multiply: n[0]=15 q=BB c=0 m[2]=F57
+reduce: multiply: n[1]=70 q=BB c=F m[3]=51DF
+reduce: multiply: n[2]=F6 q=BB c=51 m[4]=B403
+reduce: multiply: n[3]=42 q=BB c=B4 m[5]=30EA
+reduce: multiply: n[4]=E q=BB c=30 m[6]=A6A
+reduce: multiply: n[5]=82 q=BB c=A m[7]=5F00
+reduce: multiply: n[6]=71 q=BB c=5F m[8]=52EA
+reduce: multiply: n[7]=A6 q=BB c=52 m[9]=7994
+reduce: multiply: n[8]=0 q=BB c=79 m[10]=79
+reduce: multiply: n[9]=0 q=BB c=0 m[11]=0
+reduce: multiply: n[10]=0 q=BB c=0 m[12]=0
+reduce: multiply: n[11]=0 q=BB c=0 m[13]=0
+reduce: multiply: n[12]=0 q=BB c=0 m[14]=0
+reduce: multiply: n[13]=0 q=BB c=0 m[15]=0
+reduce: multiply: product = 00 00 00 00 00 79 94 EA 00 6A EA 03 DF 57 00 00 
+reduce: compare
+reduce: compare: m[15]=0 qn[15]=0
+reduce: compare: m[14]=0 qn[14]=0
+reduce: compare: m[13]=0 qn[13]=0
+reduce: compare: m[12]=0 qn[12]=0
+reduce: compare: m[11]=0 qn[11]=0
+reduce: compare: m[10]=79 qn[10]=79
+reduce: compare: m[9]=CF qn[9]=94
+reduce: compare: relation d
+reduce: subtract: d=10 offset=2
+reduce: subtract: m[2]=110 qn[2]=57 b=1 r=B9
+reduce: subtract: m[3]=157 qn[3]=DF b=1 r=77
+reduce: subtract: m[4]=EB qn[4]=3 b=0 r=E7
+reduce: subtract: m[5]=FF qn[5]=EA b=0 r=15
+reduce: subtract: m[6]=148 qn[6]=6A b=1 r=DE
+reduce: subtract: m[7]=69 qn[7]=0 b=0 r=68
+reduce: subtract: m[8]=121 qn[8]=EA b=1 r=37
+reduce: subtract: m[9]=CF qn[9]=94 b=0 r=3A
+reduce: subtract: m[10]=79 qn[10]=79 b=0 r=0
+reduce: subtract: m[11]=0 qn[11]=0 b=0 r=0
+reduce: subtract: m[12]=0 qn[12]=0 b=0 r=0
+reduce: subtract: m[13]=0 qn[13]=0 b=0 r=0
+reduce: subtract: m[14]=0 qn[14]=0 b=0 r=0
+reduce: subtract: m[15]=0 qn[15]=0 b=0 r=0
+reduce: subtract: sum = 00 00 00 00 00 00 3A 37 68 DE 15 E7 77 B9 85 28 
+reduce: quotient: n_n=A6 m[d]=B9
+reduce quotient: m_dividend=3A37 q=59
+reduce: quotient: m[d]=3A m[d-1]=37 m[d-2]=68 n_q=3A3768
+reduce: quotient: q0=59
+reduce: quotient: q=59 n_div=A671 qn=39DD49
+reduce: quotient: q=59
+reduce: multiply: offset=1
+reduce: multiply: n[0]=15 q=59 c=0 m[1]=74D
+reduce: multiply: n[1]=70 q=59 c=7 m[2]=26F7
+reduce: multiply: n[2]=F6 q=59 c=26 m[3]=55AC
+reduce: multiply: n[3]=42 q=59 c=55 m[4]=1747
+reduce: multiply: n[4]=E q=59 c=17 m[5]=4F5
+reduce: multiply: n[5]=82 q=59 c=4 m[6]=2D36
+reduce: multiply: n[6]=71 q=59 c=2D m[7]=2776
+reduce: multiply: n[7]=A6 q=59 c=27 m[8]=39DD
+reduce: multiply: n[8]=0 q=59 c=39 m[9]=39
+reduce: multiply: n[9]=0 q=59 c=0 m[10]=0
+reduce: multiply: n[10]=0 q=59 c=0 m[11]=0
+reduce: multiply: n[11]=0 q=59 c=0 m[12]=0
+reduce: multiply: n[12]=0 q=59 c=0 m[13]=0
+reduce: multiply: n[13]=0 q=59 c=0 m[14]=0
+reduce: multiply: n[14]=0 q=59 c=0 m[15]=0
+reduce: multiply: product = 00 00 00 00 00 00 39 DD 76 36 F5 47 AC F7 4D 00 
+reduce: compare
+reduce: compare: m[15]=0 qn[15]=0
+reduce: compare: m[14]=0 qn[14]=0
+reduce: compare: m[13]=0 qn[13]=0
+reduce: compare: m[12]=0 qn[12]=0
+reduce: compare: m[11]=0 qn[11]=0
+reduce: compare: m[10]=0 qn[10]=0
+reduce: compare: m[9]=3A qn[9]=39
+reduce: compare: relation d
+reduce: subtract: d=9 offset=1
+reduce: subtract: m[1]=85 qn[1]=4D b=0 r=38
+reduce: subtract: m[2]=1B9 qn[2]=F7 b=1 r=C2
+reduce: subtract: m[3]=177 qn[3]=AC b=1 r=CA
+reduce: subtract: m[4]=E7 qn[4]=47 b=0 r=9F
+reduce: subtract: m[5]=115 qn[5]=F5 b=1 r=20
+reduce: subtract: m[6]=DE qn[6]=36 b=0 r=A7
+reduce: subtract: m[7]=168 qn[7]=76 b=1 r=F2
+reduce: subtract: m[8]=137 qn[8]=DD b=1 r=59
+reduce: subtract: m[9]=3A qn[9]=39 b=0 r=0
+reduce: subtract: m[10]=0 qn[10]=0 b=0 r=0
+reduce: subtract: m[11]=0 qn[11]=0 b=0 r=0
+reduce: subtract: m[12]=0 qn[12]=0 b=0 r=0
+reduce: subtract: m[13]=0 qn[13]=0 b=0 r=0
+reduce: subtract: m[14]=0 qn[14]=0 b=0 r=0
+reduce: subtract: m[15]=0 qn[15]=0 b=0 r=0
+reduce: subtract: sum = 00 00 00 00 00 00 00 59 F2 A7 20 9F CA C2 38 28 
+reduce: quotient: n_n=A6 m[d]=C2
+reduce quotient: m_dividend=59F2 q=8A
+reduce: quotient: m[d]=59 m[d-1]=F2 m[d-2]=A7 n_q=59F2A7
+reduce: quotient: q0=8A
+reduce: quotient: q=8A n_div=A671 qn=59B8EA
+reduce: quotient: q=8A
+reduce: multiply: offset=0
+reduce: multiply: n[0]=15 q=8A c=0 m[0]=B52
+reduce: multiply: n[1]=70 q=8A c=B m[1]=3C6B
+reduce: multiply: n[2]=F6 q=8A c=3C m[2]=84D8
+reduce: multiply: n[3]=42 q=8A c=84 m[3]=2418
+reduce: multiply: n[4]=E q=8A c=24 m[4]=7B0
+reduce: multiply: n[5]=82 q=8A c=7 m[5]=461B
+reduce: multiply: n[6]=71 q=8A c=46 m[6]=3D30
+reduce: multiply: n[7]=A6 q=8A c=3D m[7]=59B9
+reduce: multiply: n[8]=0 q=8A c=59 m[8]=59
+reduce: multiply: n[9]=0 q=8A c=0 m[9]=0
+reduce: multiply: n[10]=0 q=8A c=0 m[10]=0
+reduce: multiply: n[11]=0 q=8A c=0 m[11]=0
+reduce: multiply: n[12]=0 q=8A c=0 m[12]=0
+reduce: multiply: n[13]=0 q=8A c=0 m[13]=0
+reduce: multiply: n[14]=0 q=8A c=0 m[14]=0
+reduce: multiply: n[15]=0 q=8A c=0 m[15]=0
+reduce: multiply: product = 00 00 00 00 00 00 00 59 B9 30 1B B0 18 D8 6B 52 
+reduce: compare
+reduce: compare: m[15]=0 qn[15]=0
+reduce: compare: m[14]=0 qn[14]=0
+reduce: compare: m[13]=0 qn[13]=0
+reduce: compare: m[12]=0 qn[12]=0
+reduce: compare: m[11]=0 qn[11]=0
+reduce: compare: m[10]=0 qn[10]=0
+reduce: compare: m[9]=0 qn[9]=0
+reduce: compare: m[8]=59 qn[8]=59
+reduce: compare: m[7]=F2 qn[7]=B9
+reduce: compare: relation d
+reduce: subtract: d=8 offset=0
+reduce: subtract: m[0]=128 qn[0]=52 b=1 r=D6
+reduce: subtract: m[1]=138 qn[1]=6B b=1 r=CC
+reduce: subtract: m[2]=1C2 qn[2]=D8 b=1 r=E9
+reduce: subtract: m[3]=CA qn[3]=18 b=0 r=B1
+reduce: subtract: m[4]=19F qn[4]=B0 b=1 r=EF
+reduce: subtract: m[5]=20 qn[5]=1B b=0 r=4
+reduce: subtract: m[6]=A7 qn[6]=30 b=0 r=77
+reduce: subtract: m[7]=F2 qn[7]=B9 b=0 r=39
+reduce: subtract: m[8]=59 qn[8]=59 b=0 r=0
+reduce: subtract: m[9]=0 qn[9]=0 b=0 r=0
+reduce: subtract: m[10]=0 qn[10]=0 b=0 r=0
+reduce: subtract: m[11]=0 qn[11]=0 b=0 r=0
+reduce: subtract: m[12]=0 qn[12]=0 b=0 r=0
+reduce: subtract: m[13]=0 qn[13]=0 b=0 r=0
+reduce: subtract: m[14]=0 qn[14]=0 b=0 r=0
+reduce: subtract: m[15]=0 qn[15]=0 b=0 r=0
+reduce: subtract: sum = 00 00 00 00 00 00 00 00 39 77 04 EF B1 E9 CC D6 
+reduce: num = 39 77 04 EF B1 E9 CC D6 
+mult: a = 9D 2B 7C 08 2A 72 C6 8C 
+mult: b = 9D 2B 7C 08 2A 72 C6 8C 
+mult: d=0
+mult: i=0 a=8C b=8C dp=4C90 p=90
+mult: d=1
+mult: i=0 a=C6 b=8C dp=6C48 p=94
+mult: i=1 a=8C b=C6 dp=6C48 p=DC
+mult: d=2
+mult: i=0 a=72 b=8C dp=3E58 p=130
+mult: i=1 a=C6 b=C6 dp=9924 p=154
+mult: i=2 a=8C b=72 dp=3E58 p=1AC
+mult: d=3
+mult: i=0 a=2A b=8C dp=16F8 p=20E
+mult: i=1 a=72 b=C6 dp=582C p=23A
+mult: i=2 a=C6 b=72 dp=582C p=266
+mult: i=3 a=8C b=2A dp=16F8 p=35E
+mult: d=4
+mult: i=0 a=8 b=8C dp=460 p=13F
+mult: i=1 a=2A b=C6 dp=207C p=1BB
+mult: i=2 a=72 b=72 dp=32C4 p=27F
+mult: i=3 a=C6 b=2A dp=207C p=2FB
+mult: i=4 a=8C b=8 dp=460 p=35B
+mult: d=5
+mult: i=0 a=7C b=8C dp=43D0 p=14D
+mult: i=1 a=8 b=C6 dp=630 p=17D
+mult: i=2 a=2A b=72 dp=12B4 p=231
+mult: i=3 a=72 b=2A dp=12B4 p=2E5
+mult: i=4 a=C6 b=8 dp=630 p=315
+mult: i=5 a=8C b=7C dp=43D0 p=3E5
+mult: d=6
+mult: i=0 a=2B b=8C dp=1784 p=13D
+mult: i=1 a=7C b=C6 dp=5FE8 p=225
+mult: i=2 a=8 b=72 dp=390 p=2B5
+mult: i=3 a=2A b=2A dp=6E4 p=399
+mult: i=4 a=72 b=8 dp=390 p=429
+mult: i=5 a=C6 b=7C dp=5FE8 p=511
+mult: i=6 a=8C b=2B dp=1784 p=595
+mult: d=7
+mult: i=0 a=9D b=8C dp=55DC p=1D9
+mult: i=1 a=2B b=C6 dp=2142 p=21B
+mult: i=2 a=7C b=72 dp=3738 p=253
+mult: i=3 a=8 b=2A dp=150 p=2A3
+mult: i=4 a=2A b=8 dp=150 p=2F3
+mult: i=5 a=72 b=7C dp=3738 p=32B
+mult: i=6 a=C6 b=2B dp=2142 p=36D
+mult: i=7 a=8C b=9D dp=55DC p=449
+mult: d=8
+mult: i=1 a=9D b=C6 dp=796E p=1CE
+mult: i=2 a=2B b=72 dp=1326 p=1F4
+mult: i=3 a=7C b=2A dp=1458 p=24C
+mult: i=4 a=8 b=8 dp=40 p=28C
+mult: i=5 a=2A b=7C dp=1458 p=2E4
+mult: i=6 a=72 b=2B dp=1326 p=30A
+mult: i=7 a=C6 b=9D dp=796E p=378
+mult: d=9
+mult: i=2 a=9D b=72 dp=45EA p=22D
+mult: i=3 a=2B b=2A dp=70E p=23B
+mult: i=4 a=7C b=8 dp=3E0 p=31B
+mult: i=5 a=8 b=7C dp=3E0 p=3FB
+mult: i=6 a=2A b=2B dp=70E p=409
+mult: i=7 a=72 b=9D dp=45EA p=4F3
+mult: d=10
+mult: i=3 a=9D b=2A dp=19C2 p=164
+mult: i=4 a=2B b=8 dp=158 p=1BC
+mult: i=5 a=7C b=7C dp=3C10 p=1CC
+mult: i=6 a=8 b=2B dp=158 p=224
+mult: i=7 a=2A b=9D dp=19C2 p=2E6
+mult: d=11
+mult: i=4 a=9D b=8 dp=4E8 p=15A
+mult: i=5 a=2B b=7C dp=14D4 p=22E
+mult: i=6 a=7C b=2B dp=14D4 p=302
+mult: i=7 a=8 b=9D dp=4E8 p=3EA
+mult: d=12
+mult: i=5 a=9D b=7C dp=4C0C p=3F
+mult: i=6 a=2B b=2B dp=739 p=78
+mult: i=7 a=7C b=9D dp=4C0C p=84
+mult: d=13
+mult: i=6 a=9D b=2B dp=1A5F p=FE
+mult: i=7 a=2B b=9D dp=1A5F p=15D
+mult: d=14
+mult: i=7 a=9D b=9D dp=6049 p=7E
+mult: d=15
+mult: product = 60 7E 5D 84 EA E6 F3 78 49 95 E5 5B 5E AC DC 90 
+reduce digits: p[15]=60
+reduce digits: d=F
+reduce: normalizable: d=15 offset=8
+normalizable: m[15]=60 n[7]=A6
+normalizable: 0
+reduce: quotient: n_n=A6 m[d]=AC
+reduce quotient: m_dividend=607E q=94
+reduce: quotient: m[d]=60 m[d-1]=7E m[d-2]=5D n_q=607E5D
+reduce: quotient: q0=94
+reduce: quotient: q=94 n_div=A671 qn=603954
+reduce: quotient: q=94
+reduce: multiply: offset=7
+reduce: multiply: n[0]=15 q=94 c=0 m[7]=C24
+reduce: multiply: n[1]=70 q=94 c=C m[8]=40CC
+reduce: multiply: n[2]=F6 q=94 c=40 m[9]=8E78
+reduce: multiply: n[3]=42 q=94 c=8E m[10]=26B6
+reduce: multiply: n[4]=E q=94 c=26 m[11]=83E
+reduce: multiply: n[5]=82 q=94 c=8 m[12]=4B30
+reduce: multiply: n[6]=71 q=94 c=4B m[13]=419F
+reduce: multiply: n[7]=A6 q=94 c=41 m[14]=6039
+reduce: multiply: n[8]=0 q=94 c=60 m[15]=60
+reduce: multiply: product = 60 39 9F 30 3E B6 78 CC 24 00 00 00 00 00 00 00 
+reduce: compare
+reduce: compare: m[15]=60 qn[15]=60
+reduce: compare: m[14]=7E qn[14]=39
+reduce: compare: relation d
+reduce: subtract: d=15 offset=7
+reduce: subtract: m[7]=49 qn[7]=24 b=0 r=25
+reduce: subtract: m[8]=178 qn[8]=CC b=1 r=AC
+reduce: subtract: m[9]=F3 qn[9]=78 b=0 r=7A
+reduce: subtract: m[10]=E6 qn[10]=B6 b=0 r=30
+reduce: subtract: m[11]=EA qn[11]=3E b=0 r=AC
+reduce: subtract: m[12]=84 qn[12]=30 b=0 r=54
+reduce: subtract: m[13]=15D qn[13]=9F b=1 r=BE
+reduce: subtract: m[14]=7E qn[14]=39 b=0 r=44
+reduce: subtract: m[15]=60 qn[15]=60 b=0 r=0
+reduce: subtract: sum = 00 44 BE 54 AC 30 7A AC 25 95 E5 5B 5E AC DC 90 
+reduce: quotient: n_n=A6 m[d]=AC
+reduce quotient: m_dividend=44BE q=6A
+reduce: quotient: m[d]=44 m[d-1]=BE m[d-2]=54 n_q=44BE54
+reduce: quotient: q0=6A
+reduce: quotient: q=6A n_div=A671 qn=44EACA
+reduce: quotient: q=69 n_div=A671 qn=444459
+reduce: quotient: q=69
+reduce: multiply: offset=6
+reduce: multiply: n[0]=15 q=69 c=0 m[6]=89D
+reduce: multiply: n[1]=70 q=69 c=8 m[7]=2DF8
+reduce: multiply: n[2]=F6 q=69 c=2D m[8]=6513
+reduce: multiply: n[3]=42 q=69 c=65 m[9]=1B77
+reduce: multiply: n[4]=E q=69 c=1B m[10]=5D9
+reduce: multiply: n[5]=82 q=69 c=5 m[11]=3557
+reduce: multiply: n[6]=71 q=69 c=35 m[12]=2E8E
+reduce: multiply: n[7]=A6 q=69 c=2E m[13]=4444
+reduce: multiply: n[8]=0 q=69 c=44 m[14]=44
+reduce: multiply: n[9]=0 q=69 c=0 m[15]=0
+reduce: multiply: product = 00 44 44 8E 57 D9 77 13 F8 9D 00 00 00 00 00 00 
+reduce: compare
+reduce: compare: m[15]=0 qn[15]=0
+reduce: compare: m[14]=44 qn[14]=44
+reduce: compare: m[13]=BE qn[13]=44
+reduce: compare: relation d
+reduce: subtract: d=14 offset=6
+reduce: subtract: m[6]=195 qn[6]=9D b=1 r=F8
+reduce: subtract: m[7]=125 qn[7]=F8 b=1 r=2C
+reduce: subtract: m[8]=AC qn[8]=13 b=0 r=98
+reduce: subtract: m[9]=7A qn[9]=77 b=0 r=3
+reduce: subtract: m[10]=130 qn[10]=D9 b=1 r=57
+reduce: subtract: m[11]=AC qn[11]=57 b=0 r=54
+reduce: subtract: m[12]=154 qn[12]=8E b=1 r=C6
+reduce: subtract: m[13]=BE qn[13]=44 b=0 r=79
+reduce: subtract: m[14]=44 qn[14]=44 b=0 r=0
+reduce: subtract: m[15]=0 qn[15]=0 b=0 r=0
+reduce: subtract: sum = 00 00 79 C6 54 57 03 98 2C F8 E5 5B 5E AC DC 90 
+reduce: quotient: n_n=A6 m[d]=AC
+reduce quotient: m_dividend=79C6 q=BB
+reduce: quotient: m[d]=79 m[d-1]=C6 m[d-2]=54 n_q=79C654
+reduce: quotient: q0=BB
+reduce: quotient: q=BB n_div=A671 qn=79948B
+reduce: quotient: q=BB
+reduce: multiply: offset=5
+reduce: multiply: n[0]=15 q=BB c=0 m[5]=F57
+reduce: multiply: n[1]=70 q=BB c=F m[6]=51DF
+reduce: multiply: n[2]=F6 q=BB c=51 m[7]=B403
+reduce: multiply: n[3]=42 q=BB c=B4 m[8]=30EA
+reduce: multiply: n[4]=E q=BB c=30 m[9]=A6A
+reduce: multiply: n[5]=82 q=BB c=A m[10]=5F00
+reduce: multiply: n[6]=71 q=BB c=5F m[11]=52EA
+reduce: multiply: n[7]=A6 q=BB c=52 m[12]=7994
+reduce: multiply: n[8]=0 q=BB c=79 m[13]=79
+reduce: multiply: n[9]=0 q=BB c=0 m[14]=0
+reduce: multiply: n[10]=0 q=BB c=0 m[15]=0
+reduce: multiply: product = 00 00 79 94 EA 00 6A EA 03 DF 57 00 00 00 00 00 
+reduce: compare
+reduce: compare: m[15]=0 qn[15]=0
+reduce: compare: m[14]=0 qn[14]=0
+reduce: compare: m[13]=79 qn[13]=79
+reduce: compare: m[12]=C6 qn[12]=94
+reduce: compare: relation d
+reduce: subtract: d=13 offset=5
+reduce: subtract: m[5]=E5 qn[5]=57 b=0 r=8E
+reduce: subtract: m[6]=F8 qn[6]=DF b=0 r=19
+reduce: subtract: m[7]=2C qn[7]=3 b=0 r=29
+reduce: subtract: m[8]=198 qn[8]=EA b=1 r=AE
+reduce: subtract: m[9]=103 qn[9]=6A b=1 r=98
+reduce: subtract: m[10]=57 qn[10]=0 b=0 r=56
+reduce: subtract: m[11]=154 qn[11]=EA b=1 r=6A
+reduce: subtract: m[12]=C6 qn[12]=94 b=0 r=31
+reduce: subtract: m[13]=79 qn[13]=79 b=0 r=0
+reduce: subtract: m[14]=0 qn[14]=0 b=0 r=0
+reduce: subtract: m[15]=0 qn[15]=0 b=0 r=0
+reduce: subtract: sum = 00 00 00 31 6A 56 98 AE 29 19 8E 5B 5E AC DC 90 
+reduce: quotient: n_n=A6 m[d]=AC
+reduce quotient: m_dividend=316A q=4C
+reduce: quotient: m[d]=31 m[d-1]=6A m[d-2]=56 n_q=316A56
+reduce: quotient: q0=4C
+reduce: quotient: q=4C n_div=A671 qn=31698C
+reduce: quotient: q=4C
+reduce: multiply: offset=4
+reduce: multiply: n[0]=15 q=4C c=0 m[4]=63C
+reduce: multiply: n[1]=70 q=4C c=6 m[5]=2146
+reduce: multiply: n[2]=F6 q=4C c=21 m[6]=4929
+reduce: multiply: n[3]=42 q=4C c=49 m[7]=13E1
+reduce: multiply: n[4]=E q=4C c=13 m[8]=43B
+reduce: multiply: n[5]=82 q=4C c=4 m[9]=269C
+reduce: multiply: n[6]=71 q=4C c=26 m[10]=21B2
+reduce: multiply: n[7]=A6 q=4C c=21 m[11]=3169
+reduce: multiply: n[8]=0 q=4C c=31 m[12]=31
+reduce: multiply: n[9]=0 q=4C c=0 m[13]=0
+reduce: multiply: n[10]=0 q=4C c=0 m[14]=0
+reduce: multiply: n[11]=0 q=4C c=0 m[15]=0
+reduce: multiply: product = 00 00 00 31 69 B2 9C 3B E1 29 46 3C 00 00 00 00 
+reduce: compare
+reduce: compare: m[15]=0 qn[15]=0
+reduce: compare: m[14]=0 qn[14]=0
+reduce: compare: m[13]=0 qn[13]=0
+reduce: compare: m[12]=31 qn[12]=31
+reduce: compare: m[11]=6A qn[11]=69
+reduce: compare: relation d
+reduce: subtract: d=12 offset=4
+reduce: subtract: m[4]=5B qn[4]=3C b=0 r=1F
+reduce: subtract: m[5]=8E qn[5]=46 b=0 r=48
+reduce: subtract: m[6]=119 qn[6]=29 b=1 r=F0
+reduce: subtract: m[7]=129 qn[7]=E1 b=1 r=47
+reduce: subtract: m[8]=AE qn[8]=3B b=0 r=72
+reduce: subtract: m[9]=198 qn[9]=9C b=1 r=FC
+reduce: subtract: m[10]=156 qn[10]=B2 b=1 r=A3
+reduce: subtract: m[11]=6A qn[11]=69 b=0 r=0
+reduce: subtract: m[12]=31 qn[12]=31 b=0 r=0
+reduce: subtract: m[13]=0 qn[13]=0 b=0 r=0
+reduce: subtract: m[14]=0 qn[14]=0 b=0 r=0
+reduce: subtract: m[15]=0 qn[15]=0 b=0 r=0
+reduce: subtract: sum = 00 00 00 00 00 A3 FC 72 47 F0 48 1F 5E AC DC 90 
+reduce: quotient: n_n=A6 m[d]=AC
+reduce quotient: m_dividend=A3 q=0
+reduce: quotient: m[d]=0 m[d-1]=A3 m[d-2]=FC n_q=00A3FC
+reduce: quotient: q0=0
+reduce: quotient: q=0 n_div=A671 qn=0000
+reduce: quotient: q=0
+reduce: multiply: offset=3
+reduce: multiply: n[0]=15 q=0 c=0 m[3]=0
+reduce: multiply: n[1]=70 q=0 c=0 m[4]=0
+reduce: multiply: n[2]=F6 q=0 c=0 m[5]=0
+reduce: multiply: n[3]=42 q=0 c=0 m[6]=0
+reduce: multiply: n[4]=E q=0 c=0 m[7]=0
+reduce: multiply: n[5]=82 q=0 c=0 m[8]=0
+reduce: multiply: n[6]=71 q=0 c=0 m[9]=0
+reduce: multiply: n[7]=A6 q=0 c=0 m[10]=0
+reduce: multiply: n[8]=0 q=0 c=0 m[11]=0
+reduce: multiply: n[9]=0 q=0 c=0 m[12]=0
+reduce: multiply: n[10]=0 q=0 c=0 m[13]=0
+reduce: multiply: n[11]=0 q=0 c=0 m[14]=0
+reduce: multiply: n[12]=0 q=0 c=0 m[15]=0
+reduce: multiply: product = 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+reduce: compare
+reduce: compare: m[15]=0 qn[15]=0
+reduce: compare: m[14]=0 qn[14]=0
+reduce: compare: m[13]=0 qn[13]=0
+reduce: compare: m[12]=0 qn[12]=0
+reduce: compare: m[11]=0 qn[11]=0
+reduce: compare: m[10]=A3 qn[10]=0
+reduce: compare: relation d
+reduce: subtract: d=11 offset=3
+reduce: subtract: m[3]=5E qn[3]=0 b=0 r=5E
+reduce: subtract: m[4]=1F qn[4]=0 b=0 r=1F
+reduce: subtract: m[5]=48 qn[5]=0 b=0 r=48
+reduce: subtract: m[6]=F0 qn[6]=0 b=0 r=F0
+reduce: subtract: m[7]=47 qn[7]=0 b=0 r=47
+reduce: subtract: m[8]=72 qn[8]=0 b=0 r=72
+reduce: subtract: m[9]=FC qn[9]=0 b=0 r=FC
+reduce: subtract: m[10]=A3 qn[10]=0 b=0 r=A3
+reduce: subtract: m[11]=0 qn[11]=0 b=0 r=0
+reduce: subtract: m[12]=0 qn[12]=0 b=0 r=0
+reduce: subtract: m[13]=0 qn[13]=0 b=0 r=0
+reduce: subtract: m[14]=0 qn[14]=0 b=0 r=0
+reduce: subtract: m[15]=0 qn[15]=0 b=0 r=0
+reduce: subtract: sum = 00 00 00 00 00 A3 FC 72 47 F0 48 1F 5E AC DC 90 
+reduce: quotient: n_n=A6 m[d]=AC
+reduce quotient: m_dividend=A3FC q=FC
+reduce: quotient: m[d]=A3 m[d-1]=FC m[d-2]=72 n_q=A3FC72
+reduce: quotient: q0=FC
+reduce: quotient: q=FC n_div=A671 qn=A3D73C
+reduce: quotient: q=FC
+reduce: multiply: offset=2
+reduce: multiply: n[0]=15 q=FC c=0 m[2]=14AC
+reduce: multiply: n[1]=70 q=FC c=14 m[3]=6E54
+reduce: multiply: n[2]=F6 q=FC c=6E m[4]=F296
+reduce: multiply: n[3]=42 q=FC c=F2 m[5]=41EA
+reduce: multiply: n[4]=E q=FC c=41 m[6]=E09
+reduce: multiply: n[5]=82 q=FC c=E m[7]=8006
+reduce: multiply: n[6]=71 q=FC c=80 m[8]=6FBC
+reduce: multiply: n[7]=A6 q=FC c=6F m[9]=A3D7
+reduce: multiply: n[8]=0 q=FC c=A3 m[10]=A3
+reduce: multiply: n[9]=0 q=FC c=0 m[11]=0
+reduce: multiply: n[10]=0 q=FC c=0 m[12]=0
+reduce: multiply: n[11]=0 q=FC c=0 m[13]=0
+reduce: multiply: n[12]=0 q=FC c=0 m[14]=0
+reduce: multiply: n[13]=0 q=FC c=0 m[15]=0
+reduce: multiply: product = 00 00 00 00 00 A3 D7 BC 06 09 EA 96 54 AC 00 00 
+reduce: compare
+reduce: compare: m[15]=0 qn[15]=0
+reduce: compare: m[14]=0 qn[14]=0
+reduce: compare: m[13]=0 qn[13]=0
+reduce: compare: m[12]=0 qn[12]=0
+reduce: compare: m[11]=0 qn[11]=0
+reduce: compare: m[10]=A3 qn[10]=A3
+reduce: compare: m[9]=FC qn[9]=D7
+reduce: compare: relation d
+reduce: subtract: d=10 offset=2
+reduce: subtract: m[2]=AC qn[2]=AC b=0 r=0
+reduce: subtract: m[3]=5E qn[3]=54 b=0 r=A
+reduce: subtract: m[4]=11F qn[4]=96 b=1 r=89
+reduce: subtract: m[5]=148 qn[5]=EA b=1 r=5D
+reduce: subtract: m[6]=F0 qn[6]=9 b=0 r=E6
+reduce: subtract: m[7]=47 qn[7]=6 b=0 r=41
+reduce: subtract: m[8]=172 qn[8]=BC b=1 r=B6
+reduce: subtract: m[9]=FC qn[9]=D7 b=0 r=24
+reduce: subtract: m[10]=A3 qn[10]=A3 b=0 r=0
+reduce: subtract: m[11]=0 qn[11]=0 b=0 r=0
+reduce: subtract: m[12]=0 qn[12]=0 b=0 r=0
+reduce: subtract: m[13]=0 qn[13]=0 b=0 r=0
+reduce: subtract: m[14]=0 qn[14]=0 b=0 r=0
+reduce: subtract: m[15]=0 qn[15]=0 b=0 r=0
+reduce: subtract: sum = 00 00 00 00 00 00 24 B6 41 E6 5D 89 0A 00 DC 90 
+reduce: quotient: n_n=A6 m[d]=0
+reduce quotient: m_dividend=24B6 q=38
+reduce: quotient: m[d]=24 m[d-1]=B6 m[d-2]=41 n_q=24B641
+reduce: quotient: q0=38
+reduce: quotient: q=38 n_div=A671 qn=2468B8
+reduce: quotient: q=38
+reduce: multiply: offset=1
+reduce: multiply: n[0]=15 q=38 c=0 m[1]=498
+reduce: multiply: n[1]=70 q=38 c=4 m[2]=1884
+reduce: multiply: n[2]=F6 q=38 c=18 m[3]=35E8
+reduce: multiply: n[3]=42 q=38 c=35 m[4]=EA5
+reduce: multiply: n[4]=E q=38 c=E m[5]=31E
+reduce: multiply: n[5]=82 q=38 c=3 m[6]=1C73
+reduce: multiply: n[6]=71 q=38 c=1C m[7]=18D4
+reduce: multiply: n[7]=A6 q=38 c=18 m[8]=2468
+reduce: multiply: n[8]=0 q=38 c=24 m[9]=24
+reduce: multiply: n[9]=0 q=38 c=0 m[10]=0
+reduce: multiply: n[10]=0 q=38 c=0 m[11]=0
+reduce: multiply: n[11]=0 q=38 c=0 m[12]=0
+reduce: multiply: n[12]=0 q=38 c=0 m[13]=0
+reduce: multiply: n[13]=0 q=38 c=0 m[14]=0
+reduce: multiply: n[14]=0 q=38 c=0 m[15]=0
+reduce: multiply: product = 00 00 00 00 00 00 24 68 D4 73 1E A5 E8 84 98 00 
+reduce: compare
+reduce: compare: m[15]=0 qn[15]=0
+reduce: compare: m[14]=0 qn[14]=0
+reduce: compare: m[13]=0 qn[13]=0
+reduce: compare: m[12]=0 qn[12]=0
+reduce: compare: m[11]=0 qn[11]=0
+reduce: compare: m[10]=0 qn[10]=0
+reduce: compare: m[9]=24 qn[9]=24
+reduce: compare: m[8]=B6 qn[8]=68
+reduce: compare: relation d
+reduce: subtract: d=9 offset=1
+reduce: subtract: m[1]=DC qn[1]=98 b=0 r=44
+reduce: subtract: m[2]=100 qn[2]=84 b=1 r=7C
+reduce: subtract: m[3]=10A qn[3]=E8 b=1 r=21
+reduce: subtract: m[4]=189 qn[4]=A5 b=1 r=E3
+reduce: subtract: m[5]=5D qn[5]=1E b=0 r=3E
+reduce: subtract: m[6]=E6 qn[6]=73 b=0 r=73
+reduce: subtract: m[7]=141 qn[7]=D4 b=1 r=6D
+reduce: subtract: m[8]=B6 qn[8]=68 b=0 r=4D
+reduce: subtract: m[9]=24 qn[9]=24 b=0 r=0
+reduce: subtract: m[10]=0 qn[10]=0 b=0 r=0
+reduce: subtract: m[11]=0 qn[11]=0 b=0 r=0
+reduce: subtract: m[12]=0 qn[12]=0 b=0 r=0
+reduce: subtract: m[13]=0 qn[13]=0 b=0 r=0
+reduce: subtract: m[14]=0 qn[14]=0 b=0 r=0
+reduce: subtract: m[15]=0 qn[15]=0 b=0 r=0
+reduce: subtract: sum = 00 00 00 00 00 00 00 4D 6D 73 3E E3 21 7C 44 90 
+reduce: quotient: n_n=A6 m[d]=7C
+reduce quotient: m_dividend=4D6D q=77
+reduce: quotient: m[d]=4D m[d-1]=6D m[d-2]=73 n_q=4D6D73
+reduce: quotient: q0=77
+reduce: quotient: q=77 n_div=A671 qn=4D5E87
+reduce: quotient: q=77
+reduce: multiply: offset=0
+reduce: multiply: n[0]=15 q=77 c=0 m[0]=9C3
+reduce: multiply: n[1]=70 q=77 c=9 m[1]=3419
+reduce: multiply: n[2]=F6 q=77 c=34 m[2]=728E
+reduce: multiply: n[3]=42 q=77 c=72 m[3]=1F20
+reduce: multiply: n[4]=E q=77 c=1F m[4]=6A1
+reduce: multiply: n[5]=82 q=77 c=6 m[5]=3C74
+reduce: multiply: n[6]=71 q=77 c=3C m[6]=34C3
+reduce: multiply: n[7]=A6 q=77 c=34 m[7]=4D5E
+reduce: multiply: n[8]=0 q=77 c=4D m[8]=4D
+reduce: multiply: n[9]=0 q=77 c=0 m[9]=0
+reduce: multiply: n[10]=0 q=77 c=0 m[10]=0
+reduce: multiply: n[11]=0 q=77 c=0 m[11]=0
+reduce: multiply: n[12]=0 q=77 c=0 m[12]=0
+reduce: multiply: n[13]=0 q=77 c=0 m[13]=0
+reduce: multiply: n[14]=0 q=77 c=0 m[14]=0
+reduce: multiply: n[15]=0 q=77 c=0 m[15]=0
+reduce: multiply: product = 00 00 00 00 00 00 00 4D 5E C3 74 A1 20 8E 19 C3 
+reduce: compare
+reduce: compare: m[15]=0 qn[15]=0
+reduce: compare: m[14]=0 qn[14]=0
+reduce: compare: m[13]=0 qn[13]=0
+reduce: compare: m[12]=0 qn[12]=0
+reduce: compare: m[11]=0 qn[11]=0
+reduce: compare: m[10]=0 qn[10]=0
+reduce: compare: m[9]=0 qn[9]=0
+reduce: compare: m[8]=4D qn[8]=4D
+reduce: compare: m[7]=6D qn[7]=5E
+reduce: compare: relation d
+reduce: subtract: d=8 offset=0
+reduce: subtract: m[0]=190 qn[0]=C3 b=1 r=CD
+reduce: subtract: m[1]=44 qn[1]=19 b=0 r=2A
+reduce: subtract: m[2]=17C qn[2]=8E b=1 r=EE
+reduce: subtract: m[3]=21 qn[3]=20 b=0 r=0
+reduce: subtract: m[4]=E3 qn[4]=A1 b=0 r=42
+reduce: subtract: m[5]=13E qn[5]=74 b=1 r=CA
+reduce: subtract: m[6]=173 qn[6]=C3 b=1 r=AF
+reduce: subtract: m[7]=6D qn[7]=5E b=0 r=E
+reduce: subtract: m[8]=4D qn[8]=4D b=0 r=0
+reduce: subtract: m[9]=0 qn[9]=0 b=0 r=0
+reduce: subtract: m[10]=0 qn[10]=0 b=0 r=0
+reduce: subtract: m[11]=0 qn[11]=0 b=0 r=0
+reduce: subtract: m[12]=0 qn[12]=0 b=0 r=0
+reduce: subtract: m[13]=0 qn[13]=0 b=0 r=0
+reduce: subtract: m[14]=0 qn[14]=0 b=0 r=0
+reduce: subtract: m[15]=0 qn[15]=0 b=0 r=0
+reduce: subtract: sum = 00 00 00 00 00 00 00 00 0E AF CA 42 00 EE 2A CD 
+reduce: num = 0E AF CA 42 00 EE 2A CD 
+Blk offset after: 7
+Blk offset: 7
+mod exp: e=3
+mult: a = 00 00 00 00 00 00 00 01 
+mult: b = 01 FF FF FF 2E 41 41 41 
+mult: d=0
+mult: i=0 a=1 b=41 dp=41 p=41
+mult: d=1
+mult: i=0 a=0 b=41 dp=0 p=0
+mult: i=1 a=1 b=41 dp=41 p=41
+mult: d=2
+mult: i=0 a=0 b=41 dp=0 p=0
+mult: i=1 a=0 b=41 dp=0 p=0
+mult: i=2 a=1 b=41 dp=41 p=41
+mult: d=3
+mult: i=0 a=0 b=41 dp=0 p=0
+mult: i=1 a=0 b=41 dp=0 p=0
+mult: i=2 a=0 b=41 dp=0 p=0
+mult: i=3 a=1 b=2E dp=2E p=2E
+mult: d=4
+mult: i=0 a=0 b=41 dp=0 p=0
+mult: i=1 a=0 b=41 dp=0 p=0
+mult: i=2 a=0 b=41 dp=0 p=0
+mult: i=3 a=0 b=2E dp=0 p=0
+mult: i=4 a=1 b=FF dp=FF p=FF
+mult: d=5
+mult: i=0 a=0 b=41 dp=0 p=0
+mult: i=1 a=0 b=41 dp=0 p=0
+mult: i=2 a=0 b=41 dp=0 p=0
+mult: i=3 a=0 b=2E dp=0 p=0
+mult: i=4 a=0 b=FF dp=0 p=0
+mult: i=5 a=1 b=FF dp=FF p=FF
+mult: d=6
+mult: i=0 a=0 b=41 dp=0 p=0
+mult: i=1 a=0 b=41 dp=0 p=0
+mult: i=2 a=0 b=41 dp=0 p=0
+mult: i=3 a=0 b=2E dp=0 p=0
+mult: i=4 a=0 b=FF dp=0 p=0
+mult: i=5 a=0 b=FF dp=0 p=0
+mult: i=6 a=1 b=FF dp=FF p=FF
+mult: d=7
+mult: i=0 a=0 b=41 dp=0 p=0
+mult: i=1 a=0 b=41 dp=0 p=0
+mult: i=2 a=0 b=41 dp=0 p=0
+mult: i=3 a=0 b=2E dp=0 p=0
+mult: i=4 a=0 b=FF dp=0 p=0
+mult: i=5 a=0 b=FF dp=0 p=0
+mult: i=6 a=0 b=FF dp=0 p=0
+mult: i=7 a=1 b=1 dp=1 p=1
+mult: d=8
+mult: i=1 a=0 b=41 dp=0 p=0
+mult: i=2 a=0 b=41 dp=0 p=0
+mult: i=3 a=0 b=2E dp=0 p=0
+mult: i=4 a=0 b=FF dp=0 p=0
+mult: i=5 a=0 b=FF dp=0 p=0
+mult: i=6 a=0 b=FF dp=0 p=0
+mult: i=7 a=0 b=1 dp=0 p=0
+mult: d=9
+mult: i=2 a=0 b=41 dp=0 p=0
+mult: i=3 a=0 b=2E dp=0 p=0
+mult: i=4 a=0 b=FF dp=0 p=0
+mult: i=5 a=0 b=FF dp=0 p=0
+mult: i=6 a=0 b=FF dp=0 p=0
+mult: i=7 a=0 b=1 dp=0 p=0
+mult: d=10
+mult: i=3 a=0 b=2E dp=0 p=0
+mult: i=4 a=0 b=FF dp=0 p=0
+mult: i=5 a=0 b=FF dp=0 p=0
+mult: i=6 a=0 b=FF dp=0 p=0
+mult: i=7 a=0 b=1 dp=0 p=0
+mult: d=11
+mult: i=4 a=0 b=FF dp=0 p=0
+mult: i=5 a=0 b=FF dp=0 p=0
+mult: i=6 a=0 b=FF dp=0 p=0
+mult: i=7 a=0 b=1 dp=0 p=0
+mult: d=12
+mult: i=5 a=0 b=FF dp=0 p=0
+mult: i=6 a=0 b=FF dp=0 p=0
+mult: i=7 a=0 b=1 dp=0 p=0
+mult: d=13
+mult: i=6 a=0 b=FF dp=0 p=0
+mult: i=7 a=0 b=1 dp=0 p=0
+mult: d=14
+mult: i=7 a=0 b=1 dp=0 p=0
+mult: d=15
+mult: product = 00 00 00 00 00 00 00 00 01 FF FF FF 2E 41 41 41 
+reduce digits: p[15]=0
+reduce digits: p[14]=0
+reduce digits: p[13]=0
+reduce digits: p[12]=0
+reduce digits: p[11]=0
+reduce digits: p[10]=0
+reduce digits: p[9]=0
+reduce digits: p[8]=0
+reduce digits: p[7]=1
+reduce digits: d=7
+reduce: normalizable: d=7 offset=0
+normalizable: m[7]=1 n[7]=A6
+normalizable: 0
+reduce: done: message < modulus
+mult: a = 01 FF FF FF 2E 41 41 41 
+mult: b = 01 FF FF FF 2E 41 41 41 
+mult: d=0
+mult: i=0 a=41 b=41 dp=1081 p=81
+mult: d=1
+mult: i=0 a=41 b=41 dp=1081 p=91
+mult: i=1 a=41 b=41 dp=1081 p=112
+mult: d=2
+mult: i=0 a=41 b=41 dp=1081 p=A2
+mult: i=1 a=41 b=41 dp=1081 p=123
+mult: i=2 a=41 b=41 dp=1081 p=1A4
+mult: d=3
+mult: i=0 a=2E b=41 dp=BAE p=DF
+mult: i=1 a=41 b=41 dp=1081 p=160
+mult: i=2 a=41 b=41 dp=1081 p=1E1
+mult: i=3 a=41 b=2E dp=BAE p=28F
+mult: d=4
+mult: i=0 a=FF b=41 dp=40BF p=F7
+mult: i=1 a=2E b=41 dp=BAE p=1A5
+mult: i=2 a=41 b=41 dp=1081 p=226
+mult: i=3 a=41 b=2E dp=BAE p=2D4
+mult: i=4 a=41 b=FF dp=40BF p=393
+mult: d=5
+mult: i=0 a=FF b=41 dp=40BF p=168
+mult: i=1 a=FF b=41 dp=40BF p=227
+mult: i=2 a=2E b=41 dp=BAE p=2D5
+mult: i=3 a=41 b=2E dp=BAE p=383
+mult: i=4 a=41 b=FF dp=40BF p=442
+mult: i=5 a=41 b=FF dp=40BF p=501
+mult: d=6
+mult: i=0 a=FF b=41 dp=40BF p=1DA
+mult: i=1 a=FF b=41 dp=40BF p=299
+mult: i=2 a=FF b=41 dp=40BF p=358
+mult: i=3 a=2E b=2E dp=844 p=39C
+mult: i=4 a=41 b=FF dp=40BF p=45B
+mult: i=5 a=41 b=FF dp=40BF p=51A
+mult: i=6 a=41 b=FF dp=40BF p=5D9
+mult: d=7
+mult: i=0 a=1 b=41 dp=41 p=1CE
+mult: i=1 a=FF b=41 dp=40BF p=28D
+mult: i=2 a=FF b=41 dp=40BF p=34C
+mult: i=3 a=FF b=2E dp=2DD2 p=41E
+mult: i=4 a=2E b=FF dp=2DD2 p=4F0
+mult: i=5 a=41 b=FF dp=40BF p=5AF
+mult: i=6 a=41 b=FF dp=40BF p=66E
+mult: i=7 a=41 b=1 dp=41 p=6AF
+mult: d=8
+mult: i=1 a=1 b=41 dp=41 p=1A1
+mult: i=2 a=FF b=41 dp=40BF p=260
+mult: i=3 a=FF b=2E dp=2DD2 p=332
+mult: i=4 a=FF b=FF dp=FE01 p=333
+mult: i=5 a=2E b=FF dp=2DD2 p=405
+mult: i=6 a=41 b=FF dp=40BF p=4C4
+mult: i=7 a=41 b=1 dp=41 p=505
+mult: d=9
+mult: i=2 a=1 b=41 dp=41 p=21E
+mult: i=3 a=FF b=2E dp=2DD2 p=2F0
+mult: i=4 a=FF b=FF dp=FE01 p=2F1
+mult: i=5 a=FF b=FF dp=FE01 p=2F2
+mult: i=6 a=2E b=FF dp=2DD2 p=3C4
+mult: i=7 a=41 b=1 dp=41 p=405
+mult: d=10
+mult: i=3 a=1 b=2E dp=2E p=288
+mult: i=4 a=FF b=FF dp=FE01 p=289
+mult: i=5 a=FF b=FF dp=FE01 p=28A
+mult: i=6 a=FF b=FF dp=FE01 p=28B
+mult: i=7 a=2E b=1 dp=2E p=2B9
+mult: d=11
+mult: i=4 a=1 b=FF dp=FF p=3FB
+mult: i=5 a=FF b=FF dp=FE01 p=3FC
+mult: i=6 a=FF b=FF dp=FE01 p=3FD
+mult: i=7 a=FF b=1 dp=FF p=4FC
+mult: d=12
+mult: i=5 a=1 b=FF dp=FF p=2FF
+mult: i=6 a=FF b=FF dp=FE01 p=300
+mult: i=7 a=FF b=1 dp=FF p=3FF
+mult: d=13
+mult: i=6 a=1 b=FF dp=FF p=200
+mult: i=7 a=FF b=1 dp=FF p=2FF
+mult: d=14
+mult: i=7 a=1 b=1 dp=1 p=3
+mult: d=15
+mult: product = 00 03 FF FF FC B9 05 05 AF D9 01 93 8F A4 12 81 
+reduce digits: p[15]=0
+reduce digits: p[14]=3
+reduce digits: d=E
+reduce: normalizable: d=14 offset=7
+normalizable: m[14]=3 n[7]=A6
+normalizable: 0
+reduce: quotient: n_n=A6 m[d]=A4
+reduce quotient: m_dividend=3FF q=6
+reduce: quotient: m[d]=3 m[d-1]=FF m[d-2]=FF n_q=03FFFF
+reduce: quotient: q0=6
+reduce: quotient: q=6 n_div=A671 qn=03E6A6
+reduce: quotient: q=6
+reduce: multiply: offset=6
+reduce: multiply: n[0]=15 q=6 c=0 m[6]=7E
+reduce: multiply: n[1]=70 q=6 c=0 m[7]=2A0
+reduce: multiply: n[2]=F6 q=6 c=2 m[8]=5C6
+reduce: multiply: n[3]=42 q=6 c=5 m[9]=191
+reduce: multiply: n[4]=E q=6 c=1 m[10]=55
+reduce: multiply: n[5]=82 q=6 c=0 m[11]=30C
+reduce: multiply: n[6]=71 q=6 c=3 m[12]=2A9
+reduce: multiply: n[7]=A6 q=6 c=2 m[13]=3E6
+reduce: multiply: n[8]=0 q=6 c=3 m[14]=3
+reduce: multiply: n[9]=0 q=6 c=0 m[15]=0
+reduce: multiply: product = 00 03 E6 A9 0C 55 91 C6 A0 7E 00 00 00 00 00 00 
+reduce: compare
+reduce: compare: m[15]=0 qn[15]=0
+reduce: compare: m[14]=3 qn[14]=3
+reduce: compare: m[13]=FF qn[13]=E6
+reduce: compare: relation d
+reduce: subtract: d=14 offset=6
+reduce: subtract: m[6]=D9 qn[6]=7E b=0 r=5B
+reduce: subtract: m[7]=AF qn[7]=A0 b=0 r=F
+reduce: subtract: m[8]=105 qn[8]=C6 b=1 r=3F
+reduce: subtract: m[9]=105 qn[9]=91 b=1 r=73
+reduce: subtract: m[10]=B9 qn[10]=55 b=0 r=63
+reduce: subtract: m[11]=FC qn[11]=C b=0 r=F0
+reduce: subtract: m[12]=FF qn[12]=A9 b=0 r=56
+reduce: subtract: m[13]=FF qn[13]=E6 b=0 r=19
+reduce: subtract: m[14]=3 qn[14]=3 b=0 r=0
+reduce: subtract: m[15]=0 qn[15]=0 b=0 r=0
+reduce: subtract: sum = 00 00 19 56 F0 63 73 3F 0F 5B 01 93 8F A4 12 81 
+reduce: quotient: n_n=A6 m[d]=A4
+reduce quotient: m_dividend=1956 q=27
+reduce: quotient: m[d]=19 m[d-1]=56 m[d-2]=F0 n_q=1956F0
+reduce: quotient: q0=27
+reduce: quotient: q=27 n_div=A671 qn=195B37
+reduce: quotient: q=26 n_div=A671 qn=18B4C6
+reduce: quotient: q=26
+reduce: multiply: offset=5
+reduce: multiply: n[0]=15 q=26 c=0 m[5]=31E
+reduce: multiply: n[1]=70 q=26 c=3 m[6]=10A3
+reduce: multiply: n[2]=F6 q=26 c=10 m[7]=2494
+reduce: multiply: n[3]=42 q=26 c=24 m[8]=9F0
+reduce: multiply: n[4]=E q=26 c=9 m[9]=21D
+reduce: multiply: n[5]=82 q=26 c=2 m[10]=134E
+reduce: multiply: n[6]=71 q=26 c=13 m[11]=10D9
+reduce: multiply: n[7]=A6 q=26 c=10 m[12]=18B4
+reduce: multiply: n[8]=0 q=26 c=18 m[13]=18
+reduce: multiply: n[9]=0 q=26 c=0 m[14]=0
+reduce: multiply: n[10]=0 q=26 c=0 m[15]=0
+reduce: multiply: product = 00 00 18 B4 D9 4E 1D F0 94 A3 1E 00 00 00 00 00 
+reduce: compare
+reduce: compare: m[15]=0 qn[15]=0
+reduce: compare: m[14]=0 qn[14]=0
+reduce: compare: m[13]=19 qn[13]=18
+reduce: compare: relation d
+reduce: subtract: d=13 offset=5
+reduce: subtract: m[5]=101 qn[5]=1E b=1 r=E3
+reduce: subtract: m[6]=15B qn[6]=A3 b=1 r=B7
+reduce: subtract: m[7]=10F qn[7]=94 b=1 r=7A
+reduce: subtract: m[8]=13F qn[8]=F0 b=1 r=4E
+reduce: subtract: m[9]=73 qn[9]=1D b=0 r=55
+reduce: subtract: m[10]=63 qn[10]=4E b=0 r=15
+reduce: subtract: m[11]=F0 qn[11]=D9 b=0 r=17
+reduce: subtract: m[12]=156 qn[12]=B4 b=1 r=A2
+reduce: subtract: m[13]=19 qn[13]=18 b=0 r=0
+reduce: subtract: m[14]=0 qn[14]=0 b=0 r=0
+reduce: subtract: m[15]=0 qn[15]=0 b=0 r=0
+reduce: subtract: sum = 00 00 00 A2 17 15 55 4E 7A B7 E3 93 8F A4 12 81 
+reduce: quotient: n_n=A6 m[d]=A4
+reduce quotient: m_dividend=A217 q=F9
+reduce: quotient: m[d]=A2 m[d-1]=17 m[d-2]=15 n_q=A21715
+reduce: quotient: q0=F9
+reduce: quotient: q=F9 n_div=A671 qn=A1E3E9
+reduce: quotient: q=F9
+reduce: multiply: offset=4
+reduce: multiply: n[0]=15 q=F9 c=0 m[4]=146D
+reduce: multiply: n[1]=70 q=F9 c=14 m[5]=6D04
+reduce: multiply: n[2]=F6 q=F9 c=6D m[6]=EFB3
+reduce: multiply: n[3]=42 q=F9 c=EF m[7]=4121
+reduce: multiply: n[4]=E q=F9 c=41 m[8]=DDF
+reduce: multiply: n[5]=82 q=F9 c=D m[9]=7E7F
+reduce: multiply: n[6]=71 q=F9 c=7E m[10]=6E67
+reduce: multiply: n[7]=A6 q=F9 c=6E m[11]=A1E4
+reduce: multiply: n[8]=0 q=F9 c=A1 m[12]=A1
+reduce: multiply: n[9]=0 q=F9 c=0 m[13]=0
+reduce: multiply: n[10]=0 q=F9 c=0 m[14]=0
+reduce: multiply: n[11]=0 q=F9 c=0 m[15]=0
+reduce: multiply: product = 00 00 00 A1 E4 67 7F DF 21 B3 04 6D 00 00 00 00 
+reduce: compare
+reduce: compare: m[15]=0 qn[15]=0
+reduce: compare: m[14]=0 qn[14]=0
+reduce: compare: m[13]=0 qn[13]=0
+reduce: compare: m[12]=A2 qn[12]=A1
+reduce: compare: relation d
+reduce: subtract: d=12 offset=4
+reduce: subtract: m[4]=93 qn[4]=6D b=0 r=26
+reduce: subtract: m[5]=E3 qn[5]=4 b=0 r=DF
+reduce: subtract: m[6]=B7 qn[6]=B3 b=0 r=4
+reduce: subtract: m[7]=7A qn[7]=21 b=0 r=59
+reduce: subtract: m[8]=14E qn[8]=DF b=1 r=6F
+reduce: subtract: m[9]=155 qn[9]=7F b=1 r=D5
+reduce: subtract: m[10]=115 qn[10]=67 b=1 r=AD
+reduce: subtract: m[11]=117 qn[11]=E4 b=1 r=32
+reduce: subtract: m[12]=A2 qn[12]=A1 b=0 r=0
+reduce: subtract: m[13]=0 qn[13]=0 b=0 r=0
+reduce: subtract: m[14]=0 qn[14]=0 b=0 r=0
+reduce: subtract: m[15]=0 qn[15]=0 b=0 r=0
+reduce: subtract: sum = 00 00 00 00 32 AD D5 6F 59 04 DF 26 8F A4 12 81 
+reduce: quotient: n_n=A6 m[d]=A4
+reduce quotient: m_dividend=32AD q=4E
+reduce: quotient: m[d]=32 m[d-1]=AD m[d-2]=D5 n_q=32ADD5
+reduce: quotient: q0=4E
+reduce: quotient: q=4E n_div=A671 qn=32B66E
+reduce: quotient: q=4D n_div=A671 qn=32FFD
+reduce: quotient: q=4D
+reduce: multiply: offset=3
+reduce: multiply: n[0]=15 q=4D c=0 m[3]=651
+reduce: multiply: n[1]=70 q=4D c=6 m[4]=21B6
+reduce: multiply: n[2]=F6 q=4D c=21 m[5]=4A1F
+reduce: multiply: n[3]=42 q=4D c=4A m[6]=1424
+reduce: multiply: n[4]=E q=4D c=14 m[7]=44A
+reduce: multiply: n[5]=82 q=4D c=4 m[8]=271E
+reduce: multiply: n[6]=71 q=4D c=27 m[9]=2224
+reduce: multiply: n[7]=A6 q=4D c=22 m[10]=3210
+reduce: multiply: n[8]=0 q=4D c=32 m[11]=32
+reduce: multiply: n[9]=0 q=4D c=0 m[12]=0
+reduce: multiply: n[10]=0 q=4D c=0 m[13]=0
+reduce: multiply: n[11]=0 q=4D c=0 m[14]=0
+reduce: multiply: n[12]=0 q=4D c=0 m[15]=0
+reduce: multiply: product = 00 00 00 00 32 10 24 1E 4A 24 1F B6 51 00 00 00 
+reduce: compare
+reduce: compare: m[15]=0 qn[15]=0
+reduce: compare: m[14]=0 qn[14]=0
+reduce: compare: m[13]=0 qn[13]=0
+reduce: compare: m[12]=0 qn[12]=0
+reduce: compare: m[11]=32 qn[11]=32
+reduce: compare: m[10]=AD qn[10]=10
+reduce: compare: relation d
+reduce: subtract: d=11 offset=3
+reduce: subtract: m[3]=8F qn[3]=51 b=0 r=3E
+reduce: subtract: m[4]=126 qn[4]=B6 b=1 r=70
+reduce: subtract: m[5]=DF qn[5]=1F b=0 r=BF
+reduce: subtract: m[6]=104 qn[6]=24 b=1 r=E0
+reduce: subtract: m[7]=59 qn[7]=4A b=0 r=E
+reduce: subtract: m[8]=6F qn[8]=1E b=0 r=51
+reduce: subtract: m[9]=D5 qn[9]=24 b=0 r=B1
+reduce: subtract: m[10]=AD qn[10]=10 b=0 r=9D
+reduce: subtract: m[11]=32 qn[11]=32 b=0 r=0
+reduce: subtract: m[12]=0 qn[12]=0 b=0 r=0
+reduce: subtract: m[13]=0 qn[13]=0 b=0 r=0
+reduce: subtract: m[14]=0 qn[14]=0 b=0 r=0
+reduce: subtract: m[15]=0 qn[15]=0 b=0 r=0
+reduce: subtract: sum = 00 00 00 00 00 9D B1 51 0E E0 BF 70 3E A4 12 81 
+reduce: quotient: n_n=A6 m[d]=A4
+reduce quotient: m_dividend=9DB1 q=F3
+reduce: quotient: m[d]=9D m[d-1]=B1 m[d-2]=51 n_q=9DB151
+reduce: quotient: q0=F3
+reduce: quotient: q=F3 n_div=A671 qn=9DFD43
+reduce: quotient: q=F2 n_div=A671 qn=9D56D2
+reduce: quotient: q=F2
+reduce: multiply: offset=2
+reduce: multiply: n[0]=15 q=F2 c=0 m[2]=13DA
+reduce: multiply: n[1]=70 q=F2 c=13 m[3]=69F3
+reduce: multiply: n[2]=F6 q=F2 c=69 m[4]=E8F5
+reduce: multiply: n[3]=42 q=F2 c=E8 m[5]=3F4C
+reduce: multiply: n[4]=E q=F2 c=3F m[6]=D7B
+reduce: multiply: n[5]=82 q=F2 c=D m[7]=7AF1
+reduce: multiply: n[6]=71 q=F2 c=7A m[8]=6B4C
+reduce: multiply: n[7]=A6 q=F2 c=6B m[9]=9D57
+reduce: multiply: n[8]=0 q=F2 c=9D m[10]=9D
+reduce: multiply: n[9]=0 q=F2 c=0 m[11]=0
+reduce: multiply: n[10]=0 q=F2 c=0 m[12]=0
+reduce: multiply: n[11]=0 q=F2 c=0 m[13]=0
+reduce: multiply: n[12]=0 q=F2 c=0 m[14]=0
+reduce: multiply: n[13]=0 q=F2 c=0 m[15]=0
+reduce: multiply: product = 00 00 00 00 00 9D 57 4C F1 7B 4C F5 F3 DA 00 00 
+reduce: compare
+reduce: compare: m[15]=0 qn[15]=0
+reduce: compare: m[14]=0 qn[14]=0
+reduce: compare: m[13]=0 qn[13]=0
+reduce: compare: m[12]=0 qn[12]=0
+reduce: compare: m[11]=0 qn[11]=0
+reduce: compare: m[10]=9D qn[10]=9D
+reduce: compare: m[9]=B1 qn[9]=57
+reduce: compare: relation d
+reduce: subtract: d=10 offset=2
+reduce: subtract: m[2]=1A4 qn[2]=DA b=1 r=CA
+reduce: subtract: m[3]=13E qn[3]=F3 b=1 r=4A
+reduce: subtract: m[4]=170 qn[4]=F5 b=1 r=7A
+reduce: subtract: m[5]=BF qn[5]=4C b=0 r=72
+reduce: subtract: m[6]=E0 qn[6]=7B b=0 r=65
+reduce: subtract: m[7]=10E qn[7]=F1 b=1 r=1D
+reduce: subtract: m[8]=51 qn[8]=4C b=0 r=4
+reduce: subtract: m[9]=B1 qn[9]=57 b=0 r=5A
+reduce: subtract: m[10]=9D qn[10]=9D b=0 r=0
+reduce: subtract: m[11]=0 qn[11]=0 b=0 r=0
+reduce: subtract: m[12]=0 qn[12]=0 b=0 r=0
+reduce: subtract: m[13]=0 qn[13]=0 b=0 r=0
+reduce: subtract: m[14]=0 qn[14]=0 b=0 r=0
+reduce: subtract: m[15]=0 qn[15]=0 b=0 r=0
+reduce: subtract: sum = 00 00 00 00 00 00 5A 04 1D 65 72 7A 4A CA 12 81 
+reduce: quotient: n_n=A6 m[d]=CA
+reduce quotient: m_dividend=5A04 q=8A
+reduce: quotient: m[d]=5A m[d-1]=4 m[d-2]=1D n_q=5A41D
+reduce: quotient: q0=8A
+reduce: quotient: q=8A n_div=A671 qn=59B8EA
+reduce: quotient: q=8A
+reduce: multiply: offset=1
+reduce: multiply: n[0]=15 q=8A c=0 m[1]=B52
+reduce: multiply: n[1]=70 q=8A c=B m[2]=3C6B
+reduce: multiply: n[2]=F6 q=8A c=3C m[3]=84D8
+reduce: multiply: n[3]=42 q=8A c=84 m[4]=2418
+reduce: multiply: n[4]=E q=8A c=24 m[5]=7B0
+reduce: multiply: n[5]=82 q=8A c=7 m[6]=461B
+reduce: multiply: n[6]=71 q=8A c=46 m[7]=3D30
+reduce: multiply: n[7]=A6 q=8A c=3D m[8]=59B9
+reduce: multiply: n[8]=0 q=8A c=59 m[9]=59
+reduce: multiply: n[9]=0 q=8A c=0 m[10]=0
+reduce: multiply: n[10]=0 q=8A c=0 m[11]=0
+reduce: multiply: n[11]=0 q=8A c=0 m[12]=0
+reduce: multiply: n[12]=0 q=8A c=0 m[13]=0
+reduce: multiply: n[13]=0 q=8A c=0 m[14]=0
+reduce: multiply: n[14]=0 q=8A c=0 m[15]=0
+reduce: multiply: product = 00 00 00 00 00 00 59 B9 30 1B B0 18 D8 6B 52 00 
+reduce: compare
+reduce: compare: m[15]=0 qn[15]=0
+reduce: compare: m[14]=0 qn[14]=0
+reduce: compare: m[13]=0 qn[13]=0
+reduce: compare: m[12]=0 qn[12]=0
+reduce: compare: m[11]=0 qn[11]=0
+reduce: compare: m[10]=0 qn[10]=0
+reduce: compare: m[9]=5A qn[9]=59
+reduce: compare: relation d
+reduce: subtract: d=9 offset=1
+reduce: subtract: m[1]=112 qn[1]=52 b=1 r=C0
+reduce: subtract: m[2]=CA qn[2]=6B b=0 r=5E
+reduce: subtract: m[3]=14A qn[3]=D8 b=1 r=72
+reduce: subtract: m[4]=7A qn[4]=18 b=0 r=61
+reduce: subtract: m[5]=172 qn[5]=B0 b=1 r=C2
+reduce: subtract: m[6]=65 qn[6]=1B b=0 r=49
+reduce: subtract: m[7]=11D qn[7]=30 b=1 r=ED
+reduce: subtract: m[8]=104 qn[8]=B9 b=1 r=4A
+reduce: subtract: m[9]=5A qn[9]=59 b=0 r=0
+reduce: subtract: m[10]=0 qn[10]=0 b=0 r=0
+reduce: subtract: m[11]=0 qn[11]=0 b=0 r=0
+reduce: subtract: m[12]=0 qn[12]=0 b=0 r=0
+reduce: subtract: m[13]=0 qn[13]=0 b=0 r=0
+reduce: subtract: m[14]=0 qn[14]=0 b=0 r=0
+reduce: subtract: m[15]=0 qn[15]=0 b=0 r=0
+reduce: subtract: sum = 00 00 00 00 00 00 00 4A ED 49 C2 61 72 5E C0 81 
+reduce: quotient: n_n=A6 m[d]=5E
+reduce quotient: m_dividend=4AED q=73
+reduce: quotient: m[d]=4A m[d-1]=ED m[d-2]=49 n_q=4AED49
+reduce: quotient: q0=73
+reduce: quotient: q=73 n_div=A671 qn=4AC4C3
+reduce: quotient: q=73
+reduce: multiply: offset=0
+reduce: multiply: n[0]=15 q=73 c=0 m[0]=96F
+reduce: multiply: n[1]=70 q=73 c=9 m[1]=3259
+reduce: multiply: n[2]=F6 q=73 c=32 m[2]=6EB4
+reduce: multiply: n[3]=42 q=73 c=6E m[3]=1E14
+reduce: multiply: n[4]=E q=73 c=1E m[4]=668
+reduce: multiply: n[5]=82 q=73 c=6 m[5]=3A6C
+reduce: multiply: n[6]=71 q=73 c=3A m[6]=32FD
+reduce: multiply: n[7]=A6 q=73 c=32 m[7]=4AC4
+reduce: multiply: n[8]=0 q=73 c=4A m[8]=4A
+reduce: multiply: n[9]=0 q=73 c=0 m[9]=0
+reduce: multiply: n[10]=0 q=73 c=0 m[10]=0
+reduce: multiply: n[11]=0 q=73 c=0 m[11]=0
+reduce: multiply: n[12]=0 q=73 c=0 m[12]=0
+reduce: multiply: n[13]=0 q=73 c=0 m[13]=0
+reduce: multiply: n[14]=0 q=73 c=0 m[14]=0
+reduce: multiply: n[15]=0 q=73 c=0 m[15]=0
+reduce: multiply: product = 00 00 00 00 00 00 00 4A C4 FD 6C 68 14 B4 59 6F 
+reduce: compare
+reduce: compare: m[15]=0 qn[15]=0
+reduce: compare: m[14]=0 qn[14]=0
+reduce: compare: m[13]=0 qn[13]=0
+reduce: compare: m[12]=0 qn[12]=0
+reduce: compare: m[11]=0 qn[11]=0
+reduce: compare: m[10]=0 qn[10]=0
+reduce: compare: m[9]=0 qn[9]=0
+reduce: compare: m[8]=4A qn[8]=4A
+reduce: compare: m[7]=ED qn[7]=C4
+reduce: compare: relation d
+reduce: subtract: d=8 offset=0
+reduce: subtract: m[0]=81 qn[0]=6F b=0 r=12
+reduce: subtract: m[1]=C0 qn[1]=59 b=0 r=67
+reduce: subtract: m[2]=15E qn[2]=B4 b=1 r=AA
+reduce: subtract: m[3]=72 qn[3]=14 b=0 r=5D
+reduce: subtract: m[4]=161 qn[4]=68 b=1 r=F9
+reduce: subtract: m[5]=C2 qn[5]=6C b=0 r=55
+reduce: subtract: m[6]=149 qn[6]=FD b=1 r=4C
+reduce: subtract: m[7]=ED qn[7]=C4 b=0 r=28
+reduce: subtract: m[8]=4A qn[8]=4A b=0 r=0
+reduce: subtract: m[9]=0 qn[9]=0 b=0 r=0
+reduce: subtract: m[10]=0 qn[10]=0 b=0 r=0
+reduce: subtract: m[11]=0 qn[11]=0 b=0 r=0
+reduce: subtract: m[12]=0 qn[12]=0 b=0 r=0
+reduce: subtract: m[13]=0 qn[13]=0 b=0 r=0
+reduce: subtract: m[14]=0 qn[14]=0 b=0 r=0
+reduce: subtract: m[15]=0 qn[15]=0 b=0 r=0
+reduce: subtract: sum = 00 00 00 00 00 00 00 00 28 4C 55 F9 5D AA 67 12 
+reduce: num = 28 4C 55 F9 5D AA 67 12 
+mod exp: e=1
+mult: a = 01 FF FF FF 2E 41 41 41 
+mult: b = 28 4C 55 F9 5D AA 67 12 
+mult: d=0
+mult: i=0 a=41 b=12 dp=492 p=92
+mult: d=1
+mult: i=0 a=41 b=12 dp=492 p=96
+mult: i=1 a=41 b=67 dp=1A27 p=BD
+mult: d=2
+mult: i=0 a=41 b=12 dp=492 p=B0
+mult: i=1 a=41 b=67 dp=1A27 p=D7
+mult: i=2 a=41 b=AA dp=2B2A p=101
+mult: d=3
+mult: i=0 a=2E b=12 dp=33C p=86
+mult: i=1 a=41 b=67 dp=1A27 p=AD
+mult: i=2 a=41 b=AA dp=2B2A p=D7
+mult: i=3 a=41 b=5D dp=179D p=174
+mult: d=4
+mult: i=0 a=FF b=12 dp=11EE p=14E
+mult: i=1 a=2E b=67 dp=1282 p=1D0
+mult: i=2 a=41 b=AA dp=2B2A p=1FA
+mult: i=3 a=41 b=5D dp=179D p=297
+mult: i=4 a=41 b=F9 dp=3F39 p=2D0
+mult: d=5
+mult: i=0 a=FF b=12 dp=11EE p=194
+mult: i=1 a=FF b=67 dp=6699 p=22D
+mult: i=2 a=2E b=AA dp=1E8C p=2B9
+mult: i=3 a=41 b=5D dp=179D p=356
+mult: i=4 a=41 b=F9 dp=3F39 p=38F
+mult: i=5 a=41 b=55 dp=1595 p=424
+mult: d=6
+mult: i=0 a=FF b=12 dp=11EE p=1F2
+mult: i=1 a=FF b=67 dp=6699 p=28B
+mult: i=2 a=FF b=AA dp=A956 p=2E1
+mult: i=3 a=2E b=5D dp=10B6 p=397
+mult: i=4 a=41 b=F9 dp=3F39 p=3D0
+mult: i=5 a=41 b=55 dp=1595 p=465
+mult: i=6 a=41 b=4C dp=134C p=4B1
+mult: d=7
+mult: i=0 a=1 b=12 dp=12 p=1AD
+mult: i=1 a=FF b=67 dp=6699 p=246
+mult: i=2 a=FF b=AA dp=A956 p=29C
+mult: i=3 a=FF b=5D dp=5CA3 p=33F
+mult: i=4 a=2E b=F9 dp=2CBE p=3FD
+mult: i=5 a=41 b=55 dp=1595 p=492
+mult: i=6 a=41 b=4C dp=134C p=4DE
+mult: i=7 a=41 b=28 dp=A28 p=506
+mult: d=8
+mult: i=1 a=1 b=67 dp=67 p=235
+mult: i=2 a=FF b=AA dp=A956 p=28B
+mult: i=3 a=FF b=5D dp=5CA3 p=32E
+mult: i=4 a=FF b=F9 dp=F807 p=335
+mult: i=5 a=2E b=55 dp=F46 p=37B
+mult: i=6 a=41 b=4C dp=134C p=3C7
+mult: i=7 a=41 b=28 dp=A28 p=3EF
+mult: d=9
+mult: i=2 a=1 b=AA dp=AA p=2D6
+mult: i=3 a=FF b=5D dp=5CA3 p=379
+mult: i=4 a=FF b=F9 dp=F807 p=380
+mult: i=5 a=FF b=55 dp=54AB p=42B
+mult: i=6 a=2E b=4C dp=DA8 p=4D3
+mult: i=7 a=41 b=28 dp=A28 p=4FB
+mult: d=10
+mult: i=3 a=1 b=5D dp=5D p=220
+mult: i=4 a=FF b=F9 dp=F807 p=227
+mult: i=5 a=FF b=55 dp=54AB p=2D2
+mult: i=6 a=FF b=4C dp=4BB4 p=386
+mult: i=7 a=2E b=28 dp=730 p=3B6
+mult: d=11
+mult: i=4 a=1 b=F9 dp=F9 p=29A
+mult: i=5 a=FF b=55 dp=54AB p=345
+mult: i=6 a=FF b=4C dp=4BB4 p=3F9
+mult: i=7 a=FF b=28 dp=27D8 p=4D1
+mult: d=12
+mult: i=5 a=1 b=55 dp=55 p=11F
+mult: i=6 a=FF b=4C dp=4BB4 p=1D3
+mult: i=7 a=FF b=28 dp=27D8 p=2AB
+mult: d=13
+mult: i=6 a=1 b=4C dp=4C p=C0
+mult: i=7 a=FF b=28 dp=27D8 p=198
+mult: d=14
+mult: i=7 a=1 b=28 dp=28 p=50
+mult: d=15
+mult: product = 00 50 98 AB D1 B6 FB EF 06 B1 24 D0 74 01 BD 92 
+reduce digits: p[15]=0
+reduce digits: p[14]=50
+reduce digits: d=E
+reduce: normalizable: d=14 offset=7
+normalizable: m[14]=50 n[7]=A6
+normalizable: 0
+reduce: quotient: n_n=A6 m[d]=1
+reduce quotient: m_dividend=5098 q=7C
+reduce: quotient: m[d]=50 m[d-1]=98 m[d-2]=AB n_q=5098AB
+reduce: quotient: q0=7C
+reduce: quotient: q=7C n_div=A671 qn=509EBC
+reduce: quotient: q=7B n_div=A671 qn=4FF84B
+reduce: quotient: q=7B
+reduce: multiply: offset=6
+reduce: multiply: n[0]=15 q=7B c=0 m[6]=A17
+reduce: multiply: n[1]=70 q=7B c=A m[7]=35DA
+reduce: multiply: n[2]=F6 q=7B c=35 m[8]=7667
+reduce: multiply: n[3]=42 q=7B c=76 m[9]=202C
+reduce: multiply: n[4]=E q=7B c=20 m[10]=6DA
+reduce: multiply: n[5]=82 q=7B c=6 m[11]=3E7C
+reduce: multiply: n[6]=71 q=7B c=3E m[12]=3689
+reduce: multiply: n[7]=A6 q=7B c=36 m[13]=4FF8
+reduce: multiply: n[8]=0 q=7B c=4F m[14]=4F
+reduce: multiply: n[9]=0 q=7B c=0 m[15]=0
+reduce: multiply: product = 00 4F F8 89 7C DA 2C 67 DA 17 00 00 00 00 00 00 
+reduce: compare
+reduce: compare: m[15]=0 qn[15]=0
+reduce: compare: m[14]=50 qn[14]=4F
+reduce: compare: relation d
+reduce: subtract: d=14 offset=6
+reduce: subtract: m[6]=B1 qn[6]=17 b=0 r=9A
+reduce: subtract: m[7]=106 qn[7]=DA b=1 r=2C
+reduce: subtract: m[8]=EF qn[8]=67 b=0 r=87
+reduce: subtract: m[9]=FB qn[9]=2C b=0 r=CF
+reduce: subtract: m[10]=1B6 qn[10]=DA b=1 r=DC
+reduce: subtract: m[11]=D1 qn[11]=7C b=0 r=54
+reduce: subtract: m[12]=AB qn[12]=89 b=0 r=22
+reduce: subtract: m[13]=198 qn[13]=F8 b=1 r=A0
+reduce: subtract: m[14]=50 qn[14]=4F b=0 r=0
+reduce: subtract: m[15]=0 qn[15]=0 b=0 r=0
+reduce: subtract: sum = 00 00 A0 22 54 DC CF 87 2C 9A 24 D0 74 01 BD 92 
+reduce: quotient: n_n=A6 m[d]=1
+reduce quotient: m_dividend=A022 q=F6
+reduce: quotient: m[d]=A0 m[d-1]=22 m[d-2]=54 n_q=A02254
+reduce: quotient: q0=F6
+reduce: quotient: q=F6 n_div=A671 qn=9FF096
+reduce: quotient: q=F6
+reduce: multiply: offset=5
+reduce: multiply: n[0]=15 q=F6 c=0 m[5]=142E
+reduce: multiply: n[1]=70 q=F6 c=14 m[6]=6BB4
+reduce: multiply: n[2]=F6 q=F6 c=6B m[7]=ECCF
+reduce: multiply: n[3]=42 q=F6 c=EC m[8]=4058
+reduce: multiply: n[4]=E q=F6 c=40 m[9]=DB4
+reduce: multiply: n[5]=82 q=F6 c=D m[10]=7CF9
+reduce: multiply: n[6]=71 q=F6 c=7C m[11]=6D12
+reduce: multiply: n[7]=A6 q=F6 c=6D m[12]=9FF1
+reduce: multiply: n[8]=0 q=F6 c=9F m[13]=9F
+reduce: multiply: n[9]=0 q=F6 c=0 m[14]=0
+reduce: multiply: n[10]=0 q=F6 c=0 m[15]=0
+reduce: multiply: product = 00 00 9F F1 12 F9 B4 58 CF B4 2E 00 00 00 00 00 
+reduce: compare
+reduce: compare: m[15]=0 qn[15]=0
+reduce: compare: m[14]=0 qn[14]=0
+reduce: compare: m[13]=A0 qn[13]=9F
+reduce: compare: relation d
+reduce: subtract: d=13 offset=5
+reduce: subtract: m[5]=124 qn[5]=2E b=1 r=F6
+reduce: subtract: m[6]=19A qn[6]=B4 b=1 r=E5
+reduce: subtract: m[7]=12C qn[7]=CF b=1 r=5C
+reduce: subtract: m[8]=87 qn[8]=58 b=0 r=2E
+reduce: subtract: m[9]=CF qn[9]=B4 b=0 r=1B
+reduce: subtract: m[10]=1DC qn[10]=F9 b=1 r=E3
+reduce: subtract: m[11]=54 qn[11]=12 b=0 r=41
+reduce: subtract: m[12]=122 qn[12]=F1 b=1 r=31
+reduce: subtract: m[13]=A0 qn[13]=9F b=0 r=0
+reduce: subtract: m[14]=0 qn[14]=0 b=0 r=0
+reduce: subtract: m[15]=0 qn[15]=0 b=0 r=0
+reduce: subtract: sum = 00 00 00 31 41 E3 1B 2E 5C E5 F6 D0 74 01 BD 92 
+reduce: quotient: n_n=A6 m[d]=1
+reduce quotient: m_dividend=3141 q=4B
+reduce: quotient: m[d]=31 m[d-1]=41 m[d-2]=E3 n_q=3141E3
+reduce: quotient: q0=4B
+reduce: quotient: q=4B n_div=A671 qn=30C31B
+reduce: quotient: q=4B
+reduce: multiply: offset=4
+reduce: multiply: n[0]=15 q=4B c=0 m[4]=627
+reduce: multiply: n[1]=70 q=4B c=6 m[5]=20D6
+reduce: multiply: n[2]=F6 q=4B c=20 m[6]=4832
+reduce: multiply: n[3]=42 q=4B c=48 m[7]=139E
+reduce: multiply: n[4]=E q=4B c=13 m[8]=42D
+reduce: multiply: n[5]=82 q=4B c=4 m[9]=261A
+reduce: multiply: n[6]=71 q=4B c=26 m[10]=2141
+reduce: multiply: n[7]=A6 q=4B c=21 m[11]=30C3
+reduce: multiply: n[8]=0 q=4B c=30 m[12]=30
+reduce: multiply: n[9]=0 q=4B c=0 m[13]=0
+reduce: multiply: n[10]=0 q=4B c=0 m[14]=0
+reduce: multiply: n[11]=0 q=4B c=0 m[15]=0
+reduce: multiply: product = 00 00 00 30 C3 41 1A 2D 9E 32 D6 27 00 00 00 00 
+reduce: compare
+reduce: compare: m[15]=0 qn[15]=0
+reduce: compare: m[14]=0 qn[14]=0
+reduce: compare: m[13]=0 qn[13]=0
+reduce: compare: m[12]=31 qn[12]=30
+reduce: compare: relation d
+reduce: subtract: d=12 offset=4
+reduce: subtract: m[4]=D0 qn[4]=27 b=0 r=A9
+reduce: subtract: m[5]=F6 qn[5]=D6 b=0 r=20
+reduce: subtract: m[6]=E5 qn[6]=32 b=0 r=B3
+reduce: subtract: m[7]=15C qn[7]=9E b=1 r=BE
+reduce: subtract: m[8]=2E qn[8]=2D b=0 r=0
+reduce: subtract: m[9]=1B qn[9]=1A b=0 r=1
+reduce: subtract: m[10]=E3 qn[10]=41 b=0 r=A2
+reduce: subtract: m[11]=141 qn[11]=C3 b=1 r=7E
+reduce: subtract: m[12]=31 qn[12]=30 b=0 r=0
+reduce: subtract: m[13]=0 qn[13]=0 b=0 r=0
+reduce: subtract: m[14]=0 qn[14]=0 b=0 r=0
+reduce: subtract: m[15]=0 qn[15]=0 b=0 r=0
+reduce: subtract: sum = 00 00 00 00 7E A2 01 00 BE B3 20 A9 74 01 BD 92 
+reduce: quotient: n_n=A6 m[d]=1
+reduce quotient: m_dividend=7EA2 q=C3
+reduce: quotient: m[d]=7E m[d-1]=A2 m[d-2]=1 n_q=7EA201
+reduce: quotient: q0=C3
+reduce: quotient: q=C3 n_div=A671 qn=7EC813
+reduce: quotient: q=C2 n_div=A671 qn=7E21A2
+reduce: quotient: q=C2
+reduce: multiply: offset=3
+reduce: multiply: n[0]=15 q=C2 c=0 m[3]=FEA
+reduce: multiply: n[1]=70 q=C2 c=F m[4]=54EF
+reduce: multiply: n[2]=F6 q=C2 c=54 m[5]=BAC0
+reduce: multiply: n[3]=42 q=C2 c=BA m[6]=32BE
+reduce: multiply: n[4]=E q=C2 c=32 m[7]=ACE
+reduce: multiply: n[5]=82 q=C2 c=A m[8]=628E
+reduce: multiply: n[6]=71 q=C2 c=62 m[9]=5604
+reduce: multiply: n[7]=A6 q=C2 c=56 m[10]=7E22
+reduce: multiply: n[8]=0 q=C2 c=7E m[11]=7E
+reduce: multiply: n[9]=0 q=C2 c=0 m[12]=0
+reduce: multiply: n[10]=0 q=C2 c=0 m[13]=0
+reduce: multiply: n[11]=0 q=C2 c=0 m[14]=0
+reduce: multiply: n[12]=0 q=C2 c=0 m[15]=0
+reduce: multiply: product = 00 00 00 00 7E 22 04 8E CE BE C0 EF EA 00 00 00 
+reduce: compare
+reduce: compare: m[15]=0 qn[15]=0
+reduce: compare: m[14]=0 qn[14]=0
+reduce: compare: m[13]=0 qn[13]=0
+reduce: compare: m[12]=0 qn[12]=0
+reduce: compare: m[11]=7E qn[11]=7E
+reduce: compare: m[10]=A2 qn[10]=22
+reduce: compare: relation d
+reduce: subtract: d=11 offset=3
+reduce: subtract: m[3]=174 qn[3]=EA b=1 r=8A
+reduce: subtract: m[4]=1A9 qn[4]=EF b=1 r=B9
+reduce: subtract: m[5]=120 qn[5]=C0 b=1 r=5F
+reduce: subtract: m[6]=1B3 qn[6]=BE b=1 r=F4
+reduce: subtract: m[7]=1BE qn[7]=CE b=1 r=EF
+reduce: subtract: m[8]=100 qn[8]=8E b=1 r=71
+reduce: subtract: m[9]=101 qn[9]=4 b=1 r=FC
+reduce: subtract: m[10]=A2 qn[10]=22 b=0 r=7F
+reduce: subtract: m[11]=7E qn[11]=7E b=0 r=0
+reduce: subtract: m[12]=0 qn[12]=0 b=0 r=0
+reduce: subtract: m[13]=0 qn[13]=0 b=0 r=0
+reduce: subtract: m[14]=0 qn[14]=0 b=0 r=0
+reduce: subtract: m[15]=0 qn[15]=0 b=0 r=0
+reduce: subtract: sum = 00 00 00 00 00 7F FC 71 EF F4 5F B9 8A 01 BD 92 
+reduce: quotient: n_n=A6 m[d]=1
+reduce quotient: m_dividend=7FFC q=C5
+reduce: quotient: m[d]=7F m[d-1]=FC m[d-2]=71 n_q=7FFC71
+reduce: quotient: q0=C5
+reduce: quotient: q=C5 n_div=A671 qn=8014F5
+reduce: quotient: q=C4 n_div=A671 qn=7F6E84
+reduce: quotient: q=C4
+reduce: multiply: offset=2
+reduce: multiply: n[0]=15 q=C4 c=0 m[2]=1014
+reduce: multiply: n[1]=70 q=C4 c=10 m[3]=55D0
+reduce: multiply: n[2]=F6 q=C4 c=55 m[4]=BCAD
+reduce: multiply: n[3]=42 q=C4 c=BC m[5]=3344
+reduce: multiply: n[4]=E q=C4 c=33 m[6]=AEB
+reduce: multiply: n[5]=82 q=C4 c=A m[7]=6392
+reduce: multiply: n[6]=71 q=C4 c=63 m[8]=56E7
+reduce: multiply: n[7]=A6 q=C4 c=56 m[9]=7F6E
+reduce: multiply: n[8]=0 q=C4 c=7F m[10]=7F
+reduce: multiply: n[9]=0 q=C4 c=0 m[11]=0
+reduce: multiply: n[10]=0 q=C4 c=0 m[12]=0
+reduce: multiply: n[11]=0 q=C4 c=0 m[13]=0
+reduce: multiply: n[12]=0 q=C4 c=0 m[14]=0
+reduce: multiply: n[13]=0 q=C4 c=0 m[15]=0
+reduce: multiply: product = 00 00 00 00 00 7F 6E E7 92 EB 44 AD D0 14 00 00 
+reduce: compare
+reduce: compare: m[15]=0 qn[15]=0
+reduce: compare: m[14]=0 qn[14]=0
+reduce: compare: m[13]=0 qn[13]=0
+reduce: compare: m[12]=0 qn[12]=0
+reduce: compare: m[11]=0 qn[11]=0
+reduce: compare: m[10]=7F qn[10]=7F
+reduce: compare: m[9]=FC qn[9]=6E
+reduce: compare: relation d
+reduce: subtract: d=10 offset=2
+reduce: subtract: m[2]=101 qn[2]=14 b=1 r=ED
+reduce: subtract: m[3]=18A qn[3]=D0 b=1 r=B9
+reduce: subtract: m[4]=B9 qn[4]=AD b=0 r=B
+reduce: subtract: m[5]=5F qn[5]=44 b=0 r=1B
+reduce: subtract: m[6]=F4 qn[6]=EB b=0 r=9
+reduce: subtract: m[7]=EF qn[7]=92 b=0 r=5D
+reduce: subtract: m[8]=171 qn[8]=E7 b=1 r=8A
+reduce: subtract: m[9]=FC qn[9]=6E b=0 r=8D
+reduce: subtract: m[10]=7F qn[10]=7F b=0 r=0
+reduce: subtract: m[11]=0 qn[11]=0 b=0 r=0
+reduce: subtract: m[12]=0 qn[12]=0 b=0 r=0
+reduce: subtract: m[13]=0 qn[13]=0 b=0 r=0
+reduce: subtract: m[14]=0 qn[14]=0 b=0 r=0
+reduce: subtract: m[15]=0 qn[15]=0 b=0 r=0
+reduce: subtract: sum = 00 00 00 00 00 00 8D 8A 5D 09 1B 0B B9 ED BD 92 
+reduce: quotient: n_n=A6 m[d]=ED
+reduce quotient: m_dividend=8D8A q=DA
+reduce: quotient: m[d]=8D m[d-1]=8A m[d-2]=5D n_q=8D8A5D
+reduce: quotient: q0=DA
+reduce: quotient: q=DA n_div=A671 qn=8DBC3A
+reduce: quotient: q=D9 n_div=A671 qn=8D15C9
+reduce: quotient: q=D9
+reduce: multiply: offset=1
+reduce: multiply: n[0]=15 q=D9 c=0 m[1]=11CD
+reduce: multiply: n[1]=70 q=D9 c=11 m[2]=5F01
+reduce: multiply: n[2]=F6 q=D9 c=5F m[3]=D0E5
+reduce: multiply: n[3]=42 q=D9 c=D0 m[4]=38C2
+reduce: multiply: n[4]=E q=D9 c=38 m[5]=C16
+reduce: multiply: n[5]=82 q=D9 c=C m[6]=6E3E
+reduce: multiply: n[6]=71 q=D9 c=6E m[7]=6037
+reduce: multiply: n[7]=A6 q=D9 c=60 m[8]=8D16
+reduce: multiply: n[8]=0 q=D9 c=8D m[9]=8D
+reduce: multiply: n[9]=0 q=D9 c=0 m[10]=0
+reduce: multiply: n[10]=0 q=D9 c=0 m[11]=0
+reduce: multiply: n[11]=0 q=D9 c=0 m[12]=0
+reduce: multiply: n[12]=0 q=D9 c=0 m[13]=0
+reduce: multiply: n[13]=0 q=D9 c=0 m[14]=0
+reduce: multiply: n[14]=0 q=D9 c=0 m[15]=0
+reduce: multiply: product = 00 00 00 00 00 00 8D 16 37 3E 16 C2 E5 01 CD 00 
+reduce: compare
+reduce: compare: m[15]=0 qn[15]=0
+reduce: compare: m[14]=0 qn[14]=0
+reduce: compare: m[13]=0 qn[13]=0
+reduce: compare: m[12]=0 qn[12]=0
+reduce: compare: m[11]=0 qn[11]=0
+reduce: compare: m[10]=0 qn[10]=0
+reduce: compare: m[9]=8D qn[9]=8D
+reduce: compare: m[8]=8A qn[8]=16
+reduce: compare: relation d
+reduce: subtract: d=9 offset=1
+reduce: subtract: m[1]=1BD qn[1]=CD b=1 r=F0
+reduce: subtract: m[2]=ED qn[2]=1 b=0 r=EB
+reduce: subtract: m[3]=1B9 qn[3]=E5 b=1 r=D4
+reduce: subtract: m[4]=10B qn[4]=C2 b=1 r=48
+reduce: subtract: m[5]=1B qn[5]=16 b=0 r=4
+reduce: subtract: m[6]=109 qn[6]=3E b=1 r=CB
+reduce: subtract: m[7]=5D qn[7]=37 b=0 r=25
+reduce: subtract: m[8]=8A qn[8]=16 b=0 r=74
+reduce: subtract: m[9]=8D qn[9]=8D b=0 r=0
+reduce: subtract: m[10]=0 qn[10]=0 b=0 r=0
+reduce: subtract: m[11]=0 qn[11]=0 b=0 r=0
+reduce: subtract: m[12]=0 qn[12]=0 b=0 r=0
+reduce: subtract: m[13]=0 qn[13]=0 b=0 r=0
+reduce: subtract: m[14]=0 qn[14]=0 b=0 r=0
+reduce: subtract: m[15]=0 qn[15]=0 b=0 r=0
+reduce: subtract: sum = 00 00 00 00 00 00 00 74 25 CB 04 48 D4 EB F0 92 
+reduce: quotient: n_n=A6 m[d]=EB
+reduce quotient: m_dividend=7425 q=B3
+reduce: quotient: m[d]=74 m[d-1]=25 m[d-2]=CB n_q=7425CB
+reduce: quotient: q0=B3
+reduce: quotient: q=B3 n_div=A671 qn=746103
+reduce: quotient: q=B2 n_div=A671 qn=73BA92
+reduce: quotient: q=B2
+reduce: multiply: offset=0
+reduce: multiply: n[0]=15 q=B2 c=0 m[0]=E9A
+reduce: multiply: n[1]=70 q=B2 c=E m[1]=4DEE
+reduce: multiply: n[2]=F6 q=B2 c=4D m[2]=AB59
+reduce: multiply: n[3]=42 q=B2 c=AB m[3]=2E8F
+reduce: multiply: n[4]=E q=B2 c=2E m[4]=9EA
+reduce: multiply: n[5]=82 q=B2 c=9 m[5]=5A6D
+reduce: multiply: n[6]=71 q=B2 c=5A m[6]=4EEC
+reduce: multiply: n[7]=A6 q=B2 c=4E m[7]=73BA
+reduce: multiply: n[8]=0 q=B2 c=73 m[8]=73
+reduce: multiply: n[9]=0 q=B2 c=0 m[9]=0
+reduce: multiply: n[10]=0 q=B2 c=0 m[10]=0
+reduce: multiply: n[11]=0 q=B2 c=0 m[11]=0
+reduce: multiply: n[12]=0 q=B2 c=0 m[12]=0
+reduce: multiply: n[13]=0 q=B2 c=0 m[13]=0
+reduce: multiply: n[14]=0 q=B2 c=0 m[14]=0
+reduce: multiply: n[15]=0 q=B2 c=0 m[15]=0
+reduce: multiply: product = 00 00 00 00 00 00 00 73 BA EC 6D EA 8F 59 EE 9A 
+reduce: compare
+reduce: compare: m[15]=0 qn[15]=0
+reduce: compare: m[14]=0 qn[14]=0
+reduce: compare: m[13]=0 qn[13]=0
+reduce: compare: m[12]=0 qn[12]=0
+reduce: compare: m[11]=0 qn[11]=0
+reduce: compare: m[10]=0 qn[10]=0
+reduce: compare: m[9]=0 qn[9]=0
+reduce: compare: m[8]=74 qn[8]=73
+reduce: compare: relation d
+reduce: subtract: d=8 offset=0
+reduce: subtract: m[0]=192 qn[0]=9A b=1 r=F8
+reduce: subtract: m[1]=F0 qn[1]=EE b=0 r=1
+reduce: subtract: m[2]=EB qn[2]=59 b=0 r=92
+reduce: subtract: m[3]=D4 qn[3]=8F b=0 r=45
+reduce: subtract: m[4]=148 qn[4]=EA b=1 r=5E
+reduce: subtract: m[5]=104 qn[5]=6D b=1 r=96
+reduce: subtract: m[6]=1CB qn[6]=EC b=1 r=DE
+reduce: subtract: m[7]=125 qn[7]=BA b=1 r=6A
+reduce: subtract: m[8]=74 qn[8]=73 b=0 r=0
+reduce: subtract: m[9]=0 qn[9]=0 b=0 r=0
+reduce: subtract: m[10]=0 qn[10]=0 b=0 r=0
+reduce: subtract: m[11]=0 qn[11]=0 b=0 r=0
+reduce: subtract: m[12]=0 qn[12]=0 b=0 r=0
+reduce: subtract: m[13]=0 qn[13]=0 b=0 r=0
+reduce: subtract: m[14]=0 qn[14]=0 b=0 r=0
+reduce: subtract: m[15]=0 qn[15]=0 b=0 r=0
+reduce: subtract: sum = 00 00 00 00 00 00 00 00 6A DE 96 5E 45 92 01 F8 
+reduce: num = 6A DE 96 5E 45 92 01 F8 
+mult: a = 28 4C 55 F9 5D AA 67 12 
+mult: b = 28 4C 55 F9 5D AA 67 12 
+mult: d=0
+mult: i=0 a=12 b=12 dp=144 p=44
+mult: d=1
+mult: i=0 a=67 b=12 dp=73E p=3F
+mult: i=1 a=12 b=67 dp=73E p=7D
+mult: d=2
+mult: i=0 a=AA b=12 dp=BF4 p=102
+mult: i=1 a=67 b=67 dp=2971 p=173
+mult: i=2 a=12 b=AA dp=BF4 p=267
+mult: d=3
+mult: i=0 a=5D b=12 dp=68A p=CB
+mult: i=1 a=AA b=67 dp=4466 p=131
+mult: i=2 a=67 b=AA dp=4466 p=197
+mult: i=3 a=12 b=5D dp=68A p=221
+mult: d=4
+mult: i=0 a=F9 b=12 dp=1182 p=118
+mult: i=1 a=5D b=67 dp=256B p=183
+mult: i=2 a=AA b=AA dp=70E4 p=267
+mult: i=3 a=67 b=5D dp=256B p=2D2
+mult: i=4 a=12 b=F9 dp=1182 p=354
+mult: d=5
+mult: i=0 a=55 b=12 dp=5FA p=1D9
+mult: i=1 a=F9 b=67 dp=642F p=208
+mult: i=2 a=5D b=AA dp=3DC2 p=2CA
+mult: i=3 a=AA b=5D dp=3DC2 p=38C
+mult: i=4 a=67 b=F9 dp=642F p=3BB
+mult: i=5 a=12 b=55 dp=5FA p=4B5
+mult: d=6
+mult: i=0 a=4C b=12 dp=558 p=1A8
+mult: i=1 a=55 b=67 dp=2233 p=1DB
+mult: i=2 a=F9 b=AA dp=A55A p=235
+mult: i=3 a=5D b=5D dp=21C9 p=2FE
+mult: i=4 a=AA b=F9 dp=A55A p=358
+mult: i=5 a=67 b=55 dp=2233 p=38B
+mult: i=6 a=12 b=4C dp=558 p=3E3
+mult: d=7
+mult: i=0 a=28 b=12 dp=2D0 p=28C
+mult: i=1 a=4C b=67 dp=1E94 p=320
+mult: i=2 a=55 b=AA dp=3872 p=392
+mult: i=3 a=F9 b=5D dp=5A75 p=407
+mult: i=4 a=5D b=F9 dp=5A75 p=47C
+mult: i=5 a=AA b=55 dp=3872 p=4EE
+mult: i=6 a=67 b=4C dp=1E94 p=582
+mult: i=7 a=12 b=28 dp=2D0 p=652
+mult: d=8
+mult: i=1 a=28 b=67 dp=1018 p=182
+mult: i=2 a=4C b=AA dp=3278 p=1FA
+mult: i=3 a=55 b=5D dp=1EE1 p=2DB
+mult: i=4 a=F9 b=F9 dp=F231 p=30C
+mult: i=5 a=5D b=55 dp=1EE1 p=3ED
+mult: i=6 a=AA b=4C dp=3278 p=465
+mult: i=7 a=67 b=28 dp=1018 p=47D
+mult: d=9
+mult: i=2 a=28 b=AA dp=1A90 p=246
+mult: i=3 a=4C b=5D dp=1B9C p=2E2
+mult: i=4 a=55 b=F9 dp=52AD p=38F
+mult: i=5 a=F9 b=55 dp=52AD p=43C
+mult: i=6 a=5D b=4C dp=1B9C p=4D8
+mult: i=7 a=AA b=28 dp=1A90 p=568
+mult: d=10
+mult: i=3 a=28 b=5D dp=E88 p=19B
+mult: i=4 a=4C b=F9 dp=49EC p=287
+mult: i=5 a=55 b=55 dp=1C39 p=2C0
+mult: i=6 a=F9 b=4C dp=49EC p=3AC
+mult: i=7 a=5D b=28 dp=E88 p=434
+mult: d=11
+mult: i=4 a=28 b=F9 dp=26E8 p=1B6
+mult: i=5 a=4C b=55 dp=193C p=1F2
+mult: i=6 a=55 b=4C dp=193C p=22E
+mult: i=7 a=F9 b=28 dp=26E8 p=316
+mult: d=12
+mult: i=5 a=28 b=55 dp=D48 p=C9
+mult: i=6 a=4C b=4C dp=1690 p=159
+mult: i=7 a=55 b=28 dp=D48 p=1A1
+mult: d=13
+mult: i=6 a=28 b=4C dp=BE0 p=111
+mult: i=7 a=4C b=28 dp=BE0 p=1F1
+mult: d=14
+mult: i=7 a=28 b=28 dp=640 p=57
+mult: d=15
+mult: product = 06 57 F1 A1 16 34 68 7D 52 E3 B5 54 21 67 7D 44 
+reduce digits: p[15]=6
+reduce digits: d=F
+reduce: normalizable: d=15 offset=8
+normalizable: m[15]=6 n[7]=A6
+normalizable: 0
+reduce: quotient: n_n=A6 m[d]=67
+reduce quotient: m_dividend=657 q=9
+reduce: quotient: m[d]=6 m[d-1]=57 m[d-2]=F1 n_q=0657F1
+reduce: quotient: q0=9
+reduce: quotient: q=9 n_div=A671 qn=05D9F9
+reduce: quotient: q=9
+reduce: multiply: offset=7
+reduce: multiply: n[0]=15 q=9 c=0 m[7]=BD
+reduce: multiply: n[1]=70 q=9 c=0 m[8]=3F0
+reduce: multiply: n[2]=F6 q=9 c=3 m[9]=8A9
+reduce: multiply: n[3]=42 q=9 c=8 m[10]=25A
+reduce: multiply: n[4]=E q=9 c=2 m[11]=80
+reduce: multiply: n[5]=82 q=9 c=0 m[12]=492
+reduce: multiply: n[6]=71 q=9 c=4 m[13]=3FD
+reduce: multiply: n[7]=A6 q=9 c=3 m[14]=5D9
+reduce: multiply: n[8]=0 q=9 c=5 m[15]=5
+reduce: multiply: product = 05 D9 FD 92 80 5A A9 F0 BD 00 00 00 00 00 00 00 
+reduce: compare
+reduce: compare: m[15]=6 qn[15]=5
+reduce: compare: relation d
+reduce: subtract: d=15 offset=7
+reduce: subtract: m[7]=152 qn[7]=BD b=1 r=95
+reduce: subtract: m[8]=17D qn[8]=F0 b=1 r=8C
+reduce: subtract: m[9]=168 qn[9]=A9 b=1 r=BE
+reduce: subtract: m[10]=134 qn[10]=5A b=1 r=D9
+reduce: subtract: m[11]=116 qn[11]=80 b=1 r=95
+reduce: subtract: m[12]=A1 qn[12]=92 b=0 r=E
+reduce: subtract: m[13]=1F1 qn[13]=FD b=1 r=F4
+reduce: subtract: m[14]=157 qn[14]=D9 b=1 r=7D
+reduce: subtract: m[15]=6 qn[15]=5 b=0 r=0
+reduce: subtract: sum = 00 7D F4 0E 95 D9 BE 8C 95 E3 B5 54 21 67 7D 44 
+reduce: quotient: n_n=A6 m[d]=67
+reduce quotient: m_dividend=7DF4 q=C2
+reduce: quotient: m[d]=7D m[d-1]=F4 m[d-2]=E n_q=7DF40E
+reduce: quotient: q0=C2
+reduce: quotient: q=C2 n_div=A671 qn=7E21A2
+reduce: quotient: q=C1 n_div=A671 qn=7D7B31
+reduce: quotient: q=C1
+reduce: multiply: offset=6
+reduce: multiply: n[0]=15 q=C1 c=0 m[6]=FD5
+reduce: multiply: n[1]=70 q=C1 c=F m[7]=547F
+reduce: multiply: n[2]=F6 q=C1 c=54 m[8]=B9CA
+reduce: multiply: n[3]=42 q=C1 c=B9 m[9]=327B
+reduce: multiply: n[4]=E q=C1 c=32 m[10]=AC0
+reduce: multiply: n[5]=82 q=C1 c=A m[11]=620C
+reduce: multiply: n[6]=71 q=C1 c=62 m[12]=5593
+reduce: multiply: n[7]=A6 q=C1 c=55 m[13]=7D7B
+reduce: multiply: n[8]=0 q=C1 c=7D m[14]=7D
+reduce: multiply: n[9]=0 q=C1 c=0 m[15]=0
+reduce: multiply: product = 00 7D 7B 93 0C C0 7B CA 7F D5 00 00 00 00 00 00 
+reduce: compare
+reduce: compare: m[15]=0 qn[15]=0
+reduce: compare: m[14]=7D qn[14]=7D
+reduce: compare: m[13]=F4 qn[13]=7B
+reduce: compare: relation d
+reduce: subtract: d=14 offset=6
+reduce: subtract: m[6]=E3 qn[6]=D5 b=0 r=E
+reduce: subtract: m[7]=95 qn[7]=7F b=0 r=16
+reduce: subtract: m[8]=18C qn[8]=CA b=1 r=C2
+reduce: subtract: m[9]=BE qn[9]=7B b=0 r=42
+reduce: subtract: m[10]=D9 qn[10]=C0 b=0 r=19
+reduce: subtract: m[11]=95 qn[11]=C b=0 r=89
+reduce: subtract: m[12]=10E qn[12]=93 b=1 r=7B
+reduce: subtract: m[13]=F4 qn[13]=7B b=0 r=78
+reduce: subtract: m[14]=7D qn[14]=7D b=0 r=0
+reduce: subtract: m[15]=0 qn[15]=0 b=0 r=0
+reduce: subtract: sum = 00 00 78 7B 89 19 42 C2 16 0E B5 54 21 67 7D 44 
+reduce: quotient: n_n=A6 m[d]=67
+reduce quotient: m_dividend=787B q=B9
+reduce: quotient: m[d]=78 m[d-1]=7B m[d-2]=89 n_q=787B89
+reduce: quotient: q0=B9
+reduce: quotient: q=B9 n_div=A671 qn=7847A9
+reduce: quotient: q=B9
+reduce: multiply: offset=5
+reduce: multiply: n[0]=15 q=B9 c=0 m[5]=F2D
+reduce: multiply: n[1]=70 q=B9 c=F m[6]=50FF
+reduce: multiply: n[2]=F6 q=B9 c=50 m[7]=B216
+reduce: multiply: n[3]=42 q=B9 c=B2 m[8]=3064
+reduce: multiply: n[4]=E q=B9 c=30 m[9]=A4E
+reduce: multiply: n[5]=82 q=B9 c=A m[10]=5DFC
+reduce: multiply: n[6]=71 q=B9 c=5D m[11]=5206
+reduce: multiply: n[7]=A6 q=B9 c=52 m[12]=7848
+reduce: multiply: n[8]=0 q=B9 c=78 m[13]=78
+reduce: multiply: n[9]=0 q=B9 c=0 m[14]=0
+reduce: multiply: n[10]=0 q=B9 c=0 m[15]=0
+reduce: multiply: product = 00 00 78 48 06 FC 4E 64 16 FF 2D 00 00 00 00 00 
+reduce: compare
+reduce: compare: m[15]=0 qn[15]=0
+reduce: compare: m[14]=0 qn[14]=0
+reduce: compare: m[13]=78 qn[13]=78
+reduce: compare: m[12]=7B qn[12]=48
+reduce: compare: relation d
+reduce: subtract: d=13 offset=5
+reduce: subtract: m[5]=B5 qn[5]=2D b=0 r=88
+reduce: subtract: m[6]=10E qn[6]=FF b=1 r=F
+reduce: subtract: m[7]=116 qn[7]=16 b=1 r=FF
+reduce: subtract: m[8]=C2 qn[8]=64 b=0 r=5D
+reduce: subtract: m[9]=142 qn[9]=4E b=1 r=F4
+reduce: subtract: m[10]=119 qn[10]=FC b=1 r=1C
+reduce: subtract: m[11]=89 qn[11]=6 b=0 r=82
+reduce: subtract: m[12]=7B qn[12]=48 b=0 r=33
+reduce: subtract: m[13]=78 qn[13]=78 b=0 r=0
+reduce: subtract: m[14]=0 qn[14]=0 b=0 r=0
+reduce: subtract: m[15]=0 qn[15]=0 b=0 r=0
+reduce: subtract: sum = 00 00 00 33 82 1C F4 5D FF 0F 88 54 21 67 7D 44 
+reduce: quotient: n_n=A6 m[d]=67
+reduce quotient: m_dividend=3382 q=4F
+reduce: quotient: m[d]=33 m[d-1]=82 m[d-2]=1C n_q=33821C
+reduce: quotient: q0=4F
+reduce: quotient: q=4F n_div=A671 qn=335CDF
+reduce: quotient: q=4F
+reduce: multiply: offset=4
+reduce: multiply: n[0]=15 q=4F c=0 m[4]=67B
+reduce: multiply: n[1]=70 q=4F c=6 m[5]=2296
+reduce: multiply: n[2]=F6 q=4F c=22 m[6]=4C0C
+reduce: multiply: n[3]=42 q=4F c=4C m[7]=14AA
+reduce: multiply: n[4]=E q=4F c=14 m[8]=466
+reduce: multiply: n[5]=82 q=4F c=4 m[9]=2822
+reduce: multiply: n[6]=71 q=4F c=28 m[10]=2307
+reduce: multiply: n[7]=A6 q=4F c=23 m[11]=335D
+reduce: multiply: n[8]=0 q=4F c=33 m[12]=33
+reduce: multiply: n[9]=0 q=4F c=0 m[13]=0
+reduce: multiply: n[10]=0 q=4F c=0 m[14]=0
+reduce: multiply: n[11]=0 q=4F c=0 m[15]=0
+reduce: multiply: product = 00 00 00 33 5D 07 22 66 AA 0C 96 7B 00 00 00 00 
+reduce: compare
+reduce: compare: m[15]=0 qn[15]=0
+reduce: compare: m[14]=0 qn[14]=0
+reduce: compare: m[13]=0 qn[13]=0
+reduce: compare: m[12]=33 qn[12]=33
+reduce: compare: m[11]=82 qn[11]=5D
+reduce: compare: relation d
+reduce: subtract: d=12 offset=4
+reduce: subtract: m[4]=154 qn[4]=7B b=1 r=D9
+reduce: subtract: m[5]=188 qn[5]=96 b=1 r=F1
+reduce: subtract: m[6]=F qn[6]=C b=0 r=2
+reduce: subtract: m[7]=FF qn[7]=AA b=0 r=55
+reduce: subtract: m[8]=15D qn[8]=66 b=1 r=F7
+reduce: subtract: m[9]=F4 qn[9]=22 b=0 r=D1
+reduce: subtract: m[10]=1C qn[10]=7 b=0 r=15
+reduce: subtract: m[11]=82 qn[11]=5D b=0 r=25
+reduce: subtract: m[12]=33 qn[12]=33 b=0 r=0
+reduce: subtract: m[13]=0 qn[13]=0 b=0 r=0
+reduce: subtract: m[14]=0 qn[14]=0 b=0 r=0
+reduce: subtract: m[15]=0 qn[15]=0 b=0 r=0
+reduce: subtract: sum = 00 00 00 00 25 15 D1 F7 55 02 F1 D9 21 67 7D 44 
+reduce: quotient: n_n=A6 m[d]=67
+reduce quotient: m_dividend=2515 q=39
+reduce: quotient: m[d]=25 m[d-1]=15 m[d-2]=D1 n_q=2515D1
+reduce: quotient: q0=39
+reduce: quotient: q=39 n_div=A671 qn=25F29
+reduce: quotient: q=39
+reduce: multiply: offset=3
+reduce: multiply: n[0]=15 q=39 c=0 m[3]=4AD
+reduce: multiply: n[1]=70 q=39 c=4 m[4]=18F4
+reduce: multiply: n[2]=F6 q=39 c=18 m[5]=36DE
+reduce: multiply: n[3]=42 q=39 c=36 m[6]=EE8
+reduce: multiply: n[4]=E q=39 c=E m[7]=32C
+reduce: multiply: n[5]=82 q=39 c=3 m[8]=1CF5
+reduce: multiply: n[6]=71 q=39 c=1C m[9]=1945
+reduce: multiply: n[7]=A6 q=39 c=19 m[10]=250F
+reduce: multiply: n[8]=0 q=39 c=25 m[11]=25
+reduce: multiply: n[9]=0 q=39 c=0 m[12]=0
+reduce: multiply: n[10]=0 q=39 c=0 m[13]=0
+reduce: multiply: n[11]=0 q=39 c=0 m[14]=0
+reduce: multiply: n[12]=0 q=39 c=0 m[15]=0
+reduce: multiply: product = 00 00 00 00 25 0F 45 F5 2C E8 DE F4 AD 00 00 00 
+reduce: compare
+reduce: compare: m[15]=0 qn[15]=0
+reduce: compare: m[14]=0 qn[14]=0
+reduce: compare: m[13]=0 qn[13]=0
+reduce: compare: m[12]=0 qn[12]=0
+reduce: compare: m[11]=25 qn[11]=25
+reduce: compare: m[10]=15 qn[10]=F
+reduce: compare: relation d
+reduce: subtract: d=11 offset=3
+reduce: subtract: m[3]=121 qn[3]=AD b=1 r=74
+reduce: subtract: m[4]=1D9 qn[4]=F4 b=1 r=E4
+reduce: subtract: m[5]=F1 qn[5]=DE b=0 r=12
+reduce: subtract: m[6]=102 qn[6]=E8 b=1 r=1A
+reduce: subtract: m[7]=55 qn[7]=2C b=0 r=28
+reduce: subtract: m[8]=F7 qn[8]=F5 b=0 r=2
+reduce: subtract: m[9]=D1 qn[9]=45 b=0 r=8C
+reduce: subtract: m[10]=15 qn[10]=F b=0 r=6
+reduce: subtract: m[11]=25 qn[11]=25 b=0 r=0
+reduce: subtract: m[12]=0 qn[12]=0 b=0 r=0
+reduce: subtract: m[13]=0 qn[13]=0 b=0 r=0
+reduce: subtract: m[14]=0 qn[14]=0 b=0 r=0
+reduce: subtract: m[15]=0 qn[15]=0 b=0 r=0
+reduce: subtract: sum = 00 00 00 00 00 06 8C 02 28 1A 12 E4 74 67 7D 44 
+reduce: quotient: n_n=A6 m[d]=67
+reduce quotient: m_dividend=68C q=A
+reduce: quotient: m[d]=6 m[d-1]=8C m[d-2]=2 n_q=068C02
+reduce: quotient: q0=A
+reduce: quotient: q=A n_div=A671 qn=06806A
+reduce: quotient: q=A
+reduce: multiply: offset=2
+reduce: multiply: n[0]=15 q=A c=0 m[2]=D2
+reduce: multiply: n[1]=70 q=A c=0 m[3]=460
+reduce: multiply: n[2]=F6 q=A c=4 m[4]=9A0
+reduce: multiply: n[3]=42 q=A c=9 m[5]=29D
+reduce: multiply: n[4]=E q=A c=2 m[6]=8E
+reduce: multiply: n[5]=82 q=A c=0 m[7]=514
+reduce: multiply: n[6]=71 q=A c=5 m[8]=46F
+reduce: multiply: n[7]=A6 q=A c=4 m[9]=680
+reduce: multiply: n[8]=0 q=A c=6 m[10]=6
+reduce: multiply: n[9]=0 q=A c=0 m[11]=0
+reduce: multiply: n[10]=0 q=A c=0 m[12]=0
+reduce: multiply: n[11]=0 q=A c=0 m[13]=0
+reduce: multiply: n[12]=0 q=A c=0 m[14]=0
+reduce: multiply: n[13]=0 q=A c=0 m[15]=0
+reduce: multiply: product = 00 00 00 00 00 06 80 6F 14 8E 9D A0 60 D2 00 00 
+reduce: compare
+reduce: compare: m[15]=0 qn[15]=0
+reduce: compare: m[14]=0 qn[14]=0
+reduce: compare: m[13]=0 qn[13]=0
+reduce: compare: m[12]=0 qn[12]=0
+reduce: compare: m[11]=0 qn[11]=0
+reduce: compare: m[10]=6 qn[10]=6
+reduce: compare: m[9]=8C qn[9]=80
+reduce: compare: relation d
+reduce: subtract: d=10 offset=2
+reduce: subtract: m[2]=167 qn[2]=D2 b=1 r=95
+reduce: subtract: m[3]=74 qn[3]=60 b=0 r=13
+reduce: subtract: m[4]=E4 qn[4]=A0 b=0 r=44
+reduce: subtract: m[5]=112 qn[5]=9D b=1 r=75
+reduce: subtract: m[6]=11A qn[6]=8E b=1 r=8B
+reduce: subtract: m[7]=28 qn[7]=14 b=0 r=13
+reduce: subtract: m[8]=102 qn[8]=6F b=1 r=93
+reduce: subtract: m[9]=8C qn[9]=80 b=0 r=B
+reduce: subtract: m[10]=6 qn[10]=6 b=0 r=0
+reduce: subtract: m[11]=0 qn[11]=0 b=0 r=0
+reduce: subtract: m[12]=0 qn[12]=0 b=0 r=0
+reduce: subtract: m[13]=0 qn[13]=0 b=0 r=0
+reduce: subtract: m[14]=0 qn[14]=0 b=0 r=0
+reduce: subtract: m[15]=0 qn[15]=0 b=0 r=0
+reduce: subtract: sum = 00 00 00 00 00 00 0B 93 13 8B 75 44 13 95 7D 44 
+reduce: quotient: n_n=A6 m[d]=95
+reduce quotient: m_dividend=B93 q=11
+reduce: quotient: m[d]=B m[d-1]=93 m[d-2]=13 n_q=0B9313
+reduce: quotient: q0=11
+reduce: quotient: q=11 n_div=A671 qn=0BD81
+reduce: quotient: q=11
+reduce: multiply: offset=1
+reduce: multiply: n[0]=15 q=11 c=0 m[1]=165
+reduce: multiply: n[1]=70 q=11 c=1 m[2]=771
+reduce: multiply: n[2]=F6 q=11 c=7 m[3]=105D
+reduce: multiply: n[3]=42 q=11 c=10 m[4]=472
+reduce: multiply: n[4]=E q=11 c=4 m[5]=F2
+reduce: multiply: n[5]=82 q=11 c=0 m[6]=8A2
+reduce: multiply: n[6]=71 q=11 c=8 m[7]=789
+reduce: multiply: n[7]=A6 q=11 c=7 m[8]=B0D
+reduce: multiply: n[8]=0 q=11 c=B m[9]=B
+reduce: multiply: n[9]=0 q=11 c=0 m[10]=0
+reduce: multiply: n[10]=0 q=11 c=0 m[11]=0
+reduce: multiply: n[11]=0 q=11 c=0 m[12]=0
+reduce: multiply: n[12]=0 q=11 c=0 m[13]=0
+reduce: multiply: n[13]=0 q=11 c=0 m[14]=0
+reduce: multiply: n[14]=0 q=11 c=0 m[15]=0
+reduce: multiply: product = 00 00 00 00 00 00 0B 0D 89 A2 F2 72 5D 71 65 00 
+reduce: compare
+reduce: compare: m[15]=0 qn[15]=0
+reduce: compare: m[14]=0 qn[14]=0
+reduce: compare: m[13]=0 qn[13]=0
+reduce: compare: m[12]=0 qn[12]=0
+reduce: compare: m[11]=0 qn[11]=0
+reduce: compare: m[10]=0 qn[10]=0
+reduce: compare: m[9]=B qn[9]=B
+reduce: compare: m[8]=93 qn[8]=D
+reduce: compare: relation d
+reduce: subtract: d=9 offset=1
+reduce: subtract: m[1]=7D qn[1]=65 b=0 r=18
+reduce: subtract: m[2]=95 qn[2]=71 b=0 r=24
+reduce: subtract: m[3]=113 qn[3]=5D b=1 r=B6
+reduce: subtract: m[4]=144 qn[4]=72 b=1 r=D1
+reduce: subtract: m[5]=175 qn[5]=F2 b=1 r=82
+reduce: subtract: m[6]=18B qn[6]=A2 b=1 r=E8
+reduce: subtract: m[7]=113 qn[7]=89 b=1 r=89
+reduce: subtract: m[8]=93 qn[8]=D b=0 r=85
+reduce: subtract: m[9]=B qn[9]=B b=0 r=0
+reduce: subtract: m[10]=0 qn[10]=0 b=0 r=0
+reduce: subtract: m[11]=0 qn[11]=0 b=0 r=0
+reduce: subtract: m[12]=0 qn[12]=0 b=0 r=0
+reduce: subtract: m[13]=0 qn[13]=0 b=0 r=0
+reduce: subtract: m[14]=0 qn[14]=0 b=0 r=0
+reduce: subtract: m[15]=0 qn[15]=0 b=0 r=0
+reduce: subtract: sum = 00 00 00 00 00 00 00 85 89 E8 82 D1 B6 24 18 44 
+reduce: quotient: n_n=A6 m[d]=24
+reduce quotient: m_dividend=8589 q=CD
+reduce: quotient: m[d]=85 m[d-1]=89 m[d-2]=E8 n_q=8589E8
+reduce: quotient: q0=CD
+reduce: quotient: q=CD n_div=A671 qn=85487D
+reduce: quotient: q=CD
+reduce: multiply: offset=0
+reduce: multiply: n[0]=15 q=CD c=0 m[0]=10D1
+reduce: multiply: n[1]=70 q=CD c=10 m[1]=59C0
+reduce: multiply: n[2]=F6 q=CD c=59 m[2]=C557
+reduce: multiply: n[3]=42 q=CD c=C5 m[3]=359F
+reduce: multiply: n[4]=E q=CD c=35 m[4]=B6B
+reduce: multiply: n[5]=82 q=CD c=B m[5]=6825
+reduce: multiply: n[6]=71 q=CD c=68 m[6]=5AE5
+reduce: multiply: n[7]=A6 q=CD c=5A m[7]=8548
+reduce: multiply: n[8]=0 q=CD c=85 m[8]=85
+reduce: multiply: n[9]=0 q=CD c=0 m[9]=0
+reduce: multiply: n[10]=0 q=CD c=0 m[10]=0
+reduce: multiply: n[11]=0 q=CD c=0 m[11]=0
+reduce: multiply: n[12]=0 q=CD c=0 m[12]=0
+reduce: multiply: n[13]=0 q=CD c=0 m[13]=0
+reduce: multiply: n[14]=0 q=CD c=0 m[14]=0
+reduce: multiply: n[15]=0 q=CD c=0 m[15]=0
+reduce: multiply: product = 00 00 00 00 00 00 00 85 48 E5 25 6B 9F 57 C0 D1 
+reduce: compare
+reduce: compare: m[15]=0 qn[15]=0
+reduce: compare: m[14]=0 qn[14]=0
+reduce: compare: m[13]=0 qn[13]=0
+reduce: compare: m[12]=0 qn[12]=0
+reduce: compare: m[11]=0 qn[11]=0
+reduce: compare: m[10]=0 qn[10]=0
+reduce: compare: m[9]=0 qn[9]=0
+reduce: compare: m[8]=85 qn[8]=85
+reduce: compare: m[7]=89 qn[7]=48
+reduce: compare: relation d
+reduce: subtract: d=8 offset=0
+reduce: subtract: m[0]=144 qn[0]=D1 b=1 r=73
+reduce: subtract: m[1]=118 qn[1]=C0 b=1 r=57
+reduce: subtract: m[2]=124 qn[2]=57 b=1 r=CC
+reduce: subtract: m[3]=B6 qn[3]=9F b=0 r=16
+reduce: subtract: m[4]=D1 qn[4]=6B b=0 r=66
+reduce: subtract: m[5]=82 qn[5]=25 b=0 r=5D
+reduce: subtract: m[6]=E8 qn[6]=E5 b=0 r=3
+reduce: subtract: m[7]=89 qn[7]=48 b=0 r=41
+reduce: subtract: m[8]=85 qn[8]=85 b=0 r=0
+reduce: subtract: m[9]=0 qn[9]=0 b=0 r=0
+reduce: subtract: m[10]=0 qn[10]=0 b=0 r=0
+reduce: subtract: m[11]=0 qn[11]=0 b=0 r=0
+reduce: subtract: m[12]=0 qn[12]=0 b=0 r=0
+reduce: subtract: m[13]=0 qn[13]=0 b=0 r=0
+reduce: subtract: m[14]=0 qn[14]=0 b=0 r=0
+reduce: subtract: m[15]=0 qn[15]=0 b=0 r=0
+reduce: subtract: sum = 00 00 00 00 00 00 00 00 41 03 5D 66 16 CC 57 73 
+reduce: num = 41 03 5D 66 16 CC 57 73 
+Blk offset after: 14
+TIME end is 65536*243+47165
+Cyphertext:
+D6 CC E9 B1 EF 04 77 39  ......w9
+F8 01 92 45 5E 96 DE 6A  ...E^..j

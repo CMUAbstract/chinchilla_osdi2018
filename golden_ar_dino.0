@@ -1,0 +1,3502 @@
+a0.
+count: 1
+selectMode: pins 0001
+mode: moving
+warmup
+seed: 1
+seed: 2
+seed: 3
+seed: 4
+acquire: sample 68 51 17
+seed: 5
+acquire: sample 0 0 0
+seed: 6
+acquire: sample 17 34 68
+transform
+transform: sample 0 0 0
+featurize: mean 36 sd 30
+seed: 7
+acquire: sample 34 68 51
+seed: 8
+acquire: sample 51 17 34
+seed: 9
+acquire: sample 68 51 17
+transform
+featurize: mean 56 sd 22
+seed: 10
+acquire: sample 0 0 0
+seed: 11
+acquire: sample 17 34 68
+seed: 12
+acquire: sample 34 68 51
+transform
+transform: sample 0 0 0
+featurize: mean 40 sd 30
+seed: 13
+acquire: sample 51 17 34
+seed: 14
+acquire: sample 68 51 16
+seed: 15
+acquire: sample 0 0 84
+transform
+transform: sample 0 0 84
+featurize: mean 48 sd 30
+seed: 16
+acquire: sample 17 34 67
+seed: 17
+acquire: sample 34 68 50
+seed: 18
+acquire: sample 51 17 33
+transform
+featurize: mean 54 sd 20
+seed: 19
+acquire: sample 68 51 16
+seed: 20
+acquire: sample 0 0 84
+seed: 21
+acquire: sample 17 34 67
+transform
+transform: sample 0 0 84
+featurize: mean 50 sd 34
+seed: 22
+acquire: sample 34 68 50
+seed: 23
+acquire: sample 51 17 33
+seed: 24
+acquire: sample 68 51 16
+transform
+featurize: mean 56 sd 22
+seed: 25
+acquire: sample 0 0 84
+seed: 26
+acquire: sample 17 34 67
+seed: 27
+acquire: sample 34 68 49
+transform
+transform: sample 0 0 84
+featurize: mean 58 sd 24
+seed: 28
+acquire: sample 51 17 32
+seed: 29
+acquire: sample 68 51 15
+seed: 30
+acquire: sample 0 0 83
+transform
+transform: sample 0 0 83
+featurize: mean 46 sd 30
+seed: 31
+acquire: sample 17 34 66
+seed: 32
+acquire: sample 34 68 49
+seed: 33
+acquire: sample 51 17 32
+transform
+featurize: mean 52 sd 20
+seed: 34
+acquire: sample 68 51 15
+seed: 35
+acquire: sample 0 0 83
+seed: 36
+acquire: sample 17 34 66
+transform
+transform: sample 0 0 83
+featurize: mean 50 sd 34
+seed: 37
+acquire: sample 34 68 49
+seed: 38
+acquire: sample 51 17 32
+seed: 39
+acquire: sample 68 51 15
+transform
+featurize: mean 56 sd 22
+seed: 40
+acquire: sample 0 0 83
+seed: 41
+acquire: sample 17 34 65
+seed: 42
+acquire: sample 34 68 48
+transform
+transform: sample 0 0 83
+featurize: mean 56 sd 24
+seed: 43
+acquire: sample 51 17 31
+seed: 44
+acquire: sample 68 51 14
+seed: 45
+acquire: sample 0 0 82
+transform
+transform: sample 0 0 82
+featurize: mean 46 sd 30
+seed: 46
+acquire: sample 17 34 65
+seed: 47
+acquire: sample 34 68 48
+seed: 48
+acquire: sample 51 17 31
+transform
+featurize: mean 52 sd 20
+seed: 49
+acquire: sample 68 51 14
+seed: 50
+acquire: sample 0 0 82
+seed: 51
+acquire: sample 17 34 65
+transform
+transform: sample 0 0 82
+featurize: mean 50 sd 34
+count: 2
+selectMode: pins 0003
+mode: idle
+count: 3
+selectMode: pins 0002
+mode: stationary
+warmup
+seed: 52
+seed: 53
+seed: 54
+seed: 55
+acquire: sample 0 0 81
+seed: 56
+acquire: sample 17 34 64
+seed: 57
+acquire: sample 34 68 47
+transform
+transform: sample 0 0 81
+featurize: mean 56 sd 24
+seed: 58
+acquire: sample 51 17 30
+seed: 59
+acquire: sample 68 51 13
+seed: 60
+acquire: sample 0 0 81
+transform
+transform: sample 0 0 81
+featurize: mean 46 sd 30
+seed: 61
+acquire: sample 17 34 64
+seed: 62
+acquire: sample 34 68 47
+seed: 63
+acquire: sample 51 17 30
+transform
+featurize: mean 52 sd 20
+seed: 64
+acquire: sample 68 51 13
+seed: 65
+acquire: sample 0 0 81
+seed: 66
+acquire: sample 17 34 64
+transform
+transform: sample 0 0 81
+featurize: mean 50 sd 34
+seed: 67
+acquire: sample 34 68 46
+seed: 68
+acquire: sample 51 17 29
+seed: 69
+acquire: sample 68 51 12
+transform
+featurize: mean 56 sd 22
+seed: 70
+acquire: sample 0 0 80
+seed: 71
+acquire: sample 17 34 63
+seed: 72
+acquire: sample 34 68 46
+transform
+transform: sample 0 0 80
+featurize: mean 54 sd 24
+seed: 73
+acquire: sample 51 17 29
+seed: 74
+acquire: sample 68 51 12
+seed: 75
+acquire: sample 0 0 80
+transform
+transform: sample 0 0 80
+featurize: mean 46 sd 30
+seed: 76
+acquire: sample 17 34 63
+seed: 77
+acquire: sample 34 68 46
+seed: 78
+acquire: sample 51 17 29
+transform
+featurize: mean 52 sd 20
+seed: 79
+acquire: sample 68 51 12
+seed: 80
+acquire: sample 0 0 80
+seed: 81
+acquire: sample 17 34 62
+transform
+transform: sample 0 0 80
+featurize: mean 48 sd 34
+seed: 82
+acquire: sample 34 68 45
+seed: 83
+acquire: sample 51 17 28
+seed: 84
+acquire: sample 68 51 11
+transform
+featurize: mean 56 sd 22
+seed: 85
+acquire: sample 0 0 79
+seed: 86
+acquire: sample 17 34 62
+seed: 87
+acquire: sample 34 68 45
+transform
+transform: sample 0 0 79
+featurize: mean 54 sd 24
+seed: 88
+acquire: sample 51 17 28
+seed: 89
+acquire: sample 68 51 11
+seed: 90
+acquire: sample 0 0 79
+transform
+transform: sample 0 0 79
+featurize: mean 44 sd 30
+seed: 91
+acquire: sample 17 34 62
+seed: 92
+acquire: sample 34 68 45
+seed: 93
+acquire: sample 51 17 28
+transform
+featurize: mean 50 sd 20
+seed: 94
+acquire: sample 68 51 10
+seed: 95
+acquire: sample 0 0 78
+seed: 96
+acquire: sample 17 34 61
+transform
+transform: sample 0 0 78
+featurize: mean 48 sd 34
+seed: 97
+acquire: sample 34 68 44
+seed: 98
+acquire: sample 51 17 27
+seed: 99
+acquire: sample 68 51 10
+transform
+featurize: mean 54 sd 22
+seed: 100
+acquire: sample 0 0 78
+seed: 101
+acquire: sample 17 34 61
+seed: 102
+acquire: sample 34 68 44
+transform
+transform: sample 0 0 78
+featurize: mean 52 sd 24
+count: 4
+selectMode: pins 0003
+mode: idle
+count: 5
+selectMode: pins 0000
+mode: recognize
+seed: 103
+acquire: sample 51 17 27
+seed: 104
+acquire: sample 68 51 10
+seed: 105
+acquire: sample 0 0 78
+transform
+transform: sample 0 0 78
+featurize: mean 44 sd 30
+classify: class 1
+stats: s 0 m 1 t 1
+seed: 106
+acquire: sample 17 34 61
+seed: 107
+acquire: sample 34 68 43
+seed: 108
+acquire: sample 51 17 26
+transform
+featurize: mean 50 sd 20
+classify: class 0
+stats: s 1 m 1 t 2
+seed: 109
+acquire: sample 68 51 9
+seed: 110
+acquire: sample 0 0 77
+seed: 111
+acquire: sample 17 34 60
+transform
+transform: sample 68 51 9
+transform: sample 0 0 77
+featurize: mean 46 sd 34
+classify: class 0
+stats: s 2 m 1 t 3
+seed: 112
+acquire: sample 34 68 43
+seed: 113
+acquire: sample 51 17 26
+seed: 114
+acquire: sample 68 51 9
+transform
+transform: sample 68 51 9
+featurize: mean 54 sd 24
+classify: class 0
+stats: s 3 m 1 t 4
+seed: 115
+acquire: sample 0 0 77
+seed: 116
+acquire: sample 17 34 60
+seed: 117
+acquire: sample 34 68 43
+transform
+transform: sample 0 0 77
+featurize: mean 52 sd 24
+classify: class 0
+stats: s 4 m 1 t 5
+seed: 118
+acquire: sample 51 17 26
+seed: 119
+acquire: sample 68 51 9
+seed: 120
+acquire: sample 0 0 77
+transform
+transform: sample 68 51 9
+transform: sample 0 0 77
+featurize: mean 42 sd 32
+classify: class 1
+stats: s 4 m 2 t 6
+seed: 121
+acquire: sample 17 34 59
+seed: 122
+acquire: sample 34 68 42
+seed: 123
+acquire: sample 51 17 25
+transform
+featurize: mean 50 sd 20
+classify: class 0
+stats: s 5 m 2 t 7
+seed: 124
+acquire: sample 68 51 8
+seed: 125
+acquire: sample 0 0 76
+seed: 126
+acquire: sample 17 34 59
+transform
+transform: sample 68 51 8
+transform: sample 0 0 76
+featurize: mean 44 sd 34
+classify: class 1
+stats: s 5 m 3 t 8
+seed: 127
+acquire: sample 34 68 42
+seed: 128
+acquire: sample 51 17 25
+seed: 129
+acquire: sample 68 51 8
+transform
+transform: sample 68 51 8
+featurize: mean 54 sd 24
+classify: class 0
+stats: s 6 m 3 t 9
+seed: 130
+acquire: sample 0 0 76
+seed: 131
+acquire: sample 17 34 59
+seed: 132
+acquire: sample 34 68 42
+transform
+transform: sample 0 0 76
+featurize: mean 52 sd 24
+classify: class 0
+stats: s 7 m 3 t 10
+seed: 133
+acquire: sample 51 17 25
+seed: 134
+acquire: sample 68 51 7
+seed: 135
+acquire: sample 0 0 75
+transform
+transform: sample 68 51 7
+transform: sample 0 0 75
+featurize: mean 42 sd 30
+classify: class 1
+stats: s 7 m 4 t 11
+seed: 136
+acquire: sample 17 34 58
+seed: 137
+acquire: sample 34 68 41
+seed: 138
+acquire: sample 51 17 24
+transform
+featurize: mean 48 sd 20
+classify: class 0
+stats: s 8 m 4 t 12
+seed: 139
+acquire: sample 68 51 7
+seed: 140
+acquire: sample 0 0 75
+seed: 141
+acquire: sample 17 34 58
+transform
+transform: sample 68 51 7
+transform: sample 0 0 75
+featurize: mean 44 sd 34
+classify: class 1
+stats: s 8 m 5 t 13
+seed: 142
+acquire: sample 34 68 41
+seed: 143
+acquire: sample 51 17 24
+seed: 144
+acquire: sample 68 51 7
+transform
+transform: sample 68 51 7
+featurize: mean 54 sd 24
+classify: class 0
+stats: s 9 m 5 t 14
+seed: 145
+acquire: sample 0 0 75
+seed: 146
+acquire: sample 17 34 58
+seed: 147
+acquire: sample 34 68 40
+transform
+transform: sample 0 0 75
+featurize: mean 52 sd 24
+classify: class 0
+stats: s 10 m 5 t 15
+seed: 148
+acquire: sample 51 17 23
+seed: 149
+acquire: sample 68 51 6
+seed: 150
+acquire: sample 0 0 74
+transform
+transform: sample 68 51 6
+transform: sample 0 0 74
+featurize: mean 42 sd 30
+classify: class 1
+stats: s 10 m 6 t 16
+seed: 151
+acquire: sample 17 34 57
+seed: 152
+acquire: sample 34 68 40
+seed: 153
+acquire: sample 51 17 23
+transform
+featurize: mean 48 sd 20
+classify: class 0
+stats: s 11 m 6 t 17
+seed: 154
+acquire: sample 68 51 6
+seed: 155
+acquire: sample 0 0 74
+seed: 156
+acquire: sample 17 34 57
+transform
+transform: sample 68 51 6
+transform: sample 0 0 74
+featurize: mean 44 sd 34
+classify: class 1
+stats: s 11 m 7 t 18
+seed: 157
+acquire: sample 34 68 40
+seed: 158
+acquire: sample 51 17 23
+seed: 159
+acquire: sample 68 51 6
+transform
+transform: sample 68 51 6
+featurize: mean 54 sd 24
+classify: class 0
+stats: s 12 m 7 t 19
+seed: 160
+acquire: sample 0 0 74
+seed: 161
+acquire: sample 17 34 56
+seed: 162
+acquire: sample 34 68 39
+transform
+transform: sample 0 0 74
+featurize: mean 50 sd 24
+classify: class 0
+stats: s 13 m 7 t 20
+seed: 163
+acquire: sample 51 17 22
+seed: 164
+acquire: sample 68 51 5
+seed: 165
+acquire: sample 0 0 73
+transform
+transform: sample 68 51 5
+transform: sample 0 0 73
+featurize: mean 40 sd 30
+classify: class 1
+stats: s 13 m 8 t 21
+seed: 166
+acquire: sample 17 34 56
+seed: 167
+acquire: sample 34 68 39
+seed: 168
+acquire: sample 51 17 22
+transform
+featurize: mean 48 sd 20
+classify: class 0
+stats: s 14 m 8 t 22
+seed: 169
+acquire: sample 68 51 5
+seed: 170
+acquire: sample 0 0 73
+seed: 171
+acquire: sample 17 34 56
+transform
+transform: sample 68 51 5
+transform: sample 0 0 73
+featurize: mean 44 sd 34
+classify: class 1
+stats: s 14 m 9 t 23
+seed: 172
+acquire: sample 34 68 39
+seed: 173
+acquire: sample 51 17 22
+seed: 174
+acquire: sample 68 51 4
+transform
+transform: sample 68 51 4
+featurize: mean 54 sd 24
+classify: class 0
+stats: s 15 m 9 t 24
+seed: 175
+acquire: sample 0 0 72
+seed: 176
+acquire: sample 17 34 55
+seed: 177
+acquire: sample 34 68 38
+transform
+transform: sample 0 0 72
+featurize: mean 50 sd 24
+classify: class 0
+stats: s 16 m 9 t 25
+seed: 178
+acquire: sample 51 17 21
+seed: 179
+acquire: sample 68 51 4
+seed: 180
+acquire: sample 0 0 72
+transform
+transform: sample 68 51 4
+transform: sample 0 0 72
+featurize: mean 40 sd 30
+classify: class 1
+stats: s 16 m 10 t 26
+seed: 181
+acquire: sample 17 34 55
+seed: 182
+acquire: sample 34 68 38
+seed: 183
+acquire: sample 51 17 21
+transform
+featurize: mean 48 sd 20
+classify: class 0
+stats: s 17 m 10 t 27
+seed: 184
+acquire: sample 68 51 4
+seed: 185
+acquire: sample 0 0 72
+seed: 186
+acquire: sample 17 34 55
+transform
+transform: sample 68 51 4
+transform: sample 0 0 72
+featurize: mean 42 sd 34
+classify: class 1
+stats: s 17 m 11 t 28
+seed: 187
+acquire: sample 34 68 37
+seed: 188
+acquire: sample 51 17 20
+seed: 189
+acquire: sample 68 51 3
+transform
+transform: sample 68 51 3
+featurize: mean 52 sd 22
+classify: class 0
+stats: s 18 m 11 t 29
+seed: 190
+acquire: sample 0 0 71
+seed: 191
+acquire: sample 17 34 54
+seed: 192
+acquire: sample 34 68 37
+transform
+transform: sample 0 0 71
+featurize: mean 48 sd 24
+classify: class 0
+stats: s 19 m 11 t 30
+seed: 193
+acquire: sample 51 17 20
+seed: 194
+acquire: sample 68 51 3
+seed: 195
+acquire: sample 0 0 71
+transform
+transform: sample 68 51 3
+transform: sample 0 0 71
+featurize: mean 40 sd 30
+classify: class 1
+stats: s 19 m 12 t 31
+seed: 196
+acquire: sample 17 34 54
+seed: 197
+acquire: sample 34 68 37
+seed: 198
+acquire: sample 51 17 20
+transform
+featurize: mean 46 sd 20
+classify: class 1
+stats: s 19 m 13 t 32
+seed: 199
+acquire: sample 68 51 3
+seed: 200
+acquire: sample 0 0 71
+seed: 201
+acquire: sample 17 34 53
+transform
+transform: sample 68 51 3
+transform: sample 0 0 71
+featurize: mean 42 sd 34
+classify: class 1
+stats: s 19 m 14 t 33
+seed: 202
+acquire: sample 34 68 36
+seed: 203
+acquire: sample 51 17 19
+seed: 204
+acquire: sample 68 51 2
+transform
+transform: sample 68 51 2
+featurize: mean 52 sd 22
+classify: class 0
+stats: s 20 m 14 t 34
+seed: 205
+acquire: sample 0 0 70
+seed: 206
+acquire: sample 17 34 53
+seed: 207
+acquire: sample 34 68 36
+transform
+transform: sample 0 0 70
+featurize: mean 48 sd 24
+classify: class 0
+stats: s 21 m 14 t 35
+seed: 208
+acquire: sample 51 17 19
+seed: 209
+acquire: sample 68 51 2
+seed: 210
+acquire: sample 0 0 70
+transform
+transform: sample 68 51 2
+transform: sample 0 0 70
+featurize: mean 40 sd 30
+classify: class 1
+stats: s 21 m 15 t 36
+seed: 211
+acquire: sample 17 34 53
+seed: 212
+acquire: sample 34 68 36
+seed: 213
+acquire: sample 51 17 19
+transform
+featurize: mean 46 sd 20
+classify: class 1
+stats: s 21 m 16 t 37
+seed: 214
+acquire: sample 68 51 1
+seed: 215
+acquire: sample 0 0 69
+seed: 216
+acquire: sample 17 34 52
+transform
+transform: sample 68 51 1
+transform: sample 0 0 69
+featurize: mean 42 sd 32
+classify: class 1
+stats: s 21 m 17 t 38
+seed: 217
+acquire: sample 34 68 35
+seed: 218
+acquire: sample 51 17 18
+seed: 219
+acquire: sample 68 51 1
+transform
+transform: sample 68 51 1
+featurize: mean 52 sd 22
+classify: class 0
+stats: s 22 m 17 t 39
+seed: 220
+acquire: sample 0 0 69
+seed: 221
+acquire: sample 17 34 52
+seed: 222
+acquire: sample 34 68 35
+transform
+transform: sample 0 0 69
+featurize: mean 48 sd 24
+classify: class 0
+stats: s 23 m 17 t 40
+seed: 223
+acquire: sample 51 17 18
+seed: 224
+acquire: sample 68 51 1
+seed: 225
+acquire: sample 0 0 69
+transform
+transform: sample 68 51 1
+transform: sample 0 0 69
+featurize: mean 40 sd 30
+classify: class 1
+stats: s 23 m 18 t 41
+seed: 226
+acquire: sample 17 34 52
+seed: 227
+acquire: sample 34 67 34
+seed: 228
+acquire: sample 51 16 17
+transform
+featurize: mean 46 sd 20
+classify: class 1
+stats: s 23 m 19 t 42
+seed: 229
+acquire: sample 68 50 0
+seed: 230
+acquire: sample 0 84 68
+seed: 231
+acquire: sample 17 33 51
+transform
+transform: sample 68 50 0
+transform: sample 0 84 68
+featurize: mean 54 sd 32
+classify: class 0
+stats: s 24 m 19 t 43
+seed: 232
+acquire: sample 34 67 34
+seed: 233
+acquire: sample 51 16 17
+seed: 234
+acquire: sample 68 50 0
+transform
+transform: sample 68 50 0
+featurize: mean 52 sd 22
+classify: class 0
+stats: s 25 m 19 t 44
+seed: 235
+acquire: sample 0 84 68
+seed: 236
+acquire: sample 17 33 51
+seed: 237
+acquire: sample 34 67 34
+transform
+transform: sample 0 84 68
+featurize: mean 60 sd 22
+classify: class 0
+stats: s 26 m 19 t 45
+seed: 238
+acquire: sample 51 16 17
+seed: 239
+acquire: sample 68 50 0
+seed: 240
+acquire: sample 0 84 68
+transform
+transform: sample 68 50 0
+transform: sample 0 84 68
+featurize: mean 52 sd 34
+classify: class 0
+stats: s 27 m 19 t 46
+seed: 241
+acquire: sample 17 33 50
+seed: 242
+acquire: sample 34 67 33
+seed: 243
+acquire: sample 51 16 16
+transform
+featurize: mean 46 sd 20
+classify: class 1
+stats: s 27 m 20 t 47
+seed: 244
+acquire: sample 68 50 84
+seed: 245
+acquire: sample 0 84 67
+seed: 246
+acquire: sample 17 33 50
+transform
+transform: sample 0 84 67
+featurize: mean 68 sd 26
+classify: class 0
+stats: s 28 m 20 t 48
+seed: 247
+acquire: sample 34 67 33
+seed: 248
+acquire: sample 51 16 16
+seed: 249
+acquire: sample 68 50 84
+transform
+featurize: mean 60 sd 26
+classify: class 0
+stats: s 29 m 20 t 49
+seed: 250
+acquire: sample 0 84 67
+seed: 251
+acquire: sample 17 33 50
+seed: 252
+acquire: sample 34 67 33
+transform
+transform: sample 0 84 67
+featurize: mean 60 sd 22
+classify: class 0
+stats: s 30 m 20 t 50
+seed: 253
+acquire: sample 51 16 16
+seed: 254
+acquire: sample 68 50 83
+seed: 255
+acquire: sample 0 84 66
+transform
+transform: sample 0 84 66
+featurize: mean 62 sd 38
+classify: class 0
+stats: s 31 m 20 t 51
+seed: 256
+acquire: sample 17 33 49
+seed: 257
+acquire: sample 34 67 32
+seed: 258
+acquire: sample 51 16 15
+transform
+featurize: mean 46 sd 20
+classify: class 1
+stats: s 31 m 21 t 52
+seed: 259
+acquire: sample 68 50 83
+seed: 260
+acquire: sample 0 84 66
+seed: 261
+acquire: sample 17 33 49
+transform
+transform: sample 0 84 66
+featurize: mean 68 sd 26
+classify: class 0
+stats: s 32 m 21 t 53
+seed: 262
+acquire: sample 34 67 32
+seed: 263
+acquire: sample 51 16 15
+seed: 264
+acquire: sample 68 50 83
+transform
+featurize: mean 60 sd 26
+classify: class 0
+stats: s 33 m 21 t 54
+seed: 265
+acquire: sample 0 84 66
+seed: 266
+acquire: sample 17 33 49
+seed: 267
+acquire: sample 34 67 31
+transform
+transform: sample 0 84 66
+featurize: mean 60 sd 24
+classify: class 0
+stats: s 34 m 21 t 55
+seed: 268
+acquire: sample 51 16 14
+seed: 269
+acquire: sample 68 50 82
+seed: 270
+acquire: sample 0 84 65
+transform
+transform: sample 0 84 65
+featurize: mean 62 sd 38
+classify: class 0
+stats: s 35 m 21 t 56
+seed: 271
+acquire: sample 17 33 48
+seed: 272
+acquire: sample 34 67 31
+seed: 273
+acquire: sample 51 16 14
+transform
+featurize: mean 44 sd 20
+classify: class 1
+stats: s 35 m 22 t 57
+seed: 274
+acquire: sample 68 50 82
+seed: 275
+acquire: sample 0 84 65
+seed: 276
+acquire: sample 17 33 48
+transform
+transform: sample 0 84 65
+featurize: mean 66 sd 26
+classify: class 0
+stats: s 36 m 22 t 58
+seed: 277
+acquire: sample 34 67 31
+seed: 278
+acquire: sample 51 16 14
+seed: 279
+acquire: sample 68 50 82
+transform
+featurize: mean 60 sd 26
+classify: class 0
+stats: s 37 m 22 t 59
+seed: 280
+acquire: sample 0 84 65
+seed: 281
+acquire: sample 17 33 47
+seed: 282
+acquire: sample 34 67 30
+transform
+transform: sample 0 84 65
+featurize: mean 60 sd 22
+classify: class 0
+stats: s 38 m 22 t 60
+seed: 283
+acquire: sample 51 16 13
+seed: 284
+acquire: sample 68 50 81
+seed: 285
+acquire: sample 0 84 64
+transform
+transform: sample 0 84 64
+featurize: mean 62 sd 38
+classify: class 0
+stats: s 39 m 22 t 61
+seed: 286
+acquire: sample 17 33 47
+seed: 287
+acquire: sample 34 67 30
+seed: 288
+acquire: sample 51 16 13
+transform
+featurize: mean 44 sd 20
+classify: class 1
+stats: s 39 m 23 t 62
+seed: 289
+acquire: sample 68 50 81
+seed: 290
+acquire: sample 0 84 64
+seed: 291
+acquire: sample 17 33 47
+transform
+transform: sample 0 84 64
+featurize: mean 66 sd 26
+classify: class 0
+stats: s 40 m 23 t 63
+seed: 292
+acquire: sample 34 67 30
+seed: 293
+acquire: sample 51 16 13
+seed: 294
+acquire: sample 68 50 80
+transform
+featurize: mean 58 sd 26
+classify: class 0
+stats: s 41 m 23 t 64
+seed: 295
+acquire: sample 0 84 63
+seed: 296
+acquire: sample 17 33 46
+seed: 297
+acquire: sample 34 67 29
+transform
+transform: sample 0 84 63
+featurize: mean 58 sd 22
+classify: class 0
+stats: s 42 m 23 t 65
+seed: 298
+acquire: sample 51 16 12
+seed: 299
+acquire: sample 68 50 80
+seed: 300
+acquire: sample 0 84 63
+transform
+transform: sample 0 84 63
+featurize: mean 60 sd 38
+classify: class 0
+stats: s 43 m 23 t 66
+seed: 301
+acquire: sample 17 33 46
+seed: 302
+acquire: sample 34 67 29
+seed: 303
+acquire: sample 51 16 12
+transform
+featurize: mean 44 sd 20
+classify: class 1
+stats: s 43 m 24 t 67
+seed: 304
+acquire: sample 68 50 80
+seed: 305
+acquire: sample 0 84 63
+seed: 306
+acquire: sample 17 33 46
+transform
+transform: sample 0 84 63
+featurize: mean 66 sd 26
+classify: class 0
+stats: s 44 m 24 t 68
+seed: 307
+acquire: sample 34 67 28
+seed: 308
+acquire: sample 51 16 11
+seed: 309
+acquire: sample 68 50 79
+transform
+featurize: mean 58 sd 26
+classify: class 0
+stats: s 45 m 24 t 69
+seed: 310
+acquire: sample 0 84 62
+seed: 311
+acquire: sample 17 33 45
+seed: 312
+acquire: sample 34 67 28
+transform
+transform: sample 0 84 62
+featurize: mean 58 sd 22
+classify: class 0
+stats: s 46 m 24 t 70
+seed: 313
+acquire: sample 51 16 11
+seed: 314
+acquire: sample 68 50 79
+seed: 315
+acquire: sample 0 84 62
+transform
+transform: sample 0 84 62
+featurize: mean 60 sd 38
+classify: class 0
+stats: s 47 m 24 t 71
+seed: 316
+acquire: sample 17 33 45
+seed: 317
+acquire: sample 34 67 28
+seed: 318
+acquire: sample 51 16 11
+transform
+featurize: mean 44 sd 20
+classify: class 1
+stats: s 47 m 25 t 72
+seed: 319
+acquire: sample 68 50 79
+seed: 320
+acquire: sample 0 84 62
+seed: 321
+acquire: sample 17 33 44
+transform
+transform: sample 0 84 62
+featurize: mean 66 sd 26
+classify: class 0
+stats: s 48 m 25 t 73
+seed: 322
+acquire: sample 34 67 27
+seed: 323
+acquire: sample 51 16 10
+seed: 324
+acquire: sample 68 50 78
+transform
+featurize: mean 58 sd 26
+classify: class 0
+stats: s 49 m 25 t 74
+seed: 325
+acquire: sample 0 84 61
+seed: 326
+acquire: sample 17 33 44
+seed: 327
+acquire: sample 34 67 27
+transform
+transform: sample 0 84 61
+featurize: mean 58 sd 22
+classify: class 0
+stats: s 50 m 25 t 75
+seed: 328
+acquire: sample 51 16 10
+seed: 329
+acquire: sample 68 50 78
+seed: 330
+acquire: sample 0 84 61
+transform
+transform: sample 0 84 61
+featurize: mean 60 sd 38
+classify: class 0
+stats: s 51 m 25 t 76
+seed: 331
+acquire: sample 17 33 44
+seed: 332
+acquire: sample 34 67 27
+seed: 333
+acquire: sample 51 16 10
+transform
+featurize: mean 44 sd 20
+classify: class 1
+stats: s 51 m 26 t 77
+seed: 334
+acquire: sample 68 50 77
+seed: 335
+acquire: sample 0 84 60
+seed: 336
+acquire: sample 17 33 43
+transform
+transform: sample 0 84 60
+featurize: mean 64 sd 26
+classify: class 0
+stats: s 52 m 26 t 78
+seed: 337
+acquire: sample 34 67 26
+seed: 338
+acquire: sample 51 16 9
+seed: 339
+acquire: sample 68 50 77
+transform
+transform: sample 51 16 9
+featurize: mean 56 sd 28
+classify: class 0
+stats: s 53 m 26 t 79
+seed: 340
+acquire: sample 0 84 60
+seed: 341
+acquire: sample 17 33 43
+seed: 342
+acquire: sample 34 67 26
+transform
+transform: sample 0 84 60
+featurize: mean 58 sd 22
+classify: class 0
+stats: s 54 m 26 t 80
+seed: 343
+acquire: sample 51 16 9
+seed: 344
+acquire: sample 68 50 77
+seed: 345
+acquire: sample 0 84 60
+transform
+transform: sample 51 16 9
+transform: sample 0 84 60
+featurize: mean 58 sd 38
+classify: class 0
+stats: s 55 m 26 t 81
+seed: 346
+acquire: sample 17 33 43
+seed: 347
+acquire: sample 34 67 25
+seed: 348
+acquire: sample 51 16 8
+transform
+transform: sample 51 16 8
+featurize: mean 42 sd 20
+classify: class 1
+stats: s 55 m 27 t 82
+seed: 349
+acquire: sample 68 50 76
+seed: 350
+acquire: sample 0 84 59
+seed: 351
+acquire: sample 17 33 42
+transform
+transform: sample 0 84 59
+featurize: mean 64 sd 26
+classify: class 0
+stats: s 56 m 27 t 83
+seed: 352
+acquire: sample 34 67 25
+seed: 353
+acquire: sample 51 16 8
+seed: 354
+acquire: sample 68 50 76
+transform
+transform: sample 51 16 8
+featurize: mean 56 sd 28
+classify: class 0
+stats: s 57 m 27 t 84
+seed: 355
+acquire: sample 0 84 59
+seed: 356
+acquire: sample 17 33 42
+seed: 357
+acquire: sample 34 67 25
+transform
+transform: sample 0 84 59
+featurize: mean 56 sd 22
+classify: class 0
+stats: s 58 m 27 t 85
+seed: 358
+acquire: sample 51 16 8
+seed: 359
+acquire: sample 68 50 76
+seed: 360
+acquire: sample 0 84 59
+transform
+transform: sample 51 16 8
+transform: sample 0 84 59
+featurize: mean 58 sd 38
+classify: class 0
+stats: s 59 m 27 t 86
+seed: 361
+acquire: sample 17 33 41
+seed: 362
+acquire: sample 34 67 24
+seed: 363
+acquire: sample 51 16 7
+transform
+transform: sample 51 16 7
+featurize: mean 42 sd 20
+classify: class 1
+stats: s 59 m 28 t 87
+seed: 364
+acquire: sample 68 50 75
+seed: 365
+acquire: sample 0 84 58
+seed: 366
+acquire: sample 17 33 41
+transform
+transform: sample 0 84 58
+featurize: mean 64 sd 26
+classify: class 0
+stats: s 60 m 28 t 88
+seed: 367
+acquire: sample 34 67 24
+seed: 368
+acquire: sample 51 16 7
+seed: 369
+acquire: sample 68 50 75
+transform
+transform: sample 51 16 7
+featurize: mean 56 sd 28
+classify: class 0
+stats: s 61 m 28 t 89
+seed: 370
+acquire: sample 0 84 58
+seed: 371
+acquire: sample 17 33 41
+seed: 372
+acquire: sample 34 67 24
+transform
+transform: sample 0 84 58
+featurize: mean 56 sd 22
+classify: class 0
+stats: s 62 m 28 t 90
+seed: 373
+acquire: sample 51 16 7
+seed: 374
+acquire: sample 68 50 74
+seed: 375
+acquire: sample 0 84 57
+transform
+transform: sample 51 16 7
+transform: sample 0 84 57
+featurize: mean 56 sd 38
+classify: class 0
+stats: s 63 m 28 t 91
+seed: 376
+acquire: sample 17 33 40
+seed: 377
+acquire: sample 34 67 23
+seed: 378
+acquire: sample 51 16 6
+transform
+transform: sample 51 16 6
+featurize: mean 42 sd 20
+classify: class 1
+stats: s 63 m 29 t 92
+seed: 379
+acquire: sample 68 50 74
+seed: 380
+acquire: sample 0 84 57
+seed: 381
+acquire: sample 17 33 40
+transform
+transform: sample 0 84 57
+featurize: mean 62 sd 26
+classify: class 0
+stats: s 64 m 29 t 93
+seed: 382
+acquire: sample 34 67 23
+seed: 383
+acquire: sample 51 16 6
+seed: 384
+acquire: sample 68 50 74
+transform
+transform: sample 51 16 6
+featurize: mean 56 sd 28
+classify: class 0
+stats: s 65 m 29 t 94
+seed: 385
+acquire: sample 0 84 57
+seed: 386
+acquire: sample 17 33 40
+seed: 387
+acquire: sample 34 67 22
+transform
+transform: sample 0 84 57
+featurize: mean 56 sd 22
+classify: class 0
+stats: s 66 m 29 t 95
+seed: 388
+acquire: sample 51 16 5
+seed: 389
+acquire: sample 68 50 73
+seed: 390
+acquire: sample 0 84 56
+transform
+transform: sample 51 16 5
+transform: sample 0 84 56
+featurize: mean 56 sd 38
+classify: class 0
+stats: s 67 m 29 t 96
+seed: 391
+acquire: sample 17 33 39
+seed: 392
+acquire: sample 34 67 22
+seed: 393
+acquire: sample 51 16 5
+transform
+transform: sample 51 16 5
+featurize: mean 42 sd 20
+classify: class 1
+stats: s 67 m 30 t 97
+seed: 394
+acquire: sample 68 50 73
+seed: 395
+acquire: sample 0 84 56
+seed: 396
+acquire: sample 17 33 39
+transform
+transform: sample 0 84 56
+featurize: mean 62 sd 26
+classify: class 0
+stats: s 68 m 30 t 98
+seed: 397
+acquire: sample 34 67 22
+seed: 398
+acquire: sample 51 16 5
+seed: 399
+acquire: sample 68 50 73
+transform
+transform: sample 51 16 5
+featurize: mean 56 sd 28
+classify: class 0
+stats: s 69 m 30 t 99
+seed: 400
+acquire: sample 0 84 56
+seed: 401
+acquire: sample 17 33 38
+seed: 402
+acquire: sample 34 67 21
+transform
+transform: sample 0 84 56
+featurize: mean 56 sd 22
+classify: class 0
+stats: s 70 m 30 t 100
+seed: 403
+acquire: sample 51 16 4
+seed: 404
+acquire: sample 68 50 72
+seed: 405
+acquire: sample 0 84 55
+transform
+transform: sample 51 16 4
+transform: sample 0 84 55
+featurize: mean 56 sd 38
+classify: class 0
+stats: s 71 m 30 t 101
+seed: 406
+acquire: sample 17 33 38
+seed: 407
+acquire: sample 34 67 21
+seed: 408
+acquire: sample 51 16 4
+transform
+transform: sample 51 16 4
+featurize: mean 40 sd 20
+classify: class 1
+stats: s 71 m 31 t 102
+seed: 409
+acquire: sample 68 50 72
+seed: 410
+acquire: sample 0 84 55
+seed: 411
+acquire: sample 17 33 38
+transform
+transform: sample 0 84 55
+featurize: mean 62 sd 26
+classify: class 0
+stats: s 72 m 31 t 103
+seed: 412
+acquire: sample 34 67 21
+seed: 413
+acquire: sample 51 16 4
+seed: 414
+acquire: sample 68 50 71
+transform
+transform: sample 51 16 4
+featurize: mean 56 sd 28
+classify: class 0
+stats: s 73 m 31 t 104
+seed: 415
+acquire: sample 0 84 54
+seed: 416
+acquire: sample 17 33 37
+seed: 417
+acquire: sample 34 67 20
+transform
+transform: sample 0 84 54
+featurize: mean 54 sd 22
+classify: class 0
+stats: s 74 m 31 t 105
+seed: 418
+acquire: sample 51 16 3
+seed: 419
+acquire: sample 68 50 71
+seed: 420
+acquire: sample 0 84 54
+transform
+transform: sample 51 16 3
+transform: sample 0 84 54
+featurize: mean 56 sd 38
+classify: class 0
+stats: s 75 m 31 t 106
+seed: 421
+acquire: sample 17 33 37
+seed: 422
+acquire: sample 34 67 20
+seed: 423
+acquire: sample 51 16 3
+transform
+transform: sample 51 16 3
+featurize: mean 40 sd 20
+classify: class 1
+stats: s 75 m 32 t 107
+seed: 424
+acquire: sample 68 50 71
+seed: 425
+acquire: sample 0 84 54
+seed: 426
+acquire: sample 17 33 37
+transform
+transform: sample 0 84 54
+featurize: mean 62 sd 26
+classify: class 0
+stats: s 76 m 32 t 108
+seed: 427
+acquire: sample 34 67 19
+seed: 428
+acquire: sample 51 16 2
+seed: 429
+acquire: sample 68 50 70
+transform
+transform: sample 51 16 2
+featurize: mean 54 sd 28
+classify: class 0
+stats: s 77 m 32 t 109
+seed: 430
+acquire: sample 0 84 53
+seed: 431
+acquire: sample 17 33 36
+seed: 432
+acquire: sample 34 67 19
+transform
+transform: sample 0 84 53
+featurize: mean 54 sd 22
+classify: class 0
+stats: s 78 m 32 t 110
+seed: 433
+acquire: sample 51 16 2
+seed: 434
+acquire: sample 68 50 70
+seed: 435
+acquire: sample 0 84 53
+transform
+transform: sample 51 16 2
+transform: sample 0 84 53
+featurize: mean 56 sd 38
+classify: class 0
+stats: s 79 m 32 t 111
+seed: 436
+acquire: sample 17 33 36
+seed: 437
+acquire: sample 34 67 19
+seed: 438
+acquire: sample 51 16 2
+transform
+transform: sample 51 16 2
+featurize: mean 40 sd 20
+classify: class 1
+stats: s 79 m 33 t 112
+seed: 439
+acquire: sample 68 50 70
+seed: 440
+acquire: sample 0 84 53
+seed: 441
+acquire: sample 17 33 35
+transform
+transform: sample 0 84 53
+featurize: mean 60 sd 26
+classify: class 0
+stats: s 80 m 33 t 113
+seed: 442
+acquire: sample 34 67 18
+seed: 443
+acquire: sample 51 16 1
+seed: 444
+acquire: sample 68 50 69
+transform
+transform: sample 51 16 1
+featurize: mean 54 sd 28
+classify: class 0
+stats: s 81 m 33 t 114
+seed: 445
+acquire: sample 0 84 52
+seed: 446
+acquire: sample 17 33 35
+seed: 447
+acquire: sample 34 67 18
+transform
+transform: sample 0 84 52
+featurize: mean 54 sd 22
+classify: class 0
+stats: s 82 m 33 t 115
+seed: 448
+acquire: sample 51 16 1
+seed: 449
+acquire: sample 68 50 69
+seed: 450
+acquire: sample 0 84 52
+transform
+transform: sample 51 16 1
+transform: sample 0 84 52
+featurize: mean 56 sd 36
+classify: class 0
+stats: s 83 m 33 t 116
+seed: 451
+acquire: sample 17 33 35
+seed: 452
+acquire: sample 34 67 18
+seed: 453
+acquire: sample 51 16 1
+transform
+transform: sample 51 16 1
+featurize: mean 40 sd 20
+classify: class 1
+stats: s 83 m 34 t 117
+seed: 454
+acquire: sample 68 49 68
+seed: 455
+acquire: sample 0 83 51
+seed: 456
+acquire: sample 17 32 34
+transform
+transform: sample 0 83 51
+featurize: mean 60 sd 26
+classify: class 0
+stats: s 84 m 34 t 118
+seed: 457
+acquire: sample 34 66 17
+seed: 458
+acquire: sample 51 15 0
+seed: 459
+acquire: sample 68 49 68
+transform
+transform: sample 51 15 0
+featurize: mean 54 sd 28
+classify: class 0
+stats: s 85 m 34 t 119
+seed: 460
+acquire: sample 0 83 51
+seed: 461
+acquire: sample 17 32 34
+seed: 462
+acquire: sample 34 66 17
+transform
+transform: sample 0 83 51
+featurize: mean 52 sd 22
+classify: class 0
+stats: s 86 m 34 t 120
+seed: 463
+acquire: sample 51 15 0
+seed: 464
+acquire: sample 68 49 68
+seed: 465
+acquire: sample 0 83 51
+transform
+transform: sample 51 15 0
+transform: sample 0 83 51
+featurize: mean 54 sd 36
+classify: class 0
+stats: s 87 m 34 t 121
+seed: 466
+acquire: sample 17 32 34
+seed: 467
+acquire: sample 34 66 16
+seed: 468
+acquire: sample 51 15 84
+transform
+featurize: mean 50 sd 24
+classify: class 0
+stats: s 88 m 34 t 122
+seed: 469
+acquire: sample 68 49 67
+seed: 470
+acquire: sample 0 83 50
+seed: 471
+acquire: sample 17 32 33
+transform
+transform: sample 0 83 50
+featurize: mean 60 sd 26
+classify: class 0
+stats: s 89 m 34 t 123
+seed: 472
+acquire: sample 34 66 16
+seed: 473
+acquire: sample 51 15 84
+seed: 474
+acquire: sample 68 49 67
+transform
+featurize: mean 64 sd 30
+classify: class 0
+stats: s 90 m 34 t 124
+seed: 475
+acquire: sample 0 83 50
+seed: 476
+acquire: sample 17 32 33
+seed: 477
+acquire: sample 34 66 16
+transform
+transform: sample 0 83 50
+featurize: mean 52 sd 22
+classify: class 0
+stats: s 91 m 34 t 125
+seed: 478
+acquire: sample 51 15 84
+seed: 479
+acquire: sample 68 49 67
+seed: 480
+acquire: sample 0 83 50
+transform
+transform: sample 0 83 50
+featurize: mean 68 sd 32
+classify: class 0
+stats: s 92 m 34 t 126
+seed: 481
+acquire: sample 17 32 32
+seed: 482
+acquire: sample 34 66 15
+seed: 483
+acquire: sample 51 15 83
+transform
+featurize: mean 50 sd 24
+classify: class 0
+stats: s 93 m 34 t 127
+seed: 484
+acquire: sample 68 49 66
+seed: 485
+acquire: sample 0 83 49
+seed: 486
+acquire: sample 17 32 32
+transform
+transform: sample 0 83 49
+featurize: mean 58 sd 26
+classify: class 0
+stats: s 94 m 34 t 128
+stats: s 94 (73%) m 34 (26%) sum/tot 128/128: V
+count: 6
+selectMode: pins 0000
+mode: recognize
+seed: 487
+acquire: sample 34 66 15
+seed: 488
+acquire: sample 51 15 83
+seed: 489
+acquire: sample 68 49 66
+transform
+featurize: mean 64 sd 30
+classify: class 0
+stats: s 1 m 0 t 1
+seed: 490
+acquire: sample 0 83 49
+seed: 491
+acquire: sample 17 32 32
+seed: 492
+acquire: sample 34 66 15
+transform
+transform: sample 0 83 49
+featurize: mean 52 sd 22
+classify: class 0
+stats: s 2 m 0 t 2
+seed: 493
+acquire: sample 51 15 83
+seed: 494
+acquire: sample 68 49 65
+seed: 495
+acquire: sample 0 83 48
+transform
+transform: sample 0 83 48
+featurize: mean 68 sd 32
+classify: class 0
+stats: s 3 m 0 t 3
+seed: 496
+acquire: sample 17 32 31
+seed: 497
+acquire: sample 34 66 14
+seed: 498
+acquire: sample 51 15 82
+transform
+featurize: mean 48 sd 24
+classify: class 0
+stats: s 4 m 0 t 4
+seed: 499
+acquire: sample 68 49 65
+seed: 500
+acquire: sample 0 83 48
+seed: 501
+acquire: sample 17 32 31
+transform
+transform: sample 0 83 48
+featurize: mean 58 sd 26
+classify: class 0
+stats: s 5 m 0 t 5
+seed: 502
+acquire: sample 34 66 14
+seed: 503
+acquire: sample 51 15 82
+seed: 504
+acquire: sample 68 49 65
+transform
+featurize: mean 64 sd 30
+classify: class 0
+stats: s 6 m 0 t 6
+seed: 505
+acquire: sample 0 83 48
+seed: 506
+acquire: sample 17 32 31
+seed: 507
+acquire: sample 34 66 13
+transform
+transform: sample 0 83 48
+featurize: mean 52 sd 22
+classify: class 0
+stats: s 7 m 0 t 7
+seed: 508
+acquire: sample 51 15 81
+seed: 509
+acquire: sample 68 49 64
+seed: 510
+acquire: sample 0 83 47
+transform
+transform: sample 0 83 47
+featurize: mean 66 sd 32
+classify: class 0
+stats: s 8 m 0 t 8
+seed: 511
+acquire: sample 17 32 30
+seed: 512
+acquire: sample 34 66 13
+seed: 513
+acquire: sample 51 15 81
+transform
+featurize: mean 48 sd 24
+classify: class 0
+stats: s 9 m 0 t 9
+seed: 514
+acquire: sample 68 49 64
+seed: 515
+acquire: sample 0 83 47
+seed: 516
+acquire: sample 17 32 30
+transform
+transform: sample 0 83 47
+featurize: mean 58 sd 26
+classify: class 0
+stats: s 10 m 0 t 10
+seed: 517
+acquire: sample 34 66 13
+seed: 518
+acquire: sample 51 15 81
+seed: 519
+acquire: sample 68 49 64
+transform
+featurize: mean 64 sd 30
+classify: class 0
+stats: s 11 m 0 t 11
+seed: 520
+acquire: sample 0 83 47
+seed: 521
+acquire: sample 17 32 29
+seed: 522
+acquire: sample 34 66 12
+transform
+transform: sample 0 83 47
+featurize: mean 52 sd 22
+classify: class 0
+stats: s 12 m 0 t 12
+seed: 523
+acquire: sample 51 15 80
+seed: 524
+acquire: sample 68 49 63
+seed: 525
+acquire: sample 0 83 46
+transform
+transform: sample 0 83 46
+featurize: mean 66 sd 32
+classify: class 0
+stats: s 13 m 0 t 13
+seed: 526
+acquire: sample 17 32 29
+seed: 527
+acquire: sample 34 66 12
+seed: 528
+acquire: sample 51 15 80
+transform
+featurize: mean 48 sd 24
+classify: class 0
+stats: s 14 m 0 t 14
+seed: 529
+acquire: sample 68 49 63
+seed: 530
+acquire: sample 0 83 46
+seed: 531
+acquire: sample 17 32 29
+transform
+transform: sample 0 83 46
+featurize: mean 58 sd 26
+classify: class 0
+stats: s 15 m 0 t 15
+seed: 532
+acquire: sample 34 66 12
+seed: 533
+acquire: sample 51 15 80
+seed: 534
+acquire: sample 68 49 62
+transform
+featurize: mean 62 sd 30
+classify: class 0
+stats: s 16 m 0 t 16
+seed: 535
+acquire: sample 0 83 45
+seed: 536
+acquire: sample 17 32 28
+seed: 537
+acquire: sample 34 66 11
+transform
+transform: sample 0 83 45
+featurize: mean 52 sd 22
+classify: class 0
+stats: s 17 m 0 t 17
+seed: 538
+acquire: sample 51 15 79
+seed: 539
+acquire: sample 68 49 62
+seed: 540
+acquire: sample 0 83 45
+transform
+transform: sample 0 83 45
+featurize: mean 66 sd 32
+classify: class 0
+stats: s 18 m 0 t 18
+seed: 541
+acquire: sample 17 32 28
+seed: 542
+acquire: sample 34 66 11
+seed: 543
+acquire: sample 51 15 79
+transform
+featurize: mean 48 sd 24
+classify: class 0
+stats: s 19 m 0 t 19
+seed: 544
+acquire: sample 68 49 62
+seed: 545
+acquire: sample 0 83 45
+seed: 546
+acquire: sample 17 32 28
+transform
+transform: sample 0 83 45
+featurize: mean 56 sd 26
+classify: class 0
+stats: s 20 m 0 t 20
+seed: 547
+acquire: sample 34 66 10
+seed: 548
+acquire: sample 51 15 78
+seed: 549
+acquire: sample 68 49 61
+transform
+featurize: mean 62 sd 30
+classify: class 0
+stats: s 21 m 0 t 21
+seed: 550
+acquire: sample 0 83 44
+seed: 551
+acquire: sample 17 32 27
+seed: 552
+acquire: sample 34 66 10
+transform
+transform: sample 0 83 44
+featurize: mean 50 sd 22
+classify: class 0
+stats: s 22 m 0 t 22
+seed: 553
+acquire: sample 51 15 78
+seed: 554
+acquire: sample 68 49 61
+seed: 555
+acquire: sample 0 83 44
+transform
+transform: sample 0 83 44
+featurize: mean 64 sd 32
+classify: class 0
+stats: s 23 m 0 t 23
+seed: 556
+acquire: sample 17 32 27
+seed: 557
+acquire: sample 34 66 10
+seed: 558
+acquire: sample 51 15 78
+transform
+featurize: mean 46 sd 24
+classify: class 1
+stats: s 23 m 1 t 24
+seed: 559
+acquire: sample 68 49 61
+seed: 560
+acquire: sample 0 83 44
+seed: 561
+acquire: sample 17 32 26
+transform
+transform: sample 0 83 44
+featurize: mean 56 sd 26
+classify: class 0
+stats: s 24 m 1 t 25
+seed: 562
+acquire: sample 34 66 9
+seed: 563
+acquire: sample 51 15 77
+seed: 564
+acquire: sample 68 49 60
+transform
+transform: sample 34 66 9
+featurize: mean 60 sd 32
+classify: class 0
+stats: s 25 m 1 t 26
+seed: 565
+acquire: sample 0 83 43
+seed: 566
+acquire: sample 17 32 26
+seed: 567
+acquire: sample 34 66 9
+transform
+transform: sample 0 83 43
+transform: sample 34 66 9
+featurize: mean 50 sd 24
+classify: class 0
+stats: s 26 m 1 t 27
+seed: 568
+acquire: sample 51 15 77
+seed: 569
+acquire: sample 68 49 60
+seed: 570
+acquire: sample 0 83 43
+transform
+transform: sample 0 83 43
+featurize: mean 64 sd 32
+classify: class 0
+stats: s 27 m 1 t 28
+seed: 571
+acquire: sample 17 32 26
+seed: 572
+acquire: sample 34 66 9
+seed: 573
+acquire: sample 51 15 77
+transform
+transform: sample 34 66 9
+featurize: mean 46 sd 26
+classify: class 0
+stats: s 28 m 1 t 29
+seed: 574
+acquire: sample 68 49 59
+seed: 575
+acquire: sample 0 83 42
+seed: 576
+acquire: sample 17 32 25
+transform
+transform: sample 0 83 42
+featurize: mean 56 sd 26
+classify: class 0
+stats: s 29 m 1 t 30
+seed: 577
+acquire: sample 34 66 8
+seed: 578
+acquire: sample 51 15 76
+seed: 579
+acquire: sample 68 49 59
+transform
+transform: sample 34 66 8
+featurize: mean 60 sd 32
+classify: class 0
+stats: s 30 m 1 t 31
+seed: 580
+acquire: sample 0 83 42
+seed: 581
+acquire: sample 17 32 25
+seed: 582
+acquire: sample 34 66 8
+transform
+transform: sample 0 83 42
+transform: sample 34 66 8
+featurize: mean 50 sd 24
+ 584
+acquire: sample 68 49 59
+seed: 585
+acquire: sample 0 83 42
+transform
+transform: sample 0 83 42
+featurize: mean 64 sd 32
+classify: class 0
+stats: s 32 m 1 t 33
+seed: 586
+acquire: sample 17 32 25
+seed: 587
+acquire: sample 34 66 7
+seed: 588
+acquire: sample 51 15 75
+transform
+transform: sample 34 66 7
+featurize: mean 46 sd 24
+classify: class 1
+stats: s 32 m 2 t 34
+seed: 589
+acquire: sample 68 49 58
+seed: 590
+acquire: sample 0 83 41
+seed: 591
+acquire: sample 17 32 24
+transform
+transform: sample 0 83 41
+featurize: mean 54 sd 26
+classify: class 0
+stats: s 33 m 2 t 35
+seed: 592
+acquire: sample 34 66 7
+seed: 593
+acquire: sample 51 15 75
+seed: 594
+acquire: sample 68 49 58
+transform
+transform: sample 34 66 7
+featurize: mean 60 sd 32
+classify: class 0
+stats: s 34 m 2 t 36
+seed: 595
+acquire: sample 0 83 41
+seed: 596
+acquire: sample 17 32 24
+seed: 597
+acquire: sample 34 66 7
+transform
+transform: sample 0 83 41
+transform: sample 34 66 7
+featurize: mean 50 sd 24
+classify: class 0
+stats: s 35 m 2 t 37
+seed: 598
+acquire: sample 51 15 75
+seed: 599
+acquire: sample 68 49 58
+seed: 600
+acquire: sample 0 83 41
+transform
+transform: sample 0 83 41
+featurize: mean 64 sd 32
+classify: class 0
+stats: s 36 m 2 t 38
+seed: 601
+acquire: sample 17 32 23
+seed: 602
+acquire: sample 34 66 6
+seed: 603
+acquire: sample 51 15 74
+transform
+transform: sample 34 66 6
+featurize: mean 44 sd 24
+classify: class 1
+stats: s 36 m 3 t 39
+seed: 604
+acquire: sample 68 49 57
+seed: 605
+acquire: sample 0 83 40
+seed: 606
+acquire: sample 17 32 23
+transform
+transform: sample 0 83 40
+featurize: mean 54 sd 26
+classify: class 0
+stats: s 37 m 3 t 40
+seed: 607
+acquire: sample 34 66 6
+seed: 608
+acquire: sample 51 15 74
+seed: 609
+acquire: sample 68 49 57
+transform
+transform: sample 34 66 6
+featurize: mean 60 sd 32
+classify: class 0
+stats: s 38 m 3 t 41
+seed: 610
+acquire: sample 0 83 40
+seed: 611
+acquire: sample 17 32 23
+seed: 612
+acquire: sample 34 66 6
+transform
+transform: sample 0 83 40
+transform: sample 34 66 6
+featurize: mean 48 sd 24
+classify: class 0
+stats: s 39 m 3 t 42
+seed: 613
+acquire: sample 51 15 74
+seed: 614
+acquire: sample 68 49 56
+seed: 615
+acquire: sample 0 83 39
+transform
+transform: sample 0 83 39
+featurize: mean 62 sd 32
+classify: class 0
+stats: s 40 m 3 t 43
+seed: 616
+acquire: sample 17 32 22
+seed: 617
+acquire: sample 34 66 5
+seed: 618
+acquire: sample 51 15 73
+transform
+transform: sample 34 66 5
+featurize: mean 44 sd 24
+classify: class 1
+stats: s 40 m 4 t 44
+seed: 619
+acquire: sample 68 49 56
+seed: 620
+acquire: sample 0 83 39
+seed: 621
+acquire: sample 17 32 22
+transform
+transform: sample 0 83 39
+featurize: mean 54 sd 26
+classify: class 0
+stats: s 41 m 4 t 45
+seed: 622
+acquire: sample 34 66 5
+seed: 623
+acquire: sample 51 15 73
+seed: 624
+acquire: sample 68 49 56
+transform
+transform: sample 34 66 5
+featurize: mean 60 sd 32
+classify: class 0
+stats: s 42 m 4 t 46
+seed: 625
+acquire: sample 0 83 39
+seed: 626
+acquire: sample 17 32 22
+seed: 627
+acquire: sample 34 66 4
+transform
+transform: sample 0 83 39
+transform: sample 34 66 4
+featurize: mean 48 sd 22
+classify: class 0
+stats: s 43 m 4 t 47
+seed: 628
+acquire: sample 51 15 72
+seed: 629
+acquire: sample 68 49 55
+seed: 630
+acquire: sample 0 83 38
+transform
+transform: sample 0 83 38
+featurize: mean 62 sd 32
+classify: class 0
+stats: s 44 m 4 t 48
+seed: 631
+acquire: sample 17 32 21
+seed: 632
+acquire: sample 34 66 4
+seed: 633
+acquire: sample 51 15 72
+transform
+transform: sample 34 66 4
+featurize: mean 44 sd 24
+classify: class 1
+stats: s 44 m 5 t 49
+seed: 634
+acquire: sample 68 49 55
+seed: 635
+acquire: sample 0 83 38
+seed: 636
+acquire: sample 17 32 21
+transform
+transform: sample 0 83 38
+featurize: mean 54 sd 26
+classify: class 0
+stats: s 45 m 5 t 50
+seed: 637
+acquire: sample 34 66 4
+seed: 638
+acquire: sample 51 15 72
+seed: 639
+acquire: sample 68 49 55
+transform
+transform: sample 34 66 4
+featurize: mean 58 sd 32
+classify: class 0
+stats: s 46 m 5 t 51
+seed: 640
+acquire: sample 0 83 38
+seed: 641
+acquire: sample 17 32 20
+seed: 642
+acquire: sample 34 66 3
+transform
+transform: sample 0 83 38
+transform: sample 34 66 3
+featurize: mean 48 sd 22
+classify: class 0
+stats: s 47 m 5 t 52
+seed: 643
+acquire: sample 51 15 71
+seed: 644
+acquire: sample 68 49 54
+seed: 645
+acquire: sample 0 83 37
+transform
+transform: sample 0 83 37
+featurize: mean 62 sd 32
+classify: class 0
+stats: s 48 m 5 t 53
+seed: 646
+acquire: sample 17 32 20
+seed: 647
+acquire: sample 34 66 3
+seed: 648
+acquire: sample 51 15 71
+transform
+transform: sample 34 66 3
+featurize: mean 44 sd 24
+classify: class 1
+stats: s 48 m 6 t 54
+seed: 649
+acquire: sample 68 49 54
+seed: 650
+acquire: sample 0 83 37
+seed: 651
+acquire: sample 17 32 20
+transform
+transform: sample 0 83 37
+featurize: mean 54 sd 26
+classify: class 0
+stats: s 49 m 6 t 55
+seed: 652
+acquire: sample 34 66 3
+seed: 653
+acquire: sample 51 15 71
+seed: 654
+acquire: sample 68 49 53
+transform
+transform: sample 34 66 3
+featurize: mean 58 sd 30
+classify: class 0
+stats: s 50 m 6 t 56
+seed: 655
+acquire: sample 0 83 36
+seed: 656
+acquire: sample 17 32 19
+seed: 657
+acquire: sample 34 66 2
+transform
+transform: sample 0 83 36
+transform: sample 34 66 2
+featurize: mean 48 sd 22
+classify: class 0
+stats: s 51 m 6 t 57
+seed: 658
+acquire: sample 51 15 70
+seed: 659
+acquire: sample 68 49 53
+seed: 660
+acquire: sample 0 83 36
+transform
+transform: sample 0 83 36
+featurize: mean 60 sd 32
+classify: class 0
+stats: s 52 m 6 t 58
+seed: 661
+acquire: sample 17 32 19
+seed: 662
+acquire: sample 34 66 2
+seed: 663
+acquire: sample 51 15 70
+transform
+transform: sample 34 66 2
+featurize: mean 44 sd 24
+classify: class 1
+stats: s 52 m 7 t 59
+seed: 664
+acquire: sample 68 49 53
+seed: 665
+acquire: sample 0 83 36
+seed: 666
+acquire: sample 17 32 19
+transform
+transform: sample 0 83 36
+featurize: mean 54 sd 24
+classify: class 0
+stats: s 53 m 7 t 60
+seed: 667
+acquire: sample 34 66 1
+seed: 668
+acquire: sample 51 15 69
+seed: 669
+acquire: sample 68 49 52
+transform
+transform: sample 34 66 1
+featurize: mean 58 sd 30
+classify: class 0
+stats: s 54 m 7 t 61
+seed: 670
+acquire: sample 0 83 35
+seed: 671
+acquire: sample 17 32 18
+seed: 672
+acquire: sample 34 66 1
+transform
+transform: sample 0 83 35
+transform: sample 34 66 1
+featurize: mean 48 sd 22
+classify: class 0
+stats: s 55 m 7 t 62
+seed: 673
+acquire: sample 51 15 69
+seed: 674
+acquire: sample 68 49 52
+seed: 675
+acquire: sample 0 83 35
+transform
+transform: sample 0 83 35
+featurize: mean 60 sd 32
+classify: class 0
+stats: s 56 m 7 t 63
+seed: 676
+acquire: sample 17 32 18
+seed: 677
+acquire: sample 34 66 1
+seed: 678
+acquire: sample 51 15 69
+transform
+transform: sample 34 66 1
+featurize: mean 44 sd 24
+classify: class 1
+stats: s 56 m 8 t 64
+seed: 679
+acquire: sample 68 49 52
+seed: 680
+acquire: sample 0 83 35
+seed: 681
+acquire: sample 17 31 17
+transform
+transform: sample 0 83 35
+featurize: mean 52 sd 26
+classify: class 0
+stats: s 57 m 8 t 65
+seed: 682
+acquire: sample 34 65 0
+seed: 683
+acquire: sample 51 14 68
+seed: 684
+acquire: sample 68 48 51
+transform
+transform: sample 34 65 0
+featurize: mean 56 sd 30
+classify: class 0
+stats: s 58 m 8 t 66
+seed: 685
+acquire: sample 0 82 34
+seed: 686
+acquire: sample 17 31 17
+seed: 687
+acquire: sample 34 65 0
+transform
+transform: sample 0 82 34
+transform: sample 34 65 0
+featurize: mean 48 sd 22
+classify: class 0
+stats: s 59 m 8 t 67
+seed: 688
+acquire: sample 51 14 68
+seed: 689
+acquire: sample 68 48 51
+seed: 690
+acquire: sample 0 82 34
+transform
+transform: sample 0 82 34
+featurize: mean 60 sd 32
+classify: class 0
+stats: s 60 m 8 t 68
+seed: 691
+acquire: sample 17 31 17
+seed: 692
+acquire: sample 34 65 0
+seed: 693
+acquire: sample 51 14 68
+transform
+transform: sample 34 65 0
+featurize: mean 42 sd 24
+classify: class 1
+stats: s 60 m 9 t 69
+seed: 694
+acquire: sample 68 48 50
+seed: 695
+acquire: sample 0 82 33
+seed: 696
+acquire: sample 17 31 16
+transform
+transform: sample 0 82 33
+featurize: mean 52 sd 24
+classify: class 0
+stats: s 61 m 9 t 70
+seed: 697
+acquire: sample 34 65 84
+seed: 698
+acquire: sample 51 14 67
+seed: 699
+acquire: sample 68 48 50
+transform
+featurize: mean 70 sd 24
+classify: class 0
+stats: s 62 m 9 t 71
+seed: 700
+acquire: sample 0 82 33
+seed: 701
+acquire: sample 17 31 16
+seed: 702
+acquire: sample 34 65 84
+transform
+transform: sample 0 82 33
+featurize: mean 56 sd 26
+classify: class 0
+stats: s 63 m 9 t 72
+seed: 703
+acquire: sample 51 14 67
+seed: 704
+acquire: sample 68 48 50
+seed: 705
+acquire: sample 0 82 33
+transform
+transform: sample 0 82 33
+featurize: mean 60 sd 32
+classify: class 0
+stats: s 64 m 9 t 73
+seed: 706
+acquire: sample 17 31 16
+seed: 707
+acquire: sample 34 65 83
+seed: 708
+acquire: sample 51 14 66
+transform
+featurize: mean 56 sd 28
+classify: class 0
+stats: s 65 m 9 t 74
+seed: 709
+acquire: sample 68 48 49
+seed: 710
+acquire: sample 0 82 32
+seed: 711
+acquire: sample 17 31 15
+transform
+transform: sample 0 82 32
+featurize: mean 52 sd 24
+classify: class 0
+stats: s 66 m 9 t 75
+seed: 712
+acquire: sample 34 65 83
+seed: 713
+acquire: sample 51 14 66
+seed: 714
+acquire: sample 68 48 49
+transform
+featurize: mean 70 sd 24
+classify: class 0
+stats: s 67 m 9 t 76
+seed: 715
+acquire: sample 0 82 32
+seed: 716
+acquire: sample 17 31 15
+seed: 717
+acquire: sample 34 65 83
+transform
+transform: sample 0 82 32
+featurize: mean 56 sd 26
+classify: class 0
+stats: s 68 m 9 t 77
+seed: 718
+acquire: sample 51 14 66
+seed: 719
+acquire: sample 68 48 49
+seed: 720
+acquire: sample 0 82 32
+transform
+transform: sample 0 82 32
+featurize: mean 58 sd 32
+classify: class 0
+stats: s 69 m 9 t 78
+seed: 721
+acquire: sample 17 31 14
+seed: 722
+acquire: sample 34 65 82
+seed: 723
+acquire: sample 51 14 65
+transform
+featurize: mean 54 sd 28
+classify: class 0
+stats: s 70 m 9 t 79
+seed: 724
+acquire: sample 68 48 48
+seed: 725
+acquire: sample 0 82 31
+seed: 726
+acquire: sample 17 31 14
+transform
+transform: sample 0 82 31
+featurize: mean 50 sd 24
+classify: class 0
+stats: s 71 m 9 t 80
+seed: 727
+acquire: sample 34 65 82
+seed: 728
+acquire: sample 51 14 65
+seed: 729
+acquire: sample 68 48 48
+transform
+featurize: mean 68 sd 24
+classify: class 0
+stats: s 72 m 9 t 81
+seed: 730
+acquire: sample 0 82 31
+seed: 731
+acquire: sample 17 31 14
+seed: 732
+acquire: sample 34 65 82
+transform
+transform: sample 0 82 31
+featurize: mean 56 sd 26
+classify: class 0
+stats: s 73 m 9 t 82
+seed: 733
+acquire: sample 51 14 65
+seed: 734
+acquire: sample 68 48 47
+seed: 735
+acquire: sample 0 82 30
+transform
+transform: sample 0 82 30
+featurize: mean 58 sd 32
+classify: class 0
+stats: s 74 m 9 t 83
+seed: 736
+acquire: sample 17 31 13
+seed: 737
+acquire: sample 34 65 81
+seed: 738
+acquire: sample 51 14 64
+transform
+featurize: mean 54 sd 28
+classify: class 0
+stats: s 75 m 9 t 84
+seed: 739
+acquire: sample 68 48 47
+seed: 740
+acquire: sample 0 82 30
+seed: 741
+acquire: sample 17 31 13
+transform
+transform: sample 0 82 30
+featurize: mean 50 sd 24
+classify: class 0
+stats: s 76 m 9 t 85
+seed: 742
+acquire: sample 34 65 81
+seed: 743
+acquire: sample 51 14 64
+seed: 744
+acquire: sample 68 48 47
+transform
+featurize: mean 68 sd 24
+classify: class 0
+stats: s 77 m 9 t 86
+seed: 745
+acquire: sample 0 82 30
+seed: 746
+acquire: sample 17 31 13
+seed: 747
+acquire: sample 34 65 81
+transform
+transform: sample 0 82 30
+featurize: mean 56 sd 26
+classify: class 0
+stats: s 78 m 9 t 87
+seed: 748
+acquire: sample 51 14 63
+seed: 749
+acquire: sample 68 48 46
+seed: 750
+acquire: sample 0 82 29
+transform
+transform: sample 0 82 29
+featurize: mean 58 sd 32
+classify: class 0
+stats: s 79 m 9 t 88
+seed: 751
+acquire: sample 17 31 12
+seed: 752
+acquire: sample 34 65 80
+seed: 753
+acquire: sample 51 14 63
+transform
+featurize: mean 52 sd 28
+classify: class 0
+stats: s 80 m 9 t 89
+seed: 754
+acquire: sample 68 48 46
+seed: 755
+acquire: sample 0 82 29
+seed: 756
+acquire: sample 17 31 12
+transform
+transform: sample 0 82 29
+featurize: mean 50 sd 24
+classify: class 0
+stats: s 81 m 9 t 90
+seed: 757
+acquire: sample 34 65 80
+seed: 758
+acquire: sample 51 14 63
+seed: 759
+acquire: sample 68 48 46
+transform
+featurize: mean 68 sd 24
+classify: class 0
+stats: s 82 m 9 t 91
+seed: 760
+acquire: sample 0 82 29
+seed: 761
+acquire: sample 17 31 11
+seed: 762
+acquire: sample 34 65 79
+transform
+transform: sample 0 82 29
+featurize: mean 54 sd 26
+classify: class 0
+stats: s 83 m 9 t 92
+seed: 763
+acquire: sample 51 14 62
+seed: 764
+acquire: sample 68 48 45
+seed: 765
+acquire: sample 0 82 28
+transform
+transform: sample 0 82 28
+featurize: mean 56 sd 32
+classify: class 0
+stats: s 84 m 9 t 93
+seed: 766
+acquire: sample 17 31 11
+seed: 767
+acquire: sample 34 65 79
+seed: 768
+acquire: sample 51 14 62
+transform
+featurize: mean 52 sd 28
+classify: class 0
+stats: s 85 m 9 t 94
+seed: 769
+acquire: sample 68 48 45
+seed: 770
+acquire: sample 0 82 28
+seed: 771
+acquire: sample 17 31 11
+transform
+transform: sample 0 82 28
+featurize: mean 50 sd 24
+classify: class 0
+stats: s 86 m 9 t 95
+seed: 772
+acquire: sample 34 65 79
+seed: 773
+acquire: sample 51 14 62
+seed: 774
+acquire: sample 68 48 44
+transform
+featurize: mean 68 sd 24
+classify: class 0
+stats: s 87 m 9 t 96
+seed: 775
+acquire: sample 0 82 27
+seed: 776
+acquire: sample 17 31 10
+seed: 777
+acquire: sample 34 65 78
+transform
+transform: sample 0 82 27
+featurize: mean 54 sd 26
+classify: class 0
+stats: s 88 m 9 t 97
+seed: 778
+acquire: sample 51 14 61
+seed: 779
+acquire: sample 68 48 44
+seed: 780
+acquire: sample 0 82 27
+transform
+transform: sample 0 82 27
+featurize: mean 56 sd 32
+classify: class 0
+stats: s 89 m 9 t 98
+seed: 781
+acquire: sample 17 31 10
+seed: 782
+acquire: sample 34 65 78
+seed: 783
+acquire: sample 51 14 61
+transform
+featurize: mean 52 sd 28
+classify: class 0
+stats: s 90 m 9 t 99
+seed: 784
+acquire: sample 68 48 44
+seed: 785
+acquire: sample 0 82 27
+seed: 786
+acquire: sample 17 31 10
+transform
+transform: sample 0 82 27
+featurize: mean 50 sd 24
+classify: class 0
+stats: s 91 m 9 t 100
+seed: 787
+acquire: sample 34 65 78
+seed: 788
+acquire: sample 51 14 60
+seed: 789
+acquire: sample 68 48 43
+transform
+featurize: mean 66 sd 24
+classify: class 0
+stats: s 92 m 9 t 101
+seed: 790
+acquire: sample 0 82 26
+seed: 791
+acquire: sample 17 31 9
+seed: 792
+acquire: sample 34 65 77
+transform
+transform: sample 0 82 26
+transform: sample 17 31 9
+featurize: mean 52 sd 28
+classify: class 0
+stats: s 93 m 9 t 102
+seed: 793
+acquire: sample 51 14 60
+seed: 794
+acquire: sample 68 48 43
+seed: 795
+acquire: sample 0 82 26
+transform
+transform: sample 0 82 26
+featurize: mean 56 sd 32
+classify: class 0
+stats: s 94 m 9 t 103
+seed: 796
+acquire: sample 17 31 9
+seed: 797
+acquire: sample 34 65 77
+seed: 798
+acquire: sample 51 14 60
+transform
+transform: sample 17 31 9
+featurize: mean 50 sd 30
+classify: class 0
+stats: s 95 m 9 t 104
+seed: 799
+acquire: sample 68 48 43
+seed: 800
+acquire: sample 0 82 26
+seed: 801
+acquire: sample 17 31 8
+transform
+transform: sample 0 82 26
+transform: sample 17 31 8
+featurize: mean 48 sd 26
+classify: class 0
+stats: s 96 m 9 t 105
+seed: 802
+acquire: sample 34 65 76
+seed: 803
+acquire: sample 51 14 59
+seed: 804
+acquire: sample 68 48 42
+transform
+featurize: mean 66 sd 24
+classify: class 0
+stats: s 97 m 9 t 106
+seed: 805
+acquire: sample 0 82 25
+seed: 806
+acquire: sample 17 31 8
+seed: 807
+acquire: sample 34 65 76
+transform
+transform: sample 0 82 25
+transform: sample 17 31 8
+featurize: mean 52 sd 28
+classify: class 0
+stats: s 98 m 9 t 107
+seed: 808
+acquire: sample 51 14 59
+seed: 809
+acquire: sample 68 48 42
+seed: 810
+acquire: sample 0 82 25
+transform
+transform: sample 0 82 25
+featurize: mean 56 sd 32
+classify: class 0
+stats: s 99 m 9 t 108
+seed: 811
+acquire: sample 17 31 8
+seed: 812
+acquire: sample 34 65 76
+seed: 813
+acquire: sample 51 14 59
+transform
+transform: sample 17 31 8
+featurize: mean 50 sd 30
+classify: class 0
+stats: s 100 m 9 t 109
+seed: 814
+acquire: sample 68 48 41
+seed: 815
+acquire: sample 0 82 24
+seed: 816
+acquire: sample 17 31 7
+transform
+transform: sample 0 82 24
+transform: sample 17 31 7
+featurize: mean 48 sd 26
+classify: class 0
+stats: s 101 m 9 t 110
+seed: 817
+acquire: sample 34 65 75
+seed: 818
+acquire: sample 51 14 58
+seed: 819
+acquire: sample 68 48 41
+transform
+featurize: mean 66 sd 24
+classify: class 0
+stats: s 102 m 9 t 111
+seed: 820
+acquire: sample 0 82 24
+seed: 821
+acquire: sample 17 31 7
+seed: 822
+acquire: sample 34 65 75
+transform
+transform: sample 0 82 24
+transform: sample 17 31 7
+featurize: mean 52 sd 27
+classify: class 0
+stats: s 103 m 9 t 112
+seed: 823
+acquire: sample 51 14 58
+seed: 824
+acquire: sample 68 48 41
+seed: 825
+acquire: sample 0 82 24
+transform
+transform: sample 0 82 24
+featurize: mean 56 sd 32
+classify: class 0
+stats: s 104 m 9 t 113
+seed: 826
+acquire: sample 17 31 7
+seed: 827
+acquire: sample 34 65 75
+seed: 828
+acquire: sample 51 14 57
+transform
+transform: sample 17 31 7
+featurize: mean 50 sd 30
+classify: class 0
+stats: s 105 m 9 t 114
+seed: 829
+acquire: sample 68 48 40
+seed: 830
+acquire: sample 0 82 23
+seed: 831
+acquire: sample 17 31 6
+transform
+transform: sample 0 82 23
+transform: sample 17 31 6
+featurize: mean 48 sd 26
+classify: class 0
+stats: s 106 m 9 t 115
+seed: 832
+acquire: sample 34 65 74
+seed: 833
+acquire: sample 51 14 57
+seed: 834
+acquire: sample 68 48 40
+transform
+featurize: mean 64 sd 24
+classify: class 0
+stats: s 107 m 9 t 116
+seed: 835
+acquire: sample 0 82 23
+seed: 836
+acquire: sample 17 31 6
+seed: 837
+acquire: sample 34 65 74
+transform
+transform: sample 0 82 23
+transform: sample 17 31 6
+featurize: mean 52 sd 27
+classify: class 0
+stats: s 108 m 9 t 117
+seed: 838
+acquire: sample 51 14 57
+seed: 839
+acquire: sample 68 48 40
+seed: 840
+acquire: sample 0 82 23
+transform
+transform: sample 0 82 23
+featurize: mean 56 sd 32
+classify: class 0
+stats: s 109 m 9 t 118
+seed: 841
+acquire: sample 17 31 5
+seed: 842
+acquire: sample 34 65 73
+seed: 843
+acquire: sample 51 14 56
+transform
+transform: sample 17 31 5
+featurize: mean 48 sd 30
+classify: class 1
+stats: s 109 m 10 t 119
+seed: 844
+acquire: sample 68 48 39
+seed: 845
+acquire: sample 0 82 22
+seed: 846
+acquire: sample 17 31 5
+transform
+transform: sample 0 82 22
+transform: sample 17 31 5
+featurize: mean 48 sd 26
+classify: class 0
+stats: s 110 m 10 t 120
+seed: 847
+acquire: sample 34 65 73
+seed: 848
+acquire: sample 51 14 56
+seed: 849
+acquire: sample 68 48 39
+transform
+featurize: mean 64 sd 24
+classify: class 0
+stats: s 111 m 10 t 121
+seed: 850
+acquire: sample 0 82 22
+seed: 851
+acquire: sample 17 31 5
+seed: 852
+acquire: sample 34 65 73
+transform
+transform: sample 0 82 22
+transform: sample 17 31 5
+featurize: mean 52 sd 27
+classify: class 0
+stats: s 112 m 10 t 122
+seed: 853
+acquire: sample 51 14 56
+seed: 854
+acquire: sample 68 48 38
+seed: 855
+acquire: sample 0 82 21
+transform
+transform: sample 0 82 21
+featurize: mean 54 sd 32
+classify: class 0
+stats: s 113 m 10 t 123
+seed: 856
+acquire: sample 17 31 4
+seed: 857
+acquire: sample 34 65 72
+seed: 858
+acquire: sample 51 14 55
+transform
+transform: sample 17 31 4
+featurize: mean 48 sd 30
+classify: class 1
+stats: s 113 m 11 t 124
+seed: 859
+acquire: sample 68 48 38
+seed: 860
+acquire: sample 0 82 21
+seed: 861
+acquire: sample 17 31 4
+transform
+transform: sample 0 82 21
+transform: sample 17 31 4
+featurize: mean 48 sd 26
+classify: class 0
+stats: s 114 m 11 t 125
+seed: 862
+acquire: sample 34 65 72
+seed: 863
+acquire: sample 51 14 55
+seed: 864
+acquire: sample 68 48 38
+transform
+featurize: mean 64 sd 24
+classify: class 0
+stats: s 115 m 11 t 126
+seed: 865
+acquire: sample 0 82 21
+seed: 866
+acquire: sample 17 31 4
+seed: 867
+acquire: sample 34 65 72
+transform
+transform: sample 0 82 21
+transform: sample 17 31 4
+featurize: mean 52 sd 27
+classify: class 0
+stats: s 116 m 11 t 127
+seed: 868
+acquire: sample 51 14 54
+seed: 869
+acquire: sample 68 48 37
+seed: 870
+acquire: sample 0 82 20
+transform
+transform: sample 0 82 20
+featurize: mean 54 sd 32
+classify: class 0
+stats: s 117 m 11 t 128
+stats: s 117 (91%) m 11 (8%) sum/tot 128/128: V
+count: 7
+done
+selectMode: pins 0001
+mode: moving
+warmup
+seed: 1
+seed: 2
+seed: 3
+seed: 4
+acquire: sample 68 51 17
+seed: 5
+acquire: sample 0 0 0
+seed: 6
+acquire: sample 17 34 68
+transform
+transform: sample 0 0 0
+featurize: mean 36 sd 30
+seed: 7
+acquire: sample 34 68 51
+seed: 8
+acquire: sample 51 17 34
+seed: 9
+acquire: sample 68 51 17
+transform
+featurize: mean 56 sd 22
+seed: 10
+acquire: sample 0 0 0
+seed: 11
+acquire: sample 17 34 68
+seed: 12
+acquire: sample 34 68 51
+transform
+transform: sample 0 0 0
+featurize: mean 40 sd 30
+seed: 13
+acquire: sample 51 17 34
+seed: 14
+acquire: sample 68 51 16
+seed: 15
+acquire: sample 0 0 84
+transform
+transform: sample 0 0 84
+featurize: mean 48 sd 30
+seed: 16
+acquire: sample 17 34 67
+seed: 17
+acquire: sample 34 68 50
+seed: 18
+acquire: sample 51 17 33
+transform
+featurize: mean 54 sd 20
+seed: 19
+acquire: sample 68 51 16
+seed: 20
+acquire: sample 0 0 84
+seed: 21
+acquire: sample 17 34 67
+transform
+transform: sample 0 0 84
+featurize: mean 50 sd 34
+seed: 22
+acquire: sample 34 68 50
+seed: 23
+acquire: sample 51 17 33
+seed: 24
+acquire: sample 68 51 16
+transform
+featurize: mean 56 sd 22
+seed: 25
+acquire: sample 0 0 84
+seed: 26
+acquire: sample 17 34 67
+seed: 27
+acquire: sample 34 68 49
+transform
+transform: sample 0 0 84
+featurize: mean 58 sd 24
+seed: 28
+acquire: sample 51 17 32
+seed: 29
+acquire: sample 68 51 15
+seed: 30
+acquire: sample 0 0 83
+transform
+transform: sample 0 0 83
+featurize: mean 46 sd 30
+seed: 31
+acquire: sample 17 34 66
+seed: 32
+acquire: sample 34 68 49
+seed: 33
+acquire: sample 51 17 32
+transform
+featurize: mean 52 sd 20
+seed: 34
+acquire: sample 68 51 15
+seed: 35
+acquire: sample 0 0 83
+seed: 36
+acquire: sample 17 34 66
+transform
+transform: sample 0 0 83
+featurize: mean 50 sd 34
+seed: 37
+acquire: sample 34 68 49
+seed: 38
+acquire: sample 51 17 32
+seed: 39
+acquire: sample 68 51 15
+transform
+featurize: mean 56 sd 22
+seed: 40
+acquire: sample 0 0 83
+seed: 41
+acquire: sample 17 34 65
+seed: 42
+acquire: sample 34 68 48
+transform
+transform: sample 0 0 83
+featurize: mean 56 sd 24
+seed: 43
+acquire: sample 51 17 31
+seed: 44
+acquire: sample 68 51 14
+seed: 45
+acquire: sample 0 0 82
+transform
+transform: sample 0 0 82
+featurize: mean 46 sd 30
+seed: 46
+acquire: sample 17 34 65
+seed: 47
+acquire: sample 34 68 48
+seed: 48
+acquire: sample 51 17 31
+transform
+featurize: mean 52 sd 20
+seed: 49
+acquire: sample 68 51 14
+seed: 50
+acquire: sample 0 0 82
+seed: 51
+acquire: sample 17 34 65
+transform
+transform: sample 0 0 82
+featurize: mean 50 sd 34
+count: 1
+selectMode: pins 0003
+mode: idle
+count: 2
+selectMode: pins 0003
+mode: idle
+count: 3
+selectMode: pins 0002
+mode: stationary
+warmup
+seed: 52
+seed: 53
+seed: 54
+seed: 55
+acquire: sample 0 0 81
+seed: 56
+acquire: sample 17 34 64
+seed: 57
+acquire: sample 34 68 47
+transform
+transform: sample 0 0 81
+featurize: mean 56 sd 24
+seed: 58
+acquire: sample 51 17 30
+seed: 59
+acquire: sample 68 51 13
+seed: 60
+acquire: sample 0 0 81
+transform
+transform: sample 0 0 81
+featurize: mean 46 sd 30
+seed: 61
+acquire: sample 17 34 64
+seed: 62
+acquire: sample 34 68 47
+seed: 63
+acquire: sample 51 17 30
+transform
+featurize: mean 52 sd 20
+seed: 64
+acquire: sample 68 51 13
+seed: 65
+acquire: sample 0 0 81
+seed: 66
+acquire: sample 17 34 64
+transform
+transform: sample 0 0 81
+featurize: mean 50 sd 34
+seed: 67
+acquire: sample 34 68 46
+seed: 68
+acquire: sample 51 17 29
+seed: 69
+acquire: sample 68 51 12
+transform
+featurize: mean 56 sd 22
+seed: 70
+acquire: sample 0 0 80
+seed: 71
+acquire: sample 17 34 63
+seed: 72
+acquire: sample 34 68 46
+transform
+transform: sample 0 0 80
+featurize: mean 54 sd 24
+seed: 73
+acquire: sample 51 17 29
+seed: 74
+acquire: sample 68 51 12
+seed: 75
+acquire: sample 0 0 80
+transform
+transform: sample 0 0 80
+featurize: mean 46 sd 30
+seed: 76
+acquire: sample 17 34 63
+seed: 77
+acquire: sample 34 68 46
+seed: 78
+acquire: sample 51 17 29
+transform
+featurize: mean 52 sd 20
+seed: 79
+acquire: sample 68 51 12
+seed: 80
+acquire: sample 0 0 80
+seed: 81
+acquire: sample 17 34 62
+transform
+transform: sample 0 0 80
+featurize: mean 48 sd 34
+seed: 82
+acquire: sample 34 68 45
+seed: 83
+acquire: sample 51 17 28
+seed: 84
+acquire: sample 68 51 11
+transform
+featurize: mean 56 sd 22
+seed: 85
+acquire: sample 0 0 79
+seed: 86
+acquire: sample 17 34 62
+seed: 87
+acquire: sample 34 68 45
+transform
+transform: sample 0 0 79
+featurize: mean 54 sd 24
+seed: 88
+acquire: sample 51 17 28
+seed: 89
+acquire: sample 68 51 11
+seed: 90
+acquire: sample 0 0 79
+transform
+transform: sample 0 0 79
+featurize: mean 44 sd 30
+seed: 91
+acquire: sample 17 34 62
+seed: 92
+acquire: sample 34 68 45
+seed: 93
+acquire: sample 51 17 28
+transform
+featurize: mean 50 sd 20
+seed: 94
+acquire: sample 68 51 10
+seed: 95
+acquire: sample 0 0 78
+seed: 96
+acquire: sample 17 34 61
+transform
+transform: sample 0 0 78
+featurize: mean 48 sd 34
+seed: 97
+acquire: sample 34 68 44
+seed: 98
+acquire: sample 51 17 27
+seed: 99
+acquire: sample 68 51 10
+transform
+featurize: mean 54 sd 22
+seed: 100
+acquire: sample 0 0 78
+seed: 101
+acquire: sample 17 34 61
+seed: 102
+acquire: sample 34 68 44
+transform
+transform: sample 0 0 78
+featurize: mean 52 sd 24
+count: 4
+selectMode: pins 0003
+mode: idle
+count: 5
+selectMode: pins 0000
+mode: recognize
+seed: 103
+acquire: sample 51 17 27
+seed: 104
+acquire: sample 68 51 10
+seed: 105
+acquire: sample 0 0 78
+transform
+transform: sample 0 0 78
+featurize: mean 44 sd 30
+classify: class 1
+stats: s 0 m 1 t 1
+seed: 106
+acquire: sample 17 34 61
+seed: 107
+acquire: sample 34 68 43
+seed: 108
+acquire: sample 51 17 26
+transform
+featurize: mean 50 sd 20
+classify: class 0
+stats: s 1 m 1 t 2
+seed: 109
+acquire: sample 68 51 9
+seed: 110
+acquire: sample 0 0 77
+seed: 111
+acquire: sample 17 34 60
+transform
+transform: sample 68 51 9
+transform: sample 0 0 77
+featurize: mean 46 sd 34
+classify: class 0
+stats: s 2 m 1 t 3
+seed: 112
+acquire: sample 34 68 43
+seed: 113
+acquire: sample 51 17 26
+seed: 114
+acquire: sample 68 51 9
+transform
+transform: sample 68 51 9
+featurize: mean 54 sd 24
+classify: class 0
+stats: s 3 m 1 t 4
+seed: 115
+acquire: sample 0 0 77
+seed: 116
+acquire: sample 17 34 60
+seed: 117
+acquire: sample 34 68 43
+transform
+transform: sample 0 0 77
+featurize: mean 52 sd 24
+classify: class 0
+stats: s 4 m 1 t 5
+seed: 118
+acquire: sample 51 17 26
+seed: 119
+acquire: sample 68 51 9
+seed: 120
+acquire: sample 0 0 77
+transform
+transform: sample 68 51 9
+transform: sample 0 0 77
+ÿclassify: class 1
+stats: s 4 m 2 t 6
+seed: 121
+acquire: sample 17 34 59
+seed: 122
+acquire: sample 34 68 42
+seed: 123
+acquire: sample 51 17 25
+transform
+featurize: mean 50 sd 20
+classify: class 0
+stats: s 5 m 2 t 7
+seed: 124
+acquire: sample 68 51 8
+seed: 125
+acquire: sample 0 0 76
+seed: 126
+acquire: sample 17 34 59
+transform
+transform: sample 68 51 8
+ÿ 1
+stats: s 5 m 3 t 8
+ùÌ27
+acquire: sample 34 68 42
