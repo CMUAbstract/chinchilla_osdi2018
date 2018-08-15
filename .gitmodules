@@ -28,9 +28,15 @@
 [submodule "ext/libmspprintf"]
 	path = ext/libmspprintf
 	url = https://github.com/CMUAbstract/libmspprintf.git
-[submodule "ext/alpaca"]
-	path = ext/alpaca
-	url = git@github.com:CMUAbstract/alpaca-new.git
+#[submodule "ext/alpaca"]
+#	path = ext/alpaca
+#	url = git@github.com:CMUAbstract/alpaca-new.git
 [submodule "ext/libmspmath"]
 	path = ext/libmspmath
 	url = git@github.com:CMUAbstract/libmspmath.git
+[submodule "ext/cleancut"]
+	path = ext/cleancut
+	url = git@github.com:CMUAbstract/cleancut.git
+[submodule "ext/chinchilla"]
+	path = ext/chinchilla
+	url = git@github.com:CMUAbstract/chinchilla.git
