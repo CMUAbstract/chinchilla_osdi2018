@@ -6,4 +6,4 @@ override TOOLCHAIN = clang
 
 include ../Makefile
 
-include $(LIB_ROOT)/alpaca/Makefile.target
+include $(LIB_ROOT)/chinchilla/Makefile.target

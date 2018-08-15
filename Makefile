@@ -2,14 +2,14 @@ TOOLS = \
 	dino \
 	ratchet \
 	mementos \
-	alpaca \
+	chinchilla \
 	edbprof
 
 TOOLCHAINS = \
 	gcc \
 	clang \
 	dino \
-	alpaca \
+	chinchilla \
 	ratchet \
 	edbprof
 
@@ -38,7 +38,7 @@ include ext/maker/Makefile
 export EDBPROF_ROOT ?= $(LIB_ROOT)/edbprof
 export MEMENTOS_ROOT = $(LIB_ROOT)/mementos
 export DINO_ROOT = $(LIB_ROOT)/dino
-export ALPACA_ROOT = $(LIB_ROOT)/alpaca
+export ALPACA_ROOT = $(LIB_ROOT)/chinchilla
 export RATCHET_ROOT = $(LIB_ROOT)/ratchet
 
 
