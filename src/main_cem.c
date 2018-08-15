@@ -41,7 +41,7 @@
 __attribute__((interrupt(51)))
 	void TimerB1_ISR(void){
 		PMMCTL0 = PMMPW | PMMSWPOR;
-		BITSET(TBCTL, TBCLR);
+		TBCTL |= TBCLR;
 	}
 __attribute__((section("__interrupt_vector_timer0_b1"),aligned(2)))
 void(*__vector_timer0_b1)(void) = TimerB1_ISR;
@@ -231,8 +231,8 @@ void append_compressed(index_t parent, log_t *log)
 
 void init()
 {
-	BITSET(TBCTL, (TBSSEL_1 | ID_3 | MC_2 | TBCLR));
-	BITSET(TBCCTL1 , CCIE);
+	TBCTL |= (TBSSEL_1 | ID_3 | MC_2 | TBCLR);
+	TBCCTL1 |= CCIE;
 	TBCCR1 = 40;
 #ifndef CONFIG_EDB
 	//		TBCTL &= 0xE6FF; //set 12,11 bit to zero (16bit) also 8 to zero (SMCLK)
