@@ -1,0 +1,50 @@
+# This makefile is part of the start energy measurement stage: it builds an app
+# binary instrumented for measuring start energy of one task. It is invoked by
+# the parent Makefile.start-energy-instance.
+
+# override the defaalt setting from root makefile (i.e. 'edbprof' from 'bld/edbprof')
+override TOOLCHAIN = clang
+
+PARENT_BUILD_DIR = ../..
+EDBPROF_BUILD_DIR = $(PARENT_BUILD_DIR)/..
+TOP_BUILD_DIR = $(EDBPROF_BUILD_DIR)/..
+
+# We need to bring in libedb, and other libs that the app declared
+# NOTE: we have to reset SRC_ROOT because the include changes it
+# to a relative path that assumes a different starting directory.
+include $(TOP_BUILD_DIR)/Makefile
+override SRC_ROOT = $(TOP_BUILD_DIR)/../src
+
+# With the throttling checkpoint never happens
+# TODO: investigate -- is the timer interval too big?
+#       or, likely setting the timer is sensitive to frequency, and
+#       the frequency is not what libmementos expects it is.
+MEMENTOS_TIMER = 0
+
+# Watchpoint index used for task start energy measurement
+EDBPROF_TASK_MARKER_WATCHPOINT = 0
+
+# Passed to us via '-e', so we must override to change it
+# NOTE: TASK is set by the parent makefile based on pattern match
+override CFLAGS += \
+  -DSTART_ENERGY_TASK=$(TASK) \
+  -DEDBPROF_TASK_MARKER_WATCHPOINT=$(EDBPROF_TASK_MARKER_WATCHPOINT) \
+
+start-voltage.csv : app.out
+	$(call powered-prog,$^)
+	$(EDBPROF_BIN_ROOT)/trace-watchpoints.py \
+	  --watchpoints $(EDBPROF_TASK_MARKER_WATCHPOINT) \
+	  --voltage-snapshot --duration $(START_ENERGY_MEASURE_DURATION) \
+	  $(READER_MEASURE_ARGS) $(EDB_MEASURE_ARGS) \
+	  -o $@
+
+start-voltage.pdf : start-voltage.csv
+	$(EDBPROF_BIN_ROOT)/plot-start-voltage.py -o $@ $^
+
+include $(LIB_ROOT)/dino/Makefile.target
+
+clean:
+	rm -f *.bc *.out *.csv *.pdf
+
+# do not remove any intermediate artifacts
+.SECONDARY:

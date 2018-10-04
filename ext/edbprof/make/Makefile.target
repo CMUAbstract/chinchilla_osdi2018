@@ -1,0 +1,215 @@
+# We are not the clang toolchain, but we use clang, and we need to set
+# TOOLCHAIN for the paths to deps (which are clang-built) to be correct.
+override TOOLCHAIN = clang
+
+EXT_ROOT = $(EDBPROF_ROOT)/ext
+
+export EDBPROF_BIN_ROOT = $(EDBPROF_ROOT)/src
+export EDBPROF_LLVM_ROOT = $(EDBPROF_ROOT)/llvm/bld
+export EDBPROF_MAKE_ROOT = $(EDBPROF_ROOT)/make
+
+# These dependencies are private to EDB, so it is ok to have them here
+# as opposed to in application top-level file.
+export PYEDB_ROOT = $(EXT_ROOT)/pyedb
+export EDBCONSOLE_ROOT = $(EXT_ROOT)/edb-console
+export SLLURPSOCK_ROOT = $(EXT_ROOT)/sllurpsock
+export SLLURP_ROOT = $(SLLURPSOCK_ROOT)/ext/sllurp
+
+# App makefile should set PROFILED_OBJECTS list (no extension)
+UNMODIFIED_OBJECTS = $(filter-out $(PROFILED_OBJECTS),$(OBJECTS:.o=))
+
+# Propagate var to sub-makes, for artifacts that have dedicated makefiles
+# TODO: rename these vars to *_MODULES
+export PROFILED_OBJECTS
+export UNMODIFIED_OBJECTS
+export EXEC
+
+# For conditionally including edbprof headers
+override CFLAGS += -DEDBPROF
+
+# Propagate to nested directories
+export CFLAGS
+
+export BLOCK_ENERGY_DIR = block-energy
+PHASE_DIRS += $(BLOCK_ENERGY_DIR)
+export START_ENERGY_DIR = start-energy
+PHASE_DIRS += $(START_ENERGY_DIR)
+export FAILURE_RATE_DIR = failure-rate
+PHASE_DIRS += $(FAILURE_RATE_DIR)
+export PATH_FREQ_DIR = path-freq
+PHASE_DIRS += $(PATH_FREQ_DIR)
+export TASK_ENERGY_DIR = task-energy
+export ENERGY_DISTS_DIR = $(TASK_ENERGY_DIR)/energy-dists
+PHASE_DIRS += $(TASK_ENERGY_DIR)
+export ENERGY_CAPACITY_DIR = energy-capacity
+PHASE_DIRS += $(ENERGY_CAPACITY_DIR)
+export CHECKER_VALIDATOR_DIR = checker-validator
+PHASE_DIRS += $(CHECKER_VALIDATOR_DIR)
+export CHECKER_VALIDATION_DIR = checker-validation
+PHASE_DIRS += $(CHECKER_VALIDATION_DIR)
+export CFG_DIR = cfg
+PHASE_DIRS += $(CFG_DIR)
+export PATH_ENERGY_VALIDATOR_DIR = path-energy-validator
+PHASE_DIRS += $(PATH_ENERGY_VALIDATOR_DIR)
+export PLACEMENT_DIR = placement
+PHASE_DIRS += $(PLACEMENT_DIR)
+export CHECKER_RECALL_DIR = checker-recall
+PHASE_DIRS += $(CHECKER_RECALL_DIR)
+export LOOP_ITERS_DIR = loop-iters
+PHASE_DIRS += $(LOOP_ITERS_DIR)
+export PLOT_DIR = plot
+PHASE_DIRS += $(PLOT_DIR)
+export PLACER_VALIDATION_DIR = placer-validation
+PHASE_DIRS += $(PLACER_VALIDATION_DIR)
+
+# Watchpoint indexes used for checker validation
+export EDBPROF_PROGRAM_MARKER_BEGIN ?= 0
+export EDBPROF_PROGRAM_MARKER_END ?= 1
+export EDBPROF_PROGRAM_MARKER_RESTART ?= 0
+export EDBPROF_PROGRAM_MARKER_WATCHPOINTS = \
+	$(EDBPROF_PROGRAM_MARKER_BEGIN) \
+	$(EDBPROF_PROGRAM_MARKER_END) \
+
+# Number of times a task can restart before considering it stuck
+export STUCK_TASK_RESTARTS ?= 10
+
+define optpath
+$$(if $$(2),$$(1)/$$(2),)
+endef
+export optpath
+
+## Runtime support lib
+## NOTE: if it doesn't autobuild, to build it, make bld/edbprof/*/dep
+override DEPS += libedbprof
+export DEP_ROOT_libedbprof = $(LIB_ROOT)/edbprof
+
+# Propagate to make instances invoked from this makefile
+export DEPS
+
+# NOTE: we do not use Makefile.clang's functionality to invoke opt,
+# because our opt passes generate artifacts, which we want to
+# include in the build dependency graph. To distinguish, we prefix
+# OPT vars with EDBPROF_. Note that the .clang's opt functionality
+# can still be used -- the two are orthogonal.
+
+EDBPROF_OPT_FLAGS = -load $(EDBPROF_LLVM_ROOT)/lib/edbprof.so
+
+ifeq ($(EDBPROF_VERBOSE),1)
+EDBPROF_OPT_FLAGS += -debug
+endif
+
+export EDBPROF_OPT_FLAGS
+
+# Override because it is set in env, and we env has precedence
+override PYTHONPATH := $(PYTHONPATH):$(PYEDB_ROOT):$(SLLURPSOCK_ROOT):$(SLLURP_ROOT)
+export PYTHONPATH
+
+include $(EDBPROF_MAKE_ROOT)/Makefile.program
+
+export READER_MEASURE_ARGS += \
+	--reader-host $(RFID_READER_HOST) \
+	--tx-power $(RFID_READER_POWER_DBM) \
+
+export EDB_MEASURE_ARGS += \
+	--device $(EDB_DEVICE) \
+
+# TODO: all-encompasing target
+all: phase-makefiles
+	echo "TODO: A master target is not implemented: build phase-by-phase"
+
+%.dir:
+	mkdir -p $*
+
+# NOTE: we can't use a pattern rule, because the <phase-dir>/% rules (see
+# below) take precedence
+define phase-makefile-rule
+$(1)/Makefile: $(1).dir
+	echo 'include $$$$(EDBPROF_ROOT)/make/Makefile.$(1)' > $(1)/Makefile
+endef
+
+$(foreach phase,$(PHASE_DIRS),$(eval $(call phase-makefile-rule,$(phase))))
+
+phase-makefiles: $(foreach phase,$(PHASE_DIRS),$(phase)/Makefile)
+
+$(BLOCK_ENERGY_DIR)/%: %.__lower_rule_priority
+	$(MAKE) -e -C $(BLOCK_ENERGY_DIR) $*
+
+$(PATH_FREQ_DIR)/%: %.__lower_rule_priority
+	$(MAKE) -e -C $(PATH_FREQ_DIR) $*
+
+$(START_ENERGY_DIR)/%: %.__lower_rule_priority
+	$(MAKE) -e -C $(START_ENERGY_DIR) $*
+
+$(ENERGY_CAPACITY_DIR)/%: %.__lower_rule_priority
+	$(MAKE) -e -C $(ENERGY_CAPACITY_DIR) $*
+
+$(CHECKER_VALIDATOR_DIR)/%: %.__lower_rule_priority
+	$(MAKE) -e -C $(CHECKER_VALIDATOR_DIR) $*
+
+$(CHECKER_VALIDATION_DIR)/%: %.__lower_rule_priority
+	$(MAKE) -e -C $(CHECKER_VALIDATION_DIR) $*
+
+$(FAILURE_RATE_DIR)/%: %.__lower_rule_priority
+	$(MAKE) -e -C $(FAILURE_RATE_DIR) $*
+
+$(CFG_DIR)/%: %.__lower_rule_priority
+	$(MAKE) -e -C $(CFG_DIR) $*
+
+$(PATH_ENERGY_VALIDATOR_DIR)/%: %.__lower_rule_priority
+	$(MAKE) -e -C $(PATH_ENERGY_VALIDATOR_DIR) $*
+
+$(PLACEMENT_DIR)/%: %.__lower_rule_priority
+	$(MAKE) -e -C $(PLACEMENT_DIR) $*
+
+$(CHECKER_RECALL_DIR)/%: %.__lower_rule_priority
+	$(MAKE) -e -C $(CHECKER_RECALL_DIR) $*
+
+$(LOOP_ITERS_DIR)/%: %.__lower_rule_priority
+	$(MAKE) -e -C $(LOOP_ITERS_DIR) $*
+
+$(PLOT_DIR)/%: %.__lower_rule_priority
+	$(MAKE) -e -C $(PLOT_DIR) $*
+
+$(PLACER_VALIDATION_DIR)/%: %.__lower_rule_priority
+	$(MAKE) -e -C $(PLACER_VALIDATION_DIR) $*
+
+# TODO: the following special case is not really a special case:
+# many of the stages depend on artifacts produced by other stages
+
+# A special case of the above rule, because it has a dependency. Note that this
+# dependency must be specified in this top-level makefile, because the nested
+# makefile doesn't know how to build it. Also note that we can't have a rule
+# without a recipe, because a more-specific pattern match in a recipe-less
+# pattern rule is not "applied" to the less-specific rule with a recipe.
+$(TASK_ENERGY_DIR)/%.task-energy.csv: $(PATH_FREQ_DIR)/%.path-freq.csv
+	$(MAKE) -e -C $(TASK_ENERGY_DIR) $*.task-energy.csv
+
+$(TASK_ENERGY_DIR)/%: %.__lower_rule_priority
+	$(MAKE) -e -C $(TASK_ENERGY_DIR) $*
+
+# In Make implicit rules whose depencies exist or are 'mentioned' take
+# precedence over implicit rules whose dependencies must be made by
+# invoking more implicit rules, regardless of stem length. Hence, hack.
+%.__lower_rule_priority: ;
+
+define release-target
+release: prof
+	mkdir -p $(EDBPROF_RELEASE_PATH)/$(EXEC) && \
+	  rsync -a $$(ARTIFACTS) $(EDBPROF_RELEASE_PATH)/$(EXEC)/
+.PHONY: release
+endef
+export release-target
+
+# TODO: a normal target defined here is not accessible from phase makefiles (?)
+define clean-cmd
+	rm -rf *.csv *.pdf
+endef
+export clean-cmd
+
+clean: $(foreach p,$(PHASE_DIRS),$(p)/clean-phase)
+
+# do not remove any intermediate artifacts
+.SECONDARY:
+
+# disable implicit rules, for personal sanity
+.SUFFIXES:

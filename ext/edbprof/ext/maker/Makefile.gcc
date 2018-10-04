@@ -1,0 +1,78 @@
+TOOLCHAIN = gcc
+
+include $(MAKER_ROOT)/Makefile.env
+include $(MAKER_ROOT)/Makefile.board
+
+LINKER_SCRIPTS_ROOT = $(MAKER_ROOT)/linker-scripts
+
+PREFIX = $(TOOLCHAIN_ROOT)/bin/msp430-elf-
+CC      = $(PREFIX)gcc
+LD      = $(PREFIX)gcc
+AS      = $(PREFIX)as
+GDB     = $(PREFIX)gdb
+
+LIB_SUFFIX = a
+EXEC_SUFFIX = out
+include $(MAKER_ROOT)/Makefile.suffix
+
+COMMONFLAGS = \
+	-mmcu=$(DEVICE) \
+
+ASFLAGS = \
+	$(COMMONFLAGS) \
+
+CFLAGS += \
+	$(COMMONFLAGS) \
+	-D$(DEVICEDEF) \
+	-O1 \
+	-g \
+	-std=c99 \
+	-Wall \
+	-I $(TOOLCHAIN_ROOT)/include \
+
+LFLAGS += \
+	-T $(LINKER_SCRIPTS_ROOT)/$(DEVICE).ld \
+	-L $(TOOLCHAIN_ROOT)/include \
+
+VPATH = $(SRC_ROOT)
+
+all: $(BIN)
+
+-include $(OBJECTS:.o=.d)
+
+%.o: %.c
+	mkdir -p "./$(shell dirname $@)"
+	$(CC) -c -MD $(CFLAGS) $< -o $@
+
+%.o: %.S
+	mkdir -p "./$(shell dirname $@)"
+	$(AS) $(ASFLAGS) $< -o $@
+
+%.out: $(OBJECTS)
+	$(LD) $(CFLAGS) $(LFLAGS) $(OBJECTS) $(LIBS) -o $(BIN)
+
+%.a: $(OBJECTS)
+	$(AR) rcs $@ $^
+
+clean:
+	rm -f $(OBJECTS) $(OBJECTS:.o=.d) $(BIN)
+
+debug: $(BIN)
+	$(GDB) $(BIN)
+
+ifeq ($(TARGET_TYPE),exec)
+include $(MAKER_ROOT)/Makefile.flash
+endif
+
+ifeq ($(TARGET_TYPE),exec)
+define add-lib
+LIBS += -l$(subst lib,,$(1))
+LFLAGS += -L$$(DEP_LIB_DIR_$(1))
+endef
+else # TARGET_TYPE
+define add-lib
+# nothing
+endef
+endif
+
+include $(MAKER_ROOT)/Makefile.dep

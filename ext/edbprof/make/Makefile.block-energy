@@ -1,0 +1,108 @@
+# This makefile is intended to be included from an app's makefile at
+# bld/edbprof/block-energy/Makefile
+
+APP_BUILD_DIR = ../..
+EDBPROF_BUILD_DIR = ..
+
+#include $(APP_BUILD_DIR)/Makefile
+override SRC_ROOT = $(APP_BUILD_DIR)/../src
+
+# Passed to us via '-e', so we must override to change it
+override CFLAGS += -DEDBPROF_BLOCK_ENERGY
+
+ifneq ($(INCLUDE_FUNCTIONS),)
+DECOMPOSE_ARGS += --include-functions $(INCLUDE_FUNCTIONS)
+endif # INCLUDE_FUNCTIONS
+ifneq ($(EXCLUDE_FUNCTIONS),)
+DECOMPOSE_ARGS += --exclude-functions $(EXCLUDE_FUNCTIONS)
+endif # EXCLUDE_FUNCTIONS
+
+INSTANCES_DIR = instances
+
+#define instance-rule
+#$(INSTANCES_DIR)/%/$(1) : harness.S
+#	$$(MAKE) -e -f $(EDBPROF_MAKE_ROOT)/Makefile.block-energy-instance -C $(INSTANCES_DIR)/$$* $(1)
+#endef
+
+define instance-rule
+$(INSTANCES_DIR)/%/$(1) :
+	$$(MAKE) -e -f $(EDBPROF_MAKE_ROOT)/Makefile.block-energy-instance -C $(INSTANCES_DIR)/$$* $(1)
+endef
+
+INSTANCE_TARGETS = \
+	dep \
+	depclean \
+	clean-instance \
+	block-rep.asm \
+	trace.csv \
+	energy.csv \
+	energy.pdf \
+	energy-hist.csv \
+	energy-hist.pdf \
+	energy-hist-interp.csv \
+	energy-hist-interp.pdf \
+	block-harness.out \
+	block-harness.S \
+
+$(foreach target,$(INSTANCE_TARGETS),$(eval $(call instance-rule,$(target))))
+
+prof: $(PROFILED_OBJECTS:=.energy.csv)
+
+#%.split-tasks.bc : %.bc
+#	$(OPT) $(EDBPROF_OPT_FLAGS) -split-tasks -o $@ $<
+
+$(INSTANCES_DIR) :
+	mkdir -p $(INSTANCES_DIR)
+
+# The following targets are per-module (% = module name)
+
+# Extract basic blocks with the contained instructions, from native assembly
+%.split-tasks.s: ../../chinchilla/%.S
+	cp $< $@
+
+%.block-map.csv : %.split-tasks.s | $(INSTANCES_DIR)
+	$(EDBPROF_BIN_ROOT)/decompose_chinchilla.py $(DECOMPOSE_ARGS) \
+	  --opaque-functions "$(call optpath,$(EDBPROF_BUILD_DIR),$(EDBPROF_OPAQUE_FUNCTIONS))" \
+	  -m $@ -o $(INSTANCES_DIR) $^
+
+%.rules : %.block-map.csv
+	$(EDBPROF_BIN_ROOT)/aggregate-rules.py -o $@ \
+	  --instances $^ --column 'block_hash' --dir $(INSTANCES_DIR) \
+	  $(INSTANCE_TARGETS)
+
+TOP_LEVEL_TARGETS = \
+	clean-phase \
+	%.rules \
+	%.block-map.csv \
+	%.split-tasks.bc \
+	%.split-tasks.ll \
+	%.split-tasks.s
+
+$(info PROFILED_OBJECTS=$(PROFILED_OBJECTS))
+#$(eval $(foreach obj,$(PROFILED_OBJECTS),-include $(obj).rules))
+$(eval $(foreach obj,$(PROFILED_OBJECTS),include $(obj).rules))
+
+#ifeq ($(filter $(TOP_LEVEL_TARGETS),$(MAKECMDGOALS)),)
+#$(eval $(foreach obj,$(PROFILED_OBJECTS),-include $(obj).rules))
+#endif
+
+%.energy.csv: %.block-map.csv energy.csv
+	$(EDBPROF_BIN_ROOT)/aggregate-block-energy.py -o $@ \
+	  -d $(INSTANCES_DIR) --energy-filename energy.csv $*.block-map.csv
+
+# The prerequisites are *.energy.csv, listed in the generated .brules
+%.energy.pdf : %.block-map.csv
+	$(EDBPROF_BIN_ROOT)/plot-block-energy.py --kde --map $*.block-map.csv -o $@ $*.energy.csv 
+	#$(filter-out $*.block-map.csv,$^)
+
+clean-phase: clean
+	rm -rf $(INSTANCES_DIR) *.block-map.csv *.rules *.csv *.pdf
+
+#include $(MAKER_ROOT)/Makefile.clang
+
+# Override the default %.out target (we only have per-instance harness.out target)
+harness.out : ;
+
+
+# do not remove any intermediate artifacts
+.SECONDARY:

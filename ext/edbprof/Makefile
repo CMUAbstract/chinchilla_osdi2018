@@ -1,0 +1,5 @@
+ifneq ($(EDBPROF_LOG_PATH_ENERGY),)
+  CMAKE_VARS += -DLOG_PATH_ENERGY=$(EDBPROF_LOG_PATH_ENERGY)
+endif
+
+include $(MAKER_ROOT)/Makefile.llvm

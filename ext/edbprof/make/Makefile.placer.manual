@@ -1,0 +1,14 @@
+# Describe boundary manual placement 
+
+# To get the .c file
+VPATH += $(SRC_ROOT)
+
+# TODO: assuming one profiled object
+boundary-spec.csv: $(PROFILED_OBJECTS:=.boundary-spec.csv)
+	cat $^ > $@
+
+%.boundary-spec.csv: %.c
+	echo 'boundary' > $@ && sed -n 's/\s*TASK_BOUNDARY(\([^)]\+\)).*/\1/p' $^ >> $@
+
+%.placer-time.csv:
+	echo -e "time_sec\nnan\n" > $@

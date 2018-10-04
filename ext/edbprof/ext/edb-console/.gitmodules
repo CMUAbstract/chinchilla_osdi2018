@@ -1,0 +1,3 @@
+[submodule "ext/pyedb"]
+	path = ext/pyedb
+	url = /afs/ece.cmu.edu/project/abstract/repos/edb/pyedb

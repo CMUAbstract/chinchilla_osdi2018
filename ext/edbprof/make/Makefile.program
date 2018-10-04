@@ -1,0 +1,20 @@
+include $(MAKER_ROOT)/Makefile.program
+
+define edb-power
+$(EDBCONSOLE_ROOT)/edb -c 'attach --device $(EDB_DEVICE); power $(1); detach'
+endef
+
+define do-powered-prog
+$(call edb-power,on)
+$(call prog,$(1))
+$(call edb-power,off)
+endef
+
+define powered-prog
+$(if $(filter-out 0,$(NO_PROG)),echo Skipping programming $$(1) because NO_PROG is set,$(call do-powered-prog,$$(1)))
+endef
+
+export powered-prog
+
+%.powered-prog: %.out
+	$(call powered-prog,$<)

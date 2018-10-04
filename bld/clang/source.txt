@@ -1,0 +1,1673 @@
+
+templog.out:     file format elf32-msp430
+
+
+Disassembly of section __interrupt_vector_49:
+
+0000fff0 <__interrupt_vector_49>:
+    fff0:	e0 4e       	interrupt service routine at 0x4ee0
+
+Disassembly of section .text:
+
+00004458 <__crt0_start>:
+    4458:	31 40 00 24 	mov	#9216,	r1	;#0x2400
+
+0000445c <__crt0_init_bss>:
+    445c:	3c 40 04 1c 	mov	#7172,	r12	;#0x1c04
+    4460:	0d 43       	clr	r13		;
+    4462:	3e 40 20 00 	mov	#32,	r14	;#0x0020
+    4466:	b0 12 a4 4f 	call	#20388		;#0x4fa4
+
+0000446a <__crt0_movedata>:
+    446a:	3c 40 00 1c 	mov	#7168,	r12	;#0x1c00
+    446e:	3d 40 50 44 	mov	#17488,	r13	;#0x4450
+    4472:	0d 9c       	cmp	r12,	r13	;
+    4474:	04 24       	jz	$+10     	;abs 0x447e
+    4476:	3e 40 04 00 	mov	#4,	r14	;
+    447a:	b0 12 64 4f 	call	#20324		;#0x4f64
+
+0000447e <__crt0_call_init_then_main>:
+    447e:	b0 12 d6 4f 	call	#20438		;#0x4fd6
+    4482:	0c 43       	clr	r12		;
+    4484:	b0 12 ac 45 	call	#17836		;#0x45ac
+
+00004488 <_msp430_run_init_array>:
+    4488:	34 40 44 44 	mov	#17476,	r4	;#0x4444
+    448c:	35 40 44 44 	mov	#17476,	r5	;#0x4444
+    4490:	26 43       	mov	#2,	r6	;r3 As==10
+    4492:	0d 3c       	jmp	$+28     	;abs 0x44ae
+
+00004494 <_msp430_run_preinit_array>:
+    4494:	34 40 44 44 	mov	#17476,	r4	;#0x4444
+    4498:	35 40 44 44 	mov	#17476,	r5	;#0x4444
+    449c:	26 43       	mov	#2,	r6	;r3 As==10
+    449e:	07 3c       	jmp	$+16     	;abs 0x44ae
+
+000044a0 <_msp430_run_fini_array>:
+    44a0:	34 40 44 44 	mov	#17476,	r4	;#0x4444
+    44a4:	35 40 44 44 	mov	#17476,	r5	;#0x4444
+    44a8:	36 40 fe ff 	mov	#65534,	r6	;#0xfffe
+    44ac:	00 3c       	jmp	$+2      	;abs 0x44ae
+
+000044ae <_msp430_run_array>:
+    44ae:	05 94       	cmp	r4,	r5	;
+    44b0:	05 24       	jz	$+12     	;abs 0x44bc
+    44b2:	27 44       	mov	@r4,	r7	;
+    44b4:	04 56       	add	r6,	r4	;
+    44b6:	a7 12       	call	@r7		;
+    44b8:	10 40 f4 ff 	br	0xfff4		;PC rel. 0x44ae
+
+000044bc <_msp430_run_done>:
+    44bc:	30 41       	ret			
+
+000044be <deregister_tm_clones>:
+    44be:	3c 40 f2 4f 	mov	#20466,	r12	;#0x4ff2
+    44c2:	3c 80 f1 4f 	sub	#20465,	r12	;#0x4ff1
+    44c6:	2d 43       	mov	#2,	r13	;r3 As==10
+    44c8:	0d 9c       	cmp	r12,	r13	;
+    44ca:	07 2c       	jc	$+16     	;abs 0x44da
+    44cc:	3d 40 00 00 	mov	#0,	r13	;
+    44d0:	0d 93       	cmp	#0,	r13	;r3 As==00
+    44d2:	03 24       	jz	$+8      	;abs 0x44da
+    44d4:	3c 40 f2 4f 	mov	#20466,	r12	;#0x4ff2
+    44d8:	8d 12       	call	r13		;
+    44da:	30 41       	ret			
+
+000044dc <register_tm_clones>:
+    44dc:	3d 40 f2 4f 	mov	#20466,	r13	;#0x4ff2
+    44e0:	3d 80 f2 4f 	sub	#20466,	r13	;#0x4ff2
+    44e4:	0d 11       	rra	r13		;
+    44e6:	0c 4d       	mov	r13,	r12	;
+    44e8:	5c 03       	rrum	#1,	r12	;
+    44ea:	4d 18 0c 11 	rpt #14 { rrax.w	r12		;
+    44ee:	0d 5c       	add	r12,	r13	;
+    44f0:	0d 11       	rra	r13		;
+    44f2:	0d 93       	cmp	#0,	r13	;r3 As==00
+    44f4:	07 24       	jz	$+16     	;abs 0x4504
+    44f6:	3e 40 00 00 	mov	#0,	r14	;
+    44fa:	0e 93       	cmp	#0,	r14	;r3 As==00
+    44fc:	03 24       	jz	$+8      	;abs 0x4504
+    44fe:	3c 40 f2 4f 	mov	#20466,	r12	;#0x4ff2
+    4502:	8e 12       	call	r14		;
+    4504:	30 41       	ret			
+
+00004506 <__do_global_dtors_aux>:
+    4506:	0a 15       	pushm	#1,	r10	;16-bit words
+    4508:	c2 93 04 1c 	cmp.b	#0,	&0x1c04	;r3 As==00
+    450c:	20 20       	jnz	$+66     	;abs 0x454e
+    450e:	1c 42 06 1c 	mov	&0x1c06,r12	;0x1c06
+    4512:	3a 40 4e 44 	mov	#17486,	r10	;#0x444e
+    4516:	3a 80 4c 44 	sub	#17484,	r10	;#0x444c
+    451a:	0a 11       	rra	r10		;
+    451c:	3a 53       	add	#-1,	r10	;r3 As==11
+    451e:	0c 9a       	cmp	r10,	r12	;
+    4520:	0b 2c       	jc	$+24     	;abs 0x4538
+    4522:	1c 53       	inc	r12		;
+    4524:	82 4c 06 1c 	mov	r12,	&0x1c06	;
+    4528:	0c 5c       	rla	r12		;
+    452a:	1c 4c 4c 44 	mov	17484(r12),r12	;0x0444c
+    452e:	8c 12       	call	r12		;
+    4530:	1c 42 06 1c 	mov	&0x1c06,r12	;0x1c06
+    4534:	0c 9a       	cmp	r10,	r12	;
+    4536:	f5 2b       	jnc	$-20     	;abs 0x4522
+    4538:	b0 12 be 44 	call	#17598		;#0x44be
+    453c:	3d 40 00 00 	mov	#0,	r13	;
+    4540:	0d 93       	cmp	#0,	r13	;r3 As==00
+    4542:	03 24       	jz	$+8      	;abs 0x454a
+    4544:	3c 40 40 44 	mov	#17472,	r12	;#0x4440
+    4548:	8d 12       	call	r13		;
+    454a:	d2 43 04 1c 	mov.b	#1,	&0x1c04	;r3 As==01
+    454e:	0a 17       	popm	#1,	r10	;16-bit words
+    4550:	30 41       	ret			
+
+00004552 <call___do_global_dtors_aux>:
+    4552:	30 41       	ret			
+
+00004554 <frame_dummy>:
+    4554:	3e 40 00 00 	mov	#0,	r14	;
+    4558:	0e 93       	cmp	#0,	r14	;r3 As==00
+    455a:	05 24       	jz	$+12     	;abs 0x4566
+    455c:	3c 40 40 44 	mov	#17472,	r12	;#0x4440
+    4560:	3d 40 08 1c 	mov	#7176,	r13	;#0x1c08
+    4564:	8e 12       	call	r14		;
+    4566:	3c 40 00 1c 	mov	#7168,	r12	;#0x1c00
+    456a:	8c 93 00 00 	cmp	#0,	0(r12)	;r3 As==00
+    456e:	03 20       	jnz	$+8      	;abs 0x4576
+    4570:	b0 12 dc 44 	call	#17628		;#0x44dc
+    4574:	30 41       	ret			
+    4576:	3d 40 00 00 	mov	#0,	r13	;
+    457a:	0d 93       	cmp	#0,	r13	;r3 As==00
+    457c:	f9 27       	jz	$-12     	;abs 0x4570
+    457e:	8d 12       	call	r13		;
+    4580:	f7 3f       	jmp	$-16     	;abs 0x4570
+
+00004582 <call_frame_dummy>:
+    4582:	30 41       	ret			
+
+00004584 <init>:
+    4584:	04 12       	push	r4		;
+    4586:	04 41       	mov	r1,	r4	;
+    4588:	21 82       	sub	#4,	r1	;r2 As==10
+    458a:	b0 12 e8 45 	call	#17896		;#0x45e8
+    458e:	b0 12 c8 4c 	call	#19656		;#0x4cc8
+    4592:	32 d2       	eint			
+    4594:	03 43       	nop			
+    4596:	0c 41       	mov	r1,	r12	;
+    4598:	bc 40 00 44 	mov	#17408,	0(r12)	;#0x4400
+    459c:	00 00 
+    459e:	b0 12 54 4b 	call	#19284		;#0x4b54
+    45a2:	84 4f fe ff 	mov	r15,	-2(r4)	; 0xfffe
+    45a6:	21 52       	add	#4,	r1	;r2 As==10
+    45a8:	34 41       	pop	r4		;
+    45aa:	30 41       	ret			
+
+000045ac <main>:
+    45ac:	04 12       	push	r4		;
+    45ae:	04 41       	mov	r1,	r4	;
+    45b0:	31 80 06 00 	sub	#6,	r1	;
+    45b4:	84 43 fe ff 	mov	#0,	-2(r4)	;r3 As==00, 0xfffe
+    45b8:	b0 12 84 45 	call	#17796		;#0x4584
+    45bc:	5c 42 25 02 	mov.b	&0x0225,r12	;0x0225
+    45c0:	1c d3       	bis	#1,	r12	;r3 As==01
+    45c2:	4d 4c       	mov.b	r12,	r13	;
+    45c4:	c2 4d 25 02 	mov.b	r13,	&0x0225	;
+    45c8:	5c 42 23 02 	mov.b	&0x0223,r12	;0x0223
+    45cc:	1c d3       	bis	#1,	r12	;r3 As==01
+    45ce:	4d 4c       	mov.b	r12,	r13	;
+    45d0:	c2 4d 23 02 	mov.b	r13,	&0x0223	;
+    45d4:	00 3c       	jmp	$+2      	;abs 0x45d6
+    45d6:	0c 41       	mov	r1,	r12	;
+    45d8:	bc 40 04 44 	mov	#17412,	0(r12)	;#0x4404
+    45dc:	00 00 
+    45de:	b0 12 54 4b 	call	#19284		;#0x4b54
+    45e2:	84 4f fc ff 	mov	r15,	-4(r4)	; 0xfffc
+    45e6:	f7 3f       	jmp	$-16     	;abs 0x45d6
+
+000045e8 <init_hw>:
+    45e8:	04 12       	push	r4		;
+    45ea:	04 41       	mov	r1,	r4	;
+    45ec:	b0 12 1c 46 	call	#17948		;#0x461c
+    45f0:	1c 42 30 01 	mov	&0x0130,r12	;0x0130
+    45f4:	3c f0 fe ff 	and	#65534,	r12	;#0xfffe
+    45f8:	82 4c 30 01 	mov	r12,	&0x0130	;
+    45fc:	b0 12 ac 46 	call	#18092		;#0x46ac
+    4600:	34 41       	pop	r4		;
+    4602:	30 41       	ret			
+
+00004604 <msp_watchdog_enable>:
+    4604:	04 12       	push	r4		;
+    4606:	04 41       	mov	r1,	r4	;
+    4608:	4c 4f       	mov.b	r15,	r12	;
+    460a:	3f d0 08 5a 	bis	#23048,	r15	;#0x5a08
+    460e:	82 4f 5c 01 	mov	r15,	&0x015c	;
+    4612:	c2 4c 16 1c 	mov.b	r12,	&0x1c16	;
+    4616:	34 41       	pop	r4		;
+    4618:	30 41       	ret			
+	...
+
+0000461c <msp_watchdog_disable>:
+    461c:	04 12       	push	r4		;
+    461e:	04 41       	mov	r1,	r4	;
+    4620:	b2 40 80 5a 	mov	#23168,	&0x015c	;#0x5a80
+    4624:	5c 01 
+    4626:	34 41       	pop	r4		;
+    4628:	30 41       	ret			
+	...
+
+0000462c <msp_watchdog_kick>:
+    462c:	04 12       	push	r4		;
+    462e:	04 41       	mov	r1,	r4	;
+    4630:	5c 42 16 1c 	mov.b	&0x1c16,r12	;0x1c16
+    4634:	3c d0 08 5a 	bis	#23048,	r12	;#0x5a08
+    4638:	82 4c 5c 01 	mov	r12,	&0x015c	;
+    463c:	34 41       	pop	r4		;
+    463e:	30 41       	ret			
+
+00004640 <memcpy>:
+    4640:	04 12       	push	r4		;
+    4642:	04 41       	mov	r1,	r4	;
+    4644:	31 82       	sub	#8,	r1	;r2 As==11
+    4646:	0c 4d       	mov	r13,	r12	;
+    4648:	0d 93       	cmp	#0,	r13	;r3 As==00
+    464a:	84 4f fe ff 	mov	r15,	-2(r4)	; 0xfffe
+    464e:	84 4c fc ff 	mov	r12,	-4(r4)	; 0xfffc
+    4652:	84 4e fa ff 	mov	r14,	-6(r4)	; 0xfffa
+    4656:	19 24       	jz	$+52     	;abs 0x468a
+    4658:	00 3c       	jmp	$+2      	;abs 0x465a
+    465a:	0c 43       	clr	r12		;
+    465c:	84 4c f8 ff 	mov	r12,	-8(r4)	; 0xfff8
+    4660:	00 3c       	jmp	$+2      	;abs 0x4662
+    4662:	1c 44 f8 ff 	mov	-8(r4),	r12	;
+    4666:	1d 44 fa ff 	mov	-6(r4),	r13	;
+    466a:	0d 5c       	add	r12,	r13	;
+    466c:	6e 4d       	mov.b	@r13,	r14	;
+    466e:	1d 44 fe ff 	mov	-2(r4),	r13	;
+    4672:	0d 5c       	add	r12,	r13	;
+    4674:	cd 4e 00 00 	mov.b	r14,	0(r13)	;
+    4678:	1c 53       	inc	r12		;
+    467a:	1d 44 fc ff 	mov	-4(r4),	r13	;
+    467e:	0c 9d       	cmp	r13,	r12	;
+    4680:	84 4c f8 ff 	mov	r12,	-8(r4)	; 0xfff8
+    4684:	ee 23       	jnz	$-34     	;abs 0x4662
+    4686:	00 3c       	jmp	$+2      	;abs 0x4688
+    4688:	00 3c       	jmp	$+2      	;abs 0x468a
+    468a:	1f 44 fe ff 	mov	-2(r4),	r15	;
+    468e:	31 52       	add	#8,	r1	;r2 As==11
+    4690:	34 41       	pop	r4		;
+    4692:	30 41       	ret			
+
+00004694 <my_memset>:
+    4694:	04 12       	push	r4		;
+    4696:	04 41       	mov	r1,	r4	;
+    4698:	0c 4f       	mov	r15,	r12	;
+    469a:	0d 5f       	add	r15,	r13	;
+    469c:	0c 9d       	cmp	r13,	r12	;
+    469e:	04 24       	jz	$+10     	;abs 0x46a8
+    46a0:	cc 4e 00 00 	mov.b	r14,	0(r12)	;
+    46a4:	1c 53       	inc	r12		;
+    46a6:	fa 3f       	jmp	$-10     	;abs 0x469c
+    46a8:	34 41       	pop	r4		;
+    46aa:	30 41       	ret			
+
+000046ac <msp_clock_setup>:
+    46ac:	04 12       	push	r4		;
+    46ae:	04 41       	mov	r1,	r4	;
+    46b0:	f2 40 a5 ff 	mov.b	#65445,	&0x0161	;#0xffa5
+    46b4:	61 01 
+    46b6:	b2 40 46 00 	mov	#70,	&0x0162	;#0x0046
+    46ba:	62 01 
+    46bc:	b2 40 33 00 	mov	#51,	&0x0164	;#0x0033
+    46c0:	64 01 
+    46c2:	82 43 66 01 	mov	#0,	&0x0166	;r3 As==00
+    46c6:	34 41       	pop	r4		;
+    46c8:	30 41       	ret			
+	...
+
+000046cc <mult16>:
+    46cc:	82 4f c0 04 	mov	r15,	&0x04c0	;
+    46d0:	82 4e c8 04 	mov	r14,	&0x04c8	;
+    46d4:	1e 42 ca 04 	mov	&0x04ca,r14	;0x04ca
+    46d8:	1f 42 cc 04 	mov	&0x04cc,r15	;0x04cc
+    46dc:	30 41       	ret			
+	...
+
+000046e0 <sqrt16>:
+    46e0:	04 12       	push	r4		;
+    46e2:	04 41       	mov	r1,	r4	;
+    46e4:	0b 12       	push	r11		;
+    46e6:	31 80 1e 00 	sub	#30,	r1	;#0x001e
+    46ea:	0c 4f       	mov	r15,	r12	;
+    46ec:	0d 4e       	mov	r14,	r13	;
+    46ee:	84 4f fa ff 	mov	r15,	-6(r4)	; 0xfffa
+    46f2:	84 4e f8 ff 	mov	r14,	-8(r4)	; 0xfff8
+    46f6:	b4 43 f6 ff 	mov	#-1,	-10(r4)	;r3 As==11, 0xfff6
+    46fa:	84 43 f4 ff 	mov	#0,	-12(r4)	;r3 As==00, 0xfff4
+    46fe:	1e 44 f6 ff 	mov	-10(r4),r14	;0xfffffff6
+    4702:	12 c3       	clrc			
+    4704:	0e 10       	rrc	r14		;
+    4706:	84 4e f2 ff 	mov	r14,	-14(r4)	; 0xfff2
+    470a:	84 43 ee ff 	mov	#0,	-18(r4)	;r3 As==00, 0xffee
+    470e:	84 43 ec ff 	mov	#0,	-20(r4)	;r3 As==00, 0xffec
+    4712:	84 4d ea ff 	mov	r13,	-22(r4)	; 0xffea
+    4716:	84 4c e8 ff 	mov	r12,	-24(r4)	; 0xffe8
+    471a:	00 3c       	jmp	$+2      	;abs 0x471c
+    471c:	1c 44 ec ff 	mov	-20(r4),r12	;0xffffffec
+    4720:	1d 44 ee ff 	mov	-18(r4),r13	;0xffffffee
+    4724:	1e 44 f8 ff 	mov	-8(r4),	r14	;
+    4728:	1f 44 fa ff 	mov	-6(r4),	r15	;
+    472c:	4b 43       	clr.b	r11		;
+    472e:	0d ef       	xor	r15,	r13	;
+    4730:	0c ee       	xor	r14,	r12	;
+    4732:	0c dd       	bis	r13,	r12	;
+    4734:	0c 93       	cmp	#0,	r12	;r3 As==00
+    4736:	c4 4b e7 ff 	mov.b	r11,	-25(r4)	; 0xffe7
+    473a:	0d 24       	jz	$+28     	;abs 0x4756
+    473c:	00 3c       	jmp	$+2      	;abs 0x473e
+    473e:	1c 44 f6 ff 	mov	-10(r4),r12	;0xfffffff6
+    4742:	1d 44 f4 ff 	mov	-12(r4),r13	;0xfffffff4
+    4746:	0c 8d       	sub	r13,	r12	;
+    4748:	2c 93       	cmp	#2,	r12	;r3 As==10
+    474a:	0c 42       	mov	r2,	r12	;
+    474c:	1c f3       	and	#1,	r12	;r3 As==01
+    474e:	4e 4c       	mov.b	r12,	r14	;
+    4750:	c4 4e e7 ff 	mov.b	r14,	-25(r4)	; 0xffe7
+    4754:	00 3c       	jmp	$+2      	;abs 0x4756
+    4756:	5c 44 e7 ff 	mov.b	-25(r4),r12	;0xffffffe7
+    475a:	4d 4c       	mov.b	r12,	r13	;
+    475c:	1d b3       	bit	#1,	r13	;r3 As==01
+    475e:	48 24       	jz	$+146    	;abs 0x47f0
+    4760:	00 3c       	jmp	$+2      	;abs 0x4762
+    4762:	1c 44 f6 ff 	mov	-10(r4),r12	;0xfffffff6
+    4766:	1d 44 f4 ff 	mov	-12(r4),r13	;0xfffffff4
+    476a:	0e 43       	clr	r14		;
+    476c:	0c 5d       	add	r13,	r12	;
+    476e:	0e 63       	adc	r14		;
+    4770:	12 c3       	clrc			
+    4772:	0c 10       	rrc	r12		;
+    4774:	0e 5e       	rla	r14		;
+    4776:	0e 5e       	rla	r14		;
+    4778:	0e 5e       	rla	r14		;
+    477a:	0e 5e       	rla	r14		;
+    477c:	0e 5e       	rla	r14		;
+    477e:	0e 5e       	rla	r14		;
+    4780:	0e 5e       	rla	r14		;
+    4782:	0e 5e       	rla	r14		;
+    4784:	0e 5e       	rla	r14		;
+    4786:	0e 5e       	rla	r14		;
+    4788:	0e 5e       	rla	r14		;
+    478a:	0e 5e       	rla	r14		;
+    478c:	0e 5e       	rla	r14		;
+    478e:	0e 5e       	rla	r14		;
+    4790:	0e 5e       	rla	r14		;
+    4792:	0c de       	bis	r14,	r12	;
+    4794:	84 4c f2 ff 	mov	r12,	-14(r4)	; 0xfff2
+    4798:	0f 4c       	mov	r12,	r15	;
+    479a:	0e 4c       	mov	r12,	r14	;
+    479c:	b0 12 cc 46 	call	#18124		;#0x46cc
+    47a0:	84 4f ee ff 	mov	r15,	-18(r4)	; 0xffee
+    47a4:	84 4e ec ff 	mov	r14,	-20(r4)	; 0xffec
+    47a8:	1c 44 f8 ff 	mov	-8(r4),	r12	;
+    47ac:	1d 44 fa ff 	mov	-6(r4),	r13	;
+    47b0:	0f 9d       	cmp	r13,	r15	;
+    47b2:	0b 42       	mov	r2,	r11	;
+    47b4:	1b f3       	and	#1,	r11	;r3 As==01
+    47b6:	0e 9c       	cmp	r12,	r14	;
+    47b8:	0c 42       	mov	r2,	r12	;
+    47ba:	1c f3       	and	#1,	r12	;r3 As==01
+    47bc:	0f 9d       	cmp	r13,	r15	;
+    47be:	84 4b e4 ff 	mov	r11,	-28(r4)	; 0xffe4
+    47c2:	84 4c e2 ff 	mov	r12,	-30(r4)	; 0xffe2
+    47c6:	04 24       	jz	$+10     	;abs 0x47d0
+    47c8:	1c 44 e4 ff 	mov	-28(r4),r12	;0xffffffe4
+    47cc:	84 4c e2 ff 	mov	r12,	-30(r4)	; 0xffe2
+    47d0:	1c 44 e2 ff 	mov	-30(r4),r12	;0xffffffe2
+    47d4:	1c b3       	bit	#1,	r12	;r3 As==01
+    47d6:	06 20       	jnz	$+14     	;abs 0x47e4
+    47d8:	00 3c       	jmp	$+2      	;abs 0x47da
+    47da:	1c 44 f2 ff 	mov	-14(r4),r12	;0xfffffff2
+    47de:	84 4c f4 ff 	mov	r12,	-12(r4)	; 0xfff4
+    47e2:	05 3c       	jmp	$+12     	;abs 0x47ee
+    47e4:	1c 44 f2 ff 	mov	-14(r4),r12	;0xfffffff2
+    47e8:	84 4c f6 ff 	mov	r12,	-10(r4)	; 0xfff6
+    47ec:	00 3c       	jmp	$+2      	;abs 0x47ee
+    47ee:	96 3f       	jmp	$-210    	;abs 0x471c
+    47f0:	1f 44 f2 ff 	mov	-14(r4),r15	;0xfffffff2
+    47f4:	31 50 1e 00 	add	#30,	r1	;#0x001e
+    47f8:	3b 41       	pop	r11		;
+    47fa:	34 41       	pop	r4		;
+    47fc:	30 41       	ret			
+	...
+
+00004800 <udivmodhi4>:
+    4800:	04 12       	push	r4		;
+    4802:	04 41       	mov	r1,	r4	;
+    4804:	0b 12       	push	r11		;
+    4806:	0a 12       	push	r10		;
+    4808:	31 80 14 00 	sub	#20,	r1	;#0x0014
+    480c:	0c 4d       	mov	r13,	r12	;
+    480e:	0b 4e       	mov	r14,	r11	;
+    4810:	0a 4f       	mov	r15,	r10	;
+    4812:	84 4f f8 ff 	mov	r15,	-8(r4)	; 0xfff8
+    4816:	84 4e f6 ff 	mov	r14,	-10(r4)	; 0xfff6
+    481a:	84 4d f4 ff 	mov	r13,	-12(r4)	; 0xfff4
+    481e:	94 43 f2 ff 	mov	#1,	-14(r4)	;r3 As==01, 0xfff2
+    4822:	84 43 f0 ff 	mov	#0,	-16(r4)	;r3 As==00, 0xfff0
+    4826:	84 4c ee ff 	mov	r12,	-18(r4)	; 0xffee
+    482a:	84 4b ec ff 	mov	r11,	-20(r4)	; 0xffec
+    482e:	84 4a ea ff 	mov	r10,	-22(r4)	; 0xffea
+    4832:	00 3c       	jmp	$+2      	;abs 0x4834
+    4834:	1c 44 f6 ff 	mov	-10(r4),r12	;0xfffffff6
+    4838:	1d 44 f8 ff 	mov	-8(r4),	r13	;
+    483c:	4e 43       	clr.b	r14		;
+    483e:	0c 9d       	cmp	r13,	r12	;
+    4840:	c4 4e e9 ff 	mov.b	r14,	-23(r4)	; 0xffe9
+    4844:	14 2c       	jc	$+42     	;abs 0x486e
+    4846:	00 3c       	jmp	$+2      	;abs 0x4848
+    4848:	1c 44 f2 ff 	mov	-14(r4),r12	;0xfffffff2
+    484c:	4d 43       	clr.b	r13		;
+    484e:	0c 93       	cmp	#0,	r12	;r3 As==00
+    4850:	c4 4d e9 ff 	mov.b	r13,	-23(r4)	; 0xffe9
+    4854:	0c 24       	jz	$+26     	;abs 0x486e
+    4856:	00 3c       	jmp	$+2      	;abs 0x4858
+    4858:	5c 44 f7 ff 	mov.b	-9(r4),	r12	;
+    485c:	7c b0 80 ff 	bit.b	#65408,	r12	;#0xff80
+    4860:	0d 42       	mov	r2,	r13	;
+    4862:	0d 11       	rra	r13		;
+    4864:	1d f3       	and	#1,	r13	;r3 As==01
+    4866:	4c 4d       	mov.b	r13,	r12	;
+    4868:	c4 4c e9 ff 	mov.b	r12,	-23(r4)	; 0xffe9
+    486c:	00 3c       	jmp	$+2      	;abs 0x486e
+    486e:	5c 44 e9 ff 	mov.b	-23(r4),r12	;0xffffffe9
+    4872:	4d 4c       	mov.b	r12,	r13	;
+    4874:	1d b3       	bit	#1,	r13	;r3 As==01
+    4876:	0c 24       	jz	$+26     	;abs 0x4890
+    4878:	00 3c       	jmp	$+2      	;abs 0x487a
+    487a:	1c 44 f6 ff 	mov	-10(r4),r12	;0xfffffff6
+    487e:	0c 5c       	rla	r12		;
+    4880:	84 4c f6 ff 	mov	r12,	-10(r4)	; 0xfff6
+    4884:	1c 44 f2 ff 	mov	-14(r4),r12	;0xfffffff2
+    4888:	0c 5c       	rla	r12		;
+    488a:	84 4c f2 ff 	mov	r12,	-14(r4)	; 0xfff2
+    488e:	d2 3f       	jmp	$-90     	;abs 0x4834
+    4890:	00 3c       	jmp	$+2      	;abs 0x4892
+    4892:	1c 44 f2 ff 	mov	-14(r4),r12	;0xfffffff2
+    4896:	0c 93       	cmp	#0,	r12	;r3 As==00
+    4898:	24 24       	jz	$+74     	;abs 0x48e2
+    489a:	00 3c       	jmp	$+2      	;abs 0x489c
+    489c:	1c 44 f8 ff 	mov	-8(r4),	r12	;
+    48a0:	1d 44 f6 ff 	mov	-10(r4),r13	;0xfffffff6
+    48a4:	0c 9d       	cmp	r13,	r12	;
+    48a6:	10 28       	jnc	$+34     	;abs 0x48c8
+    48a8:	00 3c       	jmp	$+2      	;abs 0x48aa
+    48aa:	1c 44 f6 ff 	mov	-10(r4),r12	;0xfffffff6
+    48ae:	1d 44 f8 ff 	mov	-8(r4),	r13	;
+    48b2:	0d 8c       	sub	r12,	r13	;
+    48b4:	84 4d f8 ff 	mov	r13,	-8(r4)	; 0xfff8
+    48b8:	1c 44 f2 ff 	mov	-14(r4),r12	;0xfffffff2
+    48bc:	1d 44 f0 ff 	mov	-16(r4),r13	;0xfffffff0
+    48c0:	0d dc       	bis	r12,	r13	;
+    48c2:	84 4d f0 ff 	mov	r13,	-16(r4)	; 0xfff0
+    48c6:	00 3c       	jmp	$+2      	;abs 0x48c8
+    48c8:	1c 44 f2 ff 	mov	-14(r4),r12	;0xfffffff2
+    48cc:	12 c3       	clrc			
+    48ce:	0c 10       	rrc	r12		;
+    48d0:	84 4c f2 ff 	mov	r12,	-14(r4)	; 0xfff2
+    48d4:	1c 44 f6 ff 	mov	-10(r4),r12	;0xfffffff6
+    48d8:	12 c3       	clrc			
+    48da:	0c 10       	rrc	r12		;
+    48dc:	84 4c f6 ff 	mov	r12,	-10(r4)	; 0xfff6
+    48e0:	d8 3f       	jmp	$-78     	;abs 0x4892
+    48e2:	1c 44 f4 ff 	mov	-12(r4),r12	;0xfffffff4
+    48e6:	0c 93       	cmp	#0,	r12	;r3 As==00
+    48e8:	06 24       	jz	$+14     	;abs 0x48f6
+    48ea:	00 3c       	jmp	$+2      	;abs 0x48ec
+    48ec:	1c 44 f8 ff 	mov	-8(r4),	r12	;
+    48f0:	84 4c fa ff 	mov	r12,	-6(r4)	; 0xfffa
+    48f4:	05 3c       	jmp	$+12     	;abs 0x4900
+    48f6:	1c 44 f0 ff 	mov	-16(r4),r12	;0xfffffff0
+    48fa:	84 4c fa ff 	mov	r12,	-6(r4)	; 0xfffa
+    48fe:	00 3c       	jmp	$+2      	;abs 0x4900
+    4900:	1f 44 fa ff 	mov	-6(r4),	r15	;
+    4904:	31 50 14 00 	add	#20,	r1	;#0x0014
+    4908:	3a 41       	pop	r10		;
+    490a:	3b 41       	pop	r11		;
+    490c:	34 41       	pop	r4		;
+    490e:	30 41       	ret			
+
+00004910 <__divhi3>:
+    4910:	04 12       	push	r4		;
+    4912:	04 41       	mov	r1,	r4	;
+    4914:	31 80 0c 00 	sub	#12,	r1	;#0x000c
+    4918:	0c 4e       	mov	r14,	r12	;
+    491a:	0d 4f       	mov	r15,	r13	;
+    491c:	84 4f fe ff 	mov	r15,	-2(r4)	; 0xfffe
+    4920:	84 4e fc ff 	mov	r14,	-4(r4)	; 0xfffc
+    4924:	84 43 fa ff 	mov	#0,	-6(r4)	;r3 As==00, 0xfffa
+    4928:	1e 44 fe ff 	mov	-2(r4),	r14	;
+    492c:	0e 93       	cmp	#0,	r14	;r3 As==00
+    492e:	84 4c f6 ff 	mov	r12,	-10(r4)	; 0xfff6
+    4932:	84 4d f4 ff 	mov	r13,	-12(r4)	; 0xfff4
+    4936:	10 34       	jge	$+34     	;abs 0x4958
+    4938:	00 3c       	jmp	$+2      	;abs 0x493a
+    493a:	1c 44 fe ff 	mov	-2(r4),	r12	;
+    493e:	0d 43       	clr	r13		;
+    4940:	0d 8c       	sub	r12,	r13	;
+    4942:	84 4d fe ff 	mov	r13,	-2(r4)	; 0xfffe
+    4946:	1c 44 fa ff 	mov	-6(r4),	r12	;
+    494a:	0c 93       	cmp	#0,	r12	;r3 As==00
+    494c:	0c 42       	mov	r2,	r12	;
+    494e:	0c 11       	rra	r12		;
+    4950:	1c f3       	and	#1,	r12	;r3 As==01
+    4952:	84 4c fa ff 	mov	r12,	-6(r4)	; 0xfffa
+    4956:	00 3c       	jmp	$+2      	;abs 0x4958
+    4958:	1c 44 fc ff 	mov	-4(r4),	r12	;
+    495c:	0c 93       	cmp	#0,	r12	;r3 As==00
+    495e:	10 34       	jge	$+34     	;abs 0x4980
+    4960:	00 3c       	jmp	$+2      	;abs 0x4962
+    4962:	1c 44 fc ff 	mov	-4(r4),	r12	;
+    4966:	0d 43       	clr	r13		;
+    4968:	0d 8c       	sub	r12,	r13	;
+    496a:	84 4d fc ff 	mov	r13,	-4(r4)	; 0xfffc
+    496e:	1c 44 fa ff 	mov	-6(r4),	r12	;
+    4972:	0c 93       	cmp	#0,	r12	;r3 As==00
+    4974:	0c 42       	mov	r2,	r12	;
+    4976:	0c 11       	rra	r12		;
+    4978:	1c f3       	and	#1,	r12	;r3 As==01
+    497a:	84 4c fa ff 	mov	r12,	-6(r4)	; 0xfffa
+    497e:	00 3c       	jmp	$+2      	;abs 0x4980
+    4980:	1f 44 fe ff 	mov	-2(r4),	r15	;
+    4984:	1e 44 fc ff 	mov	-4(r4),	r14	;
+    4988:	0d 43       	clr	r13		;
+    498a:	b0 12 00 48 	call	#18432		;#0x4800
+    498e:	84 4f f8 ff 	mov	r15,	-8(r4)	; 0xfff8
+    4992:	1d 44 fa ff 	mov	-6(r4),	r13	;
+    4996:	0d 93       	cmp	#0,	r13	;r3 As==00
+    4998:	08 24       	jz	$+18     	;abs 0x49aa
+    499a:	00 3c       	jmp	$+2      	;abs 0x499c
+    499c:	1c 44 f8 ff 	mov	-8(r4),	r12	;
+    49a0:	0d 43       	clr	r13		;
+    49a2:	0d 8c       	sub	r12,	r13	;
+    49a4:	84 4d f8 ff 	mov	r13,	-8(r4)	; 0xfff8
+    49a8:	00 3c       	jmp	$+2      	;abs 0x49aa
+    49aa:	1f 44 f8 ff 	mov	-8(r4),	r15	;
+    49ae:	31 50 0c 00 	add	#12,	r1	;#0x000c
+    49b2:	34 41       	pop	r4		;
+    49b4:	30 41       	ret			
+	...
+
+000049b8 <__modhi3>:
+    49b8:	04 12       	push	r4		;
+    49ba:	04 41       	mov	r1,	r4	;
+    49bc:	31 80 0c 00 	sub	#12,	r1	;#0x000c
+    49c0:	0c 4e       	mov	r14,	r12	;
+    49c2:	0d 4f       	mov	r15,	r13	;
+    49c4:	84 4f fe ff 	mov	r15,	-2(r4)	; 0xfffe
+    49c8:	84 4e fc ff 	mov	r14,	-4(r4)	; 0xfffc
+    49cc:	84 43 fa ff 	mov	#0,	-6(r4)	;r3 As==00, 0xfffa
+    49d0:	1e 44 fe ff 	mov	-2(r4),	r14	;
+    49d4:	0e 93       	cmp	#0,	r14	;r3 As==00
+    49d6:	84 4c f6 ff 	mov	r12,	-10(r4)	; 0xfff6
+    49da:	84 4d f4 ff 	mov	r13,	-12(r4)	; 0xfff4
+    49de:	0a 34       	jge	$+22     	;abs 0x49f4
+    49e0:	00 3c       	jmp	$+2      	;abs 0x49e2
+    49e2:	1c 44 fe ff 	mov	-2(r4),	r12	;
+    49e6:	0d 43       	clr	r13		;
+    49e8:	0d 8c       	sub	r12,	r13	;
+    49ea:	84 4d fe ff 	mov	r13,	-2(r4)	; 0xfffe
+    49ee:	94 43 fa ff 	mov	#1,	-6(r4)	;r3 As==01, 0xfffa
+    49f2:	00 3c       	jmp	$+2      	;abs 0x49f4
+    49f4:	1c 44 fc ff 	mov	-4(r4),	r12	;
+    49f8:	0c 93       	cmp	#0,	r12	;r3 As==00
+    49fa:	08 34       	jge	$+18     	;abs 0x4a0c
+    49fc:	00 3c       	jmp	$+2      	;abs 0x49fe
+    49fe:	1c 44 fc ff 	mov	-4(r4),	r12	;
+    4a02:	0d 43       	clr	r13		;
+    4a04:	0d 8c       	sub	r12,	r13	;
+    4a06:	84 4d fc ff 	mov	r13,	-4(r4)	; 0xfffc
+    4a0a:	00 3c       	jmp	$+2      	;abs 0x4a0c
+    4a0c:	1f 44 fe ff 	mov	-2(r4),	r15	;
+    4a10:	1e 44 fc ff 	mov	-4(r4),	r14	;
+    4a14:	1d 43       	mov	#1,	r13	;r3 As==01
+    4a16:	b0 12 00 48 	call	#18432		;#0x4800
+    4a1a:	84 4f f8 ff 	mov	r15,	-8(r4)	; 0xfff8
+    4a1e:	1d 44 fa ff 	mov	-6(r4),	r13	;
+    4a22:	0d 93       	cmp	#0,	r13	;r3 As==00
+    4a24:	08 24       	jz	$+18     	;abs 0x4a36
+    4a26:	00 3c       	jmp	$+2      	;abs 0x4a28
+    4a28:	1c 44 f8 ff 	mov	-8(r4),	r12	;
+    4a2c:	0d 43       	clr	r13		;
+    4a2e:	0d 8c       	sub	r12,	r13	;
+    4a30:	84 4d f8 ff 	mov	r13,	-8(r4)	; 0xfff8
+    4a34:	00 3c       	jmp	$+2      	;abs 0x4a36
+    4a36:	1f 44 f8 ff 	mov	-8(r4),	r15	;
+    4a3a:	31 50 0c 00 	add	#12,	r1	;#0x000c
+    4a3e:	34 41       	pop	r4		;
+    4a40:	30 41       	ret			
+	...
+
+00004a44 <__udivhi3>:
+    4a44:	04 12       	push	r4		;
+    4a46:	04 41       	mov	r1,	r4	;
+    4a48:	0b 12       	push	r11		;
+    4a4a:	31 82       	sub	#8,	r1	;r2 As==11
+    4a4c:	0c 4e       	mov	r14,	r12	;
+    4a4e:	0d 4f       	mov	r15,	r13	;
+    4a50:	84 4f fc ff 	mov	r15,	-4(r4)	; 0xfffc
+    4a54:	84 4e fa ff 	mov	r14,	-6(r4)	; 0xfffa
+    4a58:	1f 44 fc ff 	mov	-4(r4),	r15	;
+    4a5c:	0b 43       	clr	r11		;
+    4a5e:	84 4d f8 ff 	mov	r13,	-8(r4)	; 0xfff8
+    4a62:	0d 4b       	mov	r11,	r13	;
+    4a64:	84 4c f6 ff 	mov	r12,	-10(r4)	; 0xfff6
+    4a68:	b0 12 00 48 	call	#18432		;#0x4800
+    4a6c:	31 52       	add	#8,	r1	;r2 As==11
+    4a6e:	3b 41       	pop	r11		;
+    4a70:	34 41       	pop	r4		;
+    4a72:	30 41       	ret			
+
+00004a74 <__umodhi3>:
+    4a74:	04 12       	push	r4		;
+    4a76:	04 41       	mov	r1,	r4	;
+    4a78:	0b 12       	push	r11		;
+    4a7a:	31 82       	sub	#8,	r1	;r2 As==11
+    4a7c:	0c 4e       	mov	r14,	r12	;
+    4a7e:	0d 4f       	mov	r15,	r13	;
+    4a80:	84 4f fc ff 	mov	r15,	-4(r4)	; 0xfffc
+    4a84:	84 4e fa ff 	mov	r14,	-6(r4)	; 0xfffa
+    4a88:	1f 44 fc ff 	mov	-4(r4),	r15	;
+    4a8c:	1b 43       	mov	#1,	r11	;r3 As==01
+    4a8e:	84 4d f8 ff 	mov	r13,	-8(r4)	; 0xfff8
+    4a92:	0d 4b       	mov	r11,	r13	;
+    4a94:	84 4c f6 ff 	mov	r12,	-10(r4)	; 0xfff6
+    4a98:	b0 12 00 48 	call	#18432		;#0x4800
+    4a9c:	31 52       	add	#8,	r1	;r2 As==11
+    4a9e:	3b 41       	pop	r11		;
+    4aa0:	34 41       	pop	r4		;
+    4aa2:	30 41       	ret			
+
+00004aa4 <xtoa>:
+            10,     // +8
+             1,     // +9
+};
+
+static void xtoa(unsigned long x, const unsigned long *dp)
+{
+    4aa4:	6a 15       	pushm	#7,	r10	;16-bit words
+    4aa6:	08 4c       	mov	r12,	r8	;
+    4aa8:	09 4d       	mov	r13,	r9	;
+    char c;
+    unsigned long d;
+    if(x) {
+    4aaa:	0c dd       	bis	r13,	r12	;
+    4aac:	0c 93       	cmp	#0,	r12	;r3 As==00
+    4aae:	36 24       	jz	$+110    	;abs 0x4b1c
+        while(x < *dp) ++dp;
+    4ab0:	1d 9e 02 00 	cmp	2(r14),	r13	;
+    4ab4:	05 28       	jnc	$+12     	;abs 0x4ac0
+    4ab6:	8e 9d 02 00 	cmp	r13,	2(r14)	;
+    4aba:	0d 20       	jnz	$+28     	;abs 0x4ad6
+    4abc:	28 9e       	cmp	@r14,	r8	;
+    4abe:	0b 2c       	jc	$+24     	;abs 0x4ad6
+    4ac0:	0c 49       	mov	r9,	r12	;
+    4ac2:	0d 48       	mov	r8,	r13	;
+    4ac4:	2e 52       	add	#4,	r14	;r2 As==10
+    4ac6:	1c 9e 02 00 	cmp	2(r14),	r12	;
+    4aca:	fc 2b       	jnc	$-6      	;abs 0x4ac4
+    4acc:	8e 99 02 00 	cmp	r9,	2(r14)	;
+    4ad0:	02 20       	jnz	$+6      	;abs 0x4ad6
+    4ad2:	2d 9e       	cmp	@r14,	r13	;
+    4ad4:	f7 2b       	jnc	$-16     	;abs 0x4ac4
+    4ad6:	0a 4e       	mov	r14,	r10	;
+        do {
+            d = *dp++;
+            c = '0';
+    4ad8:	34 40 30 00 	mov	#48,	r4	;#0x0030
+            while(x >= d) ++c, x -= d;
+            PUTC(c);
+    4adc:	35 40 ce 4c 	mov	#19662,	r5	;#0x4cce
+    char c;
+    unsigned long d;
+    if(x) {
+        while(x < *dp) ++dp;
+        do {
+            d = *dp++;
+    4ae0:	26 4a       	mov	@r10,	r6	;
+    4ae2:	17 4a 02 00 	mov	2(r10),	r7	;
+            c = '0';
+            while(x >= d) ++c, x -= d;
+    4ae6:	09 97       	cmp	r7,	r9	;
+    4ae8:	12 28       	jnc	$+38     	;abs 0x4b0e
+    4aea:	07 99       	cmp	r9,	r7	;
+    4aec:	02 20       	jnz	$+6      	;abs 0x4af2
+    4aee:	08 96       	cmp	r6,	r8	;
+    4af0:	0e 28       	jnc	$+30     	;abs 0x4b0e
+    4af2:	0c 44       	mov	r4,	r12	;
+    4af4:	0e 47       	mov	r7,	r14	;
+    4af6:	5c 53       	inc.b	r12		;
+    4af8:	3c f0 ff 00 	and	#255,	r12	;#0x00ff
+    4afc:	08 86       	sub	r6,	r8	;
+    4afe:	09 77       	subc	r7,	r9	;
+    4b00:	09 97       	cmp	r7,	r9	;
+    4b02:	06 28       	jnc	$+14     	;abs 0x4b10
+    4b04:	0e 99       	cmp	r9,	r14	;
+    4b06:	f7 23       	jnz	$-16     	;abs 0x4af6
+    4b08:	08 96       	cmp	r6,	r8	;
+    4b0a:	f5 2f       	jc	$-20     	;abs 0x4af6
+    4b0c:	01 3c       	jmp	$+4      	;abs 0x4b10
+    unsigned long d;
+    if(x) {
+        while(x < *dp) ++dp;
+        do {
+            d = *dp++;
+            c = '0';
+    4b0e:	0c 44       	mov	r4,	r12	;
+            while(x >= d) ++c, x -= d;
+            PUTC(c);
+    4b10:	85 12       	call	r5		;
+    4b12:	2a 52       	add	#4,	r10	;r2 As==10
+        } while(!(d & 1));
+    4b14:	16 f3       	and	#1,	r6	;r3 As==01
+    4b16:	06 93       	cmp	#0,	r6	;r3 As==00
+    4b18:	e3 27       	jz	$-56     	;abs 0x4ae0
+    4b1a:	04 3c       	jmp	$+10     	;abs 0x4b24
+    } else {
+        PUTC('0');
+    4b1c:	3c 40 30 00 	mov	#48,	r12	;#0x0030
+    4b20:	b0 12 ce 4c 	call	#19662		;#0x4cce
+    }
+}
+    4b24:	64 17       	popm	#7,	r10	;16-bit words
+    4b26:	30 41       	ret			
+
+00004b28 <puth>:
+
+static void puth(unsigned n)
+{
+    static const char hex[16] = { '0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
+    char c = hex[n & 15];
+    PUTC(hex[n & 15]);
+    4b28:	3c f0 0f 00 	and	#15,	r12	;#0x000f
+    4b2c:	5c 4c 08 44 	mov.b	17416(r12),r12	;0x04408
+    4b30:	b0 12 ce 4c 	call	#19662		;#0x4cce
+}
+    4b34:	30 41       	ret			
+
+00004b36 <puts>:
+
+int puts(const char *str){
+    4b36:	1a 15       	pushm	#2,	r10	;16-bit words
+    4b38:	0a 4c       	mov	r12,	r10	;
+	while(*str != 0){
+    4b3a:	6c 4c       	mov.b	@r12,	r12	;
+    4b3c:	0c 93       	cmp	#0,	r12	;r3 As==00
+    4b3e:	07 24       	jz	$+16     	;abs 0x4b4e
+		PUTC(*str++);
+    4b40:	39 40 ce 4c 	mov	#19662,	r9	;#0x4cce
+    4b44:	1a 53       	inc	r10		;
+    4b46:	89 12       	call	r9		;
+    char c = hex[n & 15];
+    PUTC(hex[n & 15]);
+}
+
+int puts(const char *str){
+	while(*str != 0){
+    4b48:	6c 4a       	mov.b	@r10,	r12	;
+    4b4a:	0c 93       	cmp	#0,	r12	;r3 As==00
+    4b4c:	fb 23       	jnz	$-8      	;abs 0x4b44
+		PUTC(*str++);
+	}
+	return 0;
+}
+    4b4e:	0c 43       	clr	r12		;
+    4b50:	19 17       	popm	#2,	r10	;16-bit words
+    4b52:	30 41       	ret			
+
+00004b54 <printf>:
+
+int printf(const char *format, ...)
+{
+    4b54:	6a 15       	pushm	#7,	r10	;16-bit words
+    4b56:	1a 41 10 00 	mov	16(r1),	r10	;0x00010
+    long n;
+    int fill_zeros;
+    unsigned d;
+
+    va_list a;
+    va_start(a, format);
+    4b5a:	08 41       	mov	r1,	r8	;
+    4b5c:	38 50 12 00 	add	#18,	r8	;#0x0012
+                    goto parse_fmt_char;
+                case 0: return 0;
+                default: goto bad_fmt;
+            }
+        } else
+bad_fmt:    PUTC(c);
+    4b60:	35 40 ce 4c 	mov	#19662,	r5	;#0x4cce
+                    break;
+                case 'i':                       // 16 bit Integer
+                case 'u':                       // 16 bit Unsigned
+                    i = va_arg(a, int);
+                    if(c == 'i' && i < 0) i = -i, PUTC('-');
+                    xtoa((unsigned)i, dv + 5);
+    4b64:	34 40 2c 44 	mov	#17452,	r4	;#0x442c
+    int fill_zeros;
+    unsigned d;
+
+    va_list a;
+    va_start(a, format);
+    while((c = *format++)) {
+    4b68:	a7 3c       	jmp	$+336    	;abs 0x4cb8
+        if(c == '%') {
+    4b6a:	3c 90 25 00 	cmp	#37,	r12	;#0x0025
+    4b6e:	a2 20       	jnz	$+326    	;abs 0x4cb4
+    4b70:	0d 4a       	mov	r10,	r13	;
+    4b72:	2d 53       	incd	r13		;
+    4b74:	07 43       	clr	r7		;
+            fill_zeros = 0;
+parse_fmt_char:
+            switch(c = *format++) {
+    4b76:	7e 40 6c 00 	mov.b	#108,	r14	;#0x006c
+    4b7a:	0a 4d       	mov	r13,	r10	;
+    4b7c:	6c 49       	mov.b	@r9,	r12	;
+    4b7e:	3c 90 6c 00 	cmp	#108,	r12	;#0x006c
+    4b82:	4b 24       	jz	$+152    	;abs 0x4c1a
+    4b84:	4e 9c       	cmp.b	r12,	r14	;
+    4b86:	11 28       	jnc	$+36     	;abs 0x4baa
+    4b88:	3c 90 30 00 	cmp	#48,	r12	;#0x0030
+    4b8c:	8c 24       	jz	$+282    	;abs 0x4ca6
+    4b8e:	7d 40 30 00 	mov.b	#48,	r13	;#0x0030
+    4b92:	4d 9c       	cmp.b	r12,	r13	;
+    4b94:	03 28       	jnc	$+8      	;abs 0x4b9c
+    4b96:	0c 93       	cmp	#0,	r12	;r3 As==00
+    4b98:	94 24       	jz	$+298    	;abs 0x4cc2
+    4b9a:	8b 3c       	jmp	$+280    	;abs 0x4cb2
+    4b9c:	3c 90 63 00 	cmp	#99,	r12	;#0x0063
+    4ba0:	1d 24       	jz	$+60     	;abs 0x4bdc
+    4ba2:	3c 90 69 00 	cmp	#105,	r12	;#0x0069
+    4ba6:	22 24       	jz	$+70     	;abs 0x4bec
+    4ba8:	84 3c       	jmp	$+266    	;abs 0x4cb2
+    4baa:	3c 90 73 00 	cmp	#115,	r12	;#0x0073
+    4bae:	0f 24       	jz	$+32     	;abs 0x4bce
+    4bb0:	7d 40 73 00 	mov.b	#115,	r13	;#0x0073
+    4bb4:	4d 9c       	cmp.b	r12,	r13	;
+    4bb6:	04 28       	jnc	$+10     	;abs 0x4bc0
+    4bb8:	3c 90 6e 00 	cmp	#110,	r12	;#0x006e
+    4bbc:	2e 24       	jz	$+94     	;abs 0x4c1a
+    4bbe:	79 3c       	jmp	$+244    	;abs 0x4cb2
+    4bc0:	3c 90 75 00 	cmp	#117,	r12	;#0x0075
+    4bc4:	13 24       	jz	$+40     	;abs 0x4bec
+    4bc6:	3c 90 78 00 	cmp	#120,	r12	;#0x0078
+    4bca:	44 24       	jz	$+138    	;abs 0x4c54
+    4bcc:	72 3c       	jmp	$+230    	;abs 0x4cb2
+                case 's':                       // String
+                    io_puts_no_newline(va_arg(a, char*));
+    4bce:	09 48       	mov	r8,	r9	;
+    4bd0:	29 53       	incd	r9		;
+    4bd2:	2c 48       	mov	@r8,	r12	;
+    4bd4:	b0 12 ea 4c 	call	#19690		;#0x4cea
+    4bd8:	08 49       	mov	r9,	r8	;
+                    break;
+    4bda:	6e 3c       	jmp	$+222    	;abs 0x4cb8
+                case 'c':                       // Char
+                    PUTC(va_arg(a, int)); // TODO: 'char' generated a warning
+    4bdc:	18 53       	inc	r8		;
+    4bde:	0c 48       	mov	r8,	r12	;
+    4be0:	1c c3       	bic	#1,	r12	;r3 As==01
+    4be2:	08 4c       	mov	r12,	r8	;
+    4be4:	28 53       	incd	r8		;
+    4be6:	2c 4c       	mov	@r12,	r12	;
+    4be8:	85 12       	call	r5		;
+                    break;
+    4bea:	66 3c       	jmp	$+206    	;abs 0x4cb8
+                case 'i':                       // 16 bit Integer
+                case 'u':                       // 16 bit Unsigned
+                    i = va_arg(a, int);
+    4bec:	18 53       	inc	r8		;
+    4bee:	0d 48       	mov	r8,	r13	;
+    4bf0:	1d c3       	bic	#1,	r13	;r3 As==01
+    4bf2:	08 4d       	mov	r13,	r8	;
+    4bf4:	28 53       	incd	r8		;
+    4bf6:	29 4d       	mov	@r13,	r9	;
+                    if(c == 'i' && i < 0) i = -i, PUTC('-');
+    4bf8:	3c 90 69 00 	cmp	#105,	r12	;#0x0069
+    4bfc:	08 20       	jnz	$+18     	;abs 0x4c0e
+    4bfe:	09 93       	cmp	#0,	r9	;r3 As==00
+    4c00:	06 34       	jge	$+14     	;abs 0x4c0e
+    4c02:	0c 43       	clr	r12		;
+    4c04:	0c 89       	sub	r9,	r12	;
+    4c06:	09 4c       	mov	r12,	r9	;
+    4c08:	3c 40 2d 00 	mov	#45,	r12	;#0x002d
+    4c0c:	85 12       	call	r5		;
+                    xtoa((unsigned)i, dv + 5);
+    4c0e:	0c 49       	mov	r9,	r12	;
+    4c10:	0d 43       	clr	r13		;
+    4c12:	0e 44       	mov	r4,	r14	;
+    4c14:	b0 12 a4 4a 	call	#19108		;#0x4aa4
+                    break;
+    4c18:	4f 3c       	jmp	$+160    	;abs 0x4cb8
+                case 'l':                       // 32 bit Long
+                case 'n':                       // 32 bit uNsigned loNg
+                    n = va_arg(a, long);
+    4c1a:	18 53       	inc	r8		;
+    4c1c:	0d 48       	mov	r8,	r13	;
+    4c1e:	1d c3       	bic	#1,	r13	;r3 As==01
+    4c20:	08 4d       	mov	r13,	r8	;
+    4c22:	28 52       	add	#4,	r8	;r2 As==10
+    4c24:	26 4d       	mov	@r13,	r6	;
+    4c26:	17 4d 02 00 	mov	2(r13),	r7	;
+                    if(c == 'l' &&  n < 0) n = -n, PUTC('-');
+    4c2a:	3c 90 6c 00 	cmp	#108,	r12	;#0x006c
+    4c2e:	0b 20       	jnz	$+24     	;abs 0x4c46
+    4c30:	07 93       	cmp	#0,	r7	;r3 As==00
+    4c32:	09 34       	jge	$+20     	;abs 0x4c46
+    4c34:	0c 43       	clr	r12		;
+    4c36:	0d 43       	clr	r13		;
+    4c38:	0c 86       	sub	r6,	r12	;
+    4c3a:	0d 77       	subc	r7,	r13	;
+    4c3c:	06 4c       	mov	r12,	r6	;
+    4c3e:	07 4d       	mov	r13,	r7	;
+    4c40:	3c 40 2d 00 	mov	#45,	r12	;#0x002d
+    4c44:	85 12       	call	r5		;
+                    xtoa((unsigned long)n, dv);
+    4c46:	0c 46       	mov	r6,	r12	;
+    4c48:	0d 47       	mov	r7,	r13	;
+    4c4a:	3e 40 18 44 	mov	#17432,	r14	;#0x4418
+    4c4e:	b0 12 a4 4a 	call	#19108		;#0x4aa4
+                    break;
+    4c52:	32 3c       	jmp	$+102    	;abs 0x4cb8
+                case 'x':                       // 16 bit heXadecimal
+                    i = va_arg(a, int);
+    4c54:	18 53       	inc	r8		;
+    4c56:	0c 48       	mov	r8,	r12	;
+    4c58:	1c c3       	bic	#1,	r12	;r3 As==01
+    4c5a:	08 4c       	mov	r12,	r8	;
+    4c5c:	28 53       	incd	r8		;
+    4c5e:	29 4c       	mov	@r12,	r9	;
+                    d = i >> 12;
+    4c60:	0c 49       	mov	r9,	r12	;
+    4c62:	4b 18 0c 11 	rpt #12 { rrax.w	r12		;
+                    if (d > 0 || fill_zeros >= 4)
+    4c66:	0c 93       	cmp	#0,	r12	;r3 As==00
+    4c68:	04 20       	jnz	$+10     	;abs 0x4c72
+    4c6a:	3d 40 03 00 	mov	#3,	r13	;
+    4c6e:	0d 97       	cmp	r7,	r13	;
+    4c70:	02 34       	jge	$+6      	;abs 0x4c76
+                        puth(d);
+    4c72:	b0 12 28 4b 	call	#19240		;#0x4b28
+                    d = i >> 8;
+    4c76:	0c 49       	mov	r9,	r12	;
+    4c78:	47 18 0c 11 	rpt #8 { rrax.w	r12		;
+                    if (d > 0 || fill_zeros >= 3)
+    4c7c:	0c 93       	cmp	#0,	r12	;r3 As==00
+    4c7e:	03 20       	jnz	$+8      	;abs 0x4c86
+    4c80:	2d 43       	mov	#2,	r13	;r3 As==10
+    4c82:	0d 97       	cmp	r7,	r13	;
+    4c84:	02 34       	jge	$+6      	;abs 0x4c8a
+                        puth(d);
+    4c86:	b0 12 28 4b 	call	#19240		;#0x4b28
+                    d = i >> 4;
+    4c8a:	0c 49       	mov	r9,	r12	;
+    4c8c:	43 18 0c 11 	rpt #4 { rrax.w	r12		;
+                    if (d > 0 || fill_zeros >= 2)
+    4c90:	0c 93       	cmp	#0,	r12	;r3 As==00
+    4c92:	03 20       	jnz	$+8      	;abs 0x4c9a
+    4c94:	1d 43       	mov	#1,	r13	;r3 As==01
+    4c96:	0d 97       	cmp	r7,	r13	;
+    4c98:	02 34       	jge	$+6      	;abs 0x4c9e
+                        puth(d);
+    4c9a:	b0 12 28 4b 	call	#19240		;#0x4b28
+                    puth(i);
+    4c9e:	0c 49       	mov	r9,	r12	;
+    4ca0:	b0 12 28 4b 	call	#19240		;#0x4b28
+                    break;
+    4ca4:	09 3c       	jmp	$+20     	;abs 0x4cb8
+    4ca6:	29 53       	incd	r9		;
+                case '0':
+                    c = *format++;
+                    fill_zeros = c - '0';
+    4ca8:	67 4d       	mov.b	@r13,	r7	;
+    4caa:	37 50 d0 ff 	add	#65488,	r7	;#0xffd0
+    4cae:	2d 53       	incd	r13		;
+                    goto parse_fmt_char;
+    4cb0:	64 3f       	jmp	$-310    	;abs 0x4b7a
+    va_start(a, format);
+    while((c = *format++)) {
+        if(c == '%') {
+            fill_zeros = 0;
+parse_fmt_char:
+            switch(c = *format++) {
+    4cb2:	09 4a       	mov	r10,	r9	;
+                    goto parse_fmt_char;
+                case 0: return 0;
+                default: goto bad_fmt;
+            }
+        } else
+bad_fmt:    PUTC(c);
+    4cb4:	85 12       	call	r5		;
+    4cb6:	0a 49       	mov	r9,	r10	;
+    int fill_zeros;
+    unsigned d;
+
+    va_list a;
+    va_start(a, format);
+    while((c = *format++)) {
+    4cb8:	09 4a       	mov	r10,	r9	;
+    4cba:	19 53       	inc	r9		;
+    4cbc:	6c 4a       	mov.b	@r10,	r12	;
+    4cbe:	0c 93       	cmp	#0,	r12	;r3 As==00
+    4cc0:	54 23       	jnz	$-342    	;abs 0x4b6a
+        } else
+bad_fmt:    PUTC(c);
+    }
+    va_end(a);
+    return 0; // TODO: return number of chars printed
+}
+    4cc2:	0c 43       	clr	r12		;
+    4cc4:	64 17       	popm	#7,	r10	;16-bit words
+    4cc6:	30 41       	ret			
+
+00004cc8 <mspconsole_init>:
+
+#include <stdlib.h>
+
+void mspconsole_init()
+{
+    UART_init();
+    4cc8:	b0 12 26 4d 	call	#19750		;#0x4d26
+}
+    4ccc:	30 41       	ret			
+
+00004cce <io_putchar>:
+			: "=r" (r12)
+			);
+}
+
+int io_putchar_c(int c)
+*/{
+    4cce:	0a 15       	pushm	#1,	r10	;16-bit words
+    4cd0:	21 83       	decd	r1		;
+    4cd2:	0a 4c       	mov	r12,	r10	;
+    uint8_t ch = c;
+    4cd4:	c1 4c 01 00 	mov.b	r12,	1(r1)	;
+    UART_send(&ch, 1);
+    4cd8:	0c 41       	mov	r1,	r12	;
+    4cda:	1c 53       	inc	r12		;
+    4cdc:	1d 43       	mov	#1,	r13	;r3 As==01
+    4cde:	b0 12 b2 4d 	call	#19890		;#0x4db2
+    return c;
+}
+    4ce2:	0c 4a       	mov	r10,	r12	;
+    4ce4:	21 53       	incd	r1		;
+    4ce6:	0a 17       	popm	#1,	r10	;16-bit words
+    4ce8:	30 41       	ret			
+
+00004cea <io_puts_no_newline>:
+
+int io_puts_no_newline(const char *ptr)
+{
+    4cea:	0a 15       	pushm	#1,	r10	;16-bit words
+    unsigned len = 0;
+    const char *p = ptr;
+
+    while (*p++ != '\0')
+    4cec:	cc 93 00 00 	cmp.b	#0,	0(r12)	;r3 As==00
+    4cf0:	08 24       	jz	$+18     	;abs 0x4d02
+    4cf2:	0a 43       	clr	r10		;
+        len++;
+    4cf4:	1a 53       	inc	r10		;
+    4cf6:	0d 4c       	mov	r12,	r13	;
+    4cf8:	0d 5a       	add	r10,	r13	;
+int io_puts_no_newline(const char *ptr)
+{
+    unsigned len = 0;
+    const char *p = ptr;
+
+    while (*p++ != '\0')
+    4cfa:	cd 93 00 00 	cmp.b	#0,	0(r13)	;r3 As==00
+    4cfe:	fa 23       	jnz	$-10     	;abs 0x4cf4
+    4d00:	01 3c       	jmp	$+4      	;abs 0x4d04
+    return c;
+}
+
+int io_puts_no_newline(const char *ptr)
+{
+    unsigned len = 0;
+    4d02:	0a 43       	clr	r10		;
+    const char *p = ptr;
+
+    while (*p++ != '\0')
+        len++;
+
+    UART_send((uint8_t *)ptr, len);
+    4d04:	0d 4a       	mov	r10,	r13	;
+    4d06:	b0 12 b2 4d 	call	#19890		;#0x4db2
+    return len;
+}
+    4d0a:	0c 4a       	mov	r10,	r12	;
+    4d0c:	0a 17       	popm	#1,	r10	;16-bit words
+    4d0e:	30 41       	ret			
+
+00004d10 <io_puts>:
+
+int io_puts(const char *ptr)
+{
+    4d10:	0a 15       	pushm	#1,	r10	;16-bit words
+    unsigned len;
+
+    len = io_puts_no_newline(ptr);
+    4d12:	b0 12 ea 4c 	call	#19690		;#0x4cea
+    4d16:	0a 4c       	mov	r12,	r10	;
+
+    // Semantics of puts are annoying...
+    io_putchar('\n');
+    4d18:	3c 40 0a 00 	mov	#10,	r12	;#0x000a
+    4d1c:	b0 12 ce 4c 	call	#19662		;#0x4cce
+
+    return len;
+}
+    4d20:	0c 4a       	mov	r10,	r12	;
+    4d22:	0a 17       	popm	#1,	r10	;16-bit words
+    4d24:	30 41       	ret			
+
+00004d26 <UART_init>:
+ * @todo Currently assumes an 8MHz SMCLK. Make robust to clock frequency changes by using 32k ACLK.
+ */
+void UART_init(void) {
+
+    // Configure USCI_A0 for UART mode
+    UCA0CTLW0 = UCSWRST;                      // Put eUSCI in reset
+    4d26:	92 43 c0 05 	mov	#1,	&0x05c0	;r3 As==01
+    UCA0CTLW0 |= UCSSEL__SMCLK;               // CLK = SMCLK
+    4d2a:	b2 d0 80 00 	bis	#128,	&0x05c0	;#0x0080
+    4d2e:	c0 05 
+    UCA0BR1 = 0;
+    UCA0MCTLW = UCOS16 | UCBRF_2 | (0xBB << 8);
+#endif // UART_BAUDRATE
+#elif UART_CLOCK == 8000000
+#if UART_BAUDRATE == 115200
+    UCA0BR0 = 4;
+    4d30:	e2 42 c6 05 	mov.b	#4,	&0x05c6	;r2 As==10
+    UCA0BR1 = 0;
+    4d34:	c2 43 c7 05 	mov.b	#0,	&0x05c7	;r3 As==00
+    UCA0MCTLW = UCOS16 | UCBRF_4 | (0x55 << 8);
+    4d38:	b2 40 41 55 	mov	#21825,	&0x05c8	;#0x5541
+    4d3c:	c8 05 
+#endif // UART_BAUDRATE
+#endif // UART_CLOCK
+
+#if defined(__MSP430FR5969__) || defined(__MSP430FR5949__)
+    PUART_TXSEL0 &= ~PIN_UART_TX; // TX pin to UART module
+    4d3e:	d2 c3 0b 02 	bic.b	#1,	&0x020b	;r3 As==01
+    PUART_TXSEL1 |= PIN_UART_TX;
+    4d42:	d2 d3 0d 02 	bis.b	#1,	&0x020d	;r3 As==01
+
+    PUART_RXSEL0 &= ~PIN_UART_RX; // RX pin to UART module
+    4d46:	e2 c3 0b 02 	bic.b	#2,	&0x020b	;r3 As==10
+    PUART_RXSEL1 |= PIN_UART_RX;
+    4d4a:	e2 d3 0d 02 	bis.b	#2,	&0x020d	;r3 As==10
+    PUART_RXSEL1 &= ~PIN_UART_RX;
+#else
+#error MCU not supported
+#endif
+
+    UCA0CTLW0 &= ~UCSWRST;                    // Initialize eUSCI
+    4d4e:	92 c3 c0 05 	bic	#1,	&0x05c0	;r3 As==01
+
+    // Initialize module state
+    UART_SM.isTxBusy = FALSE;
+    4d52:	3c 40 18 1c 	mov	#7192,	r12	;#0x1c18
+    4d56:	cc 43 00 00 	mov.b	#0,	0(r12)	;r3 As==00
+    UART_SM.txBytesRemaining = 0;
+    4d5a:	8c 43 04 00 	mov	#0,	4(r12)	;r3 As==00
+    UART_SM.isRxBusy = FALSE;
+    4d5e:	cc 43 06 00 	mov.b	#0,	6(r12)	;r3 As==00
+    UART_SM.rxBytesRemaining = 0;
+    4d62:	8c 43 0a 00 	mov	#0,	10(r12)	;r3 As==00, 0x000a
+
+}
+    4d66:	30 41       	ret			
+
+00004d68 <UART_teardown>:
+void UART_teardown()
+{
+    // disable UART
+    // Not sure how to do this best, but set all UCA0* registers to
+    // their default values.  See User's Guide for default values.
+    PUART_TXSEL0 &= ~PIN_UART_TX;
+    4d68:	d2 c3 0b 02 	bic.b	#1,	&0x020b	;r3 As==01
+    PUART_TXSEL1 &= ~PIN_UART_TX;
+    4d6c:	d2 c3 0d 02 	bic.b	#1,	&0x020d	;r3 As==01
+    PUART_RXSEL0 &= ~PIN_UART_RX;
+    4d70:	e2 c3 0b 02 	bic.b	#2,	&0x020b	;r3 As==10
+    PUART_RXSEL1 &= ~PIN_UART_RX;
+    4d74:	e2 c3 0d 02 	bic.b	#2,	&0x020d	;r3 As==10
+    UCA0CTLW0 = 0x0001;
+    4d78:	92 43 c0 05 	mov	#1,	&0x05c0	;r3 As==01
+    UCA0BR0 = 0x0000;
+    4d7c:	c2 43 c6 05 	mov.b	#0,	&0x05c6	;r3 As==00
+    UCA0MCTLW = 0x0000;
+    4d80:	82 43 c8 05 	mov	#0,	&0x05c8	;r3 As==00
+    UCA0IE = 0x0000;
+    4d84:	82 43 da 05 	mov	#0,	&0x05da	;r3 As==00
+    UCA0IFG = 0x0000;
+    4d88:	82 43 dc 05 	mov	#0,	&0x05dc	;r3 As==00
+}
+    4d8c:	30 41       	ret			
+
+00004d8e <UART_asyncSend>:
+ * @param size the number of bytes to send
+ */
+void UART_asyncSend(uint8_t* txBuf, uint16_t size) {
+
+    // Block until prior transmission has completed
+    while (UART_SM.isTxBusy)
+    4d8e:	3f 40 18 1c 	mov	#7192,	r15	;#0x1c18
+    4d92:	6e 4f       	mov.b	@r15,	r14	;
+    4d94:	0e 93       	cmp	#0,	r14	;r3 As==00
+    4d96:	fd 23       	jnz	$-4      	;abs 0x4d92
+        ;
+
+    // Set up for start of transmission
+    UART_SM.isTxBusy = TRUE;
+    4d98:	3e 40 18 1c 	mov	#7192,	r14	;#0x1c18
+    4d9c:	de 43 00 00 	mov.b	#1,	0(r14)	;r3 As==01
+    UART_SM.txPtr = txBuf;
+    4da0:	8e 4c 02 00 	mov	r12,	2(r14)	;
+    UART_SM.txBytesRemaining = size;
+    4da4:	8e 4d 04 00 	mov	r13,	4(r14)	;
+
+    UCA0IFG &= ~(USCI_UART_UCTXIFG); // Clear the 'ready to accept byte' flag
+    4da8:	a2 c2 dc 05 	bic	#4,	&0x05dc	;r2 As==10
+
+    UCA0IE |= UCTXIE; // Enable USCI_A0 TX interrupt ('ready to accept byte')
+    4dac:	a2 d3 da 05 	bis	#2,	&0x05da	;r3 As==10
+    //UCA0TXBUF = *(UART_SM.txPtr++); // Load in first byte
+
+    // The bytes are transmitted in the TX ISR (which is called whenever the
+    // UART is ready to accept a byte), and the isBusy flag is cleared when the
+    // last byte has *finished* transmitting.
+}
+    4db0:	30 41       	ret			
+
+00004db2 <UART_send>:
+ * @param size the number of bytes to send
+ *
+ */
+void UART_send(uint8_t* txBuf, uint16_t size) {
+
+    UART_asyncSend(txBuf, size);
+    4db2:	b0 12 8e 4d 	call	#19854		;#0x4d8e
+
+    // Block until complete
+    while (UART_SM.isTxBusy)
+    4db6:	3d 40 18 1c 	mov	#7192,	r13	;#0x1c18
+    4dba:	6c 4d       	mov.b	@r13,	r12	;
+    4dbc:	0c 93       	cmp	#0,	r12	;r3 As==00
+    4dbe:	fd 23       	jnz	$-4      	;abs 0x4dba
+        ;
+}
+    4dc0:	30 41       	ret			
+
+00004dc2 <UART_critSend>:
+ *  and use UART status register polling instead of interrupts.
+ */
+void UART_critSend(uint8_t* txBuf, uint16_t size) {
+
+    // Block until prior transmission has completed
+    while (UART_SM.isTxBusy)
+    4dc2:	3f 40 18 1c 	mov	#7192,	r15	;#0x1c18
+    4dc6:	6e 4f       	mov.b	@r15,	r14	;
+    4dc8:	0e 93       	cmp	#0,	r14	;r3 As==00
+    4dca:	fd 23       	jnz	$-4      	;abs 0x4dc6
+        ;
+
+    // Set up for start of transmission
+    UART_SM.isTxBusy = TRUE;
+    4dcc:	3e 40 18 1c 	mov	#7192,	r14	;#0x1c18
+    4dd0:	de 43 00 00 	mov.b	#1,	0(r14)	;r3 As==01
+    UART_SM.txPtr = txBuf;
+    4dd4:	8e 4c 02 00 	mov	r12,	2(r14)	;
+    UART_SM.txBytesRemaining = size;
+    4dd8:	8e 4d 04 00 	mov	r13,	4(r14)	;
+
+    UCA0IV &= ~(USCI_UART_UCTXIFG); // Clear byte completion flag
+    4ddc:	a2 c2 de 05 	bic	#4,	&0x05de	;r2 As==10
+
+    while (UART_SM.txBytesRemaining--) {
+    4de0:	1c 4e 04 00 	mov	4(r14),	r12	;
+    4de4:	0d 4c       	mov	r12,	r13	;
+    4de6:	3d 53       	add	#-1,	r13	;r3 As==11
+    4de8:	8e 4d 04 00 	mov	r13,	4(r14)	;
+    4dec:	0c 93       	cmp	#0,	r12	;r3 As==00
+    4dee:	19 24       	jz	$+52     	;abs 0x4e22
+        UCA0TXBUF = *(UART_SM.txPtr++); // Load in next byte
+    4df0:	0c 4e       	mov	r14,	r12	;
+    4df2:	1d 4c 02 00 	mov	2(r12),	r13	;
+    4df6:	0e 4d       	mov	r13,	r14	;
+    4df8:	1e 53       	inc	r14		;
+    4dfa:	8c 4e 02 00 	mov	r14,	2(r12)	;
+    4dfe:	6d 4d       	mov.b	@r13,	r13	;
+    4e00:	3d f0 ff 00 	and	#255,	r13	;#0x00ff
+    4e04:	82 4d ce 05 	mov	r13,	&0x05ce	;
+        while (!(UCA0IFG & UCTXIFG))
+    4e08:	a2 b3 dc 05 	bit	#2,	&0x05dc	;r3 As==10
+    4e0c:	fd 27       	jz	$-4      	;abs 0x4e08
+            ; // Wait for byte transmission to complete
+        UCA0IFG &= ~(UCTXIFG); // Clear byte completion flag
+    4e0e:	a2 c3 dc 05 	bic	#2,	&0x05dc	;r3 As==10
+    UART_SM.txPtr = txBuf;
+    UART_SM.txBytesRemaining = size;
+
+    UCA0IV &= ~(USCI_UART_UCTXIFG); // Clear byte completion flag
+
+    while (UART_SM.txBytesRemaining--) {
+    4e12:	1d 4c 04 00 	mov	4(r12),	r13	;
+    4e16:	0e 4d       	mov	r13,	r14	;
+    4e18:	3e 53       	add	#-1,	r14	;r3 As==11
+    4e1a:	8c 4e 04 00 	mov	r14,	4(r12)	;
+    4e1e:	0d 93       	cmp	#0,	r13	;r3 As==00
+    4e20:	e8 23       	jnz	$-46     	;abs 0x4df2
+        while (!(UCA0IFG & UCTXIFG))
+            ; // Wait for byte transmission to complete
+        UCA0IFG &= ~(UCTXIFG); // Clear byte completion flag
+    }
+
+    UART_SM.isTxBusy = FALSE;
+    4e22:	c2 43 18 1c 	mov.b	#0,	&0x1c18	;r3 As==00
+}
+    4e26:	30 41       	ret			
+
+00004e28 <UART_isTxBusy>:
+/**
+ * Return true if UART TX module is in the middle of an operation, false if not.
+ */
+uint8_t UART_isTxBusy() {
+    return UART_SM.isTxBusy;
+}
+    4e28:	5c 42 18 1c 	mov.b	&0x1c18,r12	;0x1c18
+    4e2c:	30 41       	ret			
+
+00004e2e <UART_asyncReceive>:
+ * @param size the number of bytes to receive
+ */
+void UART_asyncReceive(uint8_t* rxBuf, uint16_t size) {
+
+    // Block until prior reception has completed
+    while (UART_SM.isRxBusy)
+    4e2e:	3f 40 18 1c 	mov	#7192,	r15	;#0x1c18
+    4e32:	5e 4f 06 00 	mov.b	6(r15),	r14	;
+    4e36:	0e 93       	cmp	#0,	r14	;r3 As==00
+    4e38:	fc 23       	jnz	$-6      	;abs 0x4e32
+        ;
+
+    // Set up for start of reception
+    UART_SM.isRxBusy = TRUE;
+    4e3a:	3e 40 18 1c 	mov	#7192,	r14	;#0x1c18
+    4e3e:	de 43 06 00 	mov.b	#1,	6(r14)	;r3 As==01
+    UART_SM.rxPtr = rxBuf;
+    4e42:	8e 4c 08 00 	mov	r12,	8(r14)	;
+    UART_SM.rxBytesRemaining = size;
+    4e46:	8e 4d 0a 00 	mov	r13,	10(r14)	; 0x000a
+
+    UCA0IFG &= ~(UCRXIFG); // Clear byte completion flag
+    4e4a:	92 c3 dc 05 	bic	#1,	&0x05dc	;r3 As==01
+
+    UCA0IE |= UCRXIE; // Enable USCI_A0 RX interrupt
+    4e4e:	92 d3 da 05 	bis	#1,	&0x05da	;r3 As==01
+
+    // The rest of the reception will be completed by the RX ISR (which
+    //  will wake after each byte has been received), and the isBusy flag
+    //  will be cleared when done.
+}
+    4e52:	30 41       	ret			
+
+00004e54 <UART_receive>:
+ * @param size the number of bytes to receive
+ *
+ */
+void UART_receive(uint8_t* rxBuf, uint16_t size) {
+
+    UART_asyncReceive(rxBuf, size);
+    4e54:	b0 12 2e 4e 	call	#20014		;#0x4e2e
+
+    // Block until complete
+    while (UART_SM.isRxBusy)
+    4e58:	3d 40 18 1c 	mov	#7192,	r13	;#0x1c18
+    4e5c:	5c 4d 06 00 	mov.b	6(r13),	r12	;
+    4e60:	0c 93       	cmp	#0,	r12	;r3 As==00
+    4e62:	fc 23       	jnz	$-6      	;abs 0x4e5c
+        ;
+}
+    4e64:	30 41       	ret			
+
+00004e66 <UART_critReceive>:
+ *  and use UART status register polling instead of interrupts.
+ */
+void UART_critReceive(uint8_t* rxBuf, uint16_t size) {
+
+    // Block until prior reception has completed
+    while (UART_SM.isRxBusy)
+    4e66:	3f 40 18 1c 	mov	#7192,	r15	;#0x1c18
+    4e6a:	5e 4f 06 00 	mov.b	6(r15),	r14	;
+    4e6e:	0e 93       	cmp	#0,	r14	;r3 As==00
+    4e70:	fc 23       	jnz	$-6      	;abs 0x4e6a
+        ;
+
+    // Set up for start of reception
+    UART_SM.isRxBusy = TRUE;
+    4e72:	3e 40 18 1c 	mov	#7192,	r14	;#0x1c18
+    4e76:	de 43 06 00 	mov.b	#1,	6(r14)	;r3 As==01
+    UART_SM.rxPtr = rxBuf;
+    4e7a:	8e 4c 08 00 	mov	r12,	8(r14)	;
+    UART_SM.rxBytesRemaining = size;
+    4e7e:	8e 4d 0a 00 	mov	r13,	10(r14)	; 0x000a
+
+    UCA0IFG &= ~(UCRXIFG); // Clear byte completion flag
+    4e82:	92 c3 dc 05 	bic	#1,	&0x05dc	;r3 As==01
+
+    while (UART_SM.rxBytesRemaining--) {
+    4e86:	1c 4e 0a 00 	mov	10(r14),r12	;0x0000a
+    4e8a:	0d 4c       	mov	r12,	r13	;
+    4e8c:	3d 53       	add	#-1,	r13	;r3 As==11
+    4e8e:	8e 4d 0a 00 	mov	r13,	10(r14)	; 0x000a
+    4e92:	0c 93       	cmp	#0,	r12	;r3 As==00
+    4e94:	18 24       	jz	$+50     	;abs 0x4ec6
+        while (!(UCA0IFG & UCRXIFG))
+            ; // Wait for byte reception to complete
+        UCA0IFG &= ~(UCRXIFG); // Clear byte completion flag
+
+        uint8_t rec = UCA0RXBUF; // Read next byte
+        *(UART_SM.rxPtr++) = rec; // Store byte
+    4e96:	0c 4e       	mov	r14,	r12	;
+    UART_SM.rxBytesRemaining = size;
+
+    UCA0IFG &= ~(UCRXIFG); // Clear byte completion flag
+
+    while (UART_SM.rxBytesRemaining--) {
+        while (!(UCA0IFG & UCRXIFG))
+    4e98:	92 b3 dc 05 	bit	#1,	&0x05dc	;r3 As==01
+    4e9c:	fd 27       	jz	$-4      	;abs 0x4e98
+            ; // Wait for byte reception to complete
+        UCA0IFG &= ~(UCRXIFG); // Clear byte completion flag
+    4e9e:	92 c3 dc 05 	bic	#1,	&0x05dc	;r3 As==01
+
+        uint8_t rec = UCA0RXBUF; // Read next byte
+    4ea2:	1e 42 cc 05 	mov	&0x05cc,r14	;0x05cc
+        *(UART_SM.rxPtr++) = rec; // Store byte
+    4ea6:	1d 4c 08 00 	mov	8(r12),	r13	;
+    4eaa:	0f 4d       	mov	r13,	r15	;
+    4eac:	1f 53       	inc	r15		;
+    4eae:	8c 4f 08 00 	mov	r15,	8(r12)	;
+    while (UART_SM.rxBytesRemaining--) {
+        while (!(UCA0IFG & UCRXIFG))
+            ; // Wait for byte reception to complete
+        UCA0IFG &= ~(UCRXIFG); // Clear byte completion flag
+
+        uint8_t rec = UCA0RXBUF; // Read next byte
+    4eb2:	cd 4e 00 00 	mov.b	r14,	0(r13)	;
+    UART_SM.rxPtr = rxBuf;
+    UART_SM.rxBytesRemaining = size;
+
+    UCA0IFG &= ~(UCRXIFG); // Clear byte completion flag
+
+    while (UART_SM.rxBytesRemaining--) {
+    4eb6:	1d 4c 0a 00 	mov	10(r12),r13	;0x0000a
+    4eba:	0e 4d       	mov	r13,	r14	;
+    4ebc:	3e 53       	add	#-1,	r14	;r3 As==11
+    4ebe:	8c 4e 0a 00 	mov	r14,	10(r12)	; 0x000a
+    4ec2:	0d 93       	cmp	#0,	r13	;r3 As==00
+    4ec4:	e9 23       	jnz	$-44     	;abs 0x4e98
+
+        uint8_t rec = UCA0RXBUF; // Read next byte
+        *(UART_SM.rxPtr++) = rec; // Store byte
+    }
+
+    UART_SM.isRxBusy = FALSE;
+    4ec6:	c2 43 1e 1c 	mov.b	#0,	&0x1c1e	;r3 As==00
+}
+    4eca:	30 41       	ret			
+
+00004ecc <UART_isRxBusy>:
+/**
+ * Return true if UART RX module is in the middle of an operation, false if not.
+ */
+uint8_t UART_isRxBusy() {
+    return UART_SM.isRxBusy;
+}
+    4ecc:	5c 42 1e 1c 	mov.b	&0x1c1e,r12	;0x1c1e
+    4ed0:	30 41       	ret			
+
+00004ed2 <UART_isRxDone>:
+ * Return true if UART RX module is not in the middle of an operation (e.g. done), false if not.
+ *
+ * Could be used in combination with UART_asyncReceive.
+ */
+uint8_t UART_isRxDone() {
+    return !(UART_SM.isRxBusy);
+    4ed2:	5c 42 1e 1c 	mov.b	&0x1c1e,r12	;0x1c1e
+    4ed6:	3c 53       	add	#-1,	r12	;r3 As==11
+}
+    4ed8:	5c 03       	rrum	#1,	r12	;
+    4eda:	4d 18 0c 11 	rpt #14 { rrax.w	r12		;
+    4ede:	30 41       	ret			
+
+00004ee0 <USCI_A0_ISR>:
+#elif defined(__GNUC__)
+void __attribute__ ((interrupt(USCI_A0_VECTOR))) USCI_A0_ISR (void)
+#else
+#error Compiler not supported!
+#endif
+{
+    4ee0:	3f 15       	pushm	#4,	r15	;16-bit words
+    uint8_t rec;
+
+    switch (__even_in_range(UCA0IV, USCI_UART_UCTXCPTIFG)) {
+    4ee2:	1c 42 de 05 	mov	&0x05de,r12	;0x05de
+    4ee6:	2c 93       	cmp	#2,	r12	;r3 As==10
+    4ee8:	03 24       	jz	$+8      	;abs 0x4ef0
+    4eea:	2c 92       	cmp	#4,	r12	;r2 As==10
+    4eec:	1e 24       	jz	$+62     	;abs 0x4f2a
+    4eee:	38 3c       	jmp	$+114    	;abs 0x4f60
+    case USCI_NONE:
+        break;
+    case USCI_UART_UCRXIFG:
+        if (UART_SM.rxBytesRemaining--) {
+    4ef0:	3d 40 18 1c 	mov	#7192,	r13	;#0x1c18
+    4ef4:	1c 4d 0a 00 	mov	10(r13),r12	;0x0000a
+    4ef8:	0e 4c       	mov	r12,	r14	;
+    4efa:	3e 53       	add	#-1,	r14	;r3 As==11
+    4efc:	8d 4e 0a 00 	mov	r14,	10(r13)	; 0x000a
+    4f00:	0c 93       	cmp	#0,	r12	;r3 As==00
+    4f02:	0a 24       	jz	$+22     	;abs 0x4f18
+            rec = UCA0RXBUF; // Read next byte
+    4f04:	1e 42 cc 05 	mov	&0x05cc,r14	;0x05cc
+            *(UART_SM.rxPtr++) = rec; // Store byte
+    4f08:	1c 4d 08 00 	mov	8(r13),	r12	;
+    4f0c:	0f 4c       	mov	r12,	r15	;
+    4f0e:	1f 53       	inc	r15		;
+    4f10:	8d 4f 08 00 	mov	r15,	8(r13)	;
+    switch (__even_in_range(UCA0IV, USCI_UART_UCTXCPTIFG)) {
+    case USCI_NONE:
+        break;
+    case USCI_UART_UCRXIFG:
+        if (UART_SM.rxBytesRemaining--) {
+            rec = UCA0RXBUF; // Read next byte
+    4f14:	cc 4e 00 00 	mov.b	r14,	0(r12)	;
+            *(UART_SM.rxPtr++) = rec; // Store byte
+        }
+
+        if (0 == UART_SM.rxBytesRemaining) {
+    4f18:	1c 42 22 1c 	mov	&0x1c22,r12	;0x1c22
+    4f1c:	0c 93       	cmp	#0,	r12	;r3 As==00
+    4f1e:	20 20       	jnz	$+66     	;abs 0x4f60
+            UCA0IE &= ~(UCRXIE); // Disable USCI_A0 RX interrupt
+    4f20:	92 c3 da 05 	bic	#1,	&0x05da	;r3 As==01
+            UART_SM.isRxBusy = FALSE;
+    4f24:	c2 43 1e 1c 	mov.b	#0,	&0x1c1e	;r3 As==00
+    4f28:	1b 3c       	jmp	$+56     	;abs 0x4f60
+        }
+
+        break;
+    case USCI_UART_UCTXIFG:
+        UCA0TXBUF = *(UART_SM.txPtr++); // if interrupt was enabled, there must be bytes
+    4f2a:	3c 40 18 1c 	mov	#7192,	r12	;#0x1c18
+    4f2e:	1d 4c 02 00 	mov	2(r12),	r13	;
+    4f32:	0e 4d       	mov	r13,	r14	;
+    4f34:	1e 53       	inc	r14		;
+    4f36:	8c 4e 02 00 	mov	r14,	2(r12)	;
+    4f3a:	6d 4d       	mov.b	@r13,	r13	;
+    4f3c:	3d f0 ff 00 	and	#255,	r13	;#0x00ff
+    4f40:	82 4d ce 05 	mov	r13,	&0x05ce	;
+        if (--UART_SM.txBytesRemaining == 0) {
+    4f44:	1d 4c 04 00 	mov	4(r12),	r13	;
+    4f48:	3d 53       	add	#-1,	r13	;r3 As==11
+    4f4a:	8c 4d 04 00 	mov	r13,	4(r12)	;
+    4f4e:	0d 93       	cmp	#0,	r13	;r3 As==00
+    4f50:	07 20       	jnz	$+16     	;abs 0x4f60
+            // TODO: actually, this wait should probably happen for blocking version only
+            while (UCA0STATW & UCBUSY); // wait for last byte to finish transmitting
+    4f52:	d2 b3 ca 05 	bit.b	#1,	&0x05ca	;r3 As==01
+    4f56:	fd 23       	jnz	$-4      	;abs 0x4f52
+            UCA0IE &= ~(UCTXIE); // Disable USCI_A0 TX interrupt
+    4f58:	a2 c3 da 05 	bic	#2,	&0x05da	;r3 As==10
+            UART_SM.isTxBusy = FALSE;
+    4f5c:	c2 43 18 1c 	mov.b	#0,	&0x1c18	;r3 As==00
+    case USCI_UART_UCSTTIFG:
+        break;
+    case USCI_UART_UCTXCPTIFG:
+        break;
+    }
+}
+    4f60:	3c 17       	popm	#4,	r15	;16-bit words
+    4f62:	00 13       	reti			
+
+00004f64 <memmove>:
+    4f64:	0a 15       	pushm	#1,	r10	;16-bit words
+    4f66:	0d 9c       	cmp	r12,	r13	;
+    4f68:	10 2c       	jc	$+34     	;abs 0x4f8a
+    4f6a:	0b 4d       	mov	r13,	r11	;
+    4f6c:	0b 5e       	add	r14,	r11	;
+    4f6e:	0c 9b       	cmp	r11,	r12	;
+    4f70:	0c 2c       	jc	$+26     	;abs 0x4f8a
+    4f72:	0d 4e       	mov	r14,	r13	;
+    4f74:	3d 53       	add	#-1,	r13	;r3 As==11
+    4f76:	3d 93       	cmp	#-1,	r13	;r3 As==11
+    4f78:	13 24       	jz	$+40     	;abs 0x4fa0
+    4f7a:	0f 4d       	mov	r13,	r15	;
+    4f7c:	0f 8e       	sub	r14,	r15	;
+    4f7e:	0f 5b       	add	r11,	r15	;
+    4f80:	0a 4c       	mov	r12,	r10	;
+    4f82:	0a 5d       	add	r13,	r10	;
+    4f84:	ea 4f 00 00 	mov.b	@r15,	0(r10)	;
+    4f88:	f5 3f       	jmp	$-20     	;abs 0x4f74
+    4f8a:	0f 43       	clr	r15		;
+    4f8c:	0f 9e       	cmp	r14,	r15	;
+    4f8e:	08 24       	jz	$+18     	;abs 0x4fa0
+    4f90:	0a 4d       	mov	r13,	r10	;
+    4f92:	0a 5f       	add	r15,	r10	;
+    4f94:	0b 4c       	mov	r12,	r11	;
+    4f96:	0b 5f       	add	r15,	r11	;
+    4f98:	eb 4a 00 00 	mov.b	@r10,	0(r11)	;
+    4f9c:	1f 53       	inc	r15		;
+    4f9e:	f6 3f       	jmp	$-18     	;abs 0x4f8c
+    4fa0:	0a 17       	popm	#1,	r10	;16-bit words
+    4fa2:	30 41       	ret			
+
+00004fa4 <memset>:
+    4fa4:	0f 4c       	mov	r12,	r15	;
+    4fa6:	0e 5c       	add	r12,	r14	;
+    4fa8:	0f 9e       	cmp	r14,	r15	;
+    4faa:	04 24       	jz	$+10     	;abs 0x4fb4
+    4fac:	cf 4d 00 00 	mov.b	r13,	0(r15)	;
+    4fb0:	1f 53       	inc	r15		;
+    4fb2:	fa 3f       	jmp	$-10     	;abs 0x4fa8
+    4fb4:	30 41       	ret			
+
+00004fb6 <__do_global_ctors_aux>:
+    4fb6:	0a 15       	pushm	#1,	r10	;16-bit words
+    4fb8:	1c 42 48 44 	mov	&0x4448,r12	;0x4448
+    4fbc:	3c 93       	cmp	#-1,	r12	;r3 As==11
+    4fbe:	08 24       	jz	$+18     	;abs 0x4fd0
+    4fc0:	3a 40 48 44 	mov	#17480,	r10	;#0x4448
+    4fc4:	8c 12       	call	r12		;
+    4fc6:	3a 50 fe ff 	add	#65534,	r10	;#0xfffe
+    4fca:	2c 4a       	mov	@r10,	r12	;
+    4fcc:	3c 93       	cmp	#-1,	r12	;r3 As==11
+    4fce:	fa 23       	jnz	$-10     	;abs 0x4fc4
+    4fd0:	0a 17       	popm	#1,	r10	;16-bit words
+    4fd2:	30 41       	ret			
+
+00004fd4 <call___do_global_ctors_aux>:
+    4fd4:	30 41       	ret			
+
+00004fd6 <__msp430_init>:
+    4fd6:	b0 12 54 45 	call	#17748		;#0x4554
+    4fda:	b0 12 b6 4f 	call	#20406		;#0x4fb6
+    4fde:	b0 12 94 44 	call	#17556		;#0x4494
+    4fe2:	b0 12 88 44 	call	#17544		;#0x4488
+    4fe6:	30 41       	ret			
+
+00004fe8 <__msp430_fini>:
+    4fe8:	b0 12 a0 44 	call	#17568		;#0x44a0
+    4fec:	b0 12 06 45 	call	#17670		;#0x4506
+    4ff0:	30 41       	ret			

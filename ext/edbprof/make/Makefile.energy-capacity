@@ -1,0 +1,49 @@
+# This makefile is intended to be included from an app's makefile at
+# bld/edbprof/energy-capacity/Makefile
+
+# annoyingly, can't include .clang first, but .edb needs this
+# override the defualt setting in root makefile
+override TOOLCHAIN = clang
+
+include ../../Makefile
+override SRC_ROOT = ../../../src
+
+# Passed to us via '-e', so we must override to change it
+override CFLAGS += -DEDBPROF_ENERGY_CAPACITY_PROFILE
+
+EDBPROF_ENERGY_CAPACITY_WATCHPOINT = 0
+
+READER_INIT_TIMEOUT ?= 0
+ENERGY_CAPACITY_SAMPLES_TO_DROP ?= 0
+
+# NOTE: we could collect the energy capacity profile with either gcc
+# or clang, but for consistency, we use clang.
+include $(MAKER_ROOT)/Makefile.clang
+
+prof: energy-capacity.csv
+
+trace.csv : energy-capacity.out
+	$(call powered-prog,$<)
+	$(EDBPROF_BIN_ROOT)/trace-watchpoints.py \
+	  --voltage-snapshot --duration $(ENERGY_CAPACITY_MEASURE_DURATION) \
+	  --watchpoints $(EDBPROF_ENERGY_CAPACITY_WATCHPOINT) \
+	  $(READER_MEASURE_ARGS) $(EDB_MEASURE_ARGS) \
+	  --reader-init-timeout $(READER_INIT_TIMEOUT) \
+	  -o $@
+
+energy-capacity.csv : trace.csv
+	$(EDBPROF_BIN_ROOT)/calc-energy-capacity.py \
+		--brown-out $(DEVICE_BROWN_OUT_THRES_V) \
+		--capacitance $(DEVICE_CAPACITANCE_UF) \
+		--drop-initial-samples $(ENERGY_CAPACITY_SAMPLES_TO_DROP) \
+		-o $@ $^
+
+clean-phase: clean clean-all
+
+clean: clean-all
+
+clean-all: clean
+	rm -f *.csv *.pdf
+
+# do not remove any intermediate artifacts
+.SECONDARY:

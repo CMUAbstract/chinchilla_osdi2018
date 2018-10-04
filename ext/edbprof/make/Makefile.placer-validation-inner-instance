@@ -1,0 +1,51 @@
+# This runs as part of placer validation experiemtn, per energy capacity value.
+# Only failure probability needs to be recalculated when capacity changes.
+
+PARENT_DIR := ../..
+
+override EDBPROF_BUILD_DIR := $(PARENT_DIR)/$(EDBPROF_BUILD_DIR)
+override CHECKER_VALIDATION_DIR := $(PARENT_DIR)/$(CHECKER_VALIDATION_DIR)
+override CHECKER_VALIDATOR_DIR := $(PARENT_DIR)/$(CHECKER_VALIDATOR_DIR)
+override PLACEMENT_DIR := $(PARENT_DIR)/$(PLACEMENT_DIR)
+override TASK_ENERGY_DIR := $(PARENT_DIR)/$(TASK_ENERGY_DIR)
+override LOOP_ITERS_DIR := $(PARENT_DIR)/$(LOOP_ITERS_DIR)
+override BLOCK_ENERGY_DIR := $(PARENT_DIR)/$(BLOCK_ENERGY_DIR)
+override PATH_FREQ_DIR := $(PARENT_DIR)/$(PATH_FREQ_DIR)
+override ENERGY_CAPACITY_DIR := $(PARENT_DIR)
+
+# TODO: this is very confusing looking. We are re-using phases.
+# Ideally, we would do nesting this way: outer=placer inner=capacity
+# and compute the path energy costs once per outer instance.
+# This hackery is effectively the same, but the directories where
+# these per-placer (outer) artifact live is within other phases.
+ifeq ($(PLACER),manual)
+# The manual placement is further split between two phases.
+override PREDICTED_ENERGY_DIR := $(CHECKER_VALIDATOR_DIR)
+override ENERGY_DISTS_DIR := $(TASK_ENERGY_DIR)/energy-dists
+else ifeq ($(PLACER),greedy)
+# use default PREDICTED_ENERGY_DIR, which is to run predictor from scratch in current build dir
+override ENERGY_DISTS_DIR := ./energy-dists
+# We generate a placement for each instance
+else
+$(error Unknown placer $(PLACER))
+endif # PLACER
+
+include $(EDBPROF_ROOT)/make/Makefile.placer.$(PLACER)
+
+export CHECKER_PARENT_BUILD_DIR = ../../../..
+include $(EDBPROF_ROOT)/make/Makefile.checker
+
+
+# TODO: support multiple objects
+placer-time.csv : $(PROFILED_OBJECTS:=.placer-time.csv)
+	cp $< $@
+
+labeled-predicted-completion.csv : predicted-completion.csv
+	$(EDBPROF_BIN_ROOT)/label-dataset.py --column placer --value $(PLACER) -o $@ $^
+
+labeled-boundary-count.csv : boundary-count.csv
+	$(EDBPROF_BIN_ROOT)/label-dataset.py --column placer --value $(PLACER) -o $@ $^
+
+# TODO: assumes one profiled object only
+labeled-placer-time.csv : placer-time.csv
+	$(EDBPROF_BIN_ROOT)/label-dataset.py --column placer --value $(PLACER) -o $@ $^

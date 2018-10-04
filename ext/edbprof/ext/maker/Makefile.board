@@ -1,0 +1,64 @@
+CONT_POWER ?= 0
+
+ifeq ($(BOARD),)
+$(error Variable not set in app/lib Makefile: BOARD \
+	    (see maker/Makefile.board for options))
+endif
+
+ifeq ($(BOARD),wisp)
+CFLAGS += -DBOARD_WISP
+DEVICE  = msp430fr5969
+DEVICEDEF = __MSP430FR5969__
+endif
+
+ifeq ($(BOARD),mspts430)
+CFLAGS += -DBOARD_MSP_TS430
+DEVICE  = msp430fr5969
+DEVICEDEF = __MSP430FR5969__
+endif
+
+ifeq ($(BOARD),edb)
+CFLAGS += -DBOARD_EDB
+DEVICE  = msp430f5340
+DEVICEDEF = __MSP430F5340__
+endif
+
+ifeq ($(BOARD),sprite-edb)
+CFLAGS += -DBOARD_SPRITE_EDB
+DEVICE  = cc430f5137
+DEVICEDEF = __CC430F5137__
+endif
+
+ifeq ($(BOARD),sprite-app)
+CFLAGS += -DBOARD_SPRITE_APP
+DEVICE  = msp430fr5949
+DEVICEDEF = __MSP430FR5949__
+endif
+
+ifeq ($(BOARD),sprite-edb-socket-rgz)
+CFLAGS += -DBOARD_SPRITE_EDB_SOCKET_RGZ
+DEVICE  = cc430f5137
+DEVICEDEF = __CC430F5137__
+endif
+
+ifeq ($(BOARD),sprite-app-socket-rha)
+CFLAGS += -DBOARD_SPRITE_APP_SOCKET_RHA
+DEVICE  = msp430fr5949
+DEVICEDEF = __MSP430FR5949__
+endif
+
+ifeq ($(BOARD),sprite-app-socket-rgz)
+CFLAGS += -DBOARD_SPRITE_APP_SOCKET_RGZ
+DEVICE  = msp430fr5969
+DEVICEDEF = __MSP430FR5969__
+endif
+
+ifeq ($(BOARD),sprite-app-launchpad)
+CFLAGS += -DBOARD_SPRITE_APP_LAUNCHPAD
+DEVICE  = msp430fr5969
+DEVICEDEF = __MSP430FR5969__
+endif
+
+ifeq ($(CONT_POWER),1)
+CFLAGS += -DCONT_POWER
+endif

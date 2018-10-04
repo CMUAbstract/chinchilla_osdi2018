@@ -1,0 +1,79 @@
+# This makefile is part of block energy profiling, it builds individual
+# binaries per each block. It is called by the parent Makefile.block-energy.
+
+# override the defaalt setting from root makefile (i.e. 'edbprof' from 'bld/edbprof')
+# NOTE: gcc toolchain also works (remember to edit the include at the bottom too)
+override TOOLCHAIN = clang
+
+PARENT_BUILD_DIR = ../..
+EDBPROF_BUILD_DIR = $(PARENT_BUILD_DIR)/..
+TOP_BUILD_DIR = $(EDBPROF_BUILD_DIR)/..
+
+override SRC_ROOT = $(TOP_BUILD_DIR)/../src
+
+READER_INIT_TIMEOUT ?= 0
+
+include $(TOP_BUILD_DIR)/Makefile
+
+CONFIG_EDB = 1
+include $(LIB_ROOT)/libedb/bld/Makefile.target
+
+# Must match the watchpoint IDs in libedbprof/edbprof.h placeholder macro
+HARNESS_WATCHPOINTS = 0 1
+
+block-harness.S: block.asm
+	cp $< $@
+#block-harness.S: block.asm | $(PARENT_BUILD_DIR)/harness.S
+#	$(EDBPROF_BIN_ROOT)/compose-block-energy-harness.py \
+#		--replicate \
+#	  	--instructions-per-trial $(INSTRUCTIONS_PER_TRIAL) \
+#		--randomize-addrs \
+#		-o $@ $(PARENT_BUILD_DIR)/harness.S $<
+
+trace.csv: block-harness.out
+	$(call powered-prog,$^)
+	$(EDBPROF_BIN_ROOT)/measure-block-energy.py \
+	  --duration $(BLOCK_ENERGY_MEASURE_DURATION) \
+	  $(READER_MEASURE_ARGS) $(EDB_MEASURE_ARGS) \
+	  --reader-init-timeout $(READER_INIT_TIMEOUT) \
+	  $@
+
+pairs.csv: trace.csv
+	$(EDBPROF_BIN_ROOT)/pair-watchpoints.py \
+	  --watchpoints $(HARNESS_WATCHPOINTS) $< $@
+
+energy.csv: pairs.csv block.asm
+	$(EDBPROF_BIN_ROOT)/calc-energy.py \
+	  --replicate \
+	  --instructions-per-trial $(INSTRUCTIONS_PER_TRIAL) \
+	  --capacitance $(DEVICE_CAPACITANCE_UF) \
+	$^ $@
+
+energy-hist.csv: energy.csv
+	$(EDBPROF_BIN_ROOT)/calc-energy-hist.py \
+	  --bin-size $(BLOCK_ENERGY_HIST_BIN_SIZE) \
+	  -o $@ $^
+
+energy-hist-interp.csv: energy-hist.csv
+	$(EDBPROF_BIN_ROOT)/calc-energy-hist-interp.py \
+	  --grid $(ENERGY_DIST_EXPR_EVALUATOR_GRID) \
+	  -o $@ $^
+
+
+energy-hist-interp.pdf: energy-hist-interp.csv
+	$(EDBPROF_BIN_ROOT)/plot-energy-hist.py $(PLOT_ARGS) -o $@ $<
+
+energy-hist.pdf: energy-hist.csv
+	$(EDBPROF_BIN_ROOT)/plot-energy-hist.py $(PLOT_ARGS) -o $@ $<
+
+# These histograms are for view purposes only, this histogram is not used
+energy-kde.pdf: energy.csv
+	$(EDBPROF_BIN_ROOT)/plot-energy.py --kde --hist -o $@ $<
+
+energy.pdf: energy.csv
+	$(EDBPROF_BIN_ROOT)/plot-energy.py --hist -o $@ $<
+
+include $(MAKER_ROOT)/Makefile.clang
+
+clean-instance:
+	rm -f *.bc *.d *.out *.csv *.S *.map block-rep.asm *.c

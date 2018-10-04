@@ -1,0 +1,4 @@
+Library that provides runtime support for various workflow stages of EDBprof.
+
+The LLVM pass that instruments the application binary for path profiling
+depends on the functions in this library to be available at run time.

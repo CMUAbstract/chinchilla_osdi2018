@@ -1,0 +1,2 @@
+For memory read/write commands, accept symbol names. We already have the code
+to get this info from ELF binary in edbprof (for extracting path profile).

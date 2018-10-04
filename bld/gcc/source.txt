@@ -1,0 +1,1280 @@
+
+templog.out:     file format elf32-msp430
+
+
+Disassembly of section __interrupt_vector_49:
+
+0000fff0 <__interrupt_vector_49>:
+    fff0:	36 4a       	interrupt service routine at 0x4a36
+
+Disassembly of section .text:
+
+00004456 <__crt0_start>:
+    4456:	31 40 00 24 	mov	#9216,	r1	;#0x2400
+
+0000445a <__crt0_init_bss>:
+    445a:	3c 40 04 1c 	mov	#7172,	r12	;#0x1c04
+    445e:	0d 43       	clr	r13		;
+    4460:	3e 40 20 00 	mov	#32,	r14	;#0x0020
+    4464:	b0 12 fa 4a 	call	#19194		;#0x4afa
+
+00004468 <__crt0_movedata>:
+    4468:	3c 40 00 1c 	mov	#7168,	r12	;#0x1c00
+    446c:	3d 40 50 44 	mov	#17488,	r13	;#0x4450
+    4470:	0d 9c       	cmp	r12,	r13	;
+    4472:	04 24       	jz	$+10     	;abs 0x447c
+    4474:	3e 40 04 00 	mov	#4,	r14	;
+    4478:	b0 12 ba 4a 	call	#19130		;#0x4aba
+
+0000447c <__crt0_call_init_then_main>:
+    447c:	b0 12 2c 4b 	call	#19244		;#0x4b2c
+    4480:	0c 43       	clr	r12		;
+    4482:	b0 12 9c 45 	call	#17820		;#0x459c
+
+00004486 <_msp430_run_init_array>:
+    4486:	34 40 44 44 	mov	#17476,	r4	;#0x4444
+    448a:	35 40 44 44 	mov	#17476,	r5	;#0x4444
+    448e:	26 43       	mov	#2,	r6	;r3 As==10
+    4490:	0d 3c       	jmp	$+28     	;abs 0x44ac
+
+00004492 <_msp430_run_preinit_array>:
+    4492:	34 40 44 44 	mov	#17476,	r4	;#0x4444
+    4496:	35 40 44 44 	mov	#17476,	r5	;#0x4444
+    449a:	26 43       	mov	#2,	r6	;r3 As==10
+    449c:	07 3c       	jmp	$+16     	;abs 0x44ac
+
+0000449e <_msp430_run_fini_array>:
+    449e:	34 40 44 44 	mov	#17476,	r4	;#0x4444
+    44a2:	35 40 44 44 	mov	#17476,	r5	;#0x4444
+    44a6:	36 40 fe ff 	mov	#65534,	r6	;#0xfffe
+    44aa:	00 3c       	jmp	$+2      	;abs 0x44ac
+
+000044ac <_msp430_run_array>:
+    44ac:	05 94       	cmp	r4,	r5	;
+    44ae:	05 24       	jz	$+12     	;abs 0x44ba
+    44b0:	27 44       	mov	@r4,	r7	;
+    44b2:	04 56       	add	r6,	r4	;
+    44b4:	a7 12       	call	@r7		;
+    44b6:	10 40 f4 ff 	br	0xfff4		;PC rel. 0x44ac
+
+000044ba <_msp430_run_done>:
+    44ba:	30 41       	ret			
+
+000044bc <deregister_tm_clones>:
+    44bc:	3c 40 48 4b 	mov	#19272,	r12	;#0x4b48
+    44c0:	3c 80 47 4b 	sub	#19271,	r12	;#0x4b47
+    44c4:	2d 43       	mov	#2,	r13	;r3 As==10
+    44c6:	0d 9c       	cmp	r12,	r13	;
+    44c8:	07 2c       	jc	$+16     	;abs 0x44d8
+    44ca:	3d 40 00 00 	mov	#0,	r13	;
+    44ce:	0d 93       	cmp	#0,	r13	;r3 As==00
+    44d0:	03 24       	jz	$+8      	;abs 0x44d8
+    44d2:	3c 40 48 4b 	mov	#19272,	r12	;#0x4b48
+    44d6:	8d 12       	call	r13		;
+    44d8:	30 41       	ret			
+
+000044da <register_tm_clones>:
+    44da:	3d 40 48 4b 	mov	#19272,	r13	;#0x4b48
+    44de:	3d 80 48 4b 	sub	#19272,	r13	;#0x4b48
+    44e2:	0d 11       	rra	r13		;
+    44e4:	0c 4d       	mov	r13,	r12	;
+    44e6:	5c 03       	rrum	#1,	r12	;
+    44e8:	4d 18 0c 11 	rpt #14 { rrax.w	r12		;
+    44ec:	0d 5c       	add	r12,	r13	;
+    44ee:	0d 11       	rra	r13		;
+    44f0:	0d 93       	cmp	#0,	r13	;r3 As==00
+    44f2:	07 24       	jz	$+16     	;abs 0x4502
+    44f4:	3e 40 00 00 	mov	#0,	r14	;
+    44f8:	0e 93       	cmp	#0,	r14	;r3 As==00
+    44fa:	03 24       	jz	$+8      	;abs 0x4502
+    44fc:	3c 40 48 4b 	mov	#19272,	r12	;#0x4b48
+    4500:	8e 12       	call	r14		;
+    4502:	30 41       	ret			
+
+00004504 <__do_global_dtors_aux>:
+    4504:	0a 15       	pushm	#1,	r10	;16-bit words
+    4506:	c2 93 04 1c 	cmp.b	#0,	&0x1c04	;r3 As==00
+    450a:	20 20       	jnz	$+66     	;abs 0x454c
+    450c:	1c 42 06 1c 	mov	&0x1c06,r12	;0x1c06
+    4510:	3a 40 4e 44 	mov	#17486,	r10	;#0x444e
+    4514:	3a 80 4c 44 	sub	#17484,	r10	;#0x444c
+    4518:	0a 11       	rra	r10		;
+    451a:	3a 53       	add	#-1,	r10	;r3 As==11
+    451c:	0c 9a       	cmp	r10,	r12	;
+    451e:	0b 2c       	jc	$+24     	;abs 0x4536
+    4520:	1c 53       	inc	r12		;
+    4522:	82 4c 06 1c 	mov	r12,	&0x1c06	;
+    4526:	0c 5c       	rla	r12		;
+    4528:	1c 4c 4c 44 	mov	17484(r12),r12	;0x0444c
+    452c:	8c 12       	call	r12		;
+    452e:	1c 42 06 1c 	mov	&0x1c06,r12	;0x1c06
+    4532:	0c 9a       	cmp	r10,	r12	;
+    4534:	f5 2b       	jnc	$-20     	;abs 0x4520
+    4536:	b0 12 bc 44 	call	#17596		;#0x44bc
+    453a:	3d 40 00 00 	mov	#0,	r13	;
+    453e:	0d 93       	cmp	#0,	r13	;r3 As==00
+    4540:	03 24       	jz	$+8      	;abs 0x4548
+    4542:	3c 40 40 44 	mov	#17472,	r12	;#0x4440
+    4546:	8d 12       	call	r13		;
+    4548:	d2 43 04 1c 	mov.b	#1,	&0x1c04	;r3 As==01
+    454c:	0a 17       	popm	#1,	r10	;16-bit words
+    454e:	30 41       	ret			
+
+00004550 <call___do_global_dtors_aux>:
+    4550:	30 41       	ret			
+
+00004552 <frame_dummy>:
+    4552:	3e 40 00 00 	mov	#0,	r14	;
+    4556:	0e 93       	cmp	#0,	r14	;r3 As==00
+    4558:	05 24       	jz	$+12     	;abs 0x4564
+    455a:	3c 40 40 44 	mov	#17472,	r12	;#0x4440
+    455e:	3d 40 08 1c 	mov	#7176,	r13	;#0x1c08
+    4562:	8e 12       	call	r14		;
+    4564:	3c 40 00 1c 	mov	#7168,	r12	;#0x1c00
+    4568:	8c 93 00 00 	cmp	#0,	0(r12)	;r3 As==00
+    456c:	03 20       	jnz	$+8      	;abs 0x4574
+    456e:	b0 12 da 44 	call	#17626		;#0x44da
+    4572:	30 41       	ret			
+    4574:	3d 40 00 00 	mov	#0,	r13	;
+    4578:	0d 93       	cmp	#0,	r13	;r3 As==00
+    457a:	f9 27       	jz	$-12     	;abs 0x456e
+    457c:	8d 12       	call	r13		;
+    457e:	f7 3f       	jmp	$-16     	;abs 0x456e
+
+00004580 <call_frame_dummy>:
+    4580:	30 41       	ret			
+
+00004582 <init>:
+#include <libmsp/gpio.h>
+#include "pins.h"
+
+void init()
+{
+	msp_watchdog_disable();
+    4582:	b0 12 cc 45 	call	#17868		;#0x45cc
+	msp_gpio_unlock();
+    4586:	92 c3 30 01 	bic	#1,	&0x0130	;r3 As==01
+	msp_clock_setup();
+    458a:	b0 12 e2 45 	call	#17890		;#0x45e2
+
+    GPIO(PORT_LED_1, DIR) |= BIT(PIN_LED_1);
+    458e:	d2 d3 25 02 	bis.b	#1,	&0x0225	;r3 As==01
+    //GPIO(PORT_LED_2, DIR) |= BIT(PIN_LED_2);
+	INIT_CONSOLE();
+    4592:	b0 12 1e 48 	call	#18462		;#0x481e
+	__enable_interrupt();
+    4596:	32 d2       	eint			
+    4598:	03 43       	nop			
+}
+    459a:	30 41       	ret			
+
+0000459c <main>:
+
+int main(){
+    459c:	1a 15       	pushm	#2,	r10	;16-bit words
+    459e:	21 83       	decd	r1		;
+	init();
+    45a0:	b0 12 82 45 	call	#17794		;#0x4582
+	GPIO(PORT_LED_1, OUT) |= BIT(PIN_LED_1);
+    45a4:	d2 d3 23 02 	bis.b	#1,	&0x0223	;r3 As==01
+	//GPIO(PORT_LED_2, OUT) |= BIT(PIN_LED_2);
+
+	while (1) {
+		PRINTF("test\r\n");
+    45a8:	39 40 00 44 	mov	#17408,	r9	;#0x4400
+    45ac:	3a 40 aa 46 	mov	#18090,	r10	;#0x46aa
+    45b0:	81 49 00 00 	mov	r9,	0(r1)	;
+    45b4:	8a 12       	call	r10		;
+	}
+    45b6:	fc 3f       	jmp	$-6      	;abs 0x45b0
+
+000045b8 <msp_watchdog_enable>:
+#include "watchdog.h"
+
+static uint8_t watchdog_bits;
+
+void msp_watchdog_enable(uint8_t bits)
+{
+    45b8:	3c f0 ff 00 	and	#255,	r12	;#0x00ff
+    WDTCTL = WDTPW | WDTCNTCL | bits;
+    45bc:	0d 4c       	mov	r12,	r13	;
+    45be:	3d d0 08 5a 	bis	#23048,	r13	;#0x5a08
+    45c2:	82 4d 5c 01 	mov	r13,	&0x015c	;
+    watchdog_bits = bits;
+    45c6:	c2 4c 16 1c 	mov.b	r12,	&0x1c16	;
+}
+    45ca:	30 41       	ret			
+
+000045cc <msp_watchdog_disable>:
+
+void msp_watchdog_disable()
+{
+     WDTCTL = WDTPW + WDTHOLD;
+    45cc:	b2 40 80 5a 	mov	#23168,	&0x015c	;#0x5a80
+    45d0:	5c 01 
+}
+    45d2:	30 41       	ret			
+
+000045d4 <msp_watchdog_kick>:
+
+void msp_watchdog_kick()
+{
+    WDTCTL = WDTPW | WDTCNTCL | watchdog_bits;
+    45d4:	5c 42 16 1c 	mov.b	&0x1c16,r12	;0x1c16
+    45d8:	3c d0 08 5a 	bis	#23048,	r12	;#0x5a08
+    45dc:	82 4c 5c 01 	mov	r12,	&0x015c	;
+}
+    45e0:	30 41       	ret			
+
+000045e2 <msp_clock_setup>:
+#define s(x) #x
+#define ss(x) s(x)
+
+#pragma message "bits" ss(CONFIG_DCOFSEL_BITS)
+
+    CSCTL0_H = CSKEY_H;
+    45e2:	f2 40 a5 ff 	mov.b	#65445,	&0x0161	;#0xffa5
+    45e6:	61 01 
+//CSCTL1 = CONFIG_DCOFSEL_BITS;
+    CSCTL1 = DCORSEL + DCOFSEL_3;
+    45e8:	b2 40 46 00 	mov	#70,	&0x0162	;#0x0046
+    45ec:	62 01 
+
+    CSCTL2 = SELA_0 | SELS_3 | SELM_3;
+    45ee:	b2 40 33 00 	mov	#51,	&0x0164	;#0x0033
+    45f2:	64 01 
+    CSCTL3 = DIVA_0 | DIVS_0 | DIVM_0;
+    45f4:	82 43 66 01 	mov	#0,	&0x0166	;r3 As==00
+
+#else // __MSP430*__
+#error Device not supported by libmsp/clock.c
+#endif // __MSP430*__
+}
+    45f8:	30 41       	ret			
+
+000045fa <xtoa>:
+            10,     // +8
+             1,     // +9
+};
+
+static void xtoa(unsigned long x, const unsigned long *dp)
+{
+    45fa:	6a 15       	pushm	#7,	r10	;16-bit words
+    45fc:	08 4c       	mov	r12,	r8	;
+    45fe:	09 4d       	mov	r13,	r9	;
+    char c;
+    unsigned long d;
+    if(x) {
+    4600:	0c dd       	bis	r13,	r12	;
+    4602:	0c 93       	cmp	#0,	r12	;r3 As==00
+    4604:	36 24       	jz	$+110    	;abs 0x4672
+        while(x < *dp) ++dp;
+    4606:	1d 9e 02 00 	cmp	2(r14),	r13	;
+    460a:	05 28       	jnc	$+12     	;abs 0x4616
+    460c:	8e 9d 02 00 	cmp	r13,	2(r14)	;
+    4610:	0d 20       	jnz	$+28     	;abs 0x462c
+    4612:	28 9e       	cmp	@r14,	r8	;
+    4614:	0b 2c       	jc	$+24     	;abs 0x462c
+    4616:	0c 49       	mov	r9,	r12	;
+    4618:	0d 48       	mov	r8,	r13	;
+    461a:	2e 52       	add	#4,	r14	;r2 As==10
+    461c:	1c 9e 02 00 	cmp	2(r14),	r12	;
+    4620:	fc 2b       	jnc	$-6      	;abs 0x461a
+    4622:	8e 99 02 00 	cmp	r9,	2(r14)	;
+    4626:	02 20       	jnz	$+6      	;abs 0x462c
+    4628:	2d 9e       	cmp	@r14,	r13	;
+    462a:	f7 2b       	jnc	$-16     	;abs 0x461a
+    462c:	0a 4e       	mov	r14,	r10	;
+        do {
+            d = *dp++;
+            c = '0';
+    462e:	34 40 30 00 	mov	#48,	r4	;#0x0030
+            while(x >= d) ++c, x -= d;
+            PUTC(c);
+    4632:	35 40 24 48 	mov	#18468,	r5	;#0x4824
+    char c;
+    unsigned long d;
+    if(x) {
+        while(x < *dp) ++dp;
+        do {
+            d = *dp++;
+    4636:	26 4a       	mov	@r10,	r6	;
+    4638:	17 4a 02 00 	mov	2(r10),	r7	;
+            c = '0';
+            while(x >= d) ++c, x -= d;
+    463c:	09 97       	cmp	r7,	r9	;
+    463e:	12 28       	jnc	$+38     	;abs 0x4664
+    4640:	07 99       	cmp	r9,	r7	;
+    4642:	02 20       	jnz	$+6      	;abs 0x4648
+    4644:	08 96       	cmp	r6,	r8	;
+    4646:	0e 28       	jnc	$+30     	;abs 0x4664
+    4648:	0c 44       	mov	r4,	r12	;
+    464a:	0e 47       	mov	r7,	r14	;
+    464c:	5c 53       	inc.b	r12		;
+    464e:	3c f0 ff 00 	and	#255,	r12	;#0x00ff
+    4652:	08 86       	sub	r6,	r8	;
+    4654:	09 77       	subc	r7,	r9	;
+    4656:	09 97       	cmp	r7,	r9	;
+    4658:	06 28       	jnc	$+14     	;abs 0x4666
+    465a:	0e 99       	cmp	r9,	r14	;
+    465c:	f7 23       	jnz	$-16     	;abs 0x464c
+    465e:	08 96       	cmp	r6,	r8	;
+    4660:	f5 2f       	jc	$-20     	;abs 0x464c
+    4662:	01 3c       	jmp	$+4      	;abs 0x4666
+    unsigned long d;
+    if(x) {
+        while(x < *dp) ++dp;
+        do {
+            d = *dp++;
+            c = '0';
+    4664:	0c 44       	mov	r4,	r12	;
+            while(x >= d) ++c, x -= d;
+            PUTC(c);
+    4666:	85 12       	call	r5		;
+    4668:	2a 52       	add	#4,	r10	;r2 As==10
+        } while(!(d & 1));
+    466a:	16 f3       	and	#1,	r6	;r3 As==01
+    466c:	06 93       	cmp	#0,	r6	;r3 As==00
+    466e:	e3 27       	jz	$-56     	;abs 0x4636
+    4670:	04 3c       	jmp	$+10     	;abs 0x467a
+    } else {
+        PUTC('0');
+    4672:	3c 40 30 00 	mov	#48,	r12	;#0x0030
+    4676:	b0 12 24 48 	call	#18468		;#0x4824
+    }
+}
+    467a:	64 17       	popm	#7,	r10	;16-bit words
+    467c:	30 41       	ret			
+
+0000467e <puth>:
+
+static void puth(unsigned n)
+{
+    static const char hex[16] = { '0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
+    char c = hex[n & 15];
+    PUTC(hex[n & 15]);
+    467e:	3c f0 0f 00 	and	#15,	r12	;#0x000f
+    4682:	5c 4c 08 44 	mov.b	17416(r12),r12	;0x04408
+    4686:	b0 12 24 48 	call	#18468		;#0x4824
+}
+    468a:	30 41       	ret			
+
+0000468c <puts>:
+
+int puts(const char *str){
+    468c:	1a 15       	pushm	#2,	r10	;16-bit words
+    468e:	0a 4c       	mov	r12,	r10	;
+	while(*str != 0){
+    4690:	6c 4c       	mov.b	@r12,	r12	;
+    4692:	0c 93       	cmp	#0,	r12	;r3 As==00
+    4694:	07 24       	jz	$+16     	;abs 0x46a4
+		PUTC(*str++);
+    4696:	39 40 24 48 	mov	#18468,	r9	;#0x4824
+    469a:	1a 53       	inc	r10		;
+    469c:	89 12       	call	r9		;
+    char c = hex[n & 15];
+    PUTC(hex[n & 15]);
+}
+
+int puts(const char *str){
+	while(*str != 0){
+    469e:	6c 4a       	mov.b	@r10,	r12	;
+    46a0:	0c 93       	cmp	#0,	r12	;r3 As==00
+    46a2:	fb 23       	jnz	$-8      	;abs 0x469a
+		PUTC(*str++);
+	}
+	return 0;
+}
+    46a4:	0c 43       	clr	r12		;
+    46a6:	19 17       	popm	#2,	r10	;16-bit words
+    46a8:	30 41       	ret			
+
+000046aa <printf>:
+
+int printf(const char *format, ...)
+{
+    46aa:	6a 15       	pushm	#7,	r10	;16-bit words
+    46ac:	1a 41 10 00 	mov	16(r1),	r10	;0x00010
+    long n;
+    int fill_zeros;
+    unsigned d;
+
+    va_list a;
+    va_start(a, format);
+    46b0:	08 41       	mov	r1,	r8	;
+    46b2:	38 50 12 00 	add	#18,	r8	;#0x0012
+                    goto parse_fmt_char;
+                case 0: return 0;
+                default: goto bad_fmt;
+            }
+        } else
+bad_fmt:    PUTC(c);
+    46b6:	35 40 24 48 	mov	#18468,	r5	;#0x4824
+                    break;
+                case 'i':                       // 16 bit Integer
+                case 'u':                       // 16 bit Unsigned
+                    i = va_arg(a, int);
+                    if(c == 'i' && i < 0) i = -i, PUTC('-');
+                    xtoa((unsigned)i, dv + 5);
+    46ba:	34 40 2c 44 	mov	#17452,	r4	;#0x442c
+    int fill_zeros;
+    unsigned d;
+
+    va_list a;
+    va_start(a, format);
+    while((c = *format++)) {
+    46be:	a7 3c       	jmp	$+336    	;abs 0x480e
+        if(c == '%') {
+    46c0:	3c 90 25 00 	cmp	#37,	r12	;#0x0025
+    46c4:	a2 20       	jnz	$+326    	;abs 0x480a
+    46c6:	0d 4a       	mov	r10,	r13	;
+    46c8:	2d 53       	incd	r13		;
+    46ca:	07 43       	clr	r7		;
+            fill_zeros = 0;
+parse_fmt_char:
+            switch(c = *format++) {
+    46cc:	7e 40 6c 00 	mov.b	#108,	r14	;#0x006c
+    46d0:	0a 4d       	mov	r13,	r10	;
+    46d2:	6c 49       	mov.b	@r9,	r12	;
+    46d4:	3c 90 6c 00 	cmp	#108,	r12	;#0x006c
+    46d8:	4b 24       	jz	$+152    	;abs 0x4770
+    46da:	4e 9c       	cmp.b	r12,	r14	;
+    46dc:	11 28       	jnc	$+36     	;abs 0x4700
+    46de:	3c 90 30 00 	cmp	#48,	r12	;#0x0030
+    46e2:	8c 24       	jz	$+282    	;abs 0x47fc
+    46e4:	7d 40 30 00 	mov.b	#48,	r13	;#0x0030
+    46e8:	4d 9c       	cmp.b	r12,	r13	;
+    46ea:	03 28       	jnc	$+8      	;abs 0x46f2
+    46ec:	0c 93       	cmp	#0,	r12	;r3 As==00
+    46ee:	94 24       	jz	$+298    	;abs 0x4818
+    46f0:	8b 3c       	jmp	$+280    	;abs 0x4808
+    46f2:	3c 90 63 00 	cmp	#99,	r12	;#0x0063
+    46f6:	1d 24       	jz	$+60     	;abs 0x4732
+    46f8:	3c 90 69 00 	cmp	#105,	r12	;#0x0069
+    46fc:	22 24       	jz	$+70     	;abs 0x4742
+    46fe:	84 3c       	jmp	$+266    	;abs 0x4808
+    4700:	3c 90 73 00 	cmp	#115,	r12	;#0x0073
+    4704:	0f 24       	jz	$+32     	;abs 0x4724
+    4706:	7d 40 73 00 	mov.b	#115,	r13	;#0x0073
+    470a:	4d 9c       	cmp.b	r12,	r13	;
+    470c:	04 28       	jnc	$+10     	;abs 0x4716
+    470e:	3c 90 6e 00 	cmp	#110,	r12	;#0x006e
+    4712:	2e 24       	jz	$+94     	;abs 0x4770
+    4714:	79 3c       	jmp	$+244    	;abs 0x4808
+    4716:	3c 90 75 00 	cmp	#117,	r12	;#0x0075
+    471a:	13 24       	jz	$+40     	;abs 0x4742
+    471c:	3c 90 78 00 	cmp	#120,	r12	;#0x0078
+    4720:	44 24       	jz	$+138    	;abs 0x47aa
+    4722:	72 3c       	jmp	$+230    	;abs 0x4808
+                case 's':                       // String
+                    io_puts_no_newline(va_arg(a, char*));
+    4724:	09 48       	mov	r8,	r9	;
+    4726:	29 53       	incd	r9		;
+    4728:	2c 48       	mov	@r8,	r12	;
+    472a:	b0 12 40 48 	call	#18496		;#0x4840
+    472e:	08 49       	mov	r9,	r8	;
+                    break;
+    4730:	6e 3c       	jmp	$+222    	;abs 0x480e
+                case 'c':                       // Char
+                    PUTC(va_arg(a, int)); // TODO: 'char' generated a warning
+    4732:	18 53       	inc	r8		;
+    4734:	0c 48       	mov	r8,	r12	;
+    4736:	1c c3       	bic	#1,	r12	;r3 As==01
+    4738:	08 4c       	mov	r12,	r8	;
+    473a:	28 53       	incd	r8		;
+    473c:	2c 4c       	mov	@r12,	r12	;
+    473e:	85 12       	call	r5		;
+                    break;
+    4740:	66 3c       	jmp	$+206    	;abs 0x480e
+                case 'i':                       // 16 bit Integer
+                case 'u':                       // 16 bit Unsigned
+                    i = va_arg(a, int);
+    4742:	18 53       	inc	r8		;
+    4744:	0d 48       	mov	r8,	r13	;
+    4746:	1d c3       	bic	#1,	r13	;r3 As==01
+    4748:	08 4d       	mov	r13,	r8	;
+    474a:	28 53       	incd	r8		;
+    474c:	29 4d       	mov	@r13,	r9	;
+                    if(c == 'i' && i < 0) i = -i, PUTC('-');
+    474e:	3c 90 69 00 	cmp	#105,	r12	;#0x0069
+    4752:	08 20       	jnz	$+18     	;abs 0x4764
+    4754:	09 93       	cmp	#0,	r9	;r3 As==00
+    4756:	06 34       	jge	$+14     	;abs 0x4764
+    4758:	0c 43       	clr	r12		;
+    475a:	0c 89       	sub	r9,	r12	;
+    475c:	09 4c       	mov	r12,	r9	;
+    475e:	3c 40 2d 00 	mov	#45,	r12	;#0x002d
+    4762:	85 12       	call	r5		;
+                    xtoa((unsigned)i, dv + 5);
+    4764:	0c 49       	mov	r9,	r12	;
+    4766:	0d 43       	clr	r13		;
+    4768:	0e 44       	mov	r4,	r14	;
+    476a:	b0 12 fa 45 	call	#17914		;#0x45fa
+                    break;
+    476e:	4f 3c       	jmp	$+160    	;abs 0x480e
+                case 'l':                       // 32 bit Long
+                case 'n':                       // 32 bit uNsigned loNg
+                    n = va_arg(a, long);
+    4770:	18 53       	inc	r8		;
+    4772:	0d 48       	mov	r8,	r13	;
+    4774:	1d c3       	bic	#1,	r13	;r3 As==01
+    4776:	08 4d       	mov	r13,	r8	;
+    4778:	28 52       	add	#4,	r8	;r2 As==10
+    477a:	26 4d       	mov	@r13,	r6	;
+    477c:	17 4d 02 00 	mov	2(r13),	r7	;
+                    if(c == 'l' &&  n < 0) n = -n, PUTC('-');
+    4780:	3c 90 6c 00 	cmp	#108,	r12	;#0x006c
+    4784:	0b 20       	jnz	$+24     	;abs 0x479c
+    4786:	07 93       	cmp	#0,	r7	;r3 As==00
+    4788:	09 34       	jge	$+20     	;abs 0x479c
+    478a:	0c 43       	clr	r12		;
+    478c:	0d 43       	clr	r13		;
+    478e:	0c 86       	sub	r6,	r12	;
+    4790:	0d 77       	subc	r7,	r13	;
+    4792:	06 4c       	mov	r12,	r6	;
+    4794:	07 4d       	mov	r13,	r7	;
+    4796:	3c 40 2d 00 	mov	#45,	r12	;#0x002d
+    479a:	85 12       	call	r5		;
+                    xtoa((unsigned long)n, dv);
+    479c:	0c 46       	mov	r6,	r12	;
+    479e:	0d 47       	mov	r7,	r13	;
+    47a0:	3e 40 18 44 	mov	#17432,	r14	;#0x4418
+    47a4:	b0 12 fa 45 	call	#17914		;#0x45fa
+                    break;
+    47a8:	32 3c       	jmp	$+102    	;abs 0x480e
+                case 'x':                       // 16 bit heXadecimal
+                    i = va_arg(a, int);
+    47aa:	18 53       	inc	r8		;
+    47ac:	0c 48       	mov	r8,	r12	;
+    47ae:	1c c3       	bic	#1,	r12	;r3 As==01
+    47b0:	08 4c       	mov	r12,	r8	;
+    47b2:	28 53       	incd	r8		;
+    47b4:	29 4c       	mov	@r12,	r9	;
+                    d = i >> 12;
+    47b6:	0c 49       	mov	r9,	r12	;
+    47b8:	4b 18 0c 11 	rpt #12 { rrax.w	r12		;
+                    if (d > 0 || fill_zeros >= 4)
+    47bc:	0c 93       	cmp	#0,	r12	;r3 As==00
+    47be:	04 20       	jnz	$+10     	;abs 0x47c8
+    47c0:	3d 40 03 00 	mov	#3,	r13	;
+    47c4:	0d 97       	cmp	r7,	r13	;
+    47c6:	02 34       	jge	$+6      	;abs 0x47cc
+                        puth(d);
+    47c8:	b0 12 7e 46 	call	#18046		;#0x467e
+                    d = i >> 8;
+    47cc:	0c 49       	mov	r9,	r12	;
+    47ce:	47 18 0c 11 	rpt #8 { rrax.w	r12		;
+                    if (d > 0 || fill_zeros >= 3)
+    47d2:	0c 93       	cmp	#0,	r12	;r3 As==00
+    47d4:	03 20       	jnz	$+8      	;abs 0x47dc
+    47d6:	2d 43       	mov	#2,	r13	;r3 As==10
+    47d8:	0d 97       	cmp	r7,	r13	;
+    47da:	02 34       	jge	$+6      	;abs 0x47e0
+                        puth(d);
+    47dc:	b0 12 7e 46 	call	#18046		;#0x467e
+                    d = i >> 4;
+    47e0:	0c 49       	mov	r9,	r12	;
+    47e2:	43 18 0c 11 	rpt #4 { rrax.w	r12		;
+                    if (d > 0 || fill_zeros >= 2)
+    47e6:	0c 93       	cmp	#0,	r12	;r3 As==00
+    47e8:	03 20       	jnz	$+8      	;abs 0x47f0
+    47ea:	1d 43       	mov	#1,	r13	;r3 As==01
+    47ec:	0d 97       	cmp	r7,	r13	;
+    47ee:	02 34       	jge	$+6      	;abs 0x47f4
+                        puth(d);
+    47f0:	b0 12 7e 46 	call	#18046		;#0x467e
+                    puth(i);
+    47f4:	0c 49       	mov	r9,	r12	;
+    47f6:	b0 12 7e 46 	call	#18046		;#0x467e
+                    break;
+    47fa:	09 3c       	jmp	$+20     	;abs 0x480e
+    47fc:	29 53       	incd	r9		;
+                case '0':
+                    c = *format++;
+                    fill_zeros = c - '0';
+    47fe:	67 4d       	mov.b	@r13,	r7	;
+    4800:	37 50 d0 ff 	add	#65488,	r7	;#0xffd0
+    4804:	2d 53       	incd	r13		;
+                    goto parse_fmt_char;
+    4806:	64 3f       	jmp	$-310    	;abs 0x46d0
+    va_start(a, format);
+    while((c = *format++)) {
+        if(c == '%') {
+            fill_zeros = 0;
+parse_fmt_char:
+            switch(c = *format++) {
+    4808:	09 4a       	mov	r10,	r9	;
+                    goto parse_fmt_char;
+                case 0: return 0;
+                default: goto bad_fmt;
+            }
+        } else
+bad_fmt:    PUTC(c);
+    480a:	85 12       	call	r5		;
+    480c:	0a 49       	mov	r9,	r10	;
+    int fill_zeros;
+    unsigned d;
+
+    va_list a;
+    va_start(a, format);
+    while((c = *format++)) {
+    480e:	09 4a       	mov	r10,	r9	;
+    4810:	19 53       	inc	r9		;
+    4812:	6c 4a       	mov.b	@r10,	r12	;
+    4814:	0c 93       	cmp	#0,	r12	;r3 As==00
+    4816:	54 23       	jnz	$-342    	;abs 0x46c0
+        } else
+bad_fmt:    PUTC(c);
+    }
+    va_end(a);
+    return 0; // TODO: return number of chars printed
+}
+    4818:	0c 43       	clr	r12		;
+    481a:	64 17       	popm	#7,	r10	;16-bit words
+    481c:	30 41       	ret			
+
+0000481e <mspconsole_init>:
+
+#include <stdlib.h>
+
+void mspconsole_init()
+{
+    UART_init();
+    481e:	b0 12 7c 48 	call	#18556		;#0x487c
+}
+    4822:	30 41       	ret			
+
+00004824 <io_putchar>:
+			: "=r" (r12)
+			);
+}
+
+int io_putchar_c(int c)
+*/{
+    4824:	0a 15       	pushm	#1,	r10	;16-bit words
+    4826:	21 83       	decd	r1		;
+    4828:	0a 4c       	mov	r12,	r10	;
+    uint8_t ch = c;
+    482a:	c1 4c 01 00 	mov.b	r12,	1(r1)	;
+    UART_send(&ch, 1);
+    482e:	0c 41       	mov	r1,	r12	;
+    4830:	1c 53       	inc	r12		;
+    4832:	1d 43       	mov	#1,	r13	;r3 As==01
+    4834:	b0 12 08 49 	call	#18696		;#0x4908
+    return c;
+}
+    4838:	0c 4a       	mov	r10,	r12	;
+    483a:	21 53       	incd	r1		;
+    483c:	0a 17       	popm	#1,	r10	;16-bit words
+    483e:	30 41       	ret			
+
+00004840 <io_puts_no_newline>:
+
+int io_puts_no_newline(const char *ptr)
+{
+    4840:	0a 15       	pushm	#1,	r10	;16-bit words
+    unsigned len = 0;
+    const char *p = ptr;
+
+    while (*p++ != '\0')
+    4842:	cc 93 00 00 	cmp.b	#0,	0(r12)	;r3 As==00
+    4846:	08 24       	jz	$+18     	;abs 0x4858
+    4848:	0a 43       	clr	r10		;
+        len++;
+    484a:	1a 53       	inc	r10		;
+    484c:	0d 4c       	mov	r12,	r13	;
+    484e:	0d 5a       	add	r10,	r13	;
+int io_puts_no_newline(const char *ptr)
+{
+    unsigned len = 0;
+    const char *p = ptr;
+
+    while (*p++ != '\0')
+    4850:	cd 93 00 00 	cmp.b	#0,	0(r13)	;r3 As==00
+    4854:	fa 23       	jnz	$-10     	;abs 0x484a
+    4856:	01 3c       	jmp	$+4      	;abs 0x485a
+    return c;
+}
+
+int io_puts_no_newline(const char *ptr)
+{
+    unsigned len = 0;
+    4858:	0a 43       	clr	r10		;
+    const char *p = ptr;
+
+    while (*p++ != '\0')
+        len++;
+
+    UART_send((uint8_t *)ptr, len);
+    485a:	0d 4a       	mov	r10,	r13	;
+    485c:	b0 12 08 49 	call	#18696		;#0x4908
+    return len;
+}
+    4860:	0c 4a       	mov	r10,	r12	;
+    4862:	0a 17       	popm	#1,	r10	;16-bit words
+    4864:	30 41       	ret			
+
+00004866 <io_puts>:
+
+int io_puts(const char *ptr)
+{
+    4866:	0a 15       	pushm	#1,	r10	;16-bit words
+    unsigned len;
+
+    len = io_puts_no_newline(ptr);
+    4868:	b0 12 40 48 	call	#18496		;#0x4840
+    486c:	0a 4c       	mov	r12,	r10	;
+
+    // Semantics of puts are annoying...
+    io_putchar('\n');
+    486e:	3c 40 0a 00 	mov	#10,	r12	;#0x000a
+    4872:	b0 12 24 48 	call	#18468		;#0x4824
+
+    return len;
+}
+    4876:	0c 4a       	mov	r10,	r12	;
+    4878:	0a 17       	popm	#1,	r10	;16-bit words
+    487a:	30 41       	ret			
+
+0000487c <UART_init>:
+ * @todo Currently assumes an 8MHz SMCLK. Make robust to clock frequency changes by using 32k ACLK.
+ */
+void UART_init(void) {
+
+    // Configure USCI_A0 for UART mode
+    UCA0CTLW0 = UCSWRST;                      // Put eUSCI in reset
+    487c:	92 43 c0 05 	mov	#1,	&0x05c0	;r3 As==01
+    UCA0CTLW0 |= UCSSEL__SMCLK;               // CLK = SMCLK
+    4880:	b2 d0 80 00 	bis	#128,	&0x05c0	;#0x0080
+    4884:	c0 05 
+    UCA0BR1 = 0;
+    UCA0MCTLW = UCOS16 | UCBRF_2 | (0xBB << 8);
+#endif // UART_BAUDRATE
+#elif UART_CLOCK == 8000000
+#if UART_BAUDRATE == 115200
+    UCA0BR0 = 4;
+    4886:	e2 42 c6 05 	mov.b	#4,	&0x05c6	;r2 As==10
+    UCA0BR1 = 0;
+    488a:	c2 43 c7 05 	mov.b	#0,	&0x05c7	;r3 As==00
+    UCA0MCTLW = UCOS16 | UCBRF_4 | (0x55 << 8);
+    488e:	b2 40 41 55 	mov	#21825,	&0x05c8	;#0x5541
+    4892:	c8 05 
+#endif // UART_BAUDRATE
+#endif // UART_CLOCK
+
+#if defined(__MSP430FR5969__) || defined(__MSP430FR5949__)
+    PUART_TXSEL0 &= ~PIN_UART_TX; // TX pin to UART module
+    4894:	d2 c3 0b 02 	bic.b	#1,	&0x020b	;r3 As==01
+    PUART_TXSEL1 |= PIN_UART_TX;
+    4898:	d2 d3 0d 02 	bis.b	#1,	&0x020d	;r3 As==01
+
+    PUART_RXSEL0 &= ~PIN_UART_RX; // RX pin to UART module
+    489c:	e2 c3 0b 02 	bic.b	#2,	&0x020b	;r3 As==10
+    PUART_RXSEL1 |= PIN_UART_RX;
+    48a0:	e2 d3 0d 02 	bis.b	#2,	&0x020d	;r3 As==10
+    PUART_RXSEL1 &= ~PIN_UART_RX;
+#else
+#error MCU not supported
+#endif
+
+    UCA0CTLW0 &= ~UCSWRST;                    // Initialize eUSCI
+    48a4:	92 c3 c0 05 	bic	#1,	&0x05c0	;r3 As==01
+
+    // Initialize module state
+    UART_SM.isTxBusy = FALSE;
+    48a8:	3c 40 18 1c 	mov	#7192,	r12	;#0x1c18
+    48ac:	cc 43 00 00 	mov.b	#0,	0(r12)	;r3 As==00
+    UART_SM.txBytesRemaining = 0;
+    48b0:	8c 43 04 00 	mov	#0,	4(r12)	;r3 As==00
+    UART_SM.isRxBusy = FALSE;
+    48b4:	cc 43 06 00 	mov.b	#0,	6(r12)	;r3 As==00
+    UART_SM.rxBytesRemaining = 0;
+    48b8:	8c 43 0a 00 	mov	#0,	10(r12)	;r3 As==00, 0x000a
+
+}
+    48bc:	30 41       	ret			
+
+000048be <UART_teardown>:
+void UART_teardown()
+{
+    // disable UART
+    // Not sure how to do this best, but set all UCA0* registers to
+    // their default values.  See User's Guide for default values.
+    PUART_TXSEL0 &= ~PIN_UART_TX;
+    48be:	d2 c3 0b 02 	bic.b	#1,	&0x020b	;r3 As==01
+    PUART_TXSEL1 &= ~PIN_UART_TX;
+    48c2:	d2 c3 0d 02 	bic.b	#1,	&0x020d	;r3 As==01
+    PUART_RXSEL0 &= ~PIN_UART_RX;
+    48c6:	e2 c3 0b 02 	bic.b	#2,	&0x020b	;r3 As==10
+    PUART_RXSEL1 &= ~PIN_UART_RX;
+    48ca:	e2 c3 0d 02 	bic.b	#2,	&0x020d	;r3 As==10
+    UCA0CTLW0 = 0x0001;
+    48ce:	92 43 c0 05 	mov	#1,	&0x05c0	;r3 As==01
+    UCA0BR0 = 0x0000;
+    48d2:	c2 43 c6 05 	mov.b	#0,	&0x05c6	;r3 As==00
+    UCA0MCTLW = 0x0000;
+    48d6:	82 43 c8 05 	mov	#0,	&0x05c8	;r3 As==00
+    UCA0IE = 0x0000;
+    48da:	82 43 da 05 	mov	#0,	&0x05da	;r3 As==00
+    UCA0IFG = 0x0000;
+    48de:	82 43 dc 05 	mov	#0,	&0x05dc	;r3 As==00
+}
+    48e2:	30 41       	ret			
+
+000048e4 <UART_asyncSend>:
+ * @param size the number of bytes to send
+ */
+void UART_asyncSend(uint8_t* txBuf, uint16_t size) {
+
+    // Block until prior transmission has completed
+    while (UART_SM.isTxBusy)
+    48e4:	3f 40 18 1c 	mov	#7192,	r15	;#0x1c18
+    48e8:	6e 4f       	mov.b	@r15,	r14	;
+    48ea:	0e 93       	cmp	#0,	r14	;r3 As==00
+    48ec:	fd 23       	jnz	$-4      	;abs 0x48e8
+        ;
+
+    // Set up for start of transmission
+    UART_SM.isTxBusy = TRUE;
+    48ee:	3e 40 18 1c 	mov	#7192,	r14	;#0x1c18
+    48f2:	de 43 00 00 	mov.b	#1,	0(r14)	;r3 As==01
+    UART_SM.txPtr = txBuf;
+    48f6:	8e 4c 02 00 	mov	r12,	2(r14)	;
+    UART_SM.txBytesRemaining = size;
+    48fa:	8e 4d 04 00 	mov	r13,	4(r14)	;
+
+    UCA0IFG &= ~(USCI_UART_UCTXIFG); // Clear the 'ready to accept byte' flag
+    48fe:	a2 c2 dc 05 	bic	#4,	&0x05dc	;r2 As==10
+
+    UCA0IE |= UCTXIE; // Enable USCI_A0 TX interrupt ('ready to accept byte')
+    4902:	a2 d3 da 05 	bis	#2,	&0x05da	;r3 As==10
+    //UCA0TXBUF = *(UART_SM.txPtr++); // Load in first byte
+
+    // The bytes are transmitted in the TX ISR (which is called whenever the
+    // UART is ready to accept a byte), and the isBusy flag is cleared when the
+    // last byte has *finished* transmitting.
+}
+    4906:	30 41       	ret			
+
+00004908 <UART_send>:
+ * @param size the number of bytes to send
+ *
+ */
+void UART_send(uint8_t* txBuf, uint16_t size) {
+
+    UART_asyncSend(txBuf, size);
+    4908:	b0 12 e4 48 	call	#18660		;#0x48e4
+
+    // Block until complete
+    while (UART_SM.isTxBusy)
+    490c:	3d 40 18 1c 	mov	#7192,	r13	;#0x1c18
+    4910:	6c 4d       	mov.b	@r13,	r12	;
+    4912:	0c 93       	cmp	#0,	r12	;r3 As==00
+    4914:	fd 23       	jnz	$-4      	;abs 0x4910
+        ;
+}
+    4916:	30 41       	ret			
+
+00004918 <UART_critSend>:
+ *  and use UART status register polling instead of interrupts.
+ */
+void UART_critSend(uint8_t* txBuf, uint16_t size) {
+
+    // Block until prior transmission has completed
+    while (UART_SM.isTxBusy)
+    4918:	3f 40 18 1c 	mov	#7192,	r15	;#0x1c18
+    491c:	6e 4f       	mov.b	@r15,	r14	;
+    491e:	0e 93       	cmp	#0,	r14	;r3 As==00
+    4920:	fd 23       	jnz	$-4      	;abs 0x491c
+        ;
+
+    // Set up for start of transmission
+    UART_SM.isTxBusy = TRUE;
+    4922:	3e 40 18 1c 	mov	#7192,	r14	;#0x1c18
+    4926:	de 43 00 00 	mov.b	#1,	0(r14)	;r3 As==01
+    UART_SM.txPtr = txBuf;
+    492a:	8e 4c 02 00 	mov	r12,	2(r14)	;
+    UART_SM.txBytesRemaining = size;
+    492e:	8e 4d 04 00 	mov	r13,	4(r14)	;
+
+    UCA0IV &= ~(USCI_UART_UCTXIFG); // Clear byte completion flag
+    4932:	a2 c2 de 05 	bic	#4,	&0x05de	;r2 As==10
+
+    while (UART_SM.txBytesRemaining--) {
+    4936:	1c 4e 04 00 	mov	4(r14),	r12	;
+    493a:	0d 4c       	mov	r12,	r13	;
+    493c:	3d 53       	add	#-1,	r13	;r3 As==11
+    493e:	8e 4d 04 00 	mov	r13,	4(r14)	;
+    4942:	0c 93       	cmp	#0,	r12	;r3 As==00
+    4944:	19 24       	jz	$+52     	;abs 0x4978
+        UCA0TXBUF = *(UART_SM.txPtr++); // Load in next byte
+    4946:	0c 4e       	mov	r14,	r12	;
+    4948:	1d 4c 02 00 	mov	2(r12),	r13	;
+    494c:	0e 4d       	mov	r13,	r14	;
+    494e:	1e 53       	inc	r14		;
+    4950:	8c 4e 02 00 	mov	r14,	2(r12)	;
+    4954:	6d 4d       	mov.b	@r13,	r13	;
+    4956:	3d f0 ff 00 	and	#255,	r13	;#0x00ff
+    495a:	82 4d ce 05 	mov	r13,	&0x05ce	;
+        while (!(UCA0IFG & UCTXIFG))
+    495e:	a2 b3 dc 05 	bit	#2,	&0x05dc	;r3 As==10
+    4962:	fd 27       	jz	$-4      	;abs 0x495e
+            ; // Wait for byte transmission to complete
+        UCA0IFG &= ~(UCTXIFG); // Clear byte completion flag
+    4964:	a2 c3 dc 05 	bic	#2,	&0x05dc	;r3 As==10
+    UART_SM.txPtr = txBuf;
+    UART_SM.txBytesRemaining = size;
+
+    UCA0IV &= ~(USCI_UART_UCTXIFG); // Clear byte completion flag
+
+    while (UART_SM.txBytesRemaining--) {
+    4968:	1d 4c 04 00 	mov	4(r12),	r13	;
+    496c:	0e 4d       	mov	r13,	r14	;
+    496e:	3e 53       	add	#-1,	r14	;r3 As==11
+    4970:	8c 4e 04 00 	mov	r14,	4(r12)	;
+    4974:	0d 93       	cmp	#0,	r13	;r3 As==00
+    4976:	e8 23       	jnz	$-46     	;abs 0x4948
+        while (!(UCA0IFG & UCTXIFG))
+            ; // Wait for byte transmission to complete
+        UCA0IFG &= ~(UCTXIFG); // Clear byte completion flag
+    }
+
+    UART_SM.isTxBusy = FALSE;
+    4978:	c2 43 18 1c 	mov.b	#0,	&0x1c18	;r3 As==00
+}
+    497c:	30 41       	ret			
+
+0000497e <UART_isTxBusy>:
+/**
+ * Return true if UART TX module is in the middle of an operation, false if not.
+ */
+uint8_t UART_isTxBusy() {
+    return UART_SM.isTxBusy;
+}
+    497e:	5c 42 18 1c 	mov.b	&0x1c18,r12	;0x1c18
+    4982:	30 41       	ret			
+
+00004984 <UART_asyncReceive>:
+ * @param size the number of bytes to receive
+ */
+void UART_asyncReceive(uint8_t* rxBuf, uint16_t size) {
+
+    // Block until prior reception has completed
+    while (UART_SM.isRxBusy)
+    4984:	3f 40 18 1c 	mov	#7192,	r15	;#0x1c18
+    4988:	5e 4f 06 00 	mov.b	6(r15),	r14	;
+    498c:	0e 93       	cmp	#0,	r14	;r3 As==00
+    498e:	fc 23       	jnz	$-6      	;abs 0x4988
+        ;
+
+    // Set up for start of reception
+    UART_SM.isRxBusy = TRUE;
+    4990:	3e 40 18 1c 	mov	#7192,	r14	;#0x1c18
+    4994:	de 43 06 00 	mov.b	#1,	6(r14)	;r3 As==01
+    UART_SM.rxPtr = rxBuf;
+    4998:	8e 4c 08 00 	mov	r12,	8(r14)	;
+    UART_SM.rxBytesRemaining = size;
+    499c:	8e 4d 0a 00 	mov	r13,	10(r14)	; 0x000a
+
+    UCA0IFG &= ~(UCRXIFG); // Clear byte completion flag
+    49a0:	92 c3 dc 05 	bic	#1,	&0x05dc	;r3 As==01
+
+    UCA0IE |= UCRXIE; // Enable USCI_A0 RX interrupt
+    49a4:	92 d3 da 05 	bis	#1,	&0x05da	;r3 As==01
+
+    // The rest of the reception will be completed by the RX ISR (which
+    //  will wake after each byte has been received), and the isBusy flag
+    //  will be cleared when done.
+}
+    49a8:	30 41       	ret			
+
+000049aa <UART_receive>:
+ * @param size the number of bytes to receive
+ *
+ */
+void UART_receive(uint8_t* rxBuf, uint16_t size) {
+
+    UART_asyncReceive(rxBuf, size);
+    49aa:	b0 12 84 49 	call	#18820		;#0x4984
+
+    // Block until complete
+    while (UART_SM.isRxBusy)
+    49ae:	3d 40 18 1c 	mov	#7192,	r13	;#0x1c18
+    49b2:	5c 4d 06 00 	mov.b	6(r13),	r12	;
+    49b6:	0c 93       	cmp	#0,	r12	;r3 As==00
+    49b8:	fc 23       	jnz	$-6      	;abs 0x49b2
+        ;
+}
+    49ba:	30 41       	ret			
+
+000049bc <UART_critReceive>:
+ *  and use UART status register polling instead of interrupts.
+ */
+void UART_critReceive(uint8_t* rxBuf, uint16_t size) {
+
+    // Block until prior reception has completed
+    while (UART_SM.isRxBusy)
+    49bc:	3f 40 18 1c 	mov	#7192,	r15	;#0x1c18
+    49c0:	5e 4f 06 00 	mov.b	6(r15),	r14	;
+    49c4:	0e 93       	cmp	#0,	r14	;r3 As==00
+    49c6:	fc 23       	jnz	$-6      	;abs 0x49c0
+        ;
+
+    // Set up for start of reception
+    UART_SM.isRxBusy = TRUE;
+    49c8:	3e 40 18 1c 	mov	#7192,	r14	;#0x1c18
+    49cc:	de 43 06 00 	mov.b	#1,	6(r14)	;r3 As==01
+    UART_SM.rxPtr = rxBuf;
+    49d0:	8e 4c 08 00 	mov	r12,	8(r14)	;
+    UART_SM.rxBytesRemaining = size;
+    49d4:	8e 4d 0a 00 	mov	r13,	10(r14)	; 0x000a
+
+    UCA0IFG &= ~(UCRXIFG); // Clear byte completion flag
+    49d8:	92 c3 dc 05 	bic	#1,	&0x05dc	;r3 As==01
+
+    while (UART_SM.rxBytesRemaining--) {
+    49dc:	1c 4e 0a 00 	mov	10(r14),r12	;0x0000a
+    49e0:	0d 4c       	mov	r12,	r13	;
+    49e2:	3d 53       	add	#-1,	r13	;r3 As==11
+    49e4:	8e 4d 0a 00 	mov	r13,	10(r14)	; 0x000a
+    49e8:	0c 93       	cmp	#0,	r12	;r3 As==00
+    49ea:	18 24       	jz	$+50     	;abs 0x4a1c
+        while (!(UCA0IFG & UCRXIFG))
+            ; // Wait for byte reception to complete
+        UCA0IFG &= ~(UCRXIFG); // Clear byte completion flag
+
+        uint8_t rec = UCA0RXBUF; // Read next byte
+        *(UART_SM.rxPtr++) = rec; // Store byte
+    49ec:	0c 4e       	mov	r14,	r12	;
+    UART_SM.rxBytesRemaining = size;
+
+    UCA0IFG &= ~(UCRXIFG); // Clear byte completion flag
+
+    while (UART_SM.rxBytesRemaining--) {
+        while (!(UCA0IFG & UCRXIFG))
+    49ee:	92 b3 dc 05 	bit	#1,	&0x05dc	;r3 As==01
+    49f2:	fd 27       	jz	$-4      	;abs 0x49ee
+            ; // Wait for byte reception to complete
+        UCA0IFG &= ~(UCRXIFG); // Clear byte completion flag
+    49f4:	92 c3 dc 05 	bic	#1,	&0x05dc	;r3 As==01
+
+        uint8_t rec = UCA0RXBUF; // Read next byte
+    49f8:	1e 42 cc 05 	mov	&0x05cc,r14	;0x05cc
+        *(UART_SM.rxPtr++) = rec; // Store byte
+    49fc:	1d 4c 08 00 	mov	8(r12),	r13	;
+    4a00:	0f 4d       	mov	r13,	r15	;
+    4a02:	1f 53       	inc	r15		;
+    4a04:	8c 4f 08 00 	mov	r15,	8(r12)	;
+    while (UART_SM.rxBytesRemaining--) {
+        while (!(UCA0IFG & UCRXIFG))
+            ; // Wait for byte reception to complete
+        UCA0IFG &= ~(UCRXIFG); // Clear byte completion flag
+
+        uint8_t rec = UCA0RXBUF; // Read next byte
+    4a08:	cd 4e 00 00 	mov.b	r14,	0(r13)	;
+    UART_SM.rxPtr = rxBuf;
+    UART_SM.rxBytesRemaining = size;
+
+    UCA0IFG &= ~(UCRXIFG); // Clear byte completion flag
+
+    while (UART_SM.rxBytesRemaining--) {
+    4a0c:	1d 4c 0a 00 	mov	10(r12),r13	;0x0000a
+    4a10:	0e 4d       	mov	r13,	r14	;
+    4a12:	3e 53       	add	#-1,	r14	;r3 As==11
+    4a14:	8c 4e 0a 00 	mov	r14,	10(r12)	; 0x000a
+    4a18:	0d 93       	cmp	#0,	r13	;r3 As==00
+    4a1a:	e9 23       	jnz	$-44     	;abs 0x49ee
+
+        uint8_t rec = UCA0RXBUF; // Read next byte
+        *(UART_SM.rxPtr++) = rec; // Store byte
+    }
+
+    UART_SM.isRxBusy = FALSE;
+    4a1c:	c2 43 1e 1c 	mov.b	#0,	&0x1c1e	;r3 As==00
+}
+    4a20:	30 41       	ret			
+
+00004a22 <UART_isRxBusy>:
+/**
+ * Return true if UART RX module is in the middle of an operation, false if not.
+ */
+uint8_t UART_isRxBusy() {
+    return UART_SM.isRxBusy;
+}
+    4a22:	5c 42 1e 1c 	mov.b	&0x1c1e,r12	;0x1c1e
+    4a26:	30 41       	ret			
+
+00004a28 <UART_isRxDone>:
+ * Return true if UART RX module is not in the middle of an operation (e.g. done), false if not.
+ *
+ * Could be used in combination with UART_asyncReceive.
+ */
+uint8_t UART_isRxDone() {
+    return !(UART_SM.isRxBusy);
+    4a28:	5c 42 1e 1c 	mov.b	&0x1c1e,r12	;0x1c1e
+    4a2c:	3c 53       	add	#-1,	r12	;r3 As==11
+}
+    4a2e:	5c 03       	rrum	#1,	r12	;
+    4a30:	4d 18 0c 11 	rpt #14 { rrax.w	r12		;
+    4a34:	30 41       	ret			
+
+00004a36 <USCI_A0_ISR>:
+#elif defined(__GNUC__)
+void __attribute__ ((interrupt(USCI_A0_VECTOR))) USCI_A0_ISR (void)
+#else
+#error Compiler not supported!
+#endif
+{
+    4a36:	3f 15       	pushm	#4,	r15	;16-bit words
+    uint8_t rec;
+
+    switch (__even_in_range(UCA0IV, USCI_UART_UCTXCPTIFG)) {
+    4a38:	1c 42 de 05 	mov	&0x05de,r12	;0x05de
+    4a3c:	2c 93       	cmp	#2,	r12	;r3 As==10
+    4a3e:	03 24       	jz	$+8      	;abs 0x4a46
+    4a40:	2c 92       	cmp	#4,	r12	;r2 As==10
+    4a42:	1e 24       	jz	$+62     	;abs 0x4a80
+    4a44:	38 3c       	jmp	$+114    	;abs 0x4ab6
+    case USCI_NONE:
+        break;
+    case USCI_UART_UCRXIFG:
+        if (UART_SM.rxBytesRemaining--) {
+    4a46:	3d 40 18 1c 	mov	#7192,	r13	;#0x1c18
+    4a4a:	1c 4d 0a 00 	mov	10(r13),r12	;0x0000a
+    4a4e:	0e 4c       	mov	r12,	r14	;
+    4a50:	3e 53       	add	#-1,	r14	;r3 As==11
+    4a52:	8d 4e 0a 00 	mov	r14,	10(r13)	; 0x000a
+    4a56:	0c 93       	cmp	#0,	r12	;r3 As==00
+    4a58:	0a 24       	jz	$+22     	;abs 0x4a6e
+            rec = UCA0RXBUF; // Read next byte
+    4a5a:	1e 42 cc 05 	mov	&0x05cc,r14	;0x05cc
+            *(UART_SM.rxPtr++) = rec; // Store byte
+    4a5e:	1c 4d 08 00 	mov	8(r13),	r12	;
+    4a62:	0f 4c       	mov	r12,	r15	;
+    4a64:	1f 53       	inc	r15		;
+    4a66:	8d 4f 08 00 	mov	r15,	8(r13)	;
+    switch (__even_in_range(UCA0IV, USCI_UART_UCTXCPTIFG)) {
+    case USCI_NONE:
+        break;
+    case USCI_UART_UCRXIFG:
+        if (UART_SM.rxBytesRemaining--) {
+            rec = UCA0RXBUF; // Read next byte
+    4a6a:	cc 4e 00 00 	mov.b	r14,	0(r12)	;
+            *(UART_SM.rxPtr++) = rec; // Store byte
+        }
+
+        if (0 == UART_SM.rxBytesRemaining) {
+    4a6e:	1c 42 22 1c 	mov	&0x1c22,r12	;0x1c22
+    4a72:	0c 93       	cmp	#0,	r12	;r3 As==00
+    4a74:	20 20       	jnz	$+66     	;abs 0x4ab6
+            UCA0IE &= ~(UCRXIE); // Disable USCI_A0 RX interrupt
+    4a76:	92 c3 da 05 	bic	#1,	&0x05da	;r3 As==01
+            UART_SM.isRxBusy = FALSE;
+    4a7a:	c2 43 1e 1c 	mov.b	#0,	&0x1c1e	;r3 As==00
+    4a7e:	1b 3c       	jmp	$+56     	;abs 0x4ab6
+        }
+
+        break;
+    case USCI_UART_UCTXIFG:
+        UCA0TXBUF = *(UART_SM.txPtr++); // if interrupt was enabled, there must be bytes
+    4a80:	3c 40 18 1c 	mov	#7192,	r12	;#0x1c18
+    4a84:	1d 4c 02 00 	mov	2(r12),	r13	;
+    4a88:	0e 4d       	mov	r13,	r14	;
+    4a8a:	1e 53       	inc	r14		;
+    4a8c:	8c 4e 02 00 	mov	r14,	2(r12)	;
+    4a90:	6d 4d       	mov.b	@r13,	r13	;
+    4a92:	3d f0 ff 00 	and	#255,	r13	;#0x00ff
+    4a96:	82 4d ce 05 	mov	r13,	&0x05ce	;
+        if (--UART_SM.txBytesRemaining == 0) {
+    4a9a:	1d 4c 04 00 	mov	4(r12),	r13	;
+    4a9e:	3d 53       	add	#-1,	r13	;r3 As==11
+    4aa0:	8c 4d 04 00 	mov	r13,	4(r12)	;
+    4aa4:	0d 93       	cmp	#0,	r13	;r3 As==00
+    4aa6:	07 20       	jnz	$+16     	;abs 0x4ab6
+            // TODO: actually, this wait should probably happen for blocking version only
+            while (UCA0STATW & UCBUSY); // wait for last byte to finish transmitting
+    4aa8:	d2 b3 ca 05 	bit.b	#1,	&0x05ca	;r3 As==01
+    4aac:	fd 23       	jnz	$-4      	;abs 0x4aa8
+            UCA0IE &= ~(UCTXIE); // Disable USCI_A0 TX interrupt
+    4aae:	a2 c3 da 05 	bic	#2,	&0x05da	;r3 As==10
+            UART_SM.isTxBusy = FALSE;
+    4ab2:	c2 43 18 1c 	mov.b	#0,	&0x1c18	;r3 As==00
+    case USCI_UART_UCSTTIFG:
+        break;
+    case USCI_UART_UCTXCPTIFG:
+        break;
+    }
+}
+    4ab6:	3c 17       	popm	#4,	r15	;16-bit words
+    4ab8:	00 13       	reti			
+
+00004aba <memmove>:
+    4aba:	0a 15       	pushm	#1,	r10	;16-bit words
+    4abc:	0d 9c       	cmp	r12,	r13	;
+    4abe:	10 2c       	jc	$+34     	;abs 0x4ae0
+    4ac0:	0b 4d       	mov	r13,	r11	;
+    4ac2:	0b 5e       	add	r14,	r11	;
+    4ac4:	0c 9b       	cmp	r11,	r12	;
+    4ac6:	0c 2c       	jc	$+26     	;abs 0x4ae0
+    4ac8:	0d 4e       	mov	r14,	r13	;
+    4aca:	3d 53       	add	#-1,	r13	;r3 As==11
+    4acc:	3d 93       	cmp	#-1,	r13	;r3 As==11
+    4ace:	13 24       	jz	$+40     	;abs 0x4af6
+    4ad0:	0f 4d       	mov	r13,	r15	;
+    4ad2:	0f 8e       	sub	r14,	r15	;
+    4ad4:	0f 5b       	add	r11,	r15	;
+    4ad6:	0a 4c       	mov	r12,	r10	;
+    4ad8:	0a 5d       	add	r13,	r10	;
+    4ada:	ea 4f 00 00 	mov.b	@r15,	0(r10)	;
+    4ade:	f5 3f       	jmp	$-20     	;abs 0x4aca
+    4ae0:	0f 43       	clr	r15		;
+    4ae2:	0f 9e       	cmp	r14,	r15	;
+    4ae4:	08 24       	jz	$+18     	;abs 0x4af6
+    4ae6:	0a 4d       	mov	r13,	r10	;
+    4ae8:	0a 5f       	add	r15,	r10	;
+    4aea:	0b 4c       	mov	r12,	r11	;
+    4aec:	0b 5f       	add	r15,	r11	;
+    4aee:	eb 4a 00 00 	mov.b	@r10,	0(r11)	;
+    4af2:	1f 53       	inc	r15		;
+    4af4:	f6 3f       	jmp	$-18     	;abs 0x4ae2
+    4af6:	0a 17       	popm	#1,	r10	;16-bit words
+    4af8:	30 41       	ret			
+
+00004afa <memset>:
+    4afa:	0f 4c       	mov	r12,	r15	;
+    4afc:	0e 5c       	add	r12,	r14	;
+    4afe:	0f 9e       	cmp	r14,	r15	;
+    4b00:	04 24       	jz	$+10     	;abs 0x4b0a
+    4b02:	cf 4d 00 00 	mov.b	r13,	0(r15)	;
+    4b06:	1f 53       	inc	r15		;
+    4b08:	fa 3f       	jmp	$-10     	;abs 0x4afe
+    4b0a:	30 41       	ret			
+
+00004b0c <__do_global_ctors_aux>:
+    4b0c:	0a 15       	pushm	#1,	r10	;16-bit words
+    4b0e:	1c 42 48 44 	mov	&0x4448,r12	;0x4448
+    4b12:	3c 93       	cmp	#-1,	r12	;r3 As==11
+    4b14:	08 24       	jz	$+18     	;abs 0x4b26
+    4b16:	3a 40 48 44 	mov	#17480,	r10	;#0x4448
+    4b1a:	8c 12       	call	r12		;
+    4b1c:	3a 50 fe ff 	add	#65534,	r10	;#0xfffe
+    4b20:	2c 4a       	mov	@r10,	r12	;
+    4b22:	3c 93       	cmp	#-1,	r12	;r3 As==11
+    4b24:	fa 23       	jnz	$-10     	;abs 0x4b1a
+    4b26:	0a 17       	popm	#1,	r10	;16-bit words
+    4b28:	30 41       	ret			
+
+00004b2a <call___do_global_ctors_aux>:
+    4b2a:	30 41       	ret			
+
+00004b2c <__msp430_init>:
+    4b2c:	b0 12 52 45 	call	#17746		;#0x4552
+    4b30:	b0 12 0c 4b 	call	#19212		;#0x4b0c
+    4b34:	b0 12 92 44 	call	#17554		;#0x4492
+    4b38:	b0 12 86 44 	call	#17542		;#0x4486
+    4b3c:	30 41       	ret			
+
+00004b3e <__msp430_fini>:
+    4b3e:	b0 12 9e 44 	call	#17566		;#0x449e
+    4b42:	b0 12 04 45 	call	#17668		;#0x4504
+    4b46:	30 41       	ret			

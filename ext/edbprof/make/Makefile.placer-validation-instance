@@ -1,0 +1,89 @@
+# This runs as part of placement-validation experiemtn, per energy capacity
+# value.
+
+PARENT_DIR := ../..
+
+override EDBPROF_BUILD_DIR := $(PARENT_DIR)/$(EDBPROF_BUILD_DIR)
+override CHECKER_VALIDATION_DIR := $(PARENT_DIR)/$(CHECKER_VALIDATION_DIR)
+override CHECKER_VALIDATOR_DIR := $(PARENT_DIR)/$(CHECKER_VALIDATOR_DIR)
+override PLACEMENT_DIR := $(PARENT_DIR)/$(PLACEMENT_DIR)
+override TASK_ENERGY_DIR := $(PARENT_DIR)/$(TASK_ENERGY_DIR)
+override LOOP_ITERS_DIR := $(PARENT_DIR)/$(LOOP_ITERS_DIR)
+override BLOCK_ENERGY_DIR := $(PARENT_DIR)/$(BLOCK_ENERGY_DIR)
+override PATH_FREQ_DIR := $(PARENT_DIR)/$(PATH_FREQ_DIR)
+override ENERGY_CAPACITY_DIR := $(PARENT_DIR)
+
+INSTANCES_DIR = instances
+
+define instance-rule
+$(INSTANCES_DIR)/% : | $(INSTANCES_DIR)
+	mkdir -p $$@
+$(INSTANCES_DIR)/%/$(1) : | $(INSTANCES_DIR)/%
+	$$(MAKE) -e -f $(EDBPROF_MAKE_ROOT)/Makefile.placer-validation-inner-instance \
+	  -C $(INSTANCES_DIR)/$$* PLACER=$$* $(1)
+endef
+
+# Technically, we could avoid the foreach and just expose final target, since
+# the other targets are prereqs, but, we expose all, for ease of debugging
+# NOTE: The targets without an extension build corresponding target for each
+# module (hence, the target is phony); the targets with an extension build
+# one artifact (per program).
+INSTANCE_TARGETS = \
+	clean-instance \
+	failure-prob.csv \
+	labeled-predicted-completion.csv \
+	boundary-count.csv \
+	labeled-boundary-count.csv \
+	predicted-completion.csv \
+	labeled-placer-time.csv \
+	boundary-spec.csv \
+	placer-time.csv \
+
+$(foreach target,$(INSTANCE_TARGETS),$(eval $(call instance-rule,$(target))))
+
+# defines INNER_INSTANCES (per boundary placement)
+#-include $(PARENT_DIR)/instances.rules
+INNER_INSTANCES = manual greedy
+
+$(INSTANCES_DIR) :
+	mkdir -p $@
+
+$(INSTANCES_DIR)/% :
+	mkdir -p $@
+
+define inner-agg-rule
+# directory
+$(1) : | $(INSTANCES_DIR) $(foreach instance,$(INNER_INSTANCES),$(INSTANCES_DIR)/$(instance))
+$(1) : $(foreach instance,$(INNER_INSTANCES),$(INSTANCES_DIR)/$(instance)/$(1))
+endef
+
+INNER_TARGETS = \
+	failure-prob.csv \
+	labeled-predicted-completion.csv \
+	boundary-count.csv \
+	labeled-boundary-count.csv \
+	predicted-completion.csv \
+	labeled-placer-time.csv \
+	boundary-spec.csv \
+	placer-time.csv \
+
+$(foreach target,$(INNER_TARGETS),$(eval $(call inner-agg-rule,$(target))))
+
+# TODO: aggregate
+
+# TODO: use create-instances.py to get rid of this
+PREDICTED_COMPLETIONS_DATASETS = \
+	$(foreach instance,$(INNER_INSTANCES),$(INSTANCES_DIR)/$(instance)/labeled-predicted-completion.csv)
+BOUNDARY_COUNT_DATASETS = \
+	$(foreach instance,$(INNER_INSTANCES),$(INSTANCES_DIR)/$(instance)/labeled-boundary-count.csv)
+PLACER_TIME_DATASETS = \
+	$(foreach instance,$(INNER_INSTANCES),$(INSTANCES_DIR)/$(instance)/labeled-placer-time.csv)
+
+predicted-completions.csv : $(PREDICTED_COMPLETIONS_DATASETS)
+	$(EDBPROF_BIN_ROOT)/concat-datasets.py -o $@ $^
+
+boundary-counts.csv : $(BOUNDARY_COUNT_DATASETS)
+	$(EDBPROF_BIN_ROOT)/concat-datasets.py -o $@ $^
+
+placer-times.csv : $(PLACER_TIME_DATASETS)
+	$(EDBPROF_BIN_ROOT)/concat-datasets.py -o $@ $^

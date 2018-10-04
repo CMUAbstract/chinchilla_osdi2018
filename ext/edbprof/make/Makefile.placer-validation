@@ -1,0 +1,133 @@
+# This makefile is intended to be included from an app's makefile at
+# bld/edbprof/placer-validation/Makefile
+
+export EDBPROF_BUILD_DIR := ..
+
+# This phase depends on these phase to have been completed.
+override CHECKER_VALIDATION_DIR := $(EDBPROF_BUILD_DIR)/$(CHECKER_VALIDATION_DIR)
+override CHECKER_VALIDATOR_DIR := $(EDBPROF_BUILD_DIR)/$(CHECKER_VALIDATOR_DIR)
+override PLACEMENT_DIR := $(EDBPROF_BUILD_DIR)/$(PLACEMENT_DIR)
+override LOOP_ITERS_DIR := $(EDBPROF_BUILD_DIR)/$(LOOP_ITERS_DIR)
+override BLOCK_ENERGY_DIR := $(EDBPROF_BUILD_DIR)/$(BLOCK_ENERGY_DIR)
+override PATH_FREQ_DIR := $(EDBPROF_BUILD_DIR)/$(PATH_FREQ_DIR)
+override TASK_ENERGY_DIR := $(EDBPROF_BUILD_DIR)/$(TASK_ENERGY_DIR)
+
+INSTANCES_DIR = instances
+
+define instance-rule
+$(INSTANCES_DIR)/%/$(1) :
+	$$(MAKE) -e -f $(EDBPROF_MAKE_ROOT)/Makefile.placer-validation-instance -C $(INSTANCES_DIR)/$$* $(1)
+endef
+
+# Technically, we could avoid the foreach and just expose final target, since
+# the other targets are prereqs, but, we expose all, for ease of debugging
+# NOTE: The targets without an extension build corresponding target for each
+# module (hence, the target is phony); the targets with an extension build
+# one artifact (per program).
+INSTANCE_TARGETS = \
+	clean-instance \
+	failure-prob.csv \
+	predicted-completion.csv \
+	predicted-completions.csv \
+	labeled-predicted-completion.csv \
+	boundary-count.csv \
+	boundary-counts.csv \
+	labeled-boundary-count.csv \
+	placer-time.csv \
+	boundary-spec.csv \
+	labeled-placer-time.csv \
+	placer-times.csv \
+	failure-prob.csv \
+
+$(foreach target,$(INSTANCE_TARGETS),$(eval $(call instance-rule,$(target))))
+
+# Available outputs from this experiment (enable ones desired):
+#  * predicted-completions.pdf : greedy placement per capacity, with predictor output [slow]
+#  * boundary-counts.pdf : number of boundaries in greedy placement vs capacity [fast]
+ARTIFACTS = \
+	boundary-counts.pdf \
+	placer-times.tex \
+	placer-times-by-capacity.pdf \
+
+prof: $(ARTIFACTS)
+
+$(eval $(call release-target))
+
+$(INSTANCES_DIR) :
+	mkdir -p $@
+
+instances.csv instances.rules: $(CHECKER_VALIDATION_DIR)/boundary-specs.csv | $(INSTANCES_DIR)
+	$(EDBPROF_BIN_ROOT)/generate-capacities.py \
+		--range $(PLACER_VALIDATION_ENERGY_CAPACITY_RANGE) \
+		--instances-dir $(INSTANCES_DIR) \
+		--output-makefile instances.rules \
+		--output-instances instances.csv \
+		$^
+
+# defines OUTER_INSTANCES (per energy capacity value)
+ifeq ($(filter clean-phase,$(MAKECMDGOALS)),)
+-include instances.rules
+endif
+
+# TODO: roll into instance-rule
+define outer-agg-rule
+$(1) : $(foreach instance,$(OUTER_INSTANCES),$(INSTANCES_DIR)/$(instance)/$(1))
+endef
+
+# TODO: roll into INSTANCE_TARGETS?
+OUTER_TARGETS = \
+	failure-prob.csv \
+	predicted-completion.csv \
+	predicted-completions.csv \
+	labeled-predicted-completion.csv \
+	boundary-count.csv \
+	boundary-counts.csv \
+	labeled-boundary-count.csv \
+	boundary-spec.csv \
+	placer-time.csv \
+	labeled-placer-time.csv \
+	placer-times.csv \
+	predicted.csv \
+	accuracy.csv \
+	accuracy-stats.csv \
+	failure-prob.csv \
+
+$(foreach target,$(OUTER_TARGETS),$(eval $(call outer-agg-rule,$(target))))
+
+# Dependencies on instances are specified by the call to generic outper-agg-rule above
+predicted-completions.csv: instances.csv
+	$(EDBPROF_BIN_ROOT)/aggregate-by-capacity.py \
+	  --dir $(INSTANCES_DIR) --instance-dataset-name $@ \
+	  --quantity completed -o $@ $<
+
+predicted-completions.%: predicted-completions.csv
+	$(EDBPROF_BIN_ROOT)/plot-completions-by-capacity.py -o $@ $<
+
+# Dependencies on instances are specified by the call to generic outper-agg-rule above
+boundary-counts.csv: instances.csv
+	$(EDBPROF_BIN_ROOT)/aggregate-by-capacity.py \
+	  --dir $(INSTANCES_DIR) --instance-dataset-name $@ \
+	  --quantity boundary_count -o $@ $<
+
+placer-times.csv: instances.csv
+	$(EDBPROF_BIN_ROOT)/aggregate-by-capacity.py \
+	  --dir $(INSTANCES_DIR) --instance-dataset-name $@ \
+	  --quantity time_sec -o $@ $<
+
+placer-times-by-capacity.%: placer-times.csv
+	$(EDBPROF_BIN_ROOT)/plot-placer-times-by-capacity.py \
+	  $(PLOT_PLACER_TIMES_BY_CAPACITY_ARGS) -o $@ $<
+
+placer-times-hist.%: placer-times.csv
+	$(EDBPROF_BIN_ROOT)/plot-placer-times-hist.py \
+	  $(PLOT_PLACER_TIMES_HIST_ARGS) -o $@ $<
+
+placer-times.tex: placer-times.csv
+	$(EDBPROF_BIN_ROOT)/tex-placer-times.py \
+	  $(TEX_PLACER_TIMES_ARGS) -o $@ $<
+
+boundary-counts.%: boundary-counts.csv
+	$(EDBPROF_BIN_ROOT)/plot-boundary-counts-by-capacity.py -o $@ $<
+
+clean-phase:
+	rm -rf $(INSTANCES_DIR) *.csv *.rules *.pdf *.tex

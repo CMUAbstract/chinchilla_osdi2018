@@ -1,0 +1,56 @@
+EDBprof: a profiler for energy-harvesting applications
+======================================================
+
+EDBprof generates an energy profile for an application for assessing the energy
+cost of the application code. Profiling is performed by a combination of static
+analysis and measurement on the real device using the Energy-interference-free
+Debugger (EDB) device.
+
+Source tree structure:
+
+* `src`: main Python source
+* `llvm`: LLVM passes
+* `harness`: harness application for measurements
+* `lib`: dependencies (as git submodules)
+* `Makefile.target`: makefile for profiling applications
+
+Dependencies
+============
+
+Hardware dependecies
+--------------------
+
+* EDB: the Energy-interference-free Debugger (EDB) hardware device
+* WISP: the energy-harvesting device on which the application is to be deployed
+
+External dependecies (installed to system)
+------------------------------------------
+
+* GCC toolchain (TI GCC): used to build the harness app
+
+* LLVM+clang: to compile the target app and run the static analysis passes
+** requires patch with custom `pragma loop iter_count()`
+** requires patch to MSP430 backend to work around incompatibilities
+with the headers from TI GCC (TODO: is this still relevant?)
+
+* TI Open Source MSP Debug Stack: provides `tilib` backend for `mspdebug`
+** `mspds` package on AUR
+
+* `mspdebug`: for flashing the target app binary onto the target device
+** depends on TI MSP Debug Stack
+
+* pyelftools: for extracting recorded path frequency profile from device memory
+** `python-pyelftools` package in AUR
+
+Internal software dependencies (submodules)
+-------------------------------------------
+
+* `pyedb`: Python package for controlling EDB
+* `maker`: a build framework (used to build the harness app and compile app
+source code) NOTE: EDBprof uses the `maker` included by the target app.
+
+Dependencies of the harness app:
+
+* `libedb`: library for using EDB features from the application (used by the harness app)
+* `libwispbase`: a dependency of `libedb`
+* `libmsp`: library for simplified API for accessing MSP hardware (used by the harness app)

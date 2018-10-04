@@ -1,0 +1,70 @@
+# This makefile is intended to be included from an app's makefile at
+# bld/edbprof/start-energy/Makefile
+
+# annoyingly, can't include .dino first, but .edb needs this
+# override the defualt setting in root makefile
+override TOOLCHAIN = clang
+
+APP_BUILD_DIR = ../..
+EDBPROF_BUILD_DIR = ..
+
+include $(APP_BUILD_DIR)/Makefile
+override SRC_ROOT = $(APP_BUILD_DIR)/../src
+
+INSTANCES_DIR = instances
+
+define instance-rule
+$(INSTANCES_DIR)/%/$(1) : | $(INSTANCES_DIR)/%
+	$(MAKE) -e -f $(EDBPROF_MAKE_ROOT)/Makefile.start-energy-instance \
+	  -C $(INSTANCES_DIR)/$$* TASK=$$* $(1)
+endef
+
+INSTANCE_TARGETS = \
+	clean \
+	app.out \
+	start-voltage.csv \
+	start-voltage.pdf \
+
+$(foreach target,$(INSTANCE_TARGETS),$(eval $(call instance-rule,$(target))))
+
+$(INSTANCES_DIR) :
+	mkdir -p $@
+
+# TODO: Extract task list (id and macro name (from source code? from binary?)
+# Probably from binary; add a task ID argument to task boundary function,
+# and remove the call to task boundary marker from final binary that is to
+# be run on the device. For now, we create this file from a manually created
+# file with a list of tasks.
+%.tasks.csv : %.tasks | $(INSTANCES_DIR)
+	echo "TODO: Task extraction not implemented: assuming $*.tasks exists"
+	for t in $$(cat $< | cut -d, -f1); do mkdir -p $(INSTANCES_DIR)/$$t; done
+	echo "task_name,task_id" > $@
+	cat $< >> $@
+
+%.rules : %.tasks.csv
+	$(EDBPROF_BIN_ROOT)/aggregate-rules.py -o $@ \
+	  --instances $^ --column 'task_name' --dir $(INSTANCES_DIR) \
+	  $(INSTANCE_TARGETS)
+
+ifeq ($(filter clean-phase,$(MAKECMDGOALS)),)
+$(eval $(foreach obj,$(PROFILED_OBJECTS),-include $(obj).rules))
+endif
+
+# prereqs (added by aggregate-rules.py): instances/*/start-voltage.csv We are
+# being slick: we aggregate across module at the same time as across instances
+# (i.e. tasks), because the aggregate target for each module will be the same,
+# so all prereqs will be unioned together. Luckily, this is what we want here.
+start-voltage.csv :
+	$(EDBPROF_BIN_ROOT)/aggregate-start-energy.py \
+	  --capacitance $(DEVICE_CAPACITANCE_UF) \
+	  --brown-out $(DEVICE_BROWN_OUT_THRES_V) \
+	  -o $@ $^
+
+start-energy.pdf : start-voltage.csv
+	$(EDBPROF_BIN_ROOT)/plot-start-energy.py -o $@ $^
+
+clean-phase:
+	rm -rf $(INSTANCE_DIR) *.rules *.csv *.pdf
+
+# do not remove any intermediate artifacts
+.SECONDARY:

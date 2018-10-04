@@ -1,0 +1,5 @@
+# EDBprof config specific to a system (not version controlled)
+
+EDB_DEVICE ?= /dev/ttyUSB0
+#RFID_READER_HOST ?= Astra-EX-211e0e.local
+RFID_READER_HOST ?= 169.254.1.1

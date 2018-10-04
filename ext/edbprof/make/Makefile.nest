@@ -1,0 +1,54 @@
+# Support for nested instances (aka. experimental dimensions)
+
+# The % in the instance-rule below matches doubly-nested instance dir path,
+# but what we want is only the path to the first-level nested dir.
+
+space :=
+space +=
+
+define nested-dir
+$(subst $(space),/,$(firstword $(subst /, ,$(1))))
+endef
+export nested-dir
+
+define nested-target
+$(subst $(space),/,$(wordlist 2,8,$(subst /, ,$(1))))
+endef
+export nested-target
+
+define nested-rule
+
+$(3)/%/$(1) : $(4)
+	$$(MAKE) -e -f $(EDBPROF_MAKE_ROOT)/$(2) \
+	  	-C $(3)/$$(call nested-dir,$$*) $$(call nested-target,$$* $(1))
+
+$(1) : $(5:=/$(1))
+
+endef # nested-rule
+export nested-rule
+
+
+# TODO: These seem to partially solve the issue with inner nesting,
+# but first character gets eaten. Also, it's not clear why there
+# would be another indirection, even in the inner layer.
+
+define nested-dir-2
+$$(subst $$(space),/,$$(firstword $$(subst /, ,$$(1))))
+endef
+export nested-dir-2
+
+define nested-target-2
+$$(subst $$(space),/,$$(wordlist 2,8,$$(subst /, ,$$(1))))
+endef
+export nested-target-2
+
+define nested-rule-2
+
+$$(3)/%/$$(1) : 
+	$$(MAKE) -e -f $(EDBPROF_MAKE_ROOT)/$$(2) \
+	  	-C $$(3)/$$(call nested-dir,$$*) $$(call nested-target,$$* $$(1))
+
+$$(1) : $$(5:=/$$(1))
+
+endef # nested-rule-2
+export nested-rule-2

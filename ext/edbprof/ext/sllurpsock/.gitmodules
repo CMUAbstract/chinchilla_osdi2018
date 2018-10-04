@@ -1,0 +1,3 @@
+[submodule "ext/sllurp"]
+	path = ext/sllurp
+	url = /afs/ece.cmu.edu/project/abstract/repos/sllurp/

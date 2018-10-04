@@ -1,0 +1,12 @@
+.*.swp
+.*.swo
+*.bc
+*.S
+*.map
+*.src
+*.log
+*.pyc
+bld/edbprof/block-energy/instances
+bld/edbprof/block-energy/*.csv
+bld/edbprof/block-energy/*.s
+bld/edbprof/block-energy/*.rules

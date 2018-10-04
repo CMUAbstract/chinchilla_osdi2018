@@ -1,0 +1,32 @@
+# This makefile is intended to be included from an app's makefile at
+# bld/edbprof/placement/Makefile
+
+# override the default setting from root makefile (i.e. 'edbprof' from 'bld/edbprof')
+override TOOLCHAIN = clang
+
+include ../../Makefile
+override SRC_ROOT = ../../../src
+
+EDBPROF_BUILD_DIR = ..
+
+override BLOCK_ENERGY_DIR := $(EDBPROF_BUILD_DIR)/$(BLOCK_ENERGY_DIR)
+override PATH_FREQ_DIR := $(EDBPROF_BUILD_DIR)/$(PATH_FREQ_DIR)
+override LOOP_ITERS_DIR := $(EDBPROF_BUILD_DIR)/$(LOOP_ITERS_DIR)
+override ENERGY_CAPACITY_DIR := $(EDBPROF_BUILD_DIR)/$(ENERGY_CAPACITY_DIR)
+override ENERGY_DISTS_DIR := energy-dists
+
+# Passed to us via '-e', so we must override to change it
+override CFLAGS += -DEDBPROF_PLACEMENT
+
+prof: boundary-spec.csv predicted-completion.csv observed-completions.csv
+
+PLACER = greedy
+include $(EDBPROF_ROOT)/make/Makefile.placer.$(PLACER)
+
+clean-phase: clean
+	rm -rf *.csv *.pdf
+
+include $(EDBPROF_ROOT)/make/Makefile.checker
+
+# do not remove any intermediate artifacts
+.SECONDARY:

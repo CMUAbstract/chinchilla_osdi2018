@@ -1,0 +1,38 @@
+
+INSTANCES_DIR ?= instances
+
+# TODO: .rules causes problems
+#ifeq ($(filter clean-phase,$(MAKECMDGOALS)),)
+#ifeq ($(OUTER_INSTANCES),)
+#$(error No outer instances)
+#endif
+#endif
+
+ifeq ($(INSTANCE_TARGETS),)
+$(error No instance targets)
+endif
+
+# Relay target to per-instance makefile
+define double-instance-rule
+
+# Fake targets that replicate the target across instances: % = outer_instance
+rep/$(INSTANCES_DIR)/%/$(2) :
+	$$(MAKE) -e -f $(EDBPROF_MAKE_ROOT)/$(1) -C $(INSTANCES_DIR)/$$* $(2)
+
+# Real targets that build individual files: % = outer_instance/instances/inner_instance
+$(INSTANCES_DIR)/%/$(2) :
+	OUTER_INSTANCE=$$$$(echo $$* | sed "s#/instances/[^/]\+##") && \
+	INNER_INSTANCE=$$$$(echo $$* | sed "s#$$$$OUTER_INSTANCE/$(INSTANCES_DIR)/##") && \
+	TARGET=$(INSTANCES_DIR)/$$$$INNER_INSTANCE/$(2) && echo $$$$TARGET && \
+	$$(MAKE) -e -f $(EDBPROF_MAKE_ROOT)/$(1) -C $(INSTANCES_DIR)/$$$$OUTER_INSTANCE $$$$TARGET
+
+endef # double-instance-rule
+
+# Replicate across outer instances
+define replicate-target-rule
+$(1) : $(foreach instance,$(OUTER_INSTANCES),rep/$(INSTANCES_DIR)/$(instance)/$(1))
+endef # replicate-target-rule
+
+$(foreach target,$(INSTANCE_TARGETS),$(eval $(call double-instance-rule,$(REP_PHASE_OUTER),$(target))))
+$(foreach target,$(INSTANCE_TARGETS),$(eval $(call replicate-target-rule,$(target))))
+

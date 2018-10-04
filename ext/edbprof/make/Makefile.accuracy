@@ -1,0 +1,52 @@
+
+# Consumers can override these
+PREDICTED_DIR ?= .
+OBSERVED_DIR ?= .
+
+accuracy : \
+  accuracy.tex \
+  predicted-completions-by-boundary-count.pdf \
+  observed-completions-by-boundary-count.pdf \
+  accuracy-by-boundary-count.pdf \
+  false-positives-by-boundary-count.pdf \
+
+
+predicted-completions-by-boundary-count.csv : $(PREDICTED_DIR)/predicted.csv
+	$(EDBPROF_BIN_ROOT)/aggregate-completions-by-boundary-count.py -o $@ $^
+
+predicted-completions-by-boundary-count.% : predicted-completions-by-boundary-count.csv
+	$(EDBPROF_BIN_ROOT)/plot-completions-by-boundary-count.py -o $@ $^
+
+observed-completions-by-boundary-count.csv : $(PREDICTED_DIR)/observed.csv
+	$(EDBPROF_BIN_ROOT)/aggregate-completions-by-boundary-count.py -o $@ $^
+
+observed-completions-by-boundary-count.% : observed-completions-by-boundary-count.csv
+	$(EDBPROF_BIN_ROOT)/plot-completions-by-boundary-count.py -o $@ $(PLOT_COMPLETIONS_ARGS) $^
+
+accuracy-by-instance.csv : $(PREDICTED_DIR)/predicted.csv $(OBSERVED_DIR)/observed.csv
+	$(EDBPROF_BIN_ROOT)/calc-prediction-accuracy.py -o $@ $^
+
+accuracy-by-instance-by-pth.csv : $(PREDICTED_DIR)/predicted-by-pth.csv $(OBSERVED_DIR)/observed.csv
+	$(EDBPROF_BIN_ROOT)/calc-prediction-accuracy.py -o $@ $^
+
+accuracy-by-boundary-count.csv : accuracy-by-instance.csv
+	$(EDBPROF_BIN_ROOT)/aggregate-accuracy-by-boundary-count.py -o $@ $^
+
+accuracy-by-pth.csv : accuracy-by-instance-by-pth.csv
+	$(EDBPROF_BIN_ROOT)/aggregate-accuracy-by-group.py -g 'pth' -o $@ $^
+
+accuracy-by-boundary-count.% : accuracy-by-boundary-count.csv
+	$(EDBPROF_BIN_ROOT)/plot-accuracy-by-boundary-count.py -o $@ $^
+
+false-positives-by-boundary-count.% : accuracy-by-boundary-count.csv
+	$(EDBPROF_BIN_ROOT)/plot-false-positives-by-boundary-count.py \
+	  --placer greedy --boundary-placement $(PLACEMENT_DIR)/boundary-spec.csv \
+	  $(PLOT_FALSE_POSITIVES_BY_BOUNDARY_COUNT_ARGS) \
+	  -o $@ $^
+
+accuracy.csv : accuracy-by-boundary-count.csv
+	$(EDBPROF_BIN_ROOT)/aggregate-accuracy-total.py -o $@ $(TOTAL_ACCURACY_ARGS) $^
+
+accuracy.tex : accuracy.csv
+	$(EDBPROF_BIN_ROOT)/tex-accuracy.py -o $@ $(TEX_ACCURACY_ARGS) $^
+

@@ -1,0 +1,15 @@
+TODO
+====
+
+A target / dependency edges for building harness deps (libedb, et. al.)
+
+LLVM: -split-tasks: a task boundary placed at the very beginning of a function
+in source code does not appear as the first instruction in the first basic block,
+so the splitter pass splits the block. The instruction that's at the top
+is an alloca. Should we include a special case that detects the task boundary
+as at the top of the block even if it is preceded by alloca instructions?
+Is this ok in general? Should there be other types of instructions included
+in this special case?
+
+
+Don't vendor dependencies of python modules: move sllurpsock's dependency on sllurpsock to edbprof/ext

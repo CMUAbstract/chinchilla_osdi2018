@@ -1,0 +1,122 @@
+TOOLCHAIN = clang
+
+include $(MAKER_ROOT)/Makefile.env
+include $(MAKER_ROOT)/Makefile.board
+
+LINKER_SCRIPTS_ROOT = $(MAKER_ROOT)/linker-scripts
+
+PREFIX = $(CLANG_ROOT)/bin/
+CC      = $(PREFIX)clang
+LLC     = $(PREFIX)llc
+LLVM_LINK= $(PREFIX)/llvm-link
+LLVM_DIS = $(PREFIX)/llvm-dis
+OPT      = $(PREFIX)/opt
+
+GCC     = $(TOOLCHAIN_ROOT)/bin/msp430-elf-gcc
+AS      = $(TOOLCHAIN_ROOT)/bin/msp430-elf-as
+#LD      = $(TOOLCHAIN_ROOT)/bin/msp430-elf-ld
+LD      = $(GCC)
+GDB     = $(TOOLCHAIN_ROOT)/bin/msp430-elf-gdb
+
+LIB_SUFFIX = a.bc
+EXEC_SUFFIX = out
+include $(MAKER_ROOT)/Makefile.suffix
+
+CFLAGS += \
+	--target=msp430 \
+	-D$(DEVICEDEF) \
+	-nobuiltininc \
+	-nostdinc++ \
+	-isysroot /none \
+	-O0 \
+	-g \
+	-std=c99 \
+	-pedantic \
+	-Wall \
+	-MD \
+	-I $(TOOLCHAIN_ROOT)/lib/gcc/msp430-elf/6.4.0/include \
+	-I $(TOOLCHAIN_ROOT)/msp430-elf/include \
+	-I $(TOOLCHAIN_ROOT)/include \
+
+LLC_FLAGS += \
+	-O0 \
+
+LFLAGS += \
+	-Wl,-Map=$(BIN).map \
+	-T $(LINKER_SCRIPTS_ROOT)/$(DEVICE).ld \
+	-L $(TOOLCHAIN_ROOT)/include \
+
+OPT_FLAGS += $(foreach mod,$(OPT_MODULES),-load $(mod))
+OPT_MODULE_FLAGS  ?= -disable-opt
+OPT_PROGRAM_FLAGS ?= -disable-opt
+
+# By default, link sources (given as object files), compiled bytecode
+LINK_OBJECTS ?= $(OBJECTS:.o=.bc)
+
+VPATH = $(SRC_ROOT)
+
+all: $(BIN)
+
+-include $(OBJECTS:.o=.d)
+
+# disable implicit rule that for some reason overrides the chained rules below
+.SUFFIXES:
+%.o : %.c
+%.o : %.S
+%.o : %.s
+%.out : %.o
+%.out : %
+(%) : %
+
+# LLVM/Clang compiler and linker part of the pipeline
+
+%.raw.bc: %.c
+	mkdir -p "./$(shell dirname $@)"
+	$(CC) -emit-llvm -c $(CFLAGS) $< -o $@
+
+%.bc : %.raw.bc
+	$(OPT) $(OPT_FLAGS) $(OPT_MODULE_FLAGS) -o $@ $^
+
+%.raw.a.bc: $(LINK_OBJECTS)
+	$(LLVM_LINK) -o $@ $^ $(LLVM_LIBS)
+
+%.opt.a.bc : %.raw.a.bc
+	$(OPT) $(OPT_FLAGS) $(OPT_PROGRAM_FLAGS) -o $@ $^
+
+%.a.bc : %.opt.a.bc
+	$(LLVM_LINK) -o $@ $^ $(LLVM_NOOPT_LIBS)
+
+# LLVM bytecode to native assembly
+
+%.s: %.a.bc
+	$(LLC) $(LLC_FLAGS) $^ -o $@
+
+# Native assembly to native object code
+
+%.out: %.s
+	$(GCC) $(LFLAGS) -o $@ $< $(LIBS)
+
+# Do not remove these intermediates
+.PRECIOUS: %.a.bc %.raw.a.bc %.raw.bc %.bc %.s
+
+clean:
+	rm -f *.o *.bc *.asm *.s *.map *.out *.a *.d
+
+debug: $(BIN)
+	$(GDB) $(BIN)
+
+ifeq ($(TARGET_TYPE),exec)
+include $(MAKER_ROOT)/Makefile.flash
+endif
+
+ifeq ($(TARGET_TYPE),exec)
+define add-lib
+LLVM_LIBS += $$(DEP_LIB_DIR_$(1))/$(1).$(LIB_SUFFIX)
+endef
+else # TARGET_TYPE
+define add-lib
+# nothing
+endef
+endif
+
+include $(MAKER_ROOT)/Makefile.dep
